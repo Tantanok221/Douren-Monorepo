@@ -1,3 +1,17 @@
+:root {
+  --Background: #111111;
+  --Day: #CBC3C3;
+  --Link: #CBC3C3;
+  --LinkPanel: #3C3C3C;
+  --NumberTag: #686868;
+  --NumberTagBackground: #3C3C3C;
+  --Panel: #1F1F21;
+  --TagBackground: #464646;
+  --TagText: #AAAAAA;
+  --White: #FFFFFF;
+}
+
 body {
-  background-color: #000;
+  background-color: var(--Background);
+  font-size: 16px;
 }
