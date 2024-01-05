@@ -13,7 +13,8 @@ const ArtistCard = ({ data }) => {
     "https://drive.google.com/uc?export=view&id=" + data.photo?.substring(33);
 
   const sx = classNames.bind(styles);
-
+  const boothLocation = [data.DAY01_location,data.DAY02_location,data.DAY03_location]
+  
   return (
     <Dialog.Root>
       <Dialog.Trigger className={sx("artistCard")}>
@@ -49,18 +50,14 @@ const ArtistCard = ({ data }) => {
               ))}
             </div>
             <div className={sx("dayContainer")}>
-              <div className={sx("dayItem")}>
-                <div className={sx("dayDescription")}>Day 01</div>
-                <div className={sx("boothDescription")}>{data.DAY01_location}</div>
-              </div>
-              <div className={sx("dayItem")}>
-                <div className={sx("dayDescription")}>Day 02</div>
-                <div className={sx("boothDescription")}>{data.DAY02_location}</div>
-              </div>
-              <div className={sx("dayItem")}>
-                <div className={sx("dayDescription")}>Day 03</div>
-                <div className={sx("boothDescription")}>{data.DAY03_location}</div>
-              </div>
+              {[1, 2, 3].map((day,index) => {
+                return (
+                  <div key={index} className={sx("dayItem")}>
+                    <div className={sx("dayDescription")}>Day 0{day}</div>
+                    <div className={sx("boothDescription")}>{boothLocation[index]}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </motion.div>
