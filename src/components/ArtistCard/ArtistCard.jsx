@@ -7,14 +7,43 @@ import { IconContext } from "react-icons";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
+import { LinkComponent } from "./subcomponent/LinkComponent";
+
+function processLink(links, names, category) {
+  let link = links?.split("\n");
+  let name = names?.split("\n");
+  let result = [];
+  link?.forEach((item, index) => {
+    result.push({ category: category, link: item, name: name[index] });
+  });
+  return result;
+}
+
 const ArtistCard = ({ data }) => {
-  console.log(data);
   const photoLink =
     "https://drive.google.com/uc?export=view&id=" + data.photo?.substring(33);
 
   const sx = classNames.bind(styles);
-  const boothLocation = [data.DAY01_location,data.DAY02_location,data.DAY03_location]
-  
+  const boothLocation = [
+    data.DAY01_location,
+    data.DAY02_location,
+    data.DAY03_location,
+  ];
+  let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
+  link = link.concat(
+    processLink(data.Instagram_link, data.Instagram_name, "Instagram")
+  );
+  link = link.concat(processLink(data.PIXIV_link, data.PIXIV_name, "Pixiv"));
+  link = link.concat(processLink(data.Twitch_link, data.Twitch_name, "Twitch"));
+  link = link.concat(
+    processLink(data.Twitter_link, data.Twitter_name, "Twitter")
+  );
+  link = link.concat(
+    processLink(data.Youtube_link, data.Youtube_name, "Youtube")
+  );
+  link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
+  link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
+  console.log(link);
   return (
     <Dialog.Root>
       <Dialog.Trigger className={sx("artistCard")}>
@@ -35,7 +64,7 @@ const ArtistCard = ({ data }) => {
               </div>
               <div className={sx("bookmarkContainer")}>
                 <IconContext.Provider
-                  value={{ color: "#686868", size: "2.5rem" }}
+                  value={{ color: "#AAAAAA", size: "2.5rem" }}
                 >
                   <MdOutlineBookmarkBorder />
                 </IconContext.Provider>
@@ -50,15 +79,22 @@ const ArtistCard = ({ data }) => {
               ))}
             </div>
             <div className={sx("dayContainer")}>
-              {[1, 2, 3].map((day,index) => {
+              {[1, 2, 3].map((day, index) => {
                 return (
                   <div key={index} className={sx("dayItem")}>
                     <div className={sx("dayDescription")}>Day 0{day}</div>
-                    <div className={sx("boothDescription")}>{boothLocation[index]}</div>
+                    <div className={sx("boothDescription")}>
+                      {boothLocation[index]}
+                    </div>
                   </div>
                 );
               })}
             </div>
+            <IconContext.Provider value={{ color: "#CBC3C3", size: "2.5rem" }}>
+              {link.map((item, index) => {
+                <LinkComponent key={index} data={item} />;
+              })}
+            </IconContext.Provider>
           </div>
         </motion.div>
       </Dialog.Trigger>
