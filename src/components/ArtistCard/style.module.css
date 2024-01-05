@@ -1,7 +1,7 @@
 .artistCard {
   padding: 1.5rem 2rem;
   border-radius: 12px;
-  background: var(--Panel, #1F1F21);
+  background: var(--Panel, #1f1f21);
   width: 100%;
 }
 
@@ -28,7 +28,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%
+  width: 100%;
 }
 
 .rightContainer {
@@ -44,7 +44,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 0.25rem
+  gap: 0.25rem;
 }
 .tagContainer {
   display: flex;
@@ -56,41 +56,71 @@
 .tagDescription {
   background: var(--Dark-TagBackground, #464646);
   border-radius: 0.25rem;
-  color: var(--Dark-TagText, #AAA);
+  color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
   border-radius: 0.25rem 0rem 0rem 0.25rem;
   font-size: 1rem;
   padding: 0.25rem 0.5rem;
-
 }
 
 .tagItem {
   display: flex;
   flex-direction: row;
-  
 }
 
 .tagCount {
   border-radius: 0rem 0.25rem 0.25rem 0rem;
-  background: var(--Dark-NumberTagBackground, #3C3C3C);
+  background: var(--Dark-NumberTagBackground, #3c3c3c);
   padding: 0.25rem 0.5rem;
-    color: var(--Dark-NumberTag, #686868);
-    font-size: 1rem;
-    font-family: var(--Font);
-
+  color: var(--Dark-NumberTag, #686868);
+  font-size: 1rem;
+  font-family: var(--Font);
 }
 
-.header {
-  color: var(--Dark-White, #FFF);
-  font-size: 1.5rem;
+.dayContainer {
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+}
+
+.dayItem {
+  gap: 0.25rem;
+  display: flex;
+  align-items: center;
+  
+}
+
+.dayDescription {
+  width: 5rem;
+  height: 1.5rem;
+  color: var(--Dark-Day, #cbc3c3);
+  font-family: Poppins;
+  font-size: 1.25rem;
+  font-style: normal;
   font-weight: 600;
-  font-family: var(--Font); 
   text-align: left;
 }
 
+.boothDescription {
+  color: var(--Dark-White, #fff);
+  font-family: Poppins;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: left;
+}
+
+.header {
+  color: var(--Dark-White, #fff);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--Font);
+  text-align: left;
+}
 
 .subheader {
-  color: var(--Dark-Day, #CBC3C3);
+  color: var(--Dark-Day, #cbc3c3);
   font-family: var(--Font);
   font-size: 1rem;
   font-style: normal;
