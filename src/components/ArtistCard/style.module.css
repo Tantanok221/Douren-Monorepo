@@ -22,6 +22,15 @@
   width: 10.025rem;
   height: 10.025rem;
 }
+
+.firstRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%
+}
+
 .rightContainer {
   display: flex;
   flex-direction: column;
@@ -76,7 +85,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   font-family: var(--Font); 
-  
+  text-align: left;
 }
 
 
@@ -87,4 +96,5 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  text-align: left;
 }

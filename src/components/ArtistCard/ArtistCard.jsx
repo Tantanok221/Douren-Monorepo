@@ -3,6 +3,8 @@ import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { IconContext } from "react-icons";
+import { MdOutlineBookmarkBorder } from "react-icons/md";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 const ArtistCard = ({ data }) => {
@@ -25,13 +27,22 @@ const ArtistCard = ({ data }) => {
           </div>
 
           <div className={sx("rightContainer")}>
-            <div className={sx("headerContainer")}>
-              <div className={sx("header")}>{data.doujin_name}</div>
-              <div className={sx("subheader")}>{data.author_name}</div>
+            <div className={sx("firstRow")}>
+              <div className={sx("headerContainer")}>
+                <div className={sx("header")}>{data.doujin_name}</div>
+                <div className={sx("subheader")}>{data.author_name}</div>
+              </div>
+              <div className={sx("bookmarkContainer")}>
+                <IconContext.Provider
+                  value={{ color: "#686868", size: "2.5rem" }}
+                >
+                  <MdOutlineBookmarkBorder />
+                </IconContext.Provider>
+              </div>
             </div>
             <div className={sx("tagContainer")}>
-              {data.tag.split(",").map((tag) => (
-                <div className={sx("tagItem")}>
+              {data.tag.split(",").map((tag, index) => (
+                <div key={index + tag} className={sx("tagItem")}>
                   <div className={sx("tagDescription")}>{tag}</div>
                   <div className={sx("tagCount")}>10</div>
                 </div>
