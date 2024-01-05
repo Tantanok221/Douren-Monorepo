@@ -44,11 +44,11 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
   return (
-    <div ref={ref}>
-      <Dialog.Root>
+    <div ref={passRef}>
+      <Dialog.Root >
         <Dialog.Trigger className={sx("artistCard")}>
-          <motion.div className={sx("mainContainer")}>
-            <div className={sx("imageContainer")} ref={passRef}>
+          <motion.div className={sx("mainContainer")} >
+            <div className={sx("imageContainer")} >
               <LazyLoadImage
                 className={sx("image")}
                 effect="blur"
@@ -56,7 +56,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
               />
             </div>
 
-            <div className={sx("rightContainer")}>
+            <div className={sx("rightContainer")} >
               <div className={sx("firstRow")}>
                 <div className={sx("headerContainer")}>
                   <div className={sx("header")}>{data.doujin_name}</div>

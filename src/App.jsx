@@ -20,7 +20,7 @@ function App() {
       const { data, error } = await supabase
         .from("FF42")
         .select("")
-        .range((pageParam ) , pageParam);
+        .range(pageParam  , pageParam);
       if (error) throw error;
       return data;
     },
