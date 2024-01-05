@@ -19,7 +19,7 @@ function processLink(links, names, category) {
   return result;
 }
 
-const ArtistCard = ({ data }) => {
+const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   const photoLink =
     "https://drive.google.com/uc?export=view&id=" + data.photo?.substring(33);
 
@@ -43,80 +43,90 @@ const ArtistCard = ({ data }) => {
   );
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
-  console.log(link);
   return (
-    <Dialog.Root>
-      <Dialog.Trigger className={sx("artistCard")}>
-        <motion.div className={sx("mainContainer")}>
-          <div className={sx("imageContainer")}>
-            <LazyLoadImage
-              className={sx("image")}
-              effect="blur"
-              src={photoLink}
-            />
-          </div>
+    <div ref={ref}>
+      <Dialog.Root>
+        <Dialog.Trigger className={sx("artistCard")}>
+          <motion.div className={sx("mainContainer")}>
+            <div className={sx("imageContainer")} ref={passRef}>
+              <LazyLoadImage
+                className={sx("image")}
+                effect="blur"
+                src={photoLink}
+              />
+            </div>
 
-          <div className={sx("rightContainer")}>
-            <div className={sx("firstRow")}>
-              <div className={sx("headerContainer")}>
-                <div className={sx("header")}>{data.doujin_name}</div>
-                <div className={sx("subheader")}>{data.author_name}</div>
-              </div>
-              <div className={sx("bookmarkContainer")}>
-                <IconContext.Provider
-                  value={{ color: "#AAAAAA", size: "2.5rem" }}
-                >
-                  <MdOutlineBookmarkBorder />
-                </IconContext.Provider>
-              </div>
-            </div>
-            <div className={sx("tagContainer")}>
-              {data.tag.split(",").map((tag, index) => (
-                <div key={index + tag} className={sx("tagItem")}>
-                  <div className={sx("tagDescription")}>{tag}</div>
-                  <div className={sx("tagCount")}>10</div>
+            <div className={sx("rightContainer")}>
+              <div className={sx("firstRow")}>
+                <div className={sx("headerContainer")}>
+                  <div className={sx("header")}>{data.doujin_name}</div>
+                  <div className={sx("subheader")}>{data.author_name}</div>
                 </div>
-              ))}
-            </div>
-            <div className={sx("dayContainer")}>
-              {[1, 2, 3].map((day, index) => {
-                return (
-                  <div key={index} className={sx("dayItem")}>
-                    <div className={sx("dayDescription")}>Day 0{day}</div>
-                    <div className={sx("boothDescription")}>
-                      {boothLocation[index]}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <IconContext.Provider value={{ color: "#CBC3C3", size: "1.5rem" }}>
-              <div className={sx("linkContainer")}>
-                {link.map((item, index) => (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={sx("linkButton")}
+                <div className={sx("bookmarkContainer")}>
+                  <IconContext.Provider
+                    value={{ color: "#AAAAAA", size: "2.5rem" }}
                   >
-                    <LinkComponent
-                      key={index}
-                      data={item}
-                      className={sx("linkIcon")}
-                    />
-                    {item.name}
-                  </a>
+                    <MdOutlineBookmarkBorder />
+                  </IconContext.Provider>
+                </div>
+              </div>
+              <div className={sx("tagContainer")}>
+                {data.tag.split(",").map((tag, index) => (
+                  <div key={index + tag} className={sx("tagItem")}>
+                    <div className={sx("tagDescription")}>{tag}</div>
+                    <div className={sx("tagCount")}>10</div>
+                  </div>
                 ))}
               </div>
-            </IconContext.Provider>
-          </div>
-        </motion.div>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay />
-      </Dialog.Portal>
-    </Dialog.Root>
+              <div className={sx("dayContainer")}>
+                {[1, 2, 3].map((day, index) => {
+                  return (
+                    <div key={index} className={sx("dayItem")}>
+                      <div className={sx("dayDescription")}>Day {day}</div>
+                      <div className={sx("boothDescription")}>
+                        {boothLocation[index]}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <IconContext.Provider
+                value={{ color: "#CBC3C3", size: "1.5rem" }}
+              >
+                <div className={sx("linkContainer")}>
+                  {link.map((item, index) => (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={sx("linkButton")}
+                    >
+                      <LinkComponent
+                        key={index}
+                        data={item}
+                        className={sx("linkIcon")}
+                      />
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </IconContext.Provider>
+            </div>
+          </motion.div>
+        </Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Overlay />
+          <Dialog.Content>
+            <Dialog.Title>Open DM</Dialog.Title>
+            <Dialog.Description>
+              This is a modal powered by Radix.
+            </Dialog.Description>
+            <Dialog.Close />
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </div>
   );
-};
+});
 
 export default ArtistCard;
