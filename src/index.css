@@ -1,5 +1,5 @@
 :root {
-  --Background: #111111;
+  --Background: #FFF;
   --Day: #CBC3C3;
   --Link: #CBC3C3;
   --LinkPanel: #3C3C3C;
@@ -9,6 +9,7 @@
   --TagBackground: #464646;
   --TagText: #AAAAAA;
   --White: #FFFFFF;
+  --Font: Noto Sans TC;
 }
 
 body {

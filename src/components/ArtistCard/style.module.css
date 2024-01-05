@@ -1,0 +1,90 @@
+.artistCard {
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  background: var(--Panel, #1F1F21);
+  width: 100%;
+}
+
+.mainContainer {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.imageContainer {
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 10.025rem;
+  height: 10.025rem;
+}
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1.25rem;
+}
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.25rem
+}
+.tagContainer {
+  display: flex;
+  gap: 0.75rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.tagDescription {
+  background: var(--Dark-TagBackground, #464646);
+  border-radius: 0.25rem;
+  color: var(--Dark-TagText, #AAA);
+  font-family: var(--Font);
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+
+}
+
+.tagItem {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.tagCount {
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+  background: var(--Dark-NumberTagBackground, #3C3C3C);
+  padding: 0.25rem 0.5rem;
+    color: var(--Dark-NumberTag, #686868);
+    font-size: 1rem;
+    font-family: var(--Font);
+
+}
+
+.header {
+  color: var(--Dark-White, #FFF);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--Font); 
+  
+}
+
+
+.subheader {
+  color: var(--Dark-Day, #CBC3C3);
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
