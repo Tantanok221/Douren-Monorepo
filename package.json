@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/hooks": "^7.4.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@supabase/supabase-js": "^2.39.2",
+    "@tanstack/react-query": "^5.17.1",
+    "@tanstack/react-query-devtools": "^5.17.1",
     "classnames": "^2.5.1",
     "framer-motion": "^10.17.0",
     "normalize.css": "^8.0.1",
