@@ -90,10 +90,24 @@ const ArtistCard = ({ data }) => {
                 );
               })}
             </div>
-            <IconContext.Provider value={{ color: "#CBC3C3", size: "2.5rem" }}>
-              {link.map((item, index) => {
-                <LinkComponent key={index} data={item} />;
-              })}
+            <IconContext.Provider value={{ color: "#CBC3C3", size: "1.5rem" }}>
+              <div className={sx("linkContainer")}>
+                {link.map((item, index) => (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={sx("linkButton")}
+                  >
+                    <LinkComponent
+                      key={index}
+                      data={item}
+                      className={sx("linkIcon")}
+                    />
+                    {item.name}
+                  </a>
+                ))}
+              </div>
             </IconContext.Provider>
           </div>
         </motion.div>
