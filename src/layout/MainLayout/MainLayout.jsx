@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { supabase } from "./helper/supabase.js";
+import { supabase } from "../../helper/supabase.js";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useIntersection } from "@mantine/hooks";
-import ArtistCard from "./components/ArtistCard/ArtistCard.jsx";
-function App() {
+import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
+function MainLayout() {
   const {
     data,
     error,
@@ -74,4 +74,4 @@ function App() {
     </>
   );
 }
-export default App;
+export default MainLayout;
