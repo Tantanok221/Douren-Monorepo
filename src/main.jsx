@@ -7,9 +7,10 @@ import {
   Link,
 } from "react-router-dom";
 import MainLayout from "./layout/MainLayout/MainLayout.jsx";
-import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
 import "normalize.css";
+
 const router = createBrowserRouter([
   {
     path: "/",

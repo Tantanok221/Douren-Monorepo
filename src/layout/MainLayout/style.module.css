@@ -8,3 +8,7 @@
   flex-direction: column;
   gap: 4rem;
 }
+
+.searchContainer {
+  width: 100%;
+}
