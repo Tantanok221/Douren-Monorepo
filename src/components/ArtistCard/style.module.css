@@ -3,6 +3,7 @@
   border-radius: 12px;
   background: var(--Panel, #1f1f21);
   width: 100%;
+  border: none;
 }
 
 .mainContainer {
