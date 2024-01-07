@@ -1,0 +1,10 @@
+.MainContainer {
+  margin: 3rem 12%;
+  
+}
+
+.ArtistContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
