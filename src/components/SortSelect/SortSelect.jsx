@@ -15,7 +15,10 @@ const SortSelect = ({ filter, setFilter }) => {
           <Select.Value
             className={sx("selectText")}
             placeholder={"排序: A-Z"}
-          />
+            
+          >
+            排序: {filter}
+          </Select.Value>
           <Select.Icon>
             <IoChevronDownOutline />
           </Select.Icon>
