@@ -13,7 +13,7 @@ import styles from "./style.module.css";
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [search, setSearch] = React.useState("");
-  const [filter, setFilter] = React.useState("");
+  const [filter, setFilter] = React.useState("A-Z");
   // Infinite Scroll 
   const {
     data,
@@ -56,7 +56,7 @@ function MainLayout() {
       setPosts(data?.pages.flatMap((page) => page));
     }
   }, [search]);
-
+  console.log(filter)
 
 
   if (!posts) {
