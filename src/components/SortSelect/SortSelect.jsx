@@ -4,24 +4,24 @@ import { IconContext } from "react-icons";
 import classNames from "classnames/bind";
 import React from "react";
 import styles from "./style.module.css";
-const SortSelect = () => {
+const SortSelect = ({filter,setFilter}) => {
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1rem" }}>
-      <Select.Root>
-        <Select.Trigger>
-          <Select.Value placeholder="排序:" />
-          <Select.Icon >
+      <Select.Root  onValueChange={setFilter}>
+        <Select.Trigger className={sx("selectTrigger")}>
+          <Select.Value className={sx("selectText")}  placeholder={"排序: "+ filter} />
+          <Select.Icon asChild>
             <IoChevronDownOutline />
           </Select.Icon>
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content>
+          <Select.Content className={sx("selectContent")}>
             <Select.ScrollUpButton >
               <IoChevronUpOutline />
             </Select.ScrollUpButton>
-            <Select.Viewport>
+            <Select.Viewport className={sx("selectViewport")} >
               <Select.Group>
                 <Select.Label>排序方式(攤位名字)</Select.Label>
                 <Select.Item value="A-Z">A-Z</Select.Item>

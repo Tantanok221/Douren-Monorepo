@@ -6,12 +6,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useIntersection } from "@mantine/hooks";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import classNames from "classnames/bind";
-import styles from "./style.module.css";
 import SearchBox from "../../components/SearchBox/SearchBox.jsx";
+import SortSelect from "../../components/SortSelect/SortSelect.jsx";
+import styles from "./style.module.css";
 
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [filter, setFilter] = React.useState("");
   // Infinite Scroll 
   const {
     data,
@@ -69,6 +71,9 @@ function MainLayout() {
       <form className={sx("searchContainer")}>
         <SearchBox setSearch={setSearch} />
       </form>
+      <div className={sx("filterContainer")}>
+        <SortSelect filter={filter} setFilter={setFilter}/>
+      </div>
       <div className={sx("ArtistContainer")}>
         {posts.map((item, index) => {
           if (index === posts.length - 1 && search === "") {

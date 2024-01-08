@@ -1,0 +1,33 @@
+.selectTrigger {
+  display: inline-flex;
+  padding: 0.75rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  border: none;
+  background: var(--Panel, #1f1f21);
+  font-size: 1rem;
+  
+}
+
+.selectTrigger:hover {
+  background-color: var(--Hover)
+}
+
+.selectTrigger[data-placeholder] {
+  color: var(--TagText, #aaaaaa);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-family: var(--Font);
+}
+
+.selectPortal {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: var(--Panel);
+}
+
+.selectViewport {
+}
