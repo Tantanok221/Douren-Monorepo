@@ -4,49 +4,68 @@ import { IconContext } from "react-icons";
 import classNames from "classnames/bind";
 import React from "react";
 import styles from "./style.module.css";
-const SortSelect = ({filter,setFilter}) => {
+import { SelectItem } from "./subcomponent/SelectItem";
+import { SelectSeperator } from "./subcomponent/SelectSeperator.jsx";
+const SortSelect = ({ filter, setFilter }) => {
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1rem" }}>
-      <Select.Root  onValueChange={setFilter}>
+      <Select.Root onValueChange={setFilter}>
         <Select.Trigger className={sx("selectTrigger")}>
-          <Select.Value className={sx("selectText")}  placeholder={"排序: "+ filter} />
-          <Select.Icon asChild>
+          <Select.Value
+            className={sx("selectText")}
+            placeholder={"排序: A-Z"}
+            
+          >
+            排序: {filter}
+          </Select.Value>
+          <Select.Icon>
             <IoChevronDownOutline />
           </Select.Icon>
         </Select.Trigger>
 
         <Select.Portal>
-          <Select.Content className={sx("selectContent")}>
-            <Select.ScrollUpButton >
+          <Select.Content position="popper" className={sx("selectContent")}>
+            <Select.ScrollUpButton>
               <IoChevronUpOutline />
             </Select.ScrollUpButton>
-            <Select.Viewport className={sx("selectViewport")} >
-              <Select.Group>
-                <Select.Label>排序方式(攤位名字)</Select.Label>
-                <Select.Item value="A-Z">A-Z</Select.Item>
-                <Select.Item value="Z-A">Z-A</Select.Item>
+
+            <Select.Viewport className={sx("selectViewport")}>
+              <Select.Group className={sx("selectGroup")}>
+                <Select.Label className={sx("selectLabel")}>
+                  排序方式(攤位名字)
+                </Select.Label>
+                <SelectItem text={"A-Z"} value={"A-Z"} />
+                <SelectItem text={"Z-A"} value={"Z-A"} />
+
+                <SelectSeperator />
+
+                <Select.Label className={sx("selectLabel")}>
+                  排序方式(攤位位置Day 1)
+                </Select.Label>
+                <SelectItem text={"A-Z"} value={"A-Z"} />
+                <SelectItem text={"Z-A"} value={"Z-A"} />
+
+                <SelectSeperator />
+
+                <Select.Label className={sx("selectLabel")}>
+                  排序方式(攤位位置Day 2)
+                </Select.Label>
+                <SelectItem text={"A-Z"} value={"A-Z"} />
+                <SelectItem text={"Z-A"} value={"Z-A"} />
+
+                <SelectSeperator />
+
+                <Select.Label className={sx("selectLabel")}>
+                  排序方式(攤位位置Day 3)
+                </Select.Label>
+                <SelectItem text={"A-Z"} value={"A-Z"} />
+                <SelectItem text={"Z-A"} value={"Z-A"} />
               </Select.Group>
-              <Select.Separator />
-              <Select.Group>
-                <Select.Label>排序方式(攤位位置Day 1)</Select.Label>
-                <Select.Item value="A-Z">A-Z</Select.Item>
-                <Select.Item value="Z-A">Z-A</Select.Item>
-              </Select.Group>
-              <Select.Separator />
-              <Select.Group>
-                <Select.Label>排序方式(攤位位置Day 2)</Select.Label>
-                <Select.Item value="A-Z">A-Z</Select.Item>
-                <Select.Item value="Z-A">Z-A</Select.Item>
-              </Select.Group>
-              <Select.Separator />
-              <Select.Group>
-                <Select.Label>排序方式(攤位位置Day 3)</Select.Label>
-                <Select.Item value="A-Z">A-Z</Select.Item>
-                <Select.Item value="Z-A">Z-A</Select.Item>
-              </Select.Group>
-              <Select.Separator />
             </Select.Viewport>
+            <Select.ScrollDownButton>
+              <IoChevronDownOutline />
+            </Select.ScrollDownButton>
           </Select.Content>
         </Select.Portal>
       </Select.Root>
