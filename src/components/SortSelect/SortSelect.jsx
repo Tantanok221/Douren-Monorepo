@@ -6,7 +6,12 @@ import React from "react";
 import styles from "./style.module.css";
 import { SelectItem } from "./subcomponent/SelectItem";
 import { SelectSeperator } from "./subcomponent/SelectSeperator.jsx";
-const SortSelect = ({ filter, setFilter }) => {
+import { useFilter } from "../../hooks/useFilter.js";
+const SortSelect = () => {
+  const ascending = useFilter((state) => state.ascending);
+  const name = useFilter((state) => state.name)
+  const setFilter = useFilter((state) => state.setFilter);
+  console.log(ascending,name)
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1rem" }}>
@@ -14,10 +19,10 @@ const SortSelect = ({ filter, setFilter }) => {
         <Select.Trigger className={sx("selectTrigger")}>
           <Select.Value
             className={sx("selectText")}
-            placeholder={"排序: A-Z"}
+            placeholder={"排序: 攤位名字 A-Z"}
             
           >
-            排序: {filter}
+            排序: {name + " "} {ascending ? "A-Z" : "Z-A"}
           </Select.Value>
           <Select.Icon>
             <IoChevronDownOutline />
@@ -35,32 +40,32 @@ const SortSelect = ({ filter, setFilter }) => {
                 <Select.Label className={sx("selectLabel")}>
                   排序方式(攤位名字)
                 </Select.Label>
-                <SelectItem text={"A-Z"} value={"A-Z"} />
-                <SelectItem text={"Z-A"} value={"Z-A"} />
+                <SelectItem text={"A-Z"} value={["author_name",true,"攤位名字"]} />
+                <SelectItem text={"Z-A"} value={["author_name",false,"攤位名字"]} />
 
                 <SelectSeperator />
 
                 <Select.Label className={sx("selectLabel")}>
                   排序方式(攤位位置Day 1)
                 </Select.Label>
-                <SelectItem text={"A-Z"} value={"A-Z"} />
-                <SelectItem text={"Z-A"} value={"Z-A"} />
+                <SelectItem text={"A-Z"} value={["DAY01_location",true,"攤位位置Day 1"]} />
+                <SelectItem text={"Z-A"} value={["DAY01_location",false,"攤位位置Day 1"]} />
 
                 <SelectSeperator />
 
                 <Select.Label className={sx("selectLabel")}>
                   排序方式(攤位位置Day 2)
                 </Select.Label>
-                <SelectItem text={"A-Z"} value={"A-Z"} />
-                <SelectItem text={"Z-A"} value={"Z-A"} />
+                <SelectItem text={"A-Z"} value={["DAY02_location",true,"攤位位置Day 2"]} />
+                <SelectItem text={"Z-A"} value={["DAY02_location",false,"攤位位置Day 2"]} />
 
                 <SelectSeperator />
 
                 <Select.Label className={sx("selectLabel")}>
                   排序方式(攤位位置Day 3)
                 </Select.Label>
-                <SelectItem text={"A-Z"} value={"A-Z"} />
-                <SelectItem text={"Z-A"} value={"Z-A"} />
+                <SelectItem text={"A-Z"} value={["DAY03_location",true,"攤位位置Day 3"]} />
+                <SelectItem text={"Z-A"} value={["DAY03_location",false,"攤位位置Day 3"]} />
               </Select.Group>
             </Select.Viewport>
             <Select.ScrollDownButton>

@@ -9,35 +9,36 @@ import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.jsx";
 import SortSelect from "../../components/SortSelect/SortSelect.jsx";
 import styles from "./style.module.css";
-
+import { useFilter } from "../../hooks/useFilter.js";
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [search, setSearch] = React.useState("");
-  const [filter, setFilter] = React.useState("A-Z");
-  // Infinite Scroll 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = infiniteQuery();
+  const table = useFilter((state) => state.table);
+  const ascending = useFilter((state) => state.ascending);
+  // Infinite Scroll
+  // const {
+  //   data,
+  //   error,
+  //   fetchNextPage,
+  //   hasNextPage,
+  //   isFetching,
+  //   isFetchingNextPage,
+  //   status,
+  // } = infiniteQuery();
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
     threshold: 1,
   });
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      fetchNextPage();
-    }
-  }, [entry]);
+  // useEffect(() => {
+  //   if (entry?.isIntersecting) {
+  //     fetchNextPage();
+  //   }
+  // }, [entry]);
 
-  useEffect(() => {
-    setPosts(data?.pages.flatMap((page) => page));
-  }, [data]);
+  // useEffect(() => {
+  //   setPosts(data?.pages.flatMap((page) => page));
+  // }, [data]);
   // Search Function Implementation
   useEffect(() => {
     if (search !== "") {
@@ -46,6 +47,7 @@ function MainLayout() {
           .from("FF42")
           .select("*")
           .like("author_name", `%${search}%`);
+
         return _data;
       };
       _data().then((result) => {
@@ -53,12 +55,22 @@ function MainLayout() {
       });
     }
     if (search === "") {
-      setPosts(data?.pages.flatMap((page) => page));
+      setPosts(data?.data);
     }
   }, [search]);
-  console.log(filter)
 
-
+  const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
+    const data = await supabase
+      .from("FF42")
+      .select("*")
+      .order(table, { ascending });
+    console.log(data)
+    return data;
+  }});
+  useEffect(() => {
+      setPosts(data?.data);
+  }, [data]);
+  console.log(posts)
   if (!posts) {
     return <div>Loading...</div>; // or some loading spinner
   }
@@ -72,7 +84,7 @@ function MainLayout() {
         <SearchBox setSearch={setSearch} />
       </form>
       <div className={sx("filterContainer")}>
-        <SortSelect filter={filter} setFilter={setFilter}/>
+        <SortSelect />
       </div>
       <div className={sx("ArtistContainer")}>
         {posts.map((item, index) => {
