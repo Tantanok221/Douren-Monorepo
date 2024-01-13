@@ -24,7 +24,7 @@ function MainLayout() {
   //   isFetching,
   //   isFetchingNextPage,
   //   status,
-  // } = infiniteQuery();
+  // } = infiniteQuery(table,ascending);
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -58,7 +58,7 @@ function MainLayout() {
       setPosts(data?.data);
     }
   }, [search]);
-
+  // Without Infinite Scroll Implementation
   const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
     const data = await supabase
       .from("FF42")
@@ -70,7 +70,7 @@ function MainLayout() {
   useEffect(() => {
       setPosts(data?.data);
   }, [data]);
-  console.log(posts)
+
   if (!posts) {
     return <div>Loading...</div>; // or some loading spinner
   }
