@@ -16,29 +16,29 @@ function MainLayout() {
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
   // Infinite Scroll
-  // const {
-  //   data,
-  //   error,
-  //   fetchNextPage,
-  //   hasNextPage,
-  //   isFetching,
-  //   isFetchingNextPage,
-  //   status,
-  // } = infiniteQuery(table,ascending);
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = infiniteQuery(table,ascending);
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
     threshold: 1,
   });
-  // useEffect(() => {
-  //   if (entry?.isIntersecting) {
-  //     fetchNextPage();
-  //   }
-  // }, [entry]);
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+  }, [entry]);
 
-  // useEffect(() => {
-  //   setPosts(data?.pages.flatMap((page) => page));
-  // }, [data]);
+  useEffect(() => {
+    setPosts(data?.pages.flatMap((page) => page));
+  }, [data]);
   // Search Function Implementation
   useEffect(() => {
     if (search !== "") {
@@ -59,17 +59,17 @@ function MainLayout() {
     }
   }, [search]);
   // Without Infinite Scroll Implementation
-  const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
-    const data = await supabase
-      .from("FF42")
-      .select("*")
-      .order(table, { ascending });
-    console.log(data)
-    return data;
-  }});
-  useEffect(() => {
-      setPosts(data?.data);
-  }, [data]);
+  // const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
+  //   const data = await supabase
+  //     .from("FF42")
+  //     .select("*")
+  //     .order(table, { ascending });
+  //   console.log(data)
+  //   return data;
+  // }});
+  // useEffect(() => {
+  //     setPosts(data?.data);
+  // }, [data]);
 
   if (!posts) {
     return <div>Loading...</div>; // or some loading spinner
@@ -91,7 +91,7 @@ function MainLayout() {
           if (index === posts.length - 1 && search === "") {
             return (
               <ArtistCard
-                key={item.id + index + item}
+                key={item.id + index + item + table + ascending}
                 data={item}
                 passRef={ref}
                 ref={lastPostRef}

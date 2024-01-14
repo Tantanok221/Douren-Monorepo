@@ -14,15 +14,15 @@ function processLink(links, names, category) {
   let name = names?.split("\n");
   let result = [];
   link?.forEach((item, index) => {
-    result.push({ category: category, link: item, name: name[index] });
+    result.push({ category: category, link: item, name: name[index] ? name[index] : "" });
   });
   return result;
 }
 
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
+ 
   const photoLink =
     "https://drive.google.com/uc?export=view&id=" + data.photo?.substring(33);
-
   const sx = classNames.bind(styles);
   const boothLocation = [
     data.DAY01_location,
@@ -31,18 +31,19 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   ];
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
   link = link.concat(
-    processLink(data.Instagram_link, data.Instagram_name, "Instagram")
+    processLink(data.Instagram_link, data?.Instagram_name, "Instagram")
   );
-  link = link.concat(processLink(data.PIXIV_link, data.PIXIV_name, "Pixiv"));
-  link = link.concat(processLink(data.Twitch_link, data.Twitch_name, "Twitch"));
+  link = link.concat(processLink(data.PIXIV_link, data?.PIXIV_name, "Pixiv"));
+  link = link.concat(processLink(data.Twitch_link, data?.Twitch_name, "Twitch"));
   link = link.concat(
-    processLink(data.Twitter_link, data.Twitter_name, "Twitter")
+    processLink(data.Twitter_link, data?.Twitter_name, "Twitter")
   );
   link = link.concat(
-    processLink(data.Youtube_link, data.Youtube_name, "Youtube")
+    processLink(data.Youtube_link, data?.Youtube_name, "Youtube")
   );
-  link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
-  link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
+  link = link.concat(processLink(data.Plurk_link, data?.Plurk_name, "Plurk"));
+  link = link.concat(processLink(data.Baha_link, data?.Baha_name, "Baha"));
+  console.log(photoLink)
   return (
     <div ref={passRef}>
       <Dialog.Root>

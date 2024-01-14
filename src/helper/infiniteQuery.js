@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
 export function infiniteQuery(table, ascending) {
   return useInfiniteQuery({
-    queryKey: ["FF42"],
+    queryKey: ["FF42", {table,ascending}],
     queryFn: async ({ pageParam }) => {
       const { data, error } = await supabase
         .from("FF42")
