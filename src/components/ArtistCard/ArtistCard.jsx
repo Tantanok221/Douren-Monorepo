@@ -76,12 +76,12 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 </div>
               </div>
               <div className={sx("tagContainer")}>
-                {data.tag.split(",").map((tag, index) => (
+                {data.tag ? data.tag.split(",").map((tag, index) => (
                   <div key={index + tag} className={sx("tagItem")}>
                     <div className={sx("tagDescription")}>{tag}</div>
                     <div className={sx("tagCount")}>10</div>
                   </div>
-                ))}
+                )): null}
               </div>
               <div className={sx("dayContainer")}>
                 {[1, 2, 3].map((day, index) => {
