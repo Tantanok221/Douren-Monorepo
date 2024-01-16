@@ -1,10 +1,10 @@
 import React from 'react'
-import { IoLogoFacebook,IoLogoTwitter,IoLogoYoutube,IoLogoInstagram,IoLogoTwitch    } from "react-icons/io5";
+import { IoLinkOutline,IoLogoFacebook,IoLogoTwitter,IoLogoYoutube,IoLogoInstagram,IoLogoTwitch    } from "react-icons/io5";
 import { SiPlurk,SiPixiv } from "react-icons/si";
 
 export const LinkComponent = ({data}) => {
   if(data.category === "Baha"){
-    return <></>
+    return <IoLinkOutline></IoLinkOutline>
   }
   if(data.category === "Facebook"){
     return <IoLogoFacebook></IoLogoFacebook>
@@ -29,6 +29,6 @@ export const LinkComponent = ({data}) => {
   }
   
   return (
-    <div>LinkComponent</div>
+    <IoLinkOutline></IoLinkOutline>
   )
 }
