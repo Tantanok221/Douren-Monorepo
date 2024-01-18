@@ -24,9 +24,7 @@ function processLink(links, names, category) {
 }
 
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
- 
-  const photoLink =
-    "https://drive.google.com/uc?export=view&id=" + data.photo?.substring(33);
+
   const sx = classNames.bind(styles);
   const boothLocation = [
     data.DAY01_location,
@@ -47,7 +45,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   );
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
-  console.log(photoLink)
+
   return (
     <div ref={passRef}>
       <Dialog.Root>
@@ -57,7 +55,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
               <LazyLoadImage
                 className={sx("image")}
                 effect="blur"
-                src={photoLink}
+                src={data.photo}
               />
             </div>
 
