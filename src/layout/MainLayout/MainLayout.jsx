@@ -10,9 +10,11 @@ import SearchBox from "../../components/SearchBox/SearchBox.jsx";
 import SortSelect from "../../components/SortSelect/SortSelect.jsx";
 import styles from "./style.module.css";
 import { useFilter } from "../../hooks/useFilter.js";
+import { useDebounce } from "@uidotdev/usehooks";
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const debounceSearch = useDebounce(search, 500);
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
   // Infinite Scroll
@@ -41,12 +43,13 @@ function MainLayout() {
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
-    if (search !== "") {
+    console.log(debounceSearch)
+    if (debounceSearch !== "") {
       let _data = async () => {
         let _data = await supabase
           .from("FF42")
           .select("*")
-          .like("author_name", `%${search}%`);
+          .like("author_name", `%${debounceSearch}%`);
 
         return _data;
       };
@@ -54,10 +57,11 @@ function MainLayout() {
         setPosts(result?.data.flatMap((page) => page));
       });
     }
-    if (search === "") {
-      setPosts(data?.data);
+    if (debounceSearch === "") {
+      console.log(data)
+      setPosts(data?.pages.flatMap((page) => page));
     }
-  }, [search]);
+  }, [debounceSearch]);
   // Without Infinite Scroll Implementation
   // const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
   //   const data = await supabase
