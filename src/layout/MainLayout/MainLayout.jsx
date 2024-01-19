@@ -11,12 +11,19 @@ import SortSelect from "../../components/SortSelect/SortSelect.jsx";
 import styles from "./style.module.css";
 import { useFilter } from "../../hooks/useFilter.js";
 import { useDebounce } from "@uidotdev/usehooks";
+import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
+import { useTagFilter } from "../../hooks/useTagFilter.js";
+
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const debounceSearch = useDebounce(search, 500);
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
+  const setAllFilter = useTagFilter((state) => state.setAllFilter)
+  useEffect(() => {
+    setAllFilter()
+  }, [])
   // Infinite Scroll
   const {
     data,
@@ -62,18 +69,6 @@ function MainLayout() {
       setPosts(data?.pages.flatMap((page) => page));
     }
   }, [debounceSearch]);
-  // Without Infinite Scroll Implementation
-  // const { data, status } = useQuery({queryKey: ["FF42",{table,ascending}],queryFn: async () => {
-  //   const data = await supabase
-  //     .from("FF42")
-  //     .select("*")
-  //     .order(table, { ascending });
-  //   console.log(data)
-  //   return data;
-  // }});
-  // useEffect(() => {
-  //     setPosts(data?.data);
-  // }, [data]);
 
   if (!posts) {
     return <div>Loading...</div>; // or some loading spinner
@@ -89,6 +84,7 @@ function MainLayout() {
       </form>
       <div className={sx("filterContainer")}>
         <SortSelect />
+        <TagFilter/>
       </div>
       <div className={sx("ArtistContainer")}>
         {posts.map((item, index) => {
