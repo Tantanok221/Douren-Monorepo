@@ -15,9 +15,10 @@ export const useTagFilter = create((set, get) => ({
       tagFilter: state.tagFilter.filter((val) => val !== data),
     }));
   },
+  removeAllTagFilter: () => {
+    set(() => ({tagFilter: []}))
+  },
   getTag: (tag) => {
-    console.log(tag);
-
     return get().allFilter.filter((val) => val.tag === tag);
   },
 }));

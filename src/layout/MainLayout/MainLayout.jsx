@@ -16,11 +16,17 @@ import { useTagFilter } from "../../hooks/useTagFilter.js";
 
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
+  const [filterPosts, setFilterPosts] = React.useState({empty: true});
   const [search, setSearch] = React.useState("");
   const debounceSearch = useDebounce(search, 500);
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
+  const allFilter = useTagFilter((state) => state.allFilter);
+  const tagFilter = useTagFilter((state) => state.tagFilter).flatMap((item) => item.tag);
+  const tagFilterList = useTagFilter((state) => state.tagFilter)
+  const removeAllTagFilter = useTagFilter((state) => state.removeAllTagFilter);
+  console.log(filterPosts)
   useEffect(() => {
     setAllFilter();
   }, []);
@@ -50,27 +56,46 @@ function MainLayout() {
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
-    console.log(debounceSearch);
+    removeAllTagFilter()
     if (debounceSearch !== "") {
       let _data = async () => {
         let _data = await supabase
           .from("FF42")
           .select("*")
-          .like("author_name", `%${debounceSearch}%`);
+          .ilike("author_name", `%${debounceSearch}%`);
 
         return _data;
       };
       _data().then((result) => {
+        
         setPosts(result?.data.flatMap((page) => page));
       });
     }
     if (debounceSearch === "") {
-      console.log(data);
       setPosts(data?.pages.flatMap((page) => page));
     }
   }, [debounceSearch]);
+  useEffect(() => {
+    if(tagFilter.length === 0) {
+      setFilterPosts({empty: true})
+      return
+    }
+    let filterPost = posts.filter((item) => {
+      if(tagFilter.length === 0) return item
+      
+      let tagList = item.tag?.split(",")
+      if(tagList) {
+        tagList.pop()
+      }
+      if(tagList === undefined) return false
+      // Check if tagList contains tagFilter
+      return tagList.some(tag => tagFilter.includes(tag))
+      
+    })
+    setFilterPosts(filterPost)
+  },[tagFilterList])
 
-  if (!posts) {
+  if (!posts || !allFilter) {
     return <div>Loading...</div>; // or some loading spinner
   }
   if (status === "error") {
@@ -87,8 +112,9 @@ function MainLayout() {
         <TagFilter />
       </div>
       <div className={sx("ArtistContainer")}>
-        {posts.map((item, index) => {
-          if (index === posts.length - 5 && search === "") {
+        {(!filterPosts.empty ? filterPosts :posts).map((item, index) => {
+          
+          if (index === posts.length - (tagFilterList.length === 0 ? 5 : 1 ) && search === "") {
             return (
               <ArtistCard
                 key={item.id + index + item + table + ascending}
