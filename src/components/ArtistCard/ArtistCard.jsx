@@ -36,9 +36,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
     data.DAY03_location,
   ];
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
-  link = link.concat(
-    processLink(data.Instagram_link, data.Instagram_name, "Instagram")
-  );
+  link = link.concat(processLink(data.Instagram_link, data.Instagram_name, "Instagram"));
   link = link.concat(processLink(data.PIXIV_link, data.PIXIV_name, "Pixiv"));
   link = link.concat(processLink(data.Twitch_link, data.Twitch_name, "Twitch"));
   link = link.concat(processLink(data.Twitter_link, data.Twitter_name, "Twitter"));
