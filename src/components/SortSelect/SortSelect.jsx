@@ -6,11 +6,11 @@ import React from "react";
 import styles from "./style.module.css";
 import { SelectItem } from "./subcomponent/SelectItem";
 import { SelectSeperator } from "./subcomponent/SelectSeperator.jsx";
-import { useFilter } from "../../hooks/useFilter.js";
+import { useSort } from "../../hooks/useSort.js";
 const SortSelect = () => {
-  const ascending = useFilter((state) => state.ascending);
-  const name = useFilter((state) => state.name);
-  const setFilter = useFilter((state) => state.setFilter);
+  const ascending = useSort((state) => state.ascending);
+  const name = useSort((state) => state.name);
+  const setFilter = useSort((state) => state.setFilter);
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>

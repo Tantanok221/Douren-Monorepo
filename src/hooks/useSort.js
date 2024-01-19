@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useFilter = create((set) => ({
+export const useSort = create((set) => ({
   table: "author_name",
   name: "攤位名字",
   setTable: (table) =>
