@@ -62,8 +62,8 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
             <div className={sx("rightContainer")}>
               <div className={sx("firstRow")}>
                 <div className={sx("headerContainer")}>
-                  <div className={sx("header")}>{data.doujin_name}</div>
-                  <div className={sx("subheader")}>{data.author_name}</div>
+                  <div className={sx("header")}>{data.author_name}</div>
+                  <div className={sx("subheader")}>{data.doujin_name}</div>
                 </div>
                 <div className={sx("bookmarkContainer")}>
                   <IconContext.Provider
