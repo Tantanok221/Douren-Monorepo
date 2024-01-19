@@ -10,7 +10,6 @@ import { useTagFilter } from "../../hooks/useTagFilter";
 export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);
-  const tagFilter = useTagFilter((state) => state.tagFilter);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root className={sx("TagFilter")}>

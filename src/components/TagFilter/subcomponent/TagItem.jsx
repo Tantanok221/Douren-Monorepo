@@ -12,7 +12,6 @@ export const TagItem = ({ data,index }) => {
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
   const checked = useTagFilter((state) => state.checked);
   const setChecked = useTagFilter((state) => state.setChecked);
-  console.log(checked[index])
   return (
     <Checkbox.Root
       className={sx("tagItem")}
