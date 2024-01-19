@@ -20,10 +20,10 @@ function MainLayout() {
   const debounceSearch = useDebounce(search, 500);
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
-  const setAllFilter = useTagFilter((state) => state.setAllFilter)
+  const setAllFilter = useTagFilter((state) => state.setAllFilter);
   useEffect(() => {
-    setAllFilter()
-  }, [])
+    setAllFilter();
+  }, []);
   // Infinite Scroll
   const {
     data,
@@ -33,7 +33,7 @@ function MainLayout() {
     isFetching,
     isFetchingNextPage,
     status,
-  } = infiniteQuery(table,ascending);
+  } = infiniteQuery(table, ascending);
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -50,7 +50,7 @@ function MainLayout() {
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
-    console.log(debounceSearch)
+    console.log(debounceSearch);
     if (debounceSearch !== "") {
       let _data = async () => {
         let _data = await supabase
@@ -65,7 +65,7 @@ function MainLayout() {
       });
     }
     if (debounceSearch === "") {
-      console.log(data)
+      console.log(data);
       setPosts(data?.pages.flatMap((page) => page));
     }
   }, [debounceSearch]);
@@ -84,7 +84,7 @@ function MainLayout() {
       </form>
       <div className={sx("filterContainer")}>
         <SortSelect />
-        <TagFilter/>
+        <TagFilter />
       </div>
       <div className={sx("ArtistContainer")}>
         {posts.map((item, index) => {

@@ -5,10 +5,10 @@ import classNames from "classnames/bind";
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
 import { useTagFilter } from "../../../hooks/useTagFilter";
 
-export const TagItem = ({ data}) => {
+export const TagItem = ({ data }) => {
   const sx = classNames.bind(style);
   const [checked, setChecked] = React.useState(false);
-  const {tag} = data
+  const { tag } = data;
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
   return (
@@ -18,10 +18,10 @@ export const TagItem = ({ data}) => {
       checked={checked}
       onCheckedChange={(check) => {
         setChecked(check);
-        if(check){
-          addTagFilter(data)
-        }else {
-          removeTagFilter(data)
+        if (check) {
+          addTagFilter(data);
+        } else {
+          removeTagFilter(data);
         }
       }}
     >

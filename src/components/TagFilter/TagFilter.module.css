@@ -23,12 +23,12 @@
 
 .tagContainer {
   display: inline-flex;
-padding: 0.5rem 1.5rem;
-flex-direction: column;
-align-items: flex-start;
-gap: 1.25rem;
-border-radius: 0.5rem;
-background: var(--Panel, #1F1F21);
+  padding: 0.5rem 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--Panel, #1f1f21);
 }
 
 .tagItem {

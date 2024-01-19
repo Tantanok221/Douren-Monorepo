@@ -11,7 +11,7 @@ export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter);
-  console.log(tagFilter)
+  console.log(tagFilter);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root className={sx("TagFilter")}>
@@ -23,9 +23,11 @@ export const TagFilter = () => {
         </Popover.Trigger>
 
         <Popover.Content className={sx("tagContainer")}>
-        <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
-          {allFilter.map( (item,index) => <TagItem key={[item,index]} data={item}/>)}
-        </IconContext.Provider>
+          <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
+            {allFilter.map((item, index) => (
+              <TagItem key={[item, index]} data={item} />
+            ))}
+          </IconContext.Provider>
         </Popover.Content>
       </Popover.Root>
     </IconContext.Provider>
