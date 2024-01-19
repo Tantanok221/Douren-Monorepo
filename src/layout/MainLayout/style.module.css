@@ -14,3 +14,8 @@
 .searchContainer {
   width: 100%;
 }
+
+.filterContainer {
+  display: flex;
+  gap: 1.5rem;
+}
