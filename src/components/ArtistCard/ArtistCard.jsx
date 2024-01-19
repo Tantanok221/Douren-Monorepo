@@ -45,7 +45,8 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   );
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
-
+  link = link.concat(processLink(data.other_website, "其他", "Other"));
+  data.tag = (data.tag ?? "").slice(0, -1)
   return (
     <div ref={passRef}>
       <Dialog.Root>
