@@ -11,19 +11,16 @@ const SortSelect = () => {
   const ascending = useFilter((state) => state.ascending);
   const name = useFilter((state) => state.name)
   const setFilter = useFilter((state) => state.setFilter);
-  console.log(ascending,name)
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1rem" }}>
       <Select.Root onValueChange={setFilter}>
         <Select.Trigger className={sx("selectTrigger")}>
-          <Select.Value
+          <div
             className={sx("selectText")}
-            placeholder={"排序: 攤位名字 A-Z"}
-            
           >
             排序: {name + " "} {ascending ? "A-Z" : "Z-A"}
-          </Select.Value>
+          </div>
           <Select.Icon>
             <IoChevronDownOutline />
           </Select.Icon>

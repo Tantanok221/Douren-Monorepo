@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export const useFilter = create((set) => ({
   table: "author_name",
-  name: "",
+  name: "攤位名字",
   setTable: (table) =>
     set(() => {
       table;
