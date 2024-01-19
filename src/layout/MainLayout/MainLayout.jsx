@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { supabase } from "../../helper/supabase.js";
-import { useQuery } from "@tanstack/react-query";
 import { infiniteQuery } from "../../helper/infiniteQuery.js";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useIntersection } from "@mantine/hooks";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import classNames from "classnames/bind";
@@ -13,11 +11,12 @@ import { useFilter } from "../../hooks/useFilter.js";
 import { useDebounce } from "@uidotdev/usehooks";
 import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
 import { useTagFilter } from "../../hooks/useTagFilter.js";
+import { useSearch } from "../../hooks/useSearch.js";
 
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
   const [filterPosts, setFilterPosts] = React.useState({empty: true});
-  const [search, setSearch] = React.useState("");
+  const search = useSearch((state) => state.search);
   const debounceSearch = useDebounce(search, 500);
   const table = useFilter((state) => state.table);
   const ascending = useFilter((state) => state.ascending);
@@ -63,7 +62,7 @@ function MainLayout() {
           .from("FF42")
           .select("*")
           .ilike("author_name", `%${debounceSearch}%`);
-
+  
         return _data;
       };
       _data().then((result) => {
@@ -105,7 +104,7 @@ function MainLayout() {
   return (
     <div className={sx("MainContainer")}>
       <form className={sx("searchContainer")}>
-        <SearchBox setSearch={setSearch} />
+        <SearchBox />
       </form>
       <div className={sx("filterContainer")}>
         <SortSelect />

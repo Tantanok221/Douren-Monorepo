@@ -4,8 +4,10 @@ import { IoMdSearch } from "react-icons/io";
 import { IconContext } from "react-icons";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-const SearchBox = ({setSearch}) => {
+import { useSearch } from "../../hooks/useSearch";
+const SearchBox = () => {
   const sx = classNames.bind(styles);
+  const setSearch = useSearch ((state) => state.setSearch);
   const [isFocused, setIsFocused] = React.useState(false);
   return (
     <motion.div className={sx("searchBox", { focused: isFocused })}>
