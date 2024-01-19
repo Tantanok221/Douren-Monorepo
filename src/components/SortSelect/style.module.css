@@ -9,10 +9,15 @@
   font-size: 1rem;
   color: var(--TagText, #aaaaaa);
   font-size: 1rem;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
+  gap: 0.1875rem;
   font-family: var(--Font);
+}
+
+.selectIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selectTrigger:hover {
