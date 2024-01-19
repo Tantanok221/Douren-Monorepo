@@ -88,7 +88,7 @@ function MainLayout() {
       </div>
       <div className={sx("ArtistContainer")}>
         {posts.map((item, index) => {
-          if (index === posts.length - 1 && search === "") {
+          if (index === posts.length - 5 && search === "") {
             return (
               <ArtistCard
                 key={item.id + index + item + table + ascending}
