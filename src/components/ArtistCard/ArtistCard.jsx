@@ -8,6 +8,7 @@ import { MdOutlineBookmarkBorder } from "react-icons/md";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LinkComponent } from "./subcomponent/LinkComponent";
+import { useTagFilter } from "../../hooks/useTagFilter";
 
 function processLink(links, names, category) {
   if(!links) {
@@ -45,8 +46,16 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   );
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
-  link = link.concat(processLink(data.other_website, "其他", "Other"));
-  data.tag = (data.tag ?? "").slice(0, -1)
+  link = link.concat(processLink(data.other_website, "官網", "Other"));
+  const getTag = useTagFilter((state) => state.getTag)
+  const allTag = (data.tag ?? "").split(",")
+  allTag.splice(allTag.length -1,1)
+  let renderTag = []
+  allTag.forEach((item,index) => {
+    renderTag[index] = getTag(item)
+  })
+  renderTag = renderTag.flatMap((value) => value)
+  console.log(renderTag)
   return (
     <div ref={passRef}>
       <Dialog.Root>
@@ -75,12 +84,15 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 </div>
               </div>
               <div className={sx("tagContainer")}>
-                {data.tag ? data.tag.split(",").map((tag, index) => (
-                  <div key={index + tag} className={sx("tagItem")}>
-                    <div className={sx("tagDescription")}>{tag}</div>
-                    <div className={sx("tagCount")}>10</div>
+                {data.tag ? renderTag.map((val, index) => 
+                  {
+                  return (
+                  <div key={index + val.tag} className={sx("tagItem")}>
+                    <div className={sx("tagDescription")}>{val.tag}</div>
+                    <div className={sx("tagCount")}>{val.count}</div>
                   </div>
-                )): null}
+                  )}
+                ): null}
               </div>
               <div className={sx("dayContainer")}>
                 {[1, 2, 3].map((day, index) => {
