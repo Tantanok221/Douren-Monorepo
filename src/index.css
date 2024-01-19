@@ -17,11 +17,14 @@ body {
   background-color: var(--Background);
   font-size: 16px;
 }
-
 html {
-  font-size: 12px;
+  font-size: 13px;
 }
-
+@media screen and (min-width: 1600px) {
+  html {
+    font-size: 16px;
+  }
+}
 * {
   min-width: 0px;
 }
