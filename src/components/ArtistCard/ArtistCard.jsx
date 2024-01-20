@@ -36,11 +36,17 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
     data.DAY03_location,
   ];
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
-  link = link.concat(processLink(data.Instagram_link, data.Instagram_name, "Instagram"));
+  link = link.concat(
+    processLink(data.Instagram_link, data.Instagram_name, "Instagram")
+  );
   link = link.concat(processLink(data.PIXIV_link, data.PIXIV_name, "Pixiv"));
   link = link.concat(processLink(data.Twitch_link, data.Twitch_name, "Twitch"));
-  link = link.concat(processLink(data.Twitter_link, data.Twitter_name, "Twitter"));
-  link = link.concat(processLink(data.Youtube_link, data.Youtube_name, "Youtube"));
+  link = link.concat(
+    processLink(data.Twitter_link, data.Twitter_name, "Twitter")
+  );
+  link = link.concat(
+    processLink(data.Youtube_link, data.Youtube_name, "Youtube")
+  );
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
   link = link.concat(processLink(data.other_website, "官網", "Other"));
@@ -73,7 +79,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 </div>
                 <div className={sx("bookmarkContainer")}>
                   <IconContext.Provider
-                    value={{ color: "#AAAAAA", size: "2.5rem" }}
+                    value={{ color: "#AAAAAA", size: "2rem" }}
                   >
                     <MdOutlineBookmarkBorder />
                   </IconContext.Provider>
@@ -104,7 +110,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 })}
               </div>
               <IconContext.Provider
-                value={{ color: "#CBC3C3", size: "1.5rem" }}
+                value={{ verticalAlign: 'middle', color: "#CBC3C3", size: "1.5rem" }}
               >
                 <div className={sx("linkContainer")}>
                   {link.map((item, index) => (
@@ -115,11 +121,9 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                       className={sx("linkButton")}
                       key={item + index}
                     >
-                      <LinkComponent
-                        key={index}
-                        data={item}
-                        className={sx("linkIcon")}
-                      />
+                      <div className={sx("linkIcon")}>
+                        <LinkComponent key={index} data={item} />
+                      </div>
                       {item.name}
                     </a>
                   ))}

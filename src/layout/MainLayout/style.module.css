@@ -5,6 +5,18 @@
   flex-direction: column;
 }
 
+@media(max-width: 800px){
+  .MainContainer {
+    margin: 1.25rem 10%
+  }
+}
+
+@media(max-width: 500px){
+  .MainContainer {
+    margin: 1rem 10%
+  }
+}
+
 .ArtistContainer {
   display: flex;
   flex-direction: column;
