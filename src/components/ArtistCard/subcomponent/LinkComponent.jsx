@@ -1,10 +1,11 @@
 import React from 'react'
 import { IoLinkOutline,IoLogoFacebook,IoLogoTwitter,IoLogoYoutube,IoLogoInstagram,IoLogoTwitch    } from "react-icons/io5";
 import { SiPlurk,SiPixiv } from "react-icons/si";
+import { GrCatalog } from "react-icons/gr";
 
 export const LinkComponent = ({data}) => {
-  if(data.category === "Baha"){
-    return <IoLinkOutline></IoLinkOutline>
+  if(data.category === "DM"){
+    return <GrCatalog></GrCatalog>
   }
   if(data.category === "Facebook"){
     return <IoLogoFacebook></IoLogoFacebook>
