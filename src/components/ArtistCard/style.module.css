@@ -17,11 +17,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 40%;
+  aspect-ratio: 1/1;
 }
 
 .image {
-  width: 10.025rem;
-  height: 10.025rem;
+  width: 100%;
+  
 }
 
 .firstRow {
