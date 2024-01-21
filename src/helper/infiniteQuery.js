@@ -1,16 +1,21 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
-export function infiniteQuery(table, ascending) {
+export function infiniteQuery(table, ascending, tagFilter) {
   return useInfiniteQuery({
-    queryKey: ["FF42", { table, ascending }],
+    queryKey: ["FF42", { table, ascending, tagFilter }],
     queryFn: async ({ pageParam }) => {
+      let filterEmpty = tagFilter.length === 0;
       const { start, limit } = pageParam;
-      const { data, error } = await supabase
-        .from("FF42")
-        .select("")
-        .range(start, start + limit - 1)
-        .order(table, { ascending });
+      let query = supabase.from("FF42").select("");
 
+      if (!filterEmpty) {
+        const conditions = tagFilter.map(tag => `tag.ilike.%${tag}%`).join(',');
+        query = query.or(conditions);
+      }
+
+      query = query.range(start, start + limit - 1).order(table, { ascending });
+      const { data, error } = await query;
+      console.log(data);
       if (error) throw error;
       return data;
     },

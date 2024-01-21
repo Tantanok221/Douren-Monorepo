@@ -15,7 +15,6 @@ import { useSearch } from "../../hooks/useSearch.js";
 
 function MainLayout() {
   const [posts, setPosts] = React.useState([]);
-  const [filterPosts, setFilterPosts] = React.useState({empty: true});
   const search = useSearch((state) => state.search);
   const debounceSearch = useDebounce(search, 500);
   const table = useSort((state) => state.table);
@@ -25,7 +24,6 @@ function MainLayout() {
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap((item) => item.tag);
   const tagFilterList = useTagFilter((state) => state.tagFilter)
   const removeAllTagFilter = useTagFilter((state) => state.removeAllTagFilter);
-  console.log(filterPosts)
   useEffect(() => {
     setAllFilter();
   }, []);
@@ -38,7 +36,7 @@ function MainLayout() {
     isFetching,
     isFetchingNextPage,
     status,
-  } = infiniteQuery(table, ascending);
+  } = infiniteQuery(table, ascending,tagFilter);
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -74,25 +72,7 @@ function MainLayout() {
       setPosts(data?.pages.flatMap((page) => page));
     }
   }, [debounceSearch]);
-  useEffect(() => {
-    if(tagFilter.length === 0) {
-      setFilterPosts({empty: true})
-      return
-    }
-    let filterPost = posts.filter((item) => {
-      if(tagFilter.length === 0) return item
-      
-      let tagList = item.tag?.split(",")
-      if(tagList) {
-        tagList.pop()
-      }
-      if(tagList === undefined) return false
-      // Check if tagList contains tagFilter
-      return tagList.some(tag => tagFilter.includes(tag))
-      
-    })
-    setFilterPosts(filterPost)
-  },[tagFilterList])
+  
 
   if (!posts || !allFilter) {
     return <div>Loading...</div>; // or some loading spinner
@@ -100,9 +80,13 @@ function MainLayout() {
   if (status === "error") {
     return <div>error</div>;
   }
+  if(!hasNextPage) {
+    console.log("No more data")
+  }
   const sx = classNames.bind(styles);
   return (
     <div className={sx("MainContainer")}>
+      <button onClick={fetchNextPage}>Fetch Next Page</button>
       <form className={sx("searchContainer")}>
         <SearchBox />
       </form>
@@ -111,7 +95,7 @@ function MainLayout() {
         <TagFilter />
       </div>
       <div className={sx("ArtistContainer")}>
-        {(!filterPosts.empty ? filterPosts :posts).map((item, index) => {
+        {(posts).map((item, index) => {
           
           if (index === posts.length - (tagFilterList.length === 0 ? 5 : 1 ) && search === "") {
             return (
