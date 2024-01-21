@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { supabase } from "../helper/supabase";
-import { produce } from 'immer'
+import { produce } from "immer";
 
 export const useTagFilter = create((set, get) => ({
   allFilter: [],
@@ -19,14 +19,16 @@ export const useTagFilter = create((set, get) => ({
     }));
   },
   removeAllTagFilter: () => {
-    set(() => ({ tagFilter: [],checked: Array(30).fill("") }));
+    set(() => ({ tagFilter: [], checked: Array(30).fill("") }));
   },
   getTag: (tag) => {
     return get().allFilter.filter((val) => val.tag === tag);
   },
   setChecked: (index, val) => {
-    set((state) => produce(state, draftState => {
-      draftState.checked[index] = val;
-    }));
+    set((state) =>
+      produce(state, (draftState) => {
+        draftState.checked[index] = val;
+      })
+    );
   },
 }));
