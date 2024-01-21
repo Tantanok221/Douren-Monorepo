@@ -9,7 +9,7 @@ import { useSearch } from "../hooks/useSearch";
 export function infiniteQuery(table, ascending, tagFilter) {
   const search = useSearch((state) => state.search);
   return useInfiniteQuery({
-    queryKey: ["FF42" ,{ table, ascending  }, {tagFilter}],
+    queryKey: ["FF42",search ,{ table, ascending  }, {tagFilter}],
     queryFn: async ({ pageParam }) => {
       let filterEmpty = tagFilter.length === 0;
       const { start, limit } = pageParam;
