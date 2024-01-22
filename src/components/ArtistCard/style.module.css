@@ -210,6 +210,11 @@
   margin: 0% 5%
 }
 
+.bookmarkButton {
+  background: none;
+  border: none;
+}
+
 @media(max-width: 1000px) {
   .mainContainer {
     flex-direction: column;
@@ -227,3 +232,4 @@
     font-size: 1.25rem;
   }
 }
+

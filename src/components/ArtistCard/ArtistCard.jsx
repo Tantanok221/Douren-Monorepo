@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { IconContext } from "react-icons";
-import { MdOutlineBookmarkBorder } from "react-icons/md";
+import { MdOutlineBookmarkBorder,MdBookmark } from "react-icons/md";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LinkComponent } from "./subcomponent/LinkComponent";
 import { useTagFilter } from "../../hooks/useTagFilter";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { IoClose } from "react-icons/io5";
+import { useCollection } from "../../hooks/useCollection";
 
 function processLink(links, names, category) {
   if (!links) {
@@ -31,6 +32,12 @@ function processLink(links, names, category) {
 }
 
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
+  const checkAvailable = useCollection((state) => state.checkAvailable);
+  const addCollection = useCollection((state) => state.addCollection);
+  const removeCollection = useCollection((state) => state.removeCollection);
+  const updateLocalStorage = useCollection((state) => state.updateLocalStorage);
+  const isAvailable = checkAvailable(data);
+  
   const sx = classNames.bind(styles);
   const boothLocation = [
     data.DAY01_location,
@@ -82,7 +89,17 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 <IconContext.Provider
                   value={{ color: "#AAAAAA", size: "2rem" }}
                 >
-                  <MdOutlineBookmarkBorder />
+                  <button onClick={(event) => {
+                    if(!isAvailable){
+                      addCollection(data);
+                    } else {
+                      removeCollection(data);
+                    }
+                    updateLocalStorage();
+                  }} className={sx("bookmarkButton")}>
+                  {!isAvailable? <MdOutlineBookmarkBorder /> : <MdBookmark />}
+
+                  </button>
                 </IconContext.Provider>
               </div>
             </div>
