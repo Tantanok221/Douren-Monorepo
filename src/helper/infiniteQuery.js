@@ -2,19 +2,14 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
 import { useSearch } from "../hooks/useSearch";
 
-
-
-
-
 export function infiniteQuery(table, ascending, tagFilter) {
   const search = useSearch((state) => state.search);
   return useInfiniteQuery({
-    queryKey: ["FF42",search ,{ table, ascending  }, {tagFilter}],
+    queryKey: ["FF42",search.length === 0 ,{ table, ascending  }, {tagFilter}],
     queryFn: async ({ pageParam }) => {
       let filterEmpty = tagFilter.length === 0;
       const { start, limit } = pageParam;
       let query = supabase.from("FF42").select("");
-
       if (!filterEmpty) {
         let conditions = tagFilter.map(tag => `tag.ilike.%${tag}%`)
         conditions =  conditions.join(',')
