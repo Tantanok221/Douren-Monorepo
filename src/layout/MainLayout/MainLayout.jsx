@@ -11,6 +11,8 @@ import { useSort } from "../../hooks/useSort.js";
 import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
 import { useTagFilter } from "../../hooks/useTagFilter.js";
 import { useSearch } from "../../hooks/useSearch.js";
+import { useCollection } from "../../hooks/useCollection.js";
+import { useIsFetching } from '@tanstack/react-query'
 
 function MainLayout() {
   const [posts, setPosts] = React.useState(false);
@@ -23,22 +25,24 @@ function MainLayout() {
     (item) => item.tag
   );
   const tagFilterList = useTagFilter((state) => state.tagFilter);
-  const removeAllTagFilter = useTagFilter((state) => state.removeAllTagFilter);
+  const initCollection = useCollection((state) => state.initCollection);
+
+  
   useEffect(() => {
     setAllFilter();
+    initCollection();
   }, []);
   // Infinite Scroll
-  
-    const {
-      data,
-      error,
-      fetchNextPage,
-      hasNextPage,
-      isFetching,
-      isFetchingNextPage,
-      status,
-    } = infiniteQuery(table, ascending, tagFilter);
-  console.log(tagFilter)
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = infiniteQuery(table, ascending, tagFilter);
   const lastPostRef = React.useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -69,26 +73,31 @@ function MainLayout() {
 
         query = query.order(table, { ascending });
         let { data, error } = await query;
-        console.log(tagFilter)
+        console.log(tagFilter);
         if (tagFilter.length !== 0) {
           // console.log(data)
           data = data.filter((item) => {
             // console.log(item)
-            if(!item.tag) return false;
+            if (!item.tag) return false;
             const tag = item.tag.split(",");
-            tag.pop() 
+            tag.pop();
             // console.log(tag);
             return tagFilter.every((filter) => tag.includes(filter));
           });
         }
-        console.log(data)
+        console.log(data);
         setPosts(data);
       }, 0);
     }
-  }, [search,tagFilterList,table]);
+  }, [search, tagFilterList, table]);
+  console.log(posts)
+  if(isFetching){
+    return <div>Fetching...</div>
+  }
 
-  if (search.length > 0 ? false :!posts || !allFilter) {
-    console.log(posts)
+  if (search.length > 0 ? false : !posts || !allFilter) {
+    console.log(posts);
+    console.log(status)
     return <div>Loading...</div>; // or some loading spinner
   }
   if (status === "error") {
