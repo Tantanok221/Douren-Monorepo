@@ -12,7 +12,7 @@ import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
 import { useTagFilter } from "../../hooks/useTagFilter.js";
 import { useSearch } from "../../hooks/useSearch.js";
 import { useCollection } from "../../hooks/useCollection.js";
-import { useIsFetching } from '@tanstack/react-query'
+import { Sidebar } from "../../components/Sidebar/Sidebar.jsx";
 
 function MainLayout() {
   const [posts, setPosts] = React.useState(false);
@@ -27,7 +27,6 @@ function MainLayout() {
   const tagFilterList = useTagFilter((state) => state.tagFilter);
   const initCollection = useCollection((state) => state.initCollection);
 
-  
   useEffect(() => {
     setAllFilter();
     initCollection();
@@ -90,14 +89,14 @@ function MainLayout() {
       }, 0);
     }
   }, [search, tagFilterList, table]);
-  console.log(posts)
-  if(isFetching){
-    return <div>Fetching...</div>
+  console.log(posts);
+  if (isFetching) {
+    return <div>Fetching...</div>;
   }
 
   if (search.length > 0 ? false : !posts || !allFilter) {
     console.log(posts);
-    console.log(status)
+    console.log(status);
     return <div>Loading...</div>; // or some loading spinner
   }
   if (status === "error") {
@@ -108,33 +107,36 @@ function MainLayout() {
   }
   const sx = classNames.bind(styles);
   return (
-    <div className={sx("MainContainer")}>
-      <button onClick={fetchNextPage}>Fetch Next Page</button>
-      <form className={sx("searchContainer")}>
-        <SearchBox />
-      </form>
-      <div className={sx("filterContainer")}>
-        <SortSelect />
-        <TagFilter />
-      </div>
-      <div className={sx("ArtistContainer")}>
-        {(posts ?? []).map((item, index) => {
-          if (
-            index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
-            search === ""
-          ) {
-            return (
-              <ArtistCard
-                key={item.id + index + item + table + ascending}
-                data={item}
-                passRef={ref}
-                ref={lastPostRef}
-              />
-            );
-          }
-          return <ArtistCard key={item.id} data={item} />;
-        })}
-        {}
+    <div className={sx("Root")}>
+      <Sidebar/>
+      <div className={sx("MainContainer")}>
+        {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
+        <form className={sx("searchContainer")}>
+          <SearchBox />
+        </form>
+        <div className={sx("filterContainer")}>
+          <SortSelect />
+          <TagFilter />
+        </div>
+        <div className={sx("ArtistContainer")}>
+          {(posts ?? []).map((item, index) => {
+            if (
+              index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
+              search === ""
+            ) {
+              return (
+                <ArtistCard
+                  key={item.id + index + item + table + ascending}
+                  data={item}
+                  passRef={ref}
+                  ref={lastPostRef}
+                />
+              );
+            }
+            return <ArtistCard key={item.id} data={item} />;
+          })}
+          {}
+        </div>
       </div>
     </div>
   );

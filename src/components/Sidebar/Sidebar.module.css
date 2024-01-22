@@ -1,0 +1,29 @@
+.sidebarContainer {
+  border-right: 1px solid var(--Dark-Day, #cbc3c3);
+  background: var(--Dark-Background, #111);
+  height: 100%;
+  width: 15%;
+  padding: 3rem 1.8rem;
+  position: fixed;
+
+}
+
+.linkButton {
+  padding: 0.75rem 1rem;
+  color: var(--Dark-TagText, #aaa);
+  font-family: var(--Font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+
+  gap: 1.5rem;
+
+  border-radius: 0.5rem;
+  background: var(--Dark-Panel, #1f1f21);
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

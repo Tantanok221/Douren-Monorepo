@@ -4,6 +4,7 @@
   background: var(--Panel, #1f1f21);
   width: 100%;
   border: none;
+  box-sizing: border-box;
 }
 
 .mainContainer {
@@ -40,14 +41,14 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  /* gap: 1.25rem; */
+  gap: 1.25rem;
   
   
 }
 
 @media (max-width: 1100px) {
   .rightContainer {
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     gap: 1.25rem;
   }
 }
