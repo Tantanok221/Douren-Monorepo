@@ -10,6 +10,7 @@ import MainLayout from "./layout/MainLayout/MainLayout.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
+import { CollectionLayout } from "./layout/CollectionLayout/CollectionLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "about",
     element: <div>About</div>,
+  },
+  {
+    path: "collection",
+    element: <CollectionLayout/>,
   },
 ]);
 const queryClient = new QueryClient();
