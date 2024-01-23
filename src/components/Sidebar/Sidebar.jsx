@@ -13,11 +13,11 @@ export const Sidebar = () => {
     <div className={sx("sidebarContainer")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "1.5rem" }}>
         <div className={sx("linkContainer")}>
-          <div className={sx("linkButton")}>
+          <Link to={"/"} className={sx("linkButton")}>
             <MdOutlineBookmarkBorder />
             FF42
-          </div>
-          <Link to={"collection"} className={sx("linkButton")}>
+          </Link>
+          <Link to={"/collection"} className={sx("linkButton")}>
             <RiHome2Line />
             我的收藏
           </Link>

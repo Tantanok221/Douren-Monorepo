@@ -11,24 +11,30 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
 import { CollectionLayout } from "./layout/CollectionLayout/CollectionLayout.jsx";
+import Root from "./routes/Root/Root.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
-        <MainLayout />
-      </div>
+      <Root/>
     ),
+    children : [
+      {
+        path: "/",
+        element: <MainLayout/>,
+      },
+      {
+        path: "collection",
+        element: <CollectionLayout/>
+      }
+    ]
   },
   {
     path: "about",
     element: <div>About</div>,
-  },
-  {
-    path: "collection",
-    element: <CollectionLayout/>,
-  },
+  }
+
 ]);
 const queryClient = new QueryClient();
 
