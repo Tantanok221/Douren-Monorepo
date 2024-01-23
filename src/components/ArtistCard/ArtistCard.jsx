@@ -146,13 +146,15 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                     </Dialog.Overlay>
                     <Dialog.Content aria-describedby={undefined}>
                       <div className={sx("dialogContent")}>
-                        <IconContext.Provider
+                      <VisuallyHidden.Root asChild>
+                        {/* <IconContext.Provider
                           value={{ color: "#FFFFFF", size: "3rem" }}
-                        >
+                        > */}
                           <Dialog.Close className={sx("dialogClose")}>
-                            <IoClose></IoClose>
+                            {/* <IoClose></IoClose> */}
                           </Dialog.Close>
-                        </IconContext.Provider>
+                        {/* </IconContext.Provider> */}
+                        </VisuallyHidden.Root>
                         <VisuallyHidden.Root asChild>
                           <Dialog.Title />
                         </VisuallyHidden.Root>
