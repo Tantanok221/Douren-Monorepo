@@ -108,7 +108,6 @@ function MainLayout() {
   const sx = classNames.bind(styles);
   return (
     <div className={sx("Root")}>
-      <Sidebar/>
       <div className={sx("MainContainer")}>
         {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
         <form className={sx("searchContainer")}>
