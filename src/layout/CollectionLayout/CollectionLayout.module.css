@@ -1,0 +1,58 @@
+.collectionLayout {
+  margin: 3rem 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.artistContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: stretch;
+}
+
+.headerContainer {
+  display: flex;
+  gap: 0.8rem;
+  flex-direction: column;
+}
+.subtitle {
+  color: var(--Dark-Day, #cbc3c3);
+  font-family: var(--Font);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.title {
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 2.625rem;
+  font-weight: 700;
+}
+
+.emptyText {
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 2.25rem;
+  font-weight: 500;
+}
+
+@media (max-width: 800px) {
+  .Root {
+    flex-direction: column;
+  }
+  .MainContainer {
+    margin: 1.25rem 5%;
+    box-sizing: border-box;
+  }
+  .ArtistContainer {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 500px) {
+  .MainContainer {
+    margin: 1rem 10%;
+  }
+}
