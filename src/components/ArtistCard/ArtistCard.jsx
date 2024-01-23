@@ -37,7 +37,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   const removeCollection = useCollection((state) => state.removeCollection);
   const updateLocalStorage = useCollection((state) => state.updateLocalStorage);
   const isAvailable = checkAvailable(data);
-
+  const collection = useCollection((state) => state.collection);
   const sx = classNames.bind(styles);
   const boothLocation = [
     data.DAY01_location,
