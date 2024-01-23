@@ -17,9 +17,7 @@ export const CollectionLayout = () => {
   console.log(collection);
   if (!posts) return null;
   return (
-    <div classname={sx("Root")}>
-      <Sidebar />
-      <></>
+
       <div className={sx("mainContainer")}>
         <motion.div className={sx("collectionLayout")}>
           <div className={sx("headerContainer")}>
@@ -39,6 +37,6 @@ export const CollectionLayout = () => {
           </div>
         </motion.div>
       </div>
-    </div>
+
   );
 };
