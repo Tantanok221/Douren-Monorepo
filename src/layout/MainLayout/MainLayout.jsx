@@ -107,7 +107,6 @@ function MainLayout() {
   }
   const sx = classNames.bind(styles);
   return (
-    <div className={sx("Root")}>
       <div className={sx("MainContainer")}>
         {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
         <form className={sx("searchContainer")}>
@@ -137,7 +136,6 @@ function MainLayout() {
           {}
         </div>
       </div>
-    </div>
   );
 }
 export default MainLayout;
