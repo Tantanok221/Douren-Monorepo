@@ -15,7 +15,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   display: flex;
-
+  
   gap: 1.5rem;
 
   border-radius: 0.5rem;
@@ -26,4 +26,17 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+@media (max-width: 800px) {
+  .sidebarContainer {
+    position: relative;
+    border-bottom: 1px solid var(--Dark-Day, #cbc3c3);
+    border-right: none;
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+  .linkContainer {
+    flex-direction: row;
+    gap: 2rem;
+  }
 }

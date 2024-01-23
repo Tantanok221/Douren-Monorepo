@@ -1,49 +1,57 @@
-.MainContainer {
-  margin: 3rem 6%;
-  margin-bottom: 0px;
-  display: flex;
-  gap: 1.5rem;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  margin-left: 26%;
-}
-
-@media (max-width: 800px) {
-  .MainContainer {
-    margin: 1.25rem 10%;
-  }
-}
-
-@media (max-width: 500px) {
-  .MainContainer {
-    margin: 1rem 10%;
-  }
-}
-
-.ArtistContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  align-items: stretch;
-}
-
-.searchContainer {
-  width: 100%;
-}
-
-.filterContainer {
-  display: flex;
-  gap: 1.5rem;
-}
-
-
-
 .Root {
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: row;
 }
+
+.MainContainer {
+  margin: 3rem 6%;
+  margin-bottom: 0px;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  /* width: 100%; */
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin-left: 26%;
+}  
+
+
+.ArtistContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: stretch;
+}  
+.searchContainer {
+  width: 100%;
+}  
+
+.filterContainer {
+  display: flex;
+  gap: 1.5rem;
+}  
+@media (max-width: 800px) {
+  .Root {
+    flex-direction: column;
+  }  
+  .MainContainer {
+    margin: 1.25rem 5%;
+    box-sizing: border-box;
+  }  
+  .ArtistContainer {
+    align-items: flex-start;
+  }
+}  
+
+@media (max-width: 500px) {
+  .MainContainer {
+    margin: 1rem 10%;
+  }  
+}  
+
+
+
 
