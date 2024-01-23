@@ -7,6 +7,7 @@ import styles from "./style.module.css";
 import { SelectItem } from "./subcomponent/SelectItem";
 import { SelectSeperator } from "./subcomponent/SelectSeperator.jsx";
 import { useSort } from "../../hooks/useSort.js";
+import { motion } from "framer-motion";
 const SortSelect = () => {
   const ascending = useSort((state) => state.ascending);
   const name = useSort((state) => state.name);
@@ -15,13 +16,23 @@ const SortSelect = () => {
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Select.Root onValueChange={setFilter}>
-        <Select.Trigger className={sx("selectTrigger")}>
-          <div className={sx("selectText")}>
-            排序: {name + " "} {ascending ? "A-Z" : "Z-A"}
-          </div>
-          <Select.Icon className={sx("selectIcon")}>
-            <IoChevronDownOutline />
-          </Select.Icon>
+        <Select.Trigger asChild>
+          <motion.div
+            className={sx("selectTrigger")}
+            whileHover={{
+              backgroundColor: "#4D4D4D",
+            }}
+            onTap={{
+              scale: 0.9,
+            }}
+          >
+            <div className={sx("selectText")}>
+              排序: {name + " "} {ascending ? "A-Z" : "Z-A"}
+            </div>
+            <Select.Icon className={sx("selectIcon")}>
+              <IoChevronDownOutline />
+            </Select.Icon>
+          </motion.div>
         </Select.Trigger>
 
         <Select.Portal>

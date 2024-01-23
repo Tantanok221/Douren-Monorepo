@@ -19,6 +19,7 @@
   border: none;
   border-radius: 0.5rem;
   background: var(--Panel, #1f1f21);
+  cursor: pointer;
 }
 
 .tagContainer {

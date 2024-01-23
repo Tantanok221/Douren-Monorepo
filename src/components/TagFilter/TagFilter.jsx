@@ -13,17 +13,24 @@ export const TagFilter = () => {
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root className={sx("TagFilter")}>
-        <Popover.Trigger className={sx("popoverTrigger")}>
-          <motion.div className={sx("buttonContainer")}>
-            <div className={sx("buttonText")}>標簽: 全部</div>
-            <IoChevronDownOutline />
+        <Popover.Trigger asChild>
+          <motion.div
+            whileHover={{
+              backgroundColor: "#4D4D4D",
+            }}
+            className={sx("popoverTrigger")}
+          >
+            <div className={sx("buttonContainer")}>
+              <div className={sx("buttonText")}>標簽: 全部</div>
+              <IoChevronDownOutline />
+            </div>
           </motion.div>
         </Popover.Trigger>
 
         <Popover.Content className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
             {allFilter.map((item, index) => (
-              <TagItem key={[item, index]} data={item} index={index}/>
+              <TagItem key={[item, index]} data={item} index={index} />
             ))}
           </IconContext.Provider>
         </Popover.Content>

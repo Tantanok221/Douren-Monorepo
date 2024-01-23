@@ -12,6 +12,7 @@
   font-weight: 600;
   gap: 0.1875rem;
   font-family: var(--Font);
+  cursor: pointer;
 }
 
 .selectIcon {
@@ -20,9 +21,6 @@
   align-items: center;
 }
 
-.selectTrigger:hover {
-  background-color: var(--Hover)
-}
 
 .selectTrigger[data-placeholder] {
   color: var(--TagText, #aaaaaa);
