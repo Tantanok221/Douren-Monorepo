@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react'
 import { Outlet } from "react-router-dom";
 import { Sidebar } from '../../components/Sidebar/Sidebar';
-import style from './Root.module.css'
+import style from './root.module.css'
 const Root = () => {
   const sx = classNames.bind(style);
   return (
