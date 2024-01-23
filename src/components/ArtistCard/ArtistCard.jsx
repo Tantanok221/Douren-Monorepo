@@ -136,9 +136,16 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
             <div className={sx("linkContainer")}>
               {data.DM ? (
                 <Dialog.Root>
-                  <Dialog.Trigger className={sx("linkButton")}>
-                    <LinkComponent data={{ category: "DM" }} />
-                    商品項目
+                  <Dialog.Trigger asChild>
+                    <motion.div
+                      whileHover={{
+                        backgroundColor: "#4D4D4D",
+                      }}
+                      className={sx("linkButton")}
+                    >
+                      <LinkComponent data={{ category: "DM" }} />
+                      商品項目
+                    </motion.div>
                   </Dialog.Trigger>
                   <Dialog.Portal>
                     <Dialog.Overlay>
@@ -146,14 +153,14 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                     </Dialog.Overlay>
                     <Dialog.Content aria-describedby={undefined}>
                       <div className={sx("dialogContent")}>
-                      <VisuallyHidden.Root asChild>
-                        {/* <IconContext.Provider
+                        <VisuallyHidden.Root asChild>
+                          {/* <IconContext.Provider
                           value={{ color: "#FFFFFF", size: "3rem" }}
                         > */}
                           <Dialog.Close className={sx("dialogClose")}>
                             {/* <IoClose></IoClose> */}
                           </Dialog.Close>
-                        {/* </IconContext.Provider> */}
+                          {/* </IconContext.Provider> */}
                         </VisuallyHidden.Root>
                         <VisuallyHidden.Root asChild>
                           <Dialog.Title />
@@ -171,18 +178,21 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                 </Dialog.Root>
               ) : null}
               {link.map((item, index) => (
-                <a
+                <motion.a
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={sx("linkButton")}
                   key={item + index}
+                  whileHover={{
+                    backgroundColor: "#4D4D4D",
+                  }}
                 >
                   <div className={sx("linkIcon")}>
                     <LinkComponent key={index} data={item} />
                   </div>
                   {item.name}
-                </a>
+                </motion.a>
               ))}
             </div>
           </IconContext.Provider>
