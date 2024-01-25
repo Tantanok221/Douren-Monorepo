@@ -6,11 +6,11 @@ import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection";
 import ArtistCardContext from "./ArtistCardContext";
 import ImageContainer from "./subcomponent/imageContainer";
-import TitleContainer from "./subcomponent/TitleContainer";
-import BookmarkContainer from "./subcomponent/BookmarkContainer";
+
 import TagContainer from "./subcomponent/TagContainer";
 import DayContainer from "./subcomponent/DayContainer";
 import LinkContainer from "./subcomponent/LinkContainer";
+import HeaderContainer from "./subcomponent/HeaderContainer";
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   const collection = useCollection((state) => state.collection);
   console.log(collection);
@@ -21,10 +21,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
         <motion.div className={sx("mainContainer")}>
           <ImageContainer />
           <div className={sx("rightContainer")}>
-            <div className={sx("firstRow")}>
-              <TitleContainer />
-              <BookmarkContainer />
-            </div>
+            <HeaderContainer/>
             <TagContainer />
             <DayContainer />
             <LinkContainer/>
