@@ -7,7 +7,6 @@ import { IconContext } from "react-icons";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LinkComponent } from "./subcomponent/LinkComponent";
-import { useTagFilter } from "../../hooks/useTagFilter";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { IoClose } from "react-icons/io5";
 import { useCollection } from "../../hooks/useCollection";
@@ -15,6 +14,7 @@ import ArtistCardContext from "./ArtistCardContext";
 import ImageContainer from "./subcomponent/imageContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import BookmarkContainer from "./subcomponent/BookmarkContainer";
+import TagContainer from "./subcomponent/TagContainer";
 
 function processLink(links, names, category) {
   if (!links) {
@@ -59,14 +59,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
   link = link.concat(processLink(data.other_website, "官網", "Other"));
-  const getTag = useTagFilter((state) => state.getTag);
-  const allTag = (data.tag ?? "").split(",");
-  allTag.splice(allTag.length - 1, 1);
-  let renderTag = [];
-  allTag.forEach((item, index) => {
-    renderTag[index] = getTag(item);
-  });
-  renderTag = renderTag.flatMap((value) => value);
+  
   return (
     <ArtistCardContext.Provider value={data}>
       <motion.div ref={passRef} className={sx("artistCard")}>
@@ -78,18 +71,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
               <HeaderContainer/>
               <BookmarkContainer/>
             </div>
-            <div className={sx("tagContainer")}>
-              {data.tag
-                ? renderTag.map((val, index) => {
-                    return (
-                      <div key={index + val.tag} className={sx("tagItem")}>
-                        <div className={sx("tagDescription")}>{val.tag}</div>
-                        <div className={sx("tagCount")}>{val.count}</div>
-                      </div>
-                    );
-                  })
-                : null}
-            </div>
+            <TagContainer/>
             <div className={sx("dayContainer")}>
               {[1, 2, 3].map((day, index) => {
                 return (
