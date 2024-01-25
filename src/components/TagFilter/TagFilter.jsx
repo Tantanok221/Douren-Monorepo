@@ -10,6 +10,7 @@ import { useTagFilter } from "../../hooks/useTagFilter";
 export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);
+  const tagFilter = useTagFilter((state) => state.tagFilter);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root className={sx("TagFilter")}>
@@ -21,13 +22,24 @@ export const TagFilter = () => {
             className={sx("popoverTrigger")}
           >
             <div className={sx("buttonContainer") + " noSelect"}>
-              <div className={sx("buttonText")}>標簽: 全部</div>
+              <div className={sx("buttonText")}>
+                標簽:
+                {tagFilter.length === 0 ? " 全部" : null}
+                {tagFilter.length <= 3 && tagFilter.length !== 0
+                  ? " "+ (tagFilter.map((item) => {
+                      return item.tag;
+                    }))
+                  : null}
+                {tagFilter.length > 3
+                  ? " " + tagFilter.length + " 個標簽"
+                  : null}
+              </div>
               <IoChevronDownOutline />
             </div>
           </motion.div>
         </Popover.Trigger>
 
-        <Popover.Content align={"start"}className={sx("tagContainer")}>
+        <Popover.Content align={"start"} className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
             {allFilter.map((item, index) => (
               <TagItem key={[item, index]} data={item} index={index} />
