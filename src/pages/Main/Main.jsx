@@ -12,7 +12,7 @@ import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
 import { useTagFilter } from "../../hooks/useTagFilter.js";
 import { useSearch } from "../../hooks/useSearch.js";
 import { useCollection } from "../../hooks/useCollection.js";
-import { Sidebar } from "../../components/Sidebar/Sidebar.jsx";
+import { motion } from "framer-motion";
 
 function Main() {
   const [posts, setPosts] = React.useState(false);
@@ -107,35 +107,38 @@ function Main() {
   }
   const sx = classNames.bind(styles);
   return (
-      <div className={sx("MainContainer")}>
-        {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
-        <form className={sx("searchContainer")}>
-          <SearchBox />
-        </form>
-        <div className={sx("filterContainer")}>
-          <SortSelect />
-          <TagFilter />
-        </div>
-        <div className={sx("ArtistContainer")}>
-          {(posts ?? []).map((item, index) => {
-            if (
-              index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
-              search === ""
-            ) {
-              return (
-                <ArtistCard
-                  key={item.id + index + item + table + ascending}
-                  data={item}
-                  passRef={ref}
-                  ref={lastPostRef}
-                />
-              );
-            }
-            return <ArtistCard key={item.id} data={item} />;
-          })}
-          {}
-        </div>
+    <div className={sx("MainContainer")}>
+      {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
+      <form className={sx("searchContainer")}>
+        <SearchBox />
+      </form>
+      <div className={sx("filterContainer")}>
+        <SortSelect />
+        <TagFilter />
       </div>
+      <motion.div
+        
+        className={sx("ArtistContainer")}
+      >
+        {(posts ?? []).map((item, index) => {
+          if (
+            index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
+            search === ""
+          ) {
+            return (
+              <ArtistCard
+                key={item.id + index + item + table + ascending}
+                data={item}
+                passRef={ref}
+                ref={lastPostRef}
+              />
+            );
+          }
+          return <ArtistCard key={item.id} data={item} />;
+        })}
+        {}
+      </motion.div>
+    </div>
   );
 }
 export default Main;
