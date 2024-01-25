@@ -18,12 +18,9 @@ const SortSelect = () => {
       <Select.Root onValueChange={setFilter}>
         <Select.Trigger asChild>
           <motion.div
-            className={sx("selectTrigger")}
+            className={sx("selectTrigger") + " noSelect"}
             whileHover={{
               backgroundColor: "#4D4D4D",
-            }}
-            onTap={{
-              scale: 0.9,
             }}
           >
             <div className={sx("selectText")}>

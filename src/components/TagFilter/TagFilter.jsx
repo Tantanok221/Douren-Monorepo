@@ -20,14 +20,14 @@ export const TagFilter = () => {
             }}
             className={sx("popoverTrigger")}
           >
-            <div className={sx("buttonContainer")}>
+            <div className={sx("buttonContainer") + " noSelect"}>
               <div className={sx("buttonText")}>標簽: 全部</div>
               <IoChevronDownOutline />
             </div>
           </motion.div>
         </Popover.Trigger>
 
-        <Popover.Content className={sx("tagContainer")}>
+        <Popover.Content align={"start"}className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
             {allFilter.map((item, index) => (
               <TagItem key={[item, index]} data={item} index={index} />
