@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { IconContext } from "react-icons";
-import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LinkComponent } from "./subcomponent/LinkComponent";
@@ -12,6 +11,10 @@ import { useTagFilter } from "../../hooks/useTagFilter";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { IoClose } from "react-icons/io5";
 import { useCollection } from "../../hooks/useCollection";
+import ArtistCardContext from "./ArtistCardContext";
+import ImageContainer from "./subcomponent/imageContainer";
+import HeaderContainer from "./subcomponent/HeaderContainer";
+import BookmarkContainer from "./subcomponent/BookmarkContainer";
 
 function processLink(links, names, category) {
   if (!links) {
@@ -32,12 +35,9 @@ function processLink(links, names, category) {
 }
 
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
-  const checkAvailable = useCollection((state) => state.checkAvailable);
-  const addCollection = useCollection((state) => state.addCollection);
-  const removeCollection = useCollection((state) => state.removeCollection);
-  const updateLocalStorage = useCollection((state) => state.updateLocalStorage);
-  const isAvailable = checkAvailable(data);
+  
   const collection = useCollection((state) => state.collection);
+  console.log(collection)
   const sx = classNames.bind(styles);
   const boothLocation = [
     data.DAY01_location,
@@ -68,137 +68,114 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   });
   renderTag = renderTag.flatMap((value) => value);
   return (
-    <motion.div ref={passRef} className={sx("artistCard")}>
-      <motion.div className={sx("mainContainer")}>
-        <div className={sx("imageContainer")}>
-          <LazyLoadImage
-            className={sx("image")}
-            effect="blur"
-            src={data.photo}
-          />
-        </div>
+    <ArtistCardContext.Provider value={data}>
+      <motion.div ref={passRef} className={sx("artistCard")}>
+        <motion.div className={sx("mainContainer")}>
+        <ImageContainer/>
 
-        <div className={sx("rightContainer")}>
-          <div className={sx("firstRow")}>
-            <div className={sx("headerContainer")}>
-              <div className={sx("header")}>{data.author_name}</div>
-              <div className={sx("subheader")}>{data.doujin_name}</div>
+          <div className={sx("rightContainer")}>
+            <div className={sx("firstRow")}>
+              <HeaderContainer/>
+              <BookmarkContainer/>
             </div>
-            <div className={sx("bookmarkContainer")}>
-              <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
-                <button
-                  onClick={(event) => {
-                    if (!isAvailable) {
-                      addCollection(data);
-                    } else {
-                      removeCollection(data);
-                    }
-                    updateLocalStorage();
-                  }}
-                  className={sx("bookmarkButton")}
-                >
-                  {!isAvailable ? <MdOutlineBookmarkBorder /> : <MdBookmark />}
-                </button>
-              </IconContext.Provider>
+            <div className={sx("tagContainer")}>
+              {data.tag
+                ? renderTag.map((val, index) => {
+                    return (
+                      <div key={index + val.tag} className={sx("tagItem")}>
+                        <div className={sx("tagDescription")}>{val.tag}</div>
+                        <div className={sx("tagCount")}>{val.count}</div>
+                      </div>
+                    );
+                  })
+                : null}
             </div>
-          </div>
-          <div className={sx("tagContainer")}>
-            {data.tag
-              ? renderTag.map((val, index) => {
-                  return (
-                    <div key={index + val.tag} className={sx("tagItem")}>
-                      <div className={sx("tagDescription")}>{val.tag}</div>
-                      <div className={sx("tagCount")}>{val.count}</div>
+            <div className={sx("dayContainer")}>
+              {[1, 2, 3].map((day, index) => {
+                return (
+                  <div key={index} className={sx("dayItem")}>
+                    <div className={sx("dayDescription")}>Day {day}</div>
+                    <div className={sx("boothDescription")}>
+                      {boothLocation[index]}
                     </div>
-                  );
-                })
-              : null}
-          </div>
-          <div className={sx("dayContainer")}>
-            {[1, 2, 3].map((day, index) => {
-              return (
-                <div key={index} className={sx("dayItem")}>
-                  <div className={sx("dayDescription")}>Day {day}</div>
-                  <div className={sx("boothDescription")}>
-                    {boothLocation[index]}
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          <IconContext.Provider
-            value={{
-              verticalAlign: "middle",
-              color: "#CBC3C3",
-              size: "1.5rem",
-            }}
-          >
-            <div className={sx("linkContainer")}>
-              {data.DM ? (
-                <Dialog.Root>
-                  <Dialog.Trigger asChild>
-                    <motion.div
-                      whileHover={{
-                        backgroundColor: "#4D4D4D",
-                      }}
-                      className={sx("linkButton")}
-                    >
-                      <LinkComponent data={{ category: "DM" }} />
-                      商品項目
-                    </motion.div>
-                  </Dialog.Trigger>
-                  <Dialog.Portal>
-                    <Dialog.Overlay>
-                      <div className={sx("dialogOverlay")}></div>
-                    </Dialog.Overlay>
-                    <Dialog.Content aria-describedby={undefined}>
-                      <div className={sx("dialogContent")}>
-                        <VisuallyHidden.Root asChild>
-                          {/* <IconContext.Provider
+                );
+              })}
+            </div>
+            <IconContext.Provider
+              value={{
+                verticalAlign: "middle",
+                color: "#CBC3C3",
+                size: "1.5rem",
+              }}
+            >
+              <div className={sx("linkContainer")}>
+                {data.DM ? (
+                  <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                      <motion.div
+                        whileHover={{
+                          backgroundColor: "#4D4D4D",
+                        }}
+                        className={sx("linkButton")}
+                      >
+                        <LinkComponent data={{ category: "DM" }} />
+                        商品項目
+                      </motion.div>
+                    </Dialog.Trigger>
+                    <Dialog.Portal>
+                      <Dialog.Overlay>
+                        <div className={sx("dialogOverlay")}></div>
+                      </Dialog.Overlay>
+                      <Dialog.Content aria-describedby={undefined}>
+                        <div className={sx("dialogContent")}>
+                          <VisuallyHidden.Root asChild>
+                            {/* <IconContext.Provider
                           value={{ color: "#FFFFFF", size: "3rem" }}
                         > */}
-                          <Dialog.Close className={sx("dialogClose")}>
-                            {/* <IoClose></IoClose> */}
-                          </Dialog.Close>
-                          {/* </IconContext.Provider> */}
-                        </VisuallyHidden.Root>
-                        <VisuallyHidden.Root asChild>
-                          <Dialog.Title />
-                        </VisuallyHidden.Root>
-                        <div className={sx("DMContainer")}>
-                          <LazyLoadImage
-                            className={sx("image")}
-                            effect="blur"
-                            src={data.DM}
-                          />
+                            <Dialog.Close className={sx("dialogClose")}>
+                              {/* <IoClose></IoClose> */}
+                            </Dialog.Close>
+                            {/* </IconContext.Provider> */}
+                          </VisuallyHidden.Root>
+                          <VisuallyHidden.Root asChild>
+                            <Dialog.Title />
+                          </VisuallyHidden.Root>
+                          <div className={sx("DMContainer")}>
+                            <LazyLoadImage
+                              className={sx("image")}
+                              effect="blur"
+                              src={data.DM}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Dialog.Content>
-                  </Dialog.Portal>
-                </Dialog.Root>
-              ) : null}
-              {link.map((item, index) => (
-                <motion.a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={sx("linkButton")}
-                  key={item + index}
-                  whileHover={{
-                    backgroundColor: "#4D4D4D",
-                  }}
-                >
-                  <div className={sx("linkIcon")}>
-                    <LinkComponent key={index} data={item} />
-                  </div>
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-          </IconContext.Provider>
-        </div>
+                      </Dialog.Content>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+                ) : null}
+                {link.map((item, index) => (
+                  <motion.a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={sx("linkButton")}
+                    key={item + index}
+                    whileHover={{
+                      backgroundColor: "#4D4D4D",
+                    }}
+                  >
+                    <div className={sx("linkIcon")}>
+                      <LinkComponent key={index} data={item} />
+                    </div>
+                    {item.name}
+                  </motion.a>
+                ))}
+              </div>
+            </IconContext.Provider>
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </ArtistCardContext.Provider>
   );
 });
 
