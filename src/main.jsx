@@ -6,11 +6,11 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import MainLayout from "./layout/MainLayout/MainLayout.jsx";
+import Main from "./pages/Main/Main.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
-import { CollectionLayout } from "./layout/CollectionLayout/CollectionLayout.jsx";
+import  Collection  from "./pages/Collection/Collection.jsx";
 import Root from "./routes/Root/Root.jsx";
 
 const router = createBrowserRouter([
@@ -22,11 +22,11 @@ const router = createBrowserRouter([
     children : [
       {
         path: "/",
-        element: <MainLayout/>,
+        element: <Main/>,
       },
       {
         path: "collection",
-        element: <CollectionLayout/>
+        element: <Collection/>
       }
     ]
   },

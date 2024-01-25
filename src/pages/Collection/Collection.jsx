@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import style from "./CollectionLayout.module.css";
+import style from "./Collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { useCollection } from "../../hooks/useCollection";
-import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import { Sidebar } from "../../components/Sidebar/Sidebar.jsx";
-export const CollectionLayout = () => {
+import { useCollection } from "../../hooks/useCollection.js";
+import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
+export const Collection = () => {
   const [posts, setPosts] = React.useState(false);
   const sx = classNames.bind(style);
   const initCollection = useCollection((state) => state.initCollection);
@@ -40,3 +39,4 @@ export const CollectionLayout = () => {
 
   );
 };
+export default Collection

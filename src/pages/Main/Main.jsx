@@ -14,7 +14,7 @@ import { useSearch } from "../../hooks/useSearch.js";
 import { useCollection } from "../../hooks/useCollection.js";
 import { Sidebar } from "../../components/Sidebar/Sidebar.jsx";
 
-function MainLayout() {
+function Main() {
   const [posts, setPosts] = React.useState(false);
   const search = useSearch((state) => state.search);
   const table = useSort((state) => state.table);
@@ -138,4 +138,4 @@ function MainLayout() {
       </div>
   );
 }
-export default MainLayout;
+export default Main;
