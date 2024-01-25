@@ -15,6 +15,7 @@ import ImageContainer from "./subcomponent/imageContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import BookmarkContainer from "./subcomponent/BookmarkContainer";
 import TagContainer from "./subcomponent/TagContainer";
+import DayContainer from "./subcomponent/DayContainer";
 
 function processLink(links, names, category) {
   if (!links) {
@@ -35,15 +36,10 @@ function processLink(links, names, category) {
 }
 
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
-  
   const collection = useCollection((state) => state.collection);
-  console.log(collection)
+  console.log(collection);
   const sx = classNames.bind(styles);
-  const boothLocation = [
-    data.DAY01_location,
-    data.DAY02_location,
-    data.DAY03_location,
-  ];
+
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
   link = link.concat(
     processLink(data.Instagram_link, data.Instagram_name, "Instagram")
@@ -59,39 +55,28 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
   link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
   link = link.concat(processLink(data.other_website, "官網", "Other"));
-  
+
   return (
     <ArtistCardContext.Provider value={data}>
       <motion.div ref={passRef} className={sx("artistCard")}>
         <motion.div className={sx("mainContainer")}>
-        <ImageContainer/>
+          <ImageContainer />
 
           <div className={sx("rightContainer")}>
             <div className={sx("firstRow")}>
-              <HeaderContainer/>
-              <BookmarkContainer/>
+              <HeaderContainer />
+              <BookmarkContainer />
             </div>
-            <TagContainer/>
-            <div className={sx("dayContainer")}>
-              {[1, 2, 3].map((day, index) => {
-                return (
-                  <div key={index} className={sx("dayItem")}>
-                    <div className={sx("dayDescription")}>Day {day}</div>
-                    <div className={sx("boothDescription")}>
-                      {boothLocation[index]}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <IconContext.Provider
-              value={{
-                verticalAlign: "middle",
-                color: "#CBC3C3",
-                size: "1.5rem",
-              }}
-            >
-              <div className={sx("linkContainer")}>
+            <TagContainer />
+            <DayContainer />
+            <div className={sx("linkContainer")}>
+              <IconContext.Provider
+                value={{
+                  verticalAlign: "middle",
+                  color: "#CBC3C3",
+                  size: "1.5rem",
+                }}
+              >
                 {data.DM ? (
                   <Dialog.Root>
                     <Dialog.Trigger asChild>
@@ -152,8 +137,8 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
                     {item.name}
                   </motion.a>
                 ))}
-              </div>
-            </IconContext.Provider>
+              </IconContext.Provider>
+            </div>
           </div>
         </motion.div>
       </motion.div>
