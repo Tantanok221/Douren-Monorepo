@@ -12,7 +12,7 @@ export const useCollection = create((set, get) => ({
   },
   removeCollection: (data) => {
     set((state) => ({
-      collection: state.collection.filter((val) => val !== data),
+      collection: state.collection.filter((val) => val.author_name !== data.author_name),
     }));
   },
   initCollection: () => {
