@@ -10,7 +10,6 @@
     "default": {
       "customTemplates": {
         "component": "src/template/component/TemplateName.jsx",
-        "index": "src/template/component/index.js",
         "style": "src/template/component/TemplateName.module.css"
         },
       "path": "src/components",
