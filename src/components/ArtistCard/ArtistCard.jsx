@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection";
 import ArtistCardContext from "./ArtistCardContext";
