@@ -1,15 +1,14 @@
 .sidebarContainer {
-  border-right: 1px solid var(--Dark-Day, #cbc3c3);
-  background: var(--Dark-Background, #111);
+  background: var(--Sidebar-BG, #111);
   height: 100%;
-  width: 15%;
-  padding: 3rem 1.8rem;
+  width: 18%;
+  padding: 3rem 0rem;
   position: fixed;
 
 }
 
 .linkButton {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 2rem;
   color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
   font-size: 1.125rem;
@@ -17,9 +16,11 @@
   display: flex;
   text-decoration: none;
   gap: 1.5rem;
-
   border-radius: 0.5rem;
-  background: var(--Dark-Panel, #1f1f21);
+}
+
+.activeButton {
+  background-color: var(--Sidebar-Active);
 }
 
 .linkContainer {
@@ -30,8 +31,7 @@
 @media (max-width: 800px) {
   .sidebarContainer {
     position: relative;
-    border-bottom: 1px solid var(--Dark-Day, #cbc3c3);
-    border-right: none;
+    bottom: 0px;
     width: 100%;
     padding: 1.5rem 1rem;
   }

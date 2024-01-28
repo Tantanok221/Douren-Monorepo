@@ -11,6 +11,8 @@
   --White: #ffffff;
   --Font: Noto Sans TC;
   --OnHover: #4d4d4d;
+  --Sidebar-BG: #1D1D1D;
+  --Sidebar-Active: #292929;
 }
 
 body {

@@ -6,18 +6,21 @@ import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { RiHome2Line } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 export const Sidebar = () => {
   const sx = classNames.bind(style);
+  const location = useLocation();
+  console.log(location.pathname)
   return (
     <div className={sx("sidebarContainer")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "1.5rem" }}>
         <div className={sx("linkContainer")}>
-          <Link to={"/"} className={sx("linkButton")}>
+          <Link to={"/"} className={sx("linkButton",{activeButton: location.pathname === "/"})}>
             <RiHome2Line />
             FF42
           </Link>
-          <Link to={"/collection"} className={sx("linkButton")}>
+          <Link to={"/collection"} className={sx("linkButton",{activeButton: location.pathname === "/collection"})}>
             
             <MdOutlineBookmarkBorder />
             我的收藏
