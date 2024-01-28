@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { useCollection } from "../../hooks/useCollection.js";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 export const Collection = () => {
   const [posts, setPosts] = React.useState(false);
   const sx = classNames.bind(style);
@@ -20,7 +21,7 @@ export const Collection = () => {
       <div className={sx("mainContainer")}>
         <motion.div className={sx("collectionLayout")}>
           <div className={sx("headerContainer")}>
-            <div className={sx("title")}>我的收藏</div>
+            <div id="top" className={sx("title")}>我的收藏</div>
             <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
           </div>
           <div className={sx("artistContainer")}>
@@ -35,6 +36,7 @@ export const Collection = () => {
             )}
           </div>
         </motion.div>
+        <ScrollToTop/>
       </div>
 
   );

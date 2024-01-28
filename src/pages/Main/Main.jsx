@@ -13,7 +13,7 @@ import { useTagFilter } from "../../hooks/useTagFilter.js";
 import { useSearch } from "../../hooks/useSearch.js";
 import { useCollection } from "../../hooks/useCollection.js";
 import { motion } from "framer-motion";
-
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 function Main() {
   const [posts, setPosts] = React.useState(false);
   const search = useSearch((state) => state.search);
@@ -109,17 +109,14 @@ function Main() {
   return (
     <div className={sx("MainContainer")}>
       {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
-      <form className={sx("searchContainer")}>
+      <form id="top" className={sx("searchContainer")}>
         <SearchBox />
       </form>
       <div className={sx("filterContainer")}>
         <SortSelect />
         <TagFilter />
       </div>
-      <motion.div
-        
-        className={sx("ArtistContainer")}
-      >
+      <motion.div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
           if (
             index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
@@ -138,6 +135,7 @@ function Main() {
         })}
         {}
       </motion.div>
+      <ScrollToTop/>
     </div>
   );
 }
