@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection";
 import ArtistCardContext from "./ArtistCardContext";
-import ImageContainer from "./subcomponent/imageContainer";
+import ImageContainer from "./subcomponent/ImageContainer";
 
 import TagContainer from "./subcomponent/TagContainer";
 import DayContainer from "./subcomponent/DayContainer";
