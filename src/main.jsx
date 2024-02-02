@@ -12,6 +12,7 @@ import "./index.css";
 import "normalize.css";
 import  Collection  from "./pages/Collection/Collection.jsx";
 import Root from "./routes/Root/Root.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,13 +28,13 @@ const router = createBrowserRouter([
       {
         path: "collection",
         element: <Collection/>
+      },
+      {
+        path: "about",
+        element: <AboutUs/>,
       }
     ]
   },
-  {
-    path: "about",
-    element: <div>About</div>,
-  }
 
 ]);
 const queryClient = new QueryClient();
