@@ -19,7 +19,7 @@ function AboutUs() {
   const DiscordGroup = [
     {
       name: "我們的DC",
-      link: "https://discord.gg/fwMe8RwZqb",
+      link: "https://discord.gg/Kckxj6bUYB",
       category: "Discord",
     },
   ];
