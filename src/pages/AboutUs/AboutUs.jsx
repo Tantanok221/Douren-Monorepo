@@ -6,38 +6,19 @@ import { supabase } from "../../helper/supabase";
 import AboutCard from "../../components/AboutCard/AboutCard";
 import LinkContainer from "../../components/LinkContainer/LinkContainer";
 import { IconContext } from "react-icons";
+import { DiscordGroup, author_data } from "../../data/author_data";
+
 function AboutUs() {
   const sx = classNames.bind(styles);
-  const { data, error, status } = useQuery({
-    queryKey: ["aboutUs"],
-    queryFn: async () => {
-      let query = supabase.from("author").select("*")
-      const res = await query;
-      return res.data;
-    },
-  });
-  const DiscordGroup = [
-    {
-      name: "我們的DC",
-      link: "https://discord.gg/Kckxj6bUYB",
-      category: "Discord",
-    },
-  ];
-  console.log(data);
-  console.log(error)
-  if (status === "loading") return <div>loading</div>;
+
   return (
     <div className={sx("mainContainer")}>
       <div className={sx("header")}>關於我們</div>
 
       <div className={sx("authorContainer")}>
-        {status === "success" ? (
-          data.map((item, index) => {
-            return <AboutCard key={index} author_data={item} />;
-          })
-        ) : (
-          <div>error</div>
-        )}
+        {author_data.map((item, index) => {
+          return <AboutCard key={index} author_data={item} />;
+        })}
       </div>
       <div className={sx("dcContainer")}>
         <div className={sx("text")}>
@@ -51,10 +32,9 @@ function AboutUs() {
             size: "1.5rem",
           }}
         >
-
-        <div className={sx("discordButton")}>
-          <LinkContainer link={DiscordGroup} />
-        </div>
+          <div className={sx("discordButton")}>
+            <LinkContainer link={DiscordGroup} />
+          </div>
         </IconContext.Provider>
       </div>
     </div>

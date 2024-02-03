@@ -35,7 +35,8 @@ const AboutCard = ({ author_data }) => {
           }}
         >
           <LinkContainer link={link} />
-          <DiscordButton discord_name={author_data.discord_name}/>
+          {author_data.discord_name ?
+          <DiscordButton discord_name={author_data.discord_name}/> : null}
         </IconContext.Provider>
       </div>
     </motion.div>
