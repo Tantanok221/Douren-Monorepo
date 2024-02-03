@@ -14,6 +14,8 @@ import { useSearch } from "../../hooks/useSearch.js";
 import { useCollection } from "../../hooks/useCollection.js";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
+import { usePosition } from "../../hooks/usePosition.js";
+
 function Main() {
   const [posts, setPosts] = React.useState(false);
   const search = useSearch((state) => state.search);
@@ -26,7 +28,10 @@ function Main() {
   );
   const tagFilterList = useTagFilter((state) => state.tagFilter);
   const initCollection = useCollection((state) => state.initCollection);
-
+  const position = usePosition((state) => state.position);
+  const setPosition = usePosition((state) => state.setPosition);  
+  window.scrollTo(0, position);
+  console.log("Component Rerender");
   useEffect(() => {
     setAllFilter();
     initCollection();
@@ -49,6 +54,9 @@ function Main() {
   });
   useEffect(() => {
     if (entry?.isIntersecting) {
+      let pos = document.documentElement.scrollTop;
+      console.log(position);
+      setPosition(pos);
       fetchNextPage();
     }
   }, [entry]);
@@ -135,7 +143,7 @@ function Main() {
         })}
         {}
       </motion.div>
-      <ScrollToTop/>
+      <ScrollToTop />
     </div>
   );
 }
