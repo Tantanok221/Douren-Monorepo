@@ -29,6 +29,18 @@
   
 }
 
+.dcContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.discordButton {
+  width: 50%;
+
+}
+
 @media (max-width: 800px) {
   .mainContainer {
     margin: 1.25rem 5%;
