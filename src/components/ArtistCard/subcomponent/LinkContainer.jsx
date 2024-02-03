@@ -4,13 +4,10 @@ import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { IconContext } from "react-icons";
 
-
 import { motion } from "framer-motion";
 import DMButton from "./DMButton";
-import LinkComponent from "../../LinkComponent/LinkComponent";
 import { processLink } from "../../../helper/processLink";
-
-
+import LinkIcon from "../../LinkIcon/LinkIcon";
 
 const LinkContainer = () => {
   const sx = classNames.bind(styles);
@@ -40,7 +37,7 @@ const LinkContainer = () => {
           size: "1.5rem",
         }}
       >
-        <DMButton/>
+        <DMButton />
         {link.map((item, index) => (
           <motion.a
             href={item.link}
@@ -53,7 +50,7 @@ const LinkContainer = () => {
             }}
           >
             <div className={sx("linkIcon")}>
-              <LinkComponent key={index} data={item} />
+              <LinkIcon key={index} data={item} />
             </div>
             {item.name}
           </motion.a>

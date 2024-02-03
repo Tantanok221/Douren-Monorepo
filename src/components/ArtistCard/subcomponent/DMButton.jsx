@@ -7,8 +7,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
-import LinkComponent from "../../LinkComponent/LinkComponent";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import LinkIcon from "../../LinkIcon/LinkIcon";
 const DMButton = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
@@ -21,7 +21,7 @@ const DMButton = () => {
             }}
             className={sx("linkButton")}
           >
-            <LinkComponent data={{ category: "DM" }} />
+            <LinkIcon data={{ category: "DM" }} />
             商品項目
           </motion.div>
         </Dialog.Trigger>

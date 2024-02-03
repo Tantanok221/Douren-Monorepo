@@ -3,7 +3,7 @@ import { IoLinkOutline,IoLogoFacebook,IoLogoTwitter,IoLogoYoutube,IoLogoInstagra
 import { SiPlurk,SiPixiv } from "react-icons/si";
 import { GrCatalog } from "react-icons/gr";
 
-export const LinkComponent = ({data}) => {
+export const LinkIcon = ({data}) => {
   if(data.category === "DM"){
     return <GrCatalog></GrCatalog>
   }
@@ -34,4 +34,4 @@ export const LinkComponent = ({data}) => {
   )
 }
 
-export default LinkComponent
+export default LinkIcon
