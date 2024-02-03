@@ -29,12 +29,14 @@ function Main() {
   const tagFilterList = useTagFilter((state) => state.tagFilter);
   const initCollection = useCollection((state) => state.initCollection);
   const position = usePosition((state) => state.position);
-  const setPosition = usePosition((state) => state.setPosition);  
+  const setPosition = usePosition((state) => state.setPosition);
+  const initPosition = usePosition((state) => state.initPosition); 
   window.scrollTo(0, position);
   console.log("Component Rerender");
   useEffect(() => {
     setAllFilter();
     initCollection();
+    initPosition()
   }, []);
   // Infinite Scroll
 

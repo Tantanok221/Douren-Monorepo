@@ -4,5 +4,6 @@ export const usePosition = create((set) => ({
   position: 0,
   setPosition: (position) => {
     set(() => ({position}))
-  }
+  },
+  initPosition: () => set({position: 0}),
 }))
