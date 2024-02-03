@@ -1,7 +1,7 @@
 .sidebarContainer {
   background: var(--Sidebar-BG, #111);
   height: 100%;
-  width: 18%;
+  width: 20%;
   padding: 3rem 0rem;
   position: fixed;
 
@@ -11,7 +11,7 @@
   padding: 0.75rem 2rem;
   color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 600;
   display: flex;
   text-decoration: none;
@@ -32,11 +32,17 @@
   .sidebarContainer {
     position: relative;
     bottom: 0px;
+    height: auto;
     width: 100%;
     padding: 1.5rem 1rem;
+    
   }
   .linkContainer {
     flex-direction: row;
     gap: 2rem;
+    
+  }
+  .linkButton {
+    font-size: 1.5rem;
   }
 }

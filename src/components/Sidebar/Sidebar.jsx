@@ -7,14 +7,17 @@ import { RiHome2Line } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
+
 
 export const Sidebar = () => {
   const sx = classNames.bind(style);
   const location = useLocation();
   console.log(location.pathname)
+  const matches = useMediaQuery('(max-width: 800px)');
   return (
     <div className={sx("sidebarContainer")}>
-      <IconContext.Provider value={{ color: "#AAAAAA", size: "1.5rem" }}>
+      <IconContext.Provider value={{ color: "#AAAAAA", size: matches ? "2rem" : "1.5rem"  }}>
         <div className={sx("linkContainer")}>
           <Link to={"/"} className={sx("linkButton",{activeButton: location.pathname === "/"})}>
             <RiHome2Line />
