@@ -8,10 +8,11 @@ import LinkContainer from "../../components/LinkContainer/LinkContainer";
 import { IconContext } from "react-icons";
 function AboutUs() {
   const sx = classNames.bind(styles);
-  const { data, isError, status } = useQuery({
+  const { data, error, status } = useQuery({
     queryKey: ["aboutUs"],
     queryFn: async () => {
-      const res = await supabase.from("author").select("*");
+      let query = supabase.from("author").select("*")
+      const res = await query;
       return res.data;
     },
   });
@@ -23,6 +24,7 @@ function AboutUs() {
     },
   ];
   console.log(data);
+  console.log(error)
   if (status === "loading") return <div>loading</div>;
   return (
     <div className={sx("mainContainer")}>
