@@ -1,24 +1,43 @@
-
-.MainContainer {
+.mainContainer {
   margin: 3rem 6%;
   margin-bottom: 0px;
-   margin-left: 26%;
-}  
+  margin-left: 26%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.authorContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  
+}
+
+.header {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 500;
+  font-family: var(--Font);
+}
+
+.text {
+  color: #dfdfdf;
+  font-family: var(--Font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  
+}
 
 @media (max-width: 800px) {
-    
-  .MainContainer {
+  .mainContainer {
     margin: 1.25rem 5%;
     box-sizing: border-box;
   }
-}  
+}
 
 @media (max-width: 500px) {
-  .MainContainer {
+  .mainContainer {
     margin: 1rem 10%;
-  }  
-}  
-
-
-
-
+  }
+}
