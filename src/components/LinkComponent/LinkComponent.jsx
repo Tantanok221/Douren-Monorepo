@@ -33,3 +33,5 @@ export const LinkComponent = ({data}) => {
     <IoLinkOutline></IoLinkOutline>
   )
 }
+
+export default LinkComponent

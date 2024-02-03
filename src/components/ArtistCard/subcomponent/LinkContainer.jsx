@@ -3,10 +3,11 @@ import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { IconContext } from "react-icons";
-import { LinkComponent } from "./LinkComponent";
+
 
 import { motion } from "framer-motion";
 import DMButton from "./DMButton";
+import LinkComponent from "../../LinkComponent/LinkComponent";
 
 function processLink(links, names, category) {
 

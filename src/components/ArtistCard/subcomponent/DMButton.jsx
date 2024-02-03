@@ -7,7 +7,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
-import { LinkComponent } from "./LinkComponent";
+import LinkComponent from "../../LinkComponent/LinkComponent";
 import "react-lazy-load-image-component/src/effects/blur.css";
 const DMButton = () => {
   const sx = classNames.bind(styles);
