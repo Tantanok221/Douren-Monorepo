@@ -9,7 +9,7 @@ import DMButton from "./DMButton";
 import { processLink } from "../../../helper/processLink";
 import LinkIcon from "../../LinkIcon/LinkIcon";
 
-const LinkContainer = () => {
+const ArtistLinkContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
@@ -38,26 +38,10 @@ const LinkContainer = () => {
         }}
       >
         <DMButton />
-        {link.map((item, index) => (
-          <motion.a
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={sx("linkButton")}
-            key={item + index}
-            whileHover={{
-              backgroundColor: "#4D4D4D",
-            }}
-          >
-            <div className={sx("linkIcon")}>
-              <LinkIcon key={index} data={item} />
-            </div>
-            {item.name}
-          </motion.a>
-        ))}
       </IconContext.Provider>
     </div>
   );
 };
 
-export default LinkContainer;
+
+export default ArtistLinkContainer;

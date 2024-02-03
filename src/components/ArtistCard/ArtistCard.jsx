@@ -5,10 +5,9 @@ import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection";
 import ArtistCardContext from "./ArtistCardContext";
 import ImageContainer from "./subcomponent/ImageContainer";
-
 import TagContainer from "./subcomponent/TagContainer";
 import DayContainer from "./subcomponent/DayContainer";
-import LinkContainer from "./subcomponent/LinkContainer";
+import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import { listVariants } from "../../helper/listAnimation";
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
@@ -31,7 +30,7 @@ const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
             <HeaderContainer />
             <TagContainer />
             <DayContainer />
-            <LinkContainer />
+            <ArtistLinkContainer />
           </div>
         </motion.div>
       </motion.div>
