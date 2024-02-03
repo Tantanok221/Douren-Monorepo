@@ -28,7 +28,7 @@ const DiscordButton = ({ discord_name }) => {
           }, 100);
         }}
       >
-        <LinkIcon data={{ category: "discord" }}></LinkIcon>
+        <LinkIcon data={{ category: "Discord" }}></LinkIcon>
         {discord_name}
       </button>
       <Toast.Root duration={1000} open={open} onOpenChange={setOpen} className={sx('toastRoot')} >
