@@ -3,7 +3,7 @@ import LinkIcon from "../../LinkIcon/LinkIcon";
 import classNames from "classnames/bind";
 import style from "../AboutCard.module.css";
 import * as Toast from "@radix-ui/react-toast";
-
+import {motion} from "framer-motion";
 
 const DiscordButton = ({ discord_name }) => {
   const [open, setOpen] = React.useState(false);
@@ -16,9 +16,12 @@ const DiscordButton = ({ discord_name }) => {
   const sx = classNames.bind(style);
   return (
     <Toast.Provider>
-      <button
+      <motion.button
         className={sx("linkButton")}
         value={discord_name}
+        whileHover={{
+          backgroundColor: "#4D4D4D",
+        }}
         onClick={(event) => {
           navigator.clipboard.writeText(event.target.value);
           setOpen(false);
@@ -30,7 +33,7 @@ const DiscordButton = ({ discord_name }) => {
       >
         <LinkIcon data={{ category: "Discord" }}></LinkIcon>
         {discord_name}
-      </button>
+      </motion.button>
       <Toast.Root duration={1000} open={open} onOpenChange={setOpen} className={sx('toastRoot')} >
         <Toast.Title className={sx('toastTitle')}>
           Discord 名字已經複製到剪貼簿
