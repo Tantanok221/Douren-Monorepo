@@ -1,0 +1,25 @@
+.linkButton {
+  color: var(--Dark-Link, #cbc3c3);
+  background: var(--Dark-LinkPanel, #3c3c3c);
+  border: none;
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .linkButton {
+    padding: 1rem 1.25rem;
+    font-size: 1.25rem;
+  }
+}
