@@ -4,7 +4,8 @@
   width: 20%;
   padding: 3rem 0rem;
   position: fixed;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .linkButton {
@@ -27,6 +28,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  height: 85%;
 }
 @media (max-width: 800px) {
   .sidebarContainer {
@@ -35,7 +37,8 @@
     height: auto;
     width: 100%;
     padding: 1.5rem 1rem;
-    
+    flex-direction: row;
+    justify-content: space-evenly;
   }
   .linkContainer {
     flex-direction: row;

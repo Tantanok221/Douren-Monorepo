@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Sidebar.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { MdOutlineBookmarkBorder } from "react-icons/md";
+import { MdOutlineBookmarkBorder,MdInfoOutline  } from "react-icons/md";
 import { RiHome2Line } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
@@ -28,6 +28,15 @@ export const Sidebar = () => {
             <MdOutlineBookmarkBorder />
             我的收藏
           </Link>
+          
+        </div>
+        <div className={sx('bottomContainer')}>
+        <Link to={"/about"} className={sx("linkButton",{activeButton: location.pathname === "/about"})}>
+            
+            <MdInfoOutline  />
+            關於我們
+          </Link>
+          
         </div>
       </IconContext.Provider>
     </div>
