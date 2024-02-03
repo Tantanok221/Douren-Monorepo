@@ -12,7 +12,6 @@ import HeaderContainer from "./subcomponent/HeaderContainer";
 import { listVariants } from "../../helper/listAnimation";
 const ArtistCard = React.forwardRef(({ data, passRef }, ref) => {
   const collection = useCollection((state) => state.collection);
-  console.log(collection);
   const sx = classNames.bind(styles);
   return (
     <ArtistCardContext.Provider value={data}>

@@ -13,7 +13,6 @@ const BookmarkContainer = () => {
   const updateLocalStorage = useCollection((state) => state.updateLocalStorage);
   const checkAvailable = useCollection((state) => state.checkAvailable);
   const isAvailable = checkAvailable(data);
-  console.log(isAvailable)
   return (
     <div className={sx("bookmarkContainer")} >
       <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
