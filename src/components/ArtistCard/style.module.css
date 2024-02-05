@@ -70,9 +70,9 @@
 }
 
 .tagDescription {
-  background: var(--Dark-TagBackground, #464646);
+  background: var(--TagBackground, #464646);
   border-radius: 0.25rem;
-  color: var(--Dark-TagText, #aaa);
+  color: var(--TagText, #aaa);
   font-family: var(--Font);
   border-radius: 0.25rem 0rem 0rem 0.25rem;
   font-size: 1rem;
@@ -80,17 +80,29 @@
 }
 
 .tagItem {
+  background: none;
+  border: none;
   display: flex;
   flex-direction: row;
+  padding: 0px;
 }
 
 .tagCount {
   border-radius: 0rem 0.25rem 0.25rem 0rem;
-  background: var(--Dark-NumberTagBackground, #3c3c3c);
+  background: var(--NumberTagBackground, #3c3c3c);
   padding: 0.25rem 0.5rem;
-  color: var(--Dark-NumberTag, #686868);
+  color: var(--NumberTag, #686868);
   font-size: 1rem;
   font-family: var(--Font);
+}
+
+.activeTagCount {
+  background:  #4d4d4d;
+}
+
+.activeTagDescription {
+  background:  rgb(90, 89, 89);
+  color: #adadad;
 }
 
 .dayContainer {
