@@ -15,6 +15,7 @@ import { useCollection } from "../../hooks/useCollection.js";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 import { usePosition } from "../../hooks/usePosition.js";
+import Animate from "../../animate/Animate.jsx"
 
 function Main() {
   const [posts, setPosts] = React.useState(false);
@@ -121,6 +122,7 @@ function Main() {
     initial={{opacity: 0}}
     animate={{opacity: 1}}
     exit={{opacity: 0}}
+    transition={{duration: 1, ease: "easeInOut"}}
     className={sx("MainContainer")}>
       {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
       <form id="top" className={sx("searchContainer")}>
@@ -153,4 +155,4 @@ function Main() {
     </motion.div>
   );
 }
-export default Main;
+export default Animate(Main);

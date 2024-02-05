@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useCollection } from "../../hooks/useCollection.js";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
+import Animate from "../../animate/Animate.jsx"
+
 export const Collection = () => {
   const [posts, setPosts] = React.useState(false);
   const sx = classNames.bind(style);
@@ -21,6 +23,7 @@ export const Collection = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{duration: 1.15}}
       className={sx("mainContainer")}
     >
       <motion.div className={sx("collectionLayout")}>
@@ -46,4 +49,4 @@ export const Collection = () => {
     </motion.div>
   );
 };
-export default Collection;
+export default Animate(Collection);

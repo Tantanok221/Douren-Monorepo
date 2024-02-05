@@ -7,7 +7,7 @@ import AboutCard from "../../components/AboutCard/AboutCard";
 import LinkContainer from "../../components/LinkContainer/LinkContainer";
 import { IconContext } from "react-icons";
 import { DiscordGroup, author_data } from "../../data/author_data";
-
+import Animate from "../../animate/Animate.jsx"
 function AboutUs() {
   const sx = classNames.bind(styles);
 
@@ -16,6 +16,7 @@ function AboutUs() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{duration: 1.15}}
       className={sx("mainContainer")}
     >
       <div className={sx("header")}>關於我們</div>
@@ -45,4 +46,4 @@ function AboutUs() {
     </motion.div>
   );
 }
-export default AboutUs;
+export default Animate(AboutUs);
