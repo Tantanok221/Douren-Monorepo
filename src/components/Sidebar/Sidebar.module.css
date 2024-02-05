@@ -32,8 +32,9 @@
 }
 @media (max-width: 800px) {
   .sidebarContainer {
-    position: relative;
+    position: fixed;
     bottom: 0px;
+    z-index: 4;
     height: auto;
     width: 100%;
     padding: 1.5rem 1rem;
