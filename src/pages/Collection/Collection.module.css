@@ -51,9 +51,10 @@
   .Root {
     flex-direction: column;
   }
-  .MainContainer {
+  .mainContainer {
     margin: 1.25rem 5%;
     box-sizing: border-box;
+    padding-left: 6%;
   }
   .ArtistContainer {
     align-items: flex-start;
