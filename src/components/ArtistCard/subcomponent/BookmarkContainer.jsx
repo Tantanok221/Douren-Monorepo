@@ -5,6 +5,7 @@ import { useArtistCardContext } from "../ArtistCardContext";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useCollection } from "../../../hooks/useCollection";
+import {motion} from "framer-motion";
 const BookmarkContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
@@ -14,7 +15,7 @@ const BookmarkContainer = () => {
   const checkAvailable = useCollection((state) => state.checkAvailable);
   const isAvailable = checkAvailable(data);
   return (
-    <div className={sx("bookmarkContainer")} >
+    <motion.div whileHover={{scale: 1.1}} className={sx("bookmarkContainer")} >
       <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
         <button
           onClick={(event) => {
@@ -30,7 +31,7 @@ const BookmarkContainer = () => {
           {!isAvailable ? <MdOutlineBookmarkBorder /> : <MdBookmark />}
         </button>
       </IconContext.Provider>
-    </div>
+    </motion.div>
   );
 };
 
