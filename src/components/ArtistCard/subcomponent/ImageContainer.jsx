@@ -10,7 +10,7 @@ const ImageContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext()
   let width = "500px"
-  const tabSize = useMediaQuery('(min-width: 1300px)');
+  const tabSize = useMediaQuery('(min-width: 1340px)');
   
   const phoneSize = useMediaQuery('(max-width: 590px)');
   const smallPhoneSize = useMediaQuery('(max-width: 445px)');

@@ -5,6 +5,7 @@
   padding: 3rem 0rem;
   position: fixed;
   display: flex;
+  max-width: 250px;
   flex-direction: column;
 }
 
@@ -44,7 +45,6 @@
   .linkContainer {
     flex-direction: row;
     gap: 2rem;
-    
   }
   .linkButton {
     font-size: 1.5rem;
