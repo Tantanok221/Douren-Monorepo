@@ -17,28 +17,33 @@ export const Collection = () => {
   console.log(collection);
   if (!posts) return null;
   return (
-
-      <div className={sx("mainContainer")}>
-        <motion.div className={sx("collectionLayout")}>
-          <div className={sx("headerContainer")}>
-            <div id="top" className={sx("title")}>我的收藏</div>
-            <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={sx("mainContainer")}
+    >
+      <motion.div className={sx("collectionLayout")}>
+        <div className={sx("headerContainer")}>
+          <div id="top" className={sx("title")}>
+            我的收藏
           </div>
-          <div className={sx("artistContainer")}>
-            {collection.length !== 0 ? (
-              collection.map((item, index) => {
-                return <ArtistCard key={item.id} data={item} />;
-              })
-            ) : (
-              <div className={sx("emptyText")}>
-                你目前還沒有把任何攤位加入我的收藏！
-              </div>
-            )}
-          </div>
-        </motion.div>
-        <ScrollToTop/>
-      </div>
-
+          <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
+        </div>
+        <div className={sx("artistContainer")}>
+          {collection.length !== 0 ? (
+            collection.map((item, index) => {
+              return <ArtistCard key={item.id} data={item} />;
+            })
+          ) : (
+            <div className={sx("emptyText")}>
+              你目前還沒有把任何攤位加入我的收藏！
+            </div>
+          )}
+        </div>
+      </motion.div>
+      <ScrollToTop />
+    </motion.div>
   );
 };
-export default Collection
+export default Collection;

@@ -1,19 +1,23 @@
-import classNames from 'classnames/bind';
-import React from 'react'
+import classNames from "classnames/bind";
+import React from "react";
 import { Outlet } from "react-router-dom";
-import { Sidebar } from '../../components/Sidebar/Sidebar';
-import style from './root.module.css'
-import {useQueryClient} from '@tanstack/react-query'
+import { Sidebar } from "../../components/Sidebar/Sidebar";
+import style from "./root.module.css";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 const Root = () => {
   const queryClient = useQueryClient();
   const sx = classNames.bind(style);
+  const location = useLocation();
   return (
-    <div className={sx("Root")}>
-      <Sidebar/>
-      <Outlet/>
+    <AnimatePresence>
+      <div className={sx("Root")}>
+        <Sidebar />
+        <Outlet key={location} />
       </div>
-    
-  )
-}
+    </AnimatePresence>
+  );
+};
 
-export default Root
+export default Root;

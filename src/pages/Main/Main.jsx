@@ -117,7 +117,11 @@ function Main() {
   }
   const sx = classNames.bind(styles);
   return (
-    <div className={sx("MainContainer")}>
+    <motion.div 
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    className={sx("MainContainer")}>
       {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
       <form id="top" className={sx("searchContainer")}>
         <SearchBox />
@@ -146,7 +150,7 @@ function Main() {
         {}
       </motion.div>
       <ScrollToTop />
-    </div>
+    </motion.div>
   );
 }
 export default Main;

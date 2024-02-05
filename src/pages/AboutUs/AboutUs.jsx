@@ -12,7 +12,12 @@ function AboutUs() {
   const sx = classNames.bind(styles);
 
   return (
-    <div className={sx("mainContainer")}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={sx("mainContainer")}
+    >
       <div className={sx("header")}>關於我們</div>
 
       <div className={sx("authorContainer")}>
@@ -37,7 +42,7 @@ function AboutUs() {
           </div>
         </IconContext.Provider>
       </div>
-    </div>
+    </motion.div>
   );
 }
 export default AboutUs;
