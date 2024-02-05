@@ -19,6 +19,9 @@ const DMButton = () => {
             whileHover={{
               backgroundColor: "#4D4D4D",
             }}
+            initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
             className={sx("linkButton")}
           >
             <LinkIcon data={{ category: "DM" }} />
