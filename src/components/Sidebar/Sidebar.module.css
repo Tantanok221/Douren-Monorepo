@@ -4,6 +4,7 @@
   width: 20%;
   padding: 3rem 0rem;
   position: fixed;
+  z-index: 4;
   display: flex;
   max-width: 250px;
   flex-direction: column;
@@ -35,7 +36,7 @@
   .sidebarContainer {
     position: fixed;
     bottom: 0px;
-    z-index: 4;
+    
     height: auto;
     width: 100%;
     max-width: 100%;
