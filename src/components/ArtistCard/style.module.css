@@ -80,6 +80,7 @@
 }
 
 .tagItem {
+  cursor: pointer;
   background: none;
   border: none;
   display: flex;
