@@ -12,53 +12,56 @@ import LinkIcon from "../../LinkIcon/LinkIcon";
 const DMButton = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
-  return (data.DM ? (
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
-          <motion.div
-            whileHover={{
-              backgroundColor: "#4D4D4D",
-            }}
-            initial={{ scale: 0 }}
+  let link = (data.DM ?? "").split("\n");
+  console.log(link);
+  return data.DM ? (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <motion.div
+          whileHover={{
+            backgroundColor: "#4D4D4D",
+          }}
+          initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
-            className={sx("linkButton")}
-          >
-            <LinkIcon data={{ category: "DM" }} />
-            商品項目
-          </motion.div>
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay>
-            <div className={sx("dialogOverlay")}></div>
-          </Dialog.Overlay>
-          <Dialog.Content aria-describedby={undefined}>
-            <div className={sx("dialogContent")}>
-              <VisuallyHidden.Root asChild>
-                {/* <IconContext.Provider
+          className={sx("linkButton")}
+        >
+          <LinkIcon data={{ category: "DM" }} />
+          商品項目
+        </motion.div>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay>
+          <div className={sx("dialogOverlay")}></div>
+        </Dialog.Overlay>
+        <Dialog.Content aria-describedby={undefined}>
+          <div className={sx("dialogContent")}>
+            <VisuallyHidden.Root asChild>
+              {/* <IconContext.Provider
                       value={{ color: "#FFFFFF", size: "3rem" }}
                     > */}
-                <Dialog.Close className={sx("dialogClose")}>
-                  {/* <IoClose></IoClose> */}
-                </Dialog.Close>
-                {/* </IconContext.Provider> */}
-              </VisuallyHidden.Root>
-              <VisuallyHidden.Root asChild>
-                <Dialog.Title />
-              </VisuallyHidden.Root>
-              <div className={sx("DMContainer")}>
+              <Dialog.Close className={sx("dialogClose")}>
+                {/* <IoClose></IoClose> */}
+              </Dialog.Close>
+              {/* </IconContext.Provider> */}
+            </VisuallyHidden.Root>
+            <VisuallyHidden.Root asChild>
+              <Dialog.Title />
+            </VisuallyHidden.Root>
+            <div className={sx("DMContainer")}>
+              {link.map((item) => {
                 <LazyLoadImage
                   className={sx("image")}
                   effect="blur"
-                  src={data.DM}
-                />
-              </div>
+                  src={item}
+                />;
+              })}
             </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    ) : null)
-  
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  ) : null;
 };
 
 export default DMButton;
