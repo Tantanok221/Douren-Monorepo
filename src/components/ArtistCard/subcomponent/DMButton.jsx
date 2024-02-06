@@ -50,7 +50,8 @@ const DMButton = () => {
             </VisuallyHidden.Root>
             <div className={sx("DMContainer")}>
               {link.map((item) => {
-                <LazyLoadImage
+
+                return <LazyLoadImage
                   className={sx("image")}
                   effect="blur"
                   src={item}
