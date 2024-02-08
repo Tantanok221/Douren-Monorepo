@@ -1,8 +1,7 @@
-# React + Vite
+### DoujinBooth-Website
+This is a website that help visitor of FancyFrontier 42 by gathering detailed information about all of the doujin booth that will be boothing at FancyFrontier 42.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This website is built with react and supabase.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Contribution
+We welcome any Contribution, feel free to contact us via the discord link at about us of this website
