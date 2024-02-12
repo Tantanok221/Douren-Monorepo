@@ -13,7 +13,7 @@ const DMButton = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
   let link = (data.DM ?? "").split("\n");
-  console.log(link);
+  
   return data.DM ? (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -49,11 +49,12 @@ const DMButton = () => {
               <Dialog.Title />
             </VisuallyHidden.Root>
             <div className={sx("DMContainer")}>
-              {link.map((item) => {
+              {link.map((item,index) => {
 
                 return <LazyLoadImage
                   className={sx("image")}
                   effect="blur"
+                  key={index+"DMImage"}
                   src={item}
                 />;
               })}
