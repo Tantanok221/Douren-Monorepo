@@ -10,7 +10,7 @@ import DayContainer from "./subcomponent/DayContainer";
 import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import { listVariants } from "../../helper/listAnimation";
-const ArtistCard = React.forwardRef(({ index,data, passRef }, ref) => {
+const ArtistCard = React.forwardRef(({ index, data }, ref) => {
   const collection = useCollection((state) => state.collection);
   const sx = classNames.bind(styles);
   return (
@@ -19,8 +19,8 @@ const ArtistCard = React.forwardRef(({ index,data, passRef }, ref) => {
         variants={listVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{once: true}}
-        ref={passRef}
+        viewport={{ once: true }}
+        ref={ref}
         className={sx("artistCard")}
         custom={index}
       >

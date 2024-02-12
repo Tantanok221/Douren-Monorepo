@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { supabase } from "../../helper/supabase.js";
 import { infiniteQuery } from "../../helper/infiniteQuery.js";
-import { useIntersection } from "@mantine/hooks";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.jsx";
@@ -16,6 +15,7 @@ import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 import { usePosition } from "../../hooks/usePosition.js";
 import Animate from "../../animate/Animate.jsx"
+import { useInViewport } from '@mantine/hooks';
 
 function Main() {
   const [posts, setPosts] = React.useState(false);
@@ -32,15 +32,18 @@ function Main() {
   const position = usePosition((state) => state.position);
   const setPosition = usePosition((state) => state.setPosition);
   const initPosition = usePosition((state) => state.initPosition); 
-  window.scrollTo(0, position);
+  const { ref, inViewport } = useInViewport();
+  
   console.log("Component Rerender");
+  useEffect(() => {
+    initPosition()
+  },[table, ascending, tagFilter])
+  window.scrollTo(0, position);
   useEffect(() => {
     setAllFilter();
     initCollection();
-    initPosition()
   }, []);
   // Infinite Scroll
-
   const {
     data,
     error,
@@ -50,20 +53,7 @@ function Main() {
     isFetchingNextPage,
     status,
   } = infiniteQuery(table, ascending, tagFilter);
-  const lastPostRef = React.useRef(null);
-  const { ref, entry } = useIntersection({
-    root: lastPostRef.current,
-    threshold: 1,
-  });
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      let pos = document.documentElement.scrollTop;
-      console.log(position);
-      setPosition(pos);
-      fetchNextPage();
-    }
-  }, [entry]);
-
+  
   useEffect(() => {
     setPosts(data?.pages.flatMap((page) => page));
   }, [data]);
@@ -101,6 +91,9 @@ function Main() {
     }
   }, [search, tagFilterList, table]);
   console.log(posts);
+  useEffect(() => {
+    fetchNextPage()
+  },[inViewport])
   if (isFetching) {
     return <div>Fetching...</div>;
   }
@@ -135,19 +128,18 @@ function Main() {
       <motion.div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
           if (
-            index === posts.length - (tagFilterList.length === 0 ? 5 : 1) &&
+            index === posts.length - 5 &&
             search === ""
           ) {
             return (
               <ArtistCard
-                key={item.id + index + item + table + ascending}
+                key={`${item.author_name}`}
                 data={item}
-                passRef={ref}
-                ref={lastPostRef}
+                ref={ref}
               />
             );
           }
-          return <ArtistCard key={item.id} data={item} />;
+          return <ArtistCard key={`${item.author_name}`} data={item} />;
         })}
         {}
       </motion.div>
