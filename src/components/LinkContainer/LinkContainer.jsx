@@ -13,7 +13,7 @@ const LinkContainer = ({ link }) => {
           target="_blank"
           rel="noopener noreferrer"
           className={sx("linkButton")}
-          key={item + index}
+          key={`${item.link}`}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
