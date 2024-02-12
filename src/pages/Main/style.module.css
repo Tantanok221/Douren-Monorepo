@@ -32,6 +32,24 @@
   display: flex;
   gap: 1.5rem;
 }  
+
+.fetchContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.fetchButton {
+  font-family: var(--Font);
+  padding: 1rem 1.75rem;
+  border: none;
+  background: var(--LinkPanel);
+  color: var(--Link);
+  font-size: 1.25rem;
+}
+
 @media (max-width: 800px) {
   .Root {
     flex-direction: column;

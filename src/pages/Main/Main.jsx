@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../../helper/supabase.js";
 import { infiniteQuery } from "../../helper/infiniteQuery.js";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
@@ -14,11 +14,18 @@ import { useCollection } from "../../hooks/useCollection.js";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 import { usePosition } from "../../hooks/usePosition.js";
-import Animate from "../../animate/Animate.jsx"
-import { useInViewport } from '@mantine/hooks';
+import Animate from "../../animate/Animate.jsx";
+import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.js";
 
 function Main() {
-  const [posts, setPosts] = React.useState(false);
+  const FETCH_COUNT = 20
+  const [posts, setPosts] = useState(false);
+  const [page, setPage] = useState(0);
+  const [start,setStart] = useState(1);
+  const [end,setEnd] = useState(FETCH_COUNT);
+  const nextPageAvailable = useNextPageAvailable(
+    (state) => state.nextPageAvailable
+  );
   const search = useSearch((state) => state.search);
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
@@ -31,31 +38,31 @@ function Main() {
   const initCollection = useCollection((state) => state.initCollection);
   const position = usePosition((state) => state.position);
   const setPosition = usePosition((state) => state.setPosition);
-  const initPosition = usePosition((state) => state.initPosition); 
-  const { ref, inViewport } = useInViewport();
-  
+  const initPosition = usePosition((state) => state.initPosition);
+  const initNextPageAvailable = useNextPageAvailable(
+    (state) => state.initNextPageAvailable
+  );
   console.log("Component Rerender");
   useEffect(() => {
-    initPosition()
-  },[table, ascending, tagFilter])
+    initPosition();
+  }, [table, ascending, tagFilter]);
   window.scrollTo(0, position);
   useEffect(() => {
     setAllFilter();
+    initNextPageAvailable();
     initCollection();
   }, []);
   // Infinite Scroll
   const {
     data,
     error,
-    fetchNextPage,
-    hasNextPage,
     isFetching,
-    isFetchingNextPage,
     status,
-  } = infiniteQuery(table, ascending, tagFilter);
-  
+  } = infiniteQuery(start,end, table, ascending, tagFilter);
+
   useEffect(() => {
-    setPosts(data?.pages.flatMap((page) => page));
+    console.log(data)
+    setPosts(data);
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
@@ -90,14 +97,9 @@ function Main() {
       }, 0);
     }
   }, [search, tagFilterList, table]);
-  console.log(posts);
-  useEffect(() => {
-    fetchNextPage()
-  },[inViewport])
   if (isFetching) {
     return <div>Fetching...</div>;
   }
-
   if (search.length > 0 ? false : !posts || !allFilter) {
     console.log(posts);
     console.log(status);
@@ -106,18 +108,15 @@ function Main() {
   if (status === "error") {
     return <div>error</div>;
   }
-  if (!hasNextPage) {
-    console.log("No more data");
-  }
   const sx = classNames.bind(styles);
   return (
-    <motion.div 
-    initial={{opacity: 0}}
-    animate={{opacity: 1}}
-    exit={{opacity: 0}}
-    transition={{duration: 1, ease: "easeInOut"}}
-    className={sx("MainContainer")}>
-      {/* <button onClick={fetchNextPage}>Fetch Next Page</button> */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+      className={sx("MainContainer")}
+    >
       <form id="top" className={sx("searchContainer")}>
         <SearchBox />
       </form>
@@ -125,24 +124,40 @@ function Main() {
         <SortSelect />
         <TagFilter />
       </div>
-      <motion.div className={sx("ArtistContainer")}>
+      <div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
-          if (
-            index === posts.length - 5 &&
-            search === ""
-          ) {
-            return (
-              <ArtistCard
-                key={`${item.author_name}`}
-                data={item}
-                ref={ref}
-              />
-            );
+          if (index === posts.length - 5 && search === "") {
+            return <ArtistCard key={`${item.id}`} data={item} />;
           }
-          return <ArtistCard key={`${item.author_name}`} data={item} />;
+          return <ArtistCard key={`${item.id}`} data={item} />;
         })}
-        {}
-      </motion.div>
+        <div className={sx("fetchContainer")}>
+          {page !== 0 ? (
+            <button
+              className={sx("fetchButton")}
+              onClick={() => {
+                setPage(page - 1);
+                setStart(start-FETCH_COUNT);
+                setEnd(end-FETCH_COUNT);
+              }}
+            >
+              上一頁
+            </button>
+          ) : null}
+          {nextPageAvailable ? (
+            <button
+              className={sx("fetchButton")}
+              onClick={() => {
+                setStart(start+FETCH_COUNT);
+                setEnd(end+FETCH_COUNT);
+                setPage(page + 1);
+              }}
+            >
+              下一頁
+            </button>
+          ) : null}
+        </div>
+      </div>
       <ScrollToTop />
     </motion.div>
   );

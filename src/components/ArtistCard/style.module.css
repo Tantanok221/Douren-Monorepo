@@ -4,6 +4,7 @@
   background: var(--Panel, #1f1f21);
   width: 100%;
   border: none;
+  min-height: 100px;
   box-sizing: border-box;
 }
 
@@ -233,8 +234,6 @@
   border: none;
   cursor: pointer;
 }
-
-
 
 @media(max-width: 1000px) {
   .mainContainer {
