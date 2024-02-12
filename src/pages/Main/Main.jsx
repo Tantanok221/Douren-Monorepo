@@ -18,7 +18,7 @@ import Animate from "../../animate/Animate.jsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.js";
 
 function Main() {
-  const FETCH_COUNT = 20
+  const FETCH_COUNT = 40
   const [posts, setPosts] = useState(false);
   const [page, setPage] = useState(0);
   const [start,setStart] = useState(1);
@@ -61,8 +61,7 @@ function Main() {
   } = infiniteQuery(start,end, table, ascending, tagFilter);
 
   useEffect(() => {
-    console.log(data)
-    setPosts(data);
+    if(data?.length != 0) setPosts(data);
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
