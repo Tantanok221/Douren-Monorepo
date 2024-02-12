@@ -37,7 +37,9 @@ export function infiniteQuery(start,end,table, ascending, tagFilter) {
       }
       console.log(data)
       if (error) throw error;
-      data.pop()
+      if(filterEmpty) {
+        data.pop()
+      }
       return data;
     },
     keepPreviousData: true,
