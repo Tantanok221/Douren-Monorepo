@@ -131,7 +131,7 @@ function Main() {
           return <ArtistCard key={`${item.id}`} data={item} />;
         })}
         <div className={sx("fetchContainer")}>
-          {page !== 0 ? (
+          {page !== 0 && search.length === 0 ? (
             <button
               className={sx("fetchButton")}
               onClick={() => {
@@ -143,7 +143,7 @@ function Main() {
               上一頁
             </button>
           ) : null}
-          {nextPageAvailable ? (
+          {nextPageAvailable && search.length === 0 ? (
             <button
               className={sx("fetchButton")}
               onClick={() => {
