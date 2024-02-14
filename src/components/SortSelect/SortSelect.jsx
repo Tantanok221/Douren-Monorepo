@@ -47,10 +47,10 @@ const SortSelect = () => {
                   text={"A-Z"}
                   value={["author_name", true, "攤位名字"]}
                 />
-                <SelectItem
+                {/* <SelectItem
                   text={"Z-A"}
                   value={["author_name", false, "攤位名字"]}
-                />
+                /> */}
 
                 <SelectSeperator />
 
@@ -61,10 +61,10 @@ const SortSelect = () => {
                   text={"A-Z"}
                   value={["DAY01_location", true, "攤位位置Day 1"]}
                 />
-                <SelectItem
+                {/* <SelectItem
                   text={"Z-A"}
                   value={["DAY01_location", false, "攤位位置Day 1"]}
-                />
+                /> */}
 
                 <SelectSeperator />
 
@@ -75,10 +75,10 @@ const SortSelect = () => {
                   text={"A-Z"}
                   value={["DAY02_location", true, "攤位位置Day 2"]}
                 />
-                <SelectItem
+                {/* <SelectItem
                   text={"Z-A"}
                   value={["DAY02_location", false, "攤位位置Day 2"]}
-                />
+                /> */}
 
                 <SelectSeperator />
 
@@ -89,10 +89,10 @@ const SortSelect = () => {
                   text={"A-Z"}
                   value={["DAY03_location", true, "攤位位置Day 3"]}
                 />
-                <SelectItem
+                {/* <SelectItem
                   text={"Z-A"}
                   value={["DAY03_location", false, "攤位位置Day 3"]}
-                />
+                /> */}
               </Select.Group>
             </Select.Viewport>
             <Select.ScrollDownButton>
