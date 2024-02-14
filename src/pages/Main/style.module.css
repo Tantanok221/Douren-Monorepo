@@ -39,6 +39,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 8rem;
 }
 
 .fetchButton {
@@ -60,6 +61,9 @@
   }  
   .ArtistContainer {
     align-items: flex-start;
+  }
+  .fetchContainer {
+    width: 100%;
   }
 }  
 
