@@ -4,8 +4,7 @@ export const author_data = [
 
     title: "網頁開發/UIUX",
 
-    description:
-      "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum",
+    description: null,
 
     github_link: "https://github.com/Tantanok221",
 
@@ -19,9 +18,9 @@ export const author_data = [
   },
 
   {
-    name: "LBM",
+    name: "小黑蚊",
 
-    title: "整理/主要計畫者",
+    title: "主要管理者/資訊整理者",
 
     description: null,
 

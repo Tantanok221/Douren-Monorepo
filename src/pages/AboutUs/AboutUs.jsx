@@ -28,8 +28,7 @@ function AboutUs() {
       </div>
       <div className={sx("dcContainer")}>
         <div className={sx("text")}>
-          資料出錯? 想換你的照片? 想要在這個網站貢獻些什麽? 有什麽想要的功能?
-          歡迎加入我們的DC 來討論
+        資料出錯？想換您的圖片？對於網站有任何問題及意見歡迎使用推特或DC私訊小黑蚊
         </div>
         <IconContext.Provider
           value={{
