@@ -6,6 +6,8 @@ import style from "./root.module.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { Analytics } from '@vercel/analytics/react';
+
 const Root = () => {
   const queryClient = useQueryClient();
   const sx = classNames.bind(style);
@@ -13,6 +15,7 @@ const Root = () => {
   return (
     <AnimatePresence>
       <div className={sx("Root")}>
+        <Analytics></Analytics>
         <Sidebar />
         <Outlet key={location} />
       </div>
