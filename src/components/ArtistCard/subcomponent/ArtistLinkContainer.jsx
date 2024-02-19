@@ -21,7 +21,7 @@ const ArtistLinkContainer = () => {
     processLink(data.Twitter_link, data.Twitter_name, "Twitter")
   );
   link = link.concat(
-    processLink(data.Youtube_link, data.Youtube_name, "Youtube")
+    processLink(data.YouTube_link, data.YouTube_name, "Youtube")
   );
   link = link.concat(processLink(data.plurk_link, data.plurk_name, "Plurk"));
   link = link.concat(processLink(data.baha_link, data.baha_name, "Baha"));
