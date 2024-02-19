@@ -23,8 +23,8 @@ const ArtistLinkContainer = () => {
   link = link.concat(
     processLink(data.Youtube_link, data.Youtube_name, "Youtube")
   );
-  link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
-  link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
+  link = link.concat(processLink(data.plurk_link, data.plurk_name, "Plurk"));
+  link = link.concat(processLink(data.baha_link, data.baha_name, "Baha"));
   link = link.concat(processLink(data.other_website, "官網", "Other"));
 
   return (
