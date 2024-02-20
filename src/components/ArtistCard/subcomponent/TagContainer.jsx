@@ -26,14 +26,15 @@ const TagContainer = () => {
       setChecked(val.index ,false);
     }
   }
-
-  allTag.splice(allTag.length - 1, 1);
+  allTag.filter((item) => item !== "")
   let renderTag = [];
   allTag.forEach((item, index) => {
     renderTag[index] = getTag(item);
   });
   renderTag = renderTag.flatMap((value) => value);
-  // console.log(renderTag[0])
+  console.log((data.tag ?? "").split(","))
+  
+  console.log(renderTag)
   console.log(tagFilter);
   return (
     <div className={sx("tagContainer")}>
