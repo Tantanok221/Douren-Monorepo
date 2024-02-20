@@ -44,6 +44,6 @@ export function infiniteQuery(start,end,table, ascending, tagFilter) {
     },
     keepPreviousData: true,
     enabled: search.length === 0,
-    
+    refetchOnWindowFocus: false,
   });
 }
