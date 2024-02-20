@@ -4,6 +4,7 @@ import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { useTagFilter } from "../../../hooks/useTagFilter";
 import { motion } from "framer-motion";
+import { useLocation } from 'react-router-dom';
 const TagContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
@@ -14,10 +15,11 @@ const TagContainer = () => {
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
   const checked = useTagFilter((state) => state.checked);
   const setChecked = useTagFilter((state) => state.setChecked);
+  const location = useLocation();
 
   function handleClick(val) {
     
-    if (tagFilter.filter((item) => item === val).length === 0) {
+    if (tagFilter.filter((item) => item === val).length === 0 && location.pathname != "/collection") {
       addTagFilter(val);
       setChecked(val.index ,true);
     } else {
