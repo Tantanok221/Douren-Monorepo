@@ -42,7 +42,6 @@ function Main() {
   const initNextPageAvailable = useNextPageAvailable(
     (state) => state.initNextPageAvailable
   );
-  console.log("Component Rerender");
   useEffect(() => {
     initPosition();
   }, [table, ascending, tagFilter]);
@@ -80,7 +79,6 @@ function Main() {
 
         query = query.order(table, { ascending });
         let { data, error } = await query;
-        console.log(tagFilter);
         if (tagFilter.length !== 0) {
           // console.log(data)
           data = data.filter((item) => {
@@ -92,7 +90,6 @@ function Main() {
             return tagFilter.every((filter) => tag.includes(filter));
           });
         }
-        console.log(data);
         setPosts(data);
       }, 0);
     }
@@ -101,8 +98,6 @@ function Main() {
     return <div>Fetching...</div>;
   }
   if (search.length > 0 ? false : !posts || !allFilter) {
-    console.log(posts);
-    console.log(status);
     return <div>Loading...</div>; // or some loading spinner
   }
   if (status === "error") {

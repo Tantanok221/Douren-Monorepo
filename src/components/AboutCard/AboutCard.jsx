@@ -17,8 +17,7 @@ const AboutCard = ({ author_data }) => {
     processLink(author_data.github_link, author_data.github_name, "Github")
   );
   
-  console.log(link);
-  console.log(author_data);
+
   return (
     <motion.div className={sx("AboutCard")}>
       <div className={sx("header")}>

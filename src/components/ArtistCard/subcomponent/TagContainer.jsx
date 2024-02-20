@@ -16,7 +16,6 @@ const TagContainer = () => {
   const setChecked = useTagFilter((state) => state.setChecked);
 
   function handleClick(val) {
-    console.log(val)
     
     if (tagFilter.filter((item) => item === val).length === 0) {
       addTagFilter(val);
@@ -32,10 +31,6 @@ const TagContainer = () => {
     renderTag[index] = getTag(item);
   });
   renderTag = renderTag.flatMap((value) => value);
-  console.log((data.tag ?? "").split(","))
-  
-  console.log(renderTag)
-  console.log(tagFilter);
   return (
     <div className={sx("tagContainer")}>
       {data.tag

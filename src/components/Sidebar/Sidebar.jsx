@@ -13,7 +13,6 @@ import { useMediaQuery } from '@mantine/hooks';
 export const Sidebar = () => {
   const sx = classNames.bind(style);
   const location = useLocation();
-  console.log(location.pathname)
   const matches = useMediaQuery('(max-width: 800px)');
   return (
     <div className={sx("sidebarContainer")}>

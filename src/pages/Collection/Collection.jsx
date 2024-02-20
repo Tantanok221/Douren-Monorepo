@@ -16,7 +16,6 @@ export const Collection = () => {
     initCollection();
     setPosts(true);
   }, []);
-  console.log(collection);
   if (!posts) return null;
   return (
     <motion.div

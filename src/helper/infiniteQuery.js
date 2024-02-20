@@ -28,14 +28,10 @@ export function infiniteQuery(start,end,table, ascending, tagFilter) {
         query = query.or(conditions);
       }
       query = query.order(table, { ascending }).range(start, end +1);
-      console.log(start,end)
       const { data, error } = await query;
-      console.log(data.length)
-      console.log(end - start + 1)
       if(data.length < end - start + 1) {
         setNextPageAvailable(false)
       }
-      console.log(data)
       if (error) throw error;
       if(filterEmpty) {
         data.pop()
