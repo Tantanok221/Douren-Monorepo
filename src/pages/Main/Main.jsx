@@ -18,11 +18,11 @@ import Animate from "../../animate/Animate.jsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.js";
 
 function Main() {
-  const FETCH_COUNT = 40
+  const FETCH_COUNT = 40;
   const [posts, setPosts] = useState(false);
   const [page, setPage] = useState(0);
-  const [start,setStart] = useState(1);
-  const [end,setEnd] = useState(FETCH_COUNT);
+  const [start, setStart] = useState(1);
+  const [end, setEnd] = useState(FETCH_COUNT);
   const nextPageAvailable = useNextPageAvailable(
     (state) => state.nextPageAvailable
   );
@@ -53,15 +53,16 @@ function Main() {
     initCollection();
   }, []);
   // Infinite Scroll
-  const {
-    data,
-    error,
-    isFetching,
-    status,
-  } = infiniteQuery(start,end, table, ascending, tagFilter);
+  const { data, error, isFetching, status } = infiniteQuery(
+    start,
+    end,
+    table,
+    ascending,
+    tagFilter
+  );
 
   useEffect(() => {
-    if(data?.length != 0) setPosts(data);
+    if (data?.length != 0) setPosts(data);
   }, [data]);
   // Search Function Implementation
   useEffect(() => {
@@ -132,28 +133,34 @@ function Main() {
         })}
         <div className={sx("fetchContainer")}>
           {page !== 0 && search.length === 0 ? (
-            <button
+            <motion.button
               className={sx("fetchButton")}
               onClick={() => {
                 setPage(page - 1);
-                setStart(start-FETCH_COUNT);
-                setEnd(end-FETCH_COUNT);
+                setStart(start - FETCH_COUNT);
+                setEnd(end - FETCH_COUNT);
+              }}
+              whileHover={{
+                backgroundColor: "#4D4D4D",
               }}
             >
               上一頁
-            </button>
+            </motion.button>
           ) : null}
           {nextPageAvailable && search.length === 0 ? (
-            <button
+            <motion.button
               className={sx("fetchButton")}
               onClick={() => {
-                setStart(start+FETCH_COUNT);
-                setEnd(end+FETCH_COUNT);
+                setStart(start + FETCH_COUNT);
+                setEnd(end + FETCH_COUNT);
                 setPage(page + 1);
+              }}
+              whileHover={{
+                backgroundColor: "#4D4D4D",
               }}
             >
               下一頁
-            </button>
+            </motion.button>
           ) : null}
         </div>
       </div>
