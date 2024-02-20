@@ -9,23 +9,25 @@ import { useDebounce } from "@uidotdev/usehooks";
 
 const SearchBox = () => {
   const sx = classNames.bind(styles);
-  const setSearch = useSearch ((state) => state.setSearch);
+  const setSearch = useSearch((state) => state.setSearch);
   const [isFocused, setIsFocused] = React.useState(false);
   const [bufferSearch, setBufferSearch] = React.useState("");
   const debounceSearch = useDebounce(bufferSearch, 500);
 
   useEffect(() => {
     setSearch(debounceSearch);
-  },[debounceSearch])
+  }, [debounceSearch]);
   return (
     <motion.div className={sx("searchBox", { focused: isFocused })}>
       <Icon isFocused={isFocused}></Icon>
+
       <motion.input
-        onSubmit = {(event) => event.preventDefault()}
-        onChange={(event) => 
-          setBufferSearch(event.target.value)}
+        onChange={(event) => setBufferSearch(event.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onKeyPress={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
         className={sx("inputBox")}
         placeholder="搜尋社團/作者名字"
       ></motion.input>
