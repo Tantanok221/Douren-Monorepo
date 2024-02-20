@@ -20,10 +20,10 @@ const TagContainer = () => {
     
     if (tagFilter.filter((item) => item === val).length === 0) {
       addTagFilter(val);
-      setChecked(val.index - 1,true);
+      setChecked(val.index ,true);
     } else {
       removeTagFilter(val);
-      setChecked(val.index - 1,false);
+      setChecked(val.index ,false);
     }
   }
 

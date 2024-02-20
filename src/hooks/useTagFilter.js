@@ -7,7 +7,7 @@ export const useTagFilter = create((set, get) => ({
   tagFilter: [],
   checked: Array(30).fill(""),
   setAllFilter: async () => {
-    const _data = await supabase.from("FF42-Tag").select("*");
+    const _data = await supabase.from("FF42-Tag").select("*").order("index", { ascending: true });
     set(() => ({ allFilter: _data.data }));
   },
   addTagFilter: (data) => {
