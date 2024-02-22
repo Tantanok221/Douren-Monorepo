@@ -16,7 +16,7 @@ export const Sidebar = () => {
   const matches = useMediaQuery('(max-width: 800px)');
   return (
     <div className={sx("sidebarContainer")}>
-      <IconContext.Provider value={{ color: "#AAAAAA", size: matches ? "2rem" : "1.5rem"  }}>
+      <IconContext.Provider value={{ color: "#AAAAAA", size: matches ? "1.75rem" : "2rem"  }}>
         <div className={sx("linkContainer")}>
           <Link to={"/"} className={sx("linkButton",{activeButton: location.pathname === "/"})}>
             <RiHome2Line />
