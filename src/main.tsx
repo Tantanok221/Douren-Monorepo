@@ -45,7 +45,7 @@ posthog.init(
   }
 );
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <PostHogProvider
