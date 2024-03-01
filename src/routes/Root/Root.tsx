@@ -16,7 +16,7 @@ const Root = () => {
     <AnimatePresence>
       <div className={sx("Root")}>
         <Sidebar />
-        <Outlet key={location} />
+        <Outlet key={location.key} />
         <SpeedInsights/>
       </div>
     </AnimatePresence>
