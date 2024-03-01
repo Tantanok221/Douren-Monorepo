@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../helper/supabase.js";
+import { supabase } from "../../helper/supabase.ts";
 import { infiniteQuery } from "../../helper/infiniteQuery.js";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import classNames from "classnames/bind";

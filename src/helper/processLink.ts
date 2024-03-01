@@ -1,10 +1,16 @@
-export function processLink(links, names, category) {
+interface LinkResult {
+  category: string
+  link: string
+  name: string
+}
+
+export function processLink(links: string, names: string, category: string) {
   if (!links) {
     return [];
   }
   let link = (links ?? "").split("\n");
   let name = (names ?? "")?.split("\n");
-  let result = [];
+  let result:LinkResult[] = [];
 
   link?.forEach((item, index) => {
     result.push({
