@@ -3,7 +3,7 @@ import { supabase } from "../helper/supabase";
 import { produce } from "immer";
 //     { tag: '原創', count: 149, index: 0 },
 
-interface TagObject {
+export interface TagObject {
   tag: string
   count: number | null;
   index: number
@@ -13,6 +13,12 @@ interface TagFilter {
   allFilter: TagObject[]
   tagFilter: TagObject[]
   checked: Boolean[]
+  setAllFilter: () => void
+  addTagFilter: (data:TagObject) => void
+  removeTagFilter: (data:TagObject) => void
+  removeAllTagFilter: () => void
+  getTag: (tag:string) => TagObject[]
+  setChecked: (index:number, val:boolean) => void
 }
 
 
@@ -37,7 +43,7 @@ export const useTagFilter = create<TagFilter>()((set, get) => ({
   removeAllTagFilter: () => {
     set(() => ({ tagFilter: [], checked: Array(30).fill("") }));
   },
-  getTag: (tag:string) => {
+  getTag: (tag) => {
     return get().allFilter.filter((val) => val.tag === tag);
   },
   setChecked: (index:number, val:boolean) => {

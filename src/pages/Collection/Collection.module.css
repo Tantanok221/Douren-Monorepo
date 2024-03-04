@@ -46,10 +46,9 @@
   font-size: 2.25rem;
   font-weight: 500;
 }
-
 @media (max-width: 800px) {
-  .Root {
-    flex-direction: column;
+.Root {
+  flex-direction: column;
   }
   .mainContainer {
     margin: 1.25rem 5%;

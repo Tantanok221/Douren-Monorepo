@@ -23,7 +23,6 @@ export const Sidebar = () => {
             FF42
           </Link>
           <Link to={"/collection"} className={sx("linkButton",{activeButton: location.pathname === "/collection"})}>
-            
             <MdOutlineBookmarkBorder />
             我的收藏
           </Link>

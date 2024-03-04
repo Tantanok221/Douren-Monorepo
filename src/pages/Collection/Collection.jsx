@@ -3,7 +3,7 @@ import style from "./Collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { useCollection } from "../../hooks/useCollection.js";
-import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
+import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 import Animate from "../../animate/Animate.jsx"
 

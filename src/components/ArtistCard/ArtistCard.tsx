@@ -10,7 +10,12 @@ import DayContainer from "./subcomponent/DayContainer";
 import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import { listVariants } from "../../helper/listAnimation";
-const ArtistCard = React.forwardRef(({ index, data }, ref) => {
+import { OldFF } from '../../../types/OldFF';
+interface Props {
+  index: number 
+  data: OldFF
+}
+const ArtistCard = React.forwardRef<HTMLDivElement,Props>(({ index, data }, ref) => {
   const collection = useCollection((state) => state.collection);
   const sx = classNames.bind(styles);
   return (

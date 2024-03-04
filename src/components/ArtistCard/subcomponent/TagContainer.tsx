@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
-import { useTagFilter } from "../../../hooks/useTagFilter";
+import { TagObject, useTagFilter } from '../../../hooks/useTagFilter';
 import { motion } from "framer-motion";
 import { useLocation } from 'react-router-dom';
 const TagContainer = () => {
@@ -17,7 +17,7 @@ const TagContainer = () => {
   const setChecked = useTagFilter((state) => state.setChecked);
   const location = useLocation();
 
-  function handleClick(val) {
+  function handleClick(val:TagObject) {
     
     if (tagFilter.filter((item) => item === val).length === 0 && location.pathname != "/collection") {
       addTagFilter(val);
@@ -28,10 +28,11 @@ const TagContainer = () => {
     }
   }
   allTag.filter((item) => item !== "")
-  let renderTag = [];
+  let renderTag: TagObject[][]|TagObject[] = [];
   allTag.forEach((item, index) => {
     renderTag[index] = getTag(item);
   });
+  console.log(renderTag)
   renderTag = renderTag.flatMap((value) => value);
   return (
     <div className={sx("tagContainer")}>

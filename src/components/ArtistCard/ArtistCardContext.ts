@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
+import { OldFF } from '../../../types/OldFF';
 
-
-const ArtistCardContext = createContext(undefined)
+const ArtistCardContext = createContext<undefined|OldFF>(undefined)
 
 export function useArtistCardContext(){
   const context = useContext(ArtistCardContext)
