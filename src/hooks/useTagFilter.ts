@@ -1,19 +1,35 @@
 import { create } from "zustand";
 import { supabase } from "../helper/supabase";
 import { produce } from "immer";
+//     { tag: '原創', count: 149, index: 0 },
 
-export const useTagFilter = create((set, get) => ({
+interface TagObject {
+  tag: string
+  count: number | null;
+  index: number
+}
+
+interface TagFilter {
+  allFilter: TagObject[]
+  tagFilter: TagObject[]
+  checked: Boolean[]
+}
+
+
+export const useTagFilter = create<TagFilter>()((set, get) => ({
   allFilter: [],
   tagFilter: [],
   checked: Array(30).fill(""),
   setAllFilter: async () => {
-    const _data = await supabase.from("FF42-Tag").select("*").order("index", { ascending: true });
-    set(() => ({ allFilter: _data.data }));
+    const {data , error}= await supabase.from("FF42-Tag").select("*").order("index", { ascending: true });
+    if(data){
+      set(() => ({ allFilter: data }));
+    }
   },
-  addTagFilter: (data) => {
+  addTagFilter: (data:TagObject) => {
     set((state) => ({ tagFilter: [...state.tagFilter, data] }));
   },
-  removeTagFilter: (data) => {
+  removeTagFilter: (data:TagObject) => {
     set((state) => ({
       tagFilter: state.tagFilter.filter((val) => val !== data),
     }));
@@ -21,10 +37,10 @@ export const useTagFilter = create((set, get) => ({
   removeAllTagFilter: () => {
     set(() => ({ tagFilter: [], checked: Array(30).fill("") }));
   },
-  getTag: (tag) => {
+  getTag: (tag:string) => {
     return get().allFilter.filter((val) => val.tag === tag);
   },
-  setChecked: (index, val) => {
+  setChecked: (index:number, val:boolean) => {
     set((state) =>
       produce(state, (draftState) => {
         draftState.checked[index] = val;
