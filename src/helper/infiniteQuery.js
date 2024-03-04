@@ -1,7 +1,7 @@
 import { useInfiniteQuery,useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
-import { useSearch } from "../hooks/useSearch";
-import { useNextPageAvailable } from "../hooks/useNextPageAvailable";
+import { useSearch } from "../hooks/useSearch.ts";
+import { useNextPageAvailable } from "../hooks/useNextPageAvailable.ts";
 
 
 export function infiniteQuery(start,end,table, ascending, tagFilter) {

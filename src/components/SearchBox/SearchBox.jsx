@@ -4,7 +4,7 @@ import { IoMdSearch } from "react-icons/io";
 import { IconContext } from "react-icons";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-import { useSearch } from "../../hooks/useSearch";
+import { useSearch } from "../../hooks/useSearch.ts";
 import { useDebounce } from "@uidotdev/usehooks";
 
 const SearchBox = () => {

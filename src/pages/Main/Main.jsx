@@ -9,13 +9,13 @@ import styles from "./style.module.css";
 import { useSort } from "../../hooks/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
 import { useTagFilter } from "../../hooks/useTagFilter.ts";
-import { useSearch } from "../../hooks/useSearch.js";
+import { useSearch } from "../../hooks/useSearch.ts";
 import { useCollection } from "../../hooks/useCollection.js";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
-import { usePosition } from "../../hooks/usePosition.js";
+import { usePosition } from "../../hooks/usePosition.ts";
 import Animate from "../../animate/Animate.jsx";
-import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.js";
+import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
 
 function Main() {
   const FETCH_COUNT = 40;
