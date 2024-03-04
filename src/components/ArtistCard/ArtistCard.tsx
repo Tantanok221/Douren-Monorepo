@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection";
 import ArtistCardContext from "./ArtistCardContext";
-import ImageContainer from "./subcomponent/ImageContainer";
+import ImageContainer from "./subcomponent/ImageContainer.tsx";
 import TagContainer from "./subcomponent/TagContainer";
 import DayContainer from "./subcomponent/DayContainer";
 import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
-import HeaderContainer from "./subcomponent/HeaderContainer";
+import HeaderContainer from "./subcomponent/HeaderContainer.tsx";
 import { listVariants } from "../../helper/listAnimation";
 import { OldFF } from '../../../types/OldFF';
 interface Props {
