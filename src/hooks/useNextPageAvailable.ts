@@ -1,6 +1,11 @@
 import { create } from "zustand";
 
-export const useNextPageAvailable = create((set) => ({
+interface NextPageAvailable {
+  nextPageAvailable: boolean
+  setNextPageAvailable: (bool: boolean) => void
+}
+
+export const useNextPageAvailable = create<NextPageAvailable>()((set) => ({
   nextPageAvailable: true,
   setNextPageAvailable: (bool: boolean) => {
     set(() => ({nextPageAvailable: bool}))

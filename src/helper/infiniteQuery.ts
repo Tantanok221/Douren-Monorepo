@@ -1,10 +1,10 @@
 import { useInfiniteQuery,useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
-import { useSearch } from "../hooks/useSearch.ts";
-import { useNextPageAvailable } from "../hooks/useNextPageAvailable.ts";
+import { useSearch } from "../hooks/useSearch";
+import { useNextPageAvailable } from "../hooks/useNextPageAvailable";
 
 
-export function infiniteQuery(start,end,table, ascending, tagFilter) {
+export function infiniteQuery(start: number ,end: number,table: string, ascending: boolean, tagFilter: string[]) {
   const search = useSearch((state) => state.search);
   const nextPageAvailable = useNextPageAvailable((state) => state.nextPageAvailable);
   const setNextPageAvailable = useNextPageAvailable((state) => state.setNextPageAvailable);
@@ -23,13 +23,14 @@ export function infiniteQuery(start,end,table, ascending, tagFilter) {
 
       let query = supabase.from("FF42").select("");
       if (!filterEmpty) {
-        let conditions = tagFilter.map((tag) => `tag.ilike.%${tag}%`);
+        let conditions:string[] | string  = tagFilter.map((tag) => `tag.ilike.%${tag}%`);
         conditions = conditions.join(",");
         query = query.or(conditions);
       }
       query = query.order(table, { ascending }).range(start, end +1);
       const { data, error } = await query;
-      if(data.length < end - start + 1) {
+      
+      if((data?.length ?? 0 )< end - start + 1) {
         setNextPageAvailable(false)
       }
       if (error) throw error;
@@ -38,7 +39,6 @@ export function infiniteQuery(start,end,table, ascending, tagFilter) {
       }
       return data;
     },
-    keepPreviousData: true,
     enabled: search.length === 0,
     refetchOnWindowFocus: false,
   });

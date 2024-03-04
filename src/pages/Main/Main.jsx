@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../helper/supabase.ts";
-import { infiniteQuery } from "../../helper/infiniteQuery.js";
+import { infiniteQuery } from "../../helper/infiniteQuery.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.jsx";
 import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.jsx";
