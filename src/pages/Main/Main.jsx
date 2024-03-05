@@ -7,7 +7,7 @@ import SearchBox from "../../components/SearchBox/SearchBox.tsx";
 import SortSelect from "../../components/SortSelect/SortSelect.tsx";
 import styles from "./style.module.css";
 import { useSort } from "../../hooks/useSort.ts";
-import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";
+import { TagFilter } from "../../components/TagFilter/TagFilter.tsx";
 import { useTagFilter } from "../../hooks/useTagFilter.ts";
 import { useSearch } from "../../hooks/useSearch.ts";
 import { useCollection } from "../../hooks/useCollection.ts";

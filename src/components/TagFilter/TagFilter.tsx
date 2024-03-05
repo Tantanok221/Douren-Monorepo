@@ -13,7 +13,7 @@ export const TagFilter = () => {
   const tagFilter = useTagFilter((state) => state.tagFilter);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
-      <Popover.Root className={sx("TagFilter")}>
+      <Popover.Root>
         <Popover.Trigger asChild>
           <motion.div
             whileHover={{
@@ -42,7 +42,7 @@ export const TagFilter = () => {
         <Popover.Content align={"start"} className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
             {allFilter.map((item, index) => (
-              <TagItem key={[item, index]} data={item} index={index} />
+              <TagItem key={item.tag} data={item} index={index} />
             ))}
           </IconContext.Provider>
         </Popover.Content>
