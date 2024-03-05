@@ -6,7 +6,13 @@ import { IconContext } from "react-icons";
 import { processLink } from "../../helper/processLink";
 import LinkContainer from "../LinkContainer/LinkContainer";
 import DiscordButton from "./subcomponent/DiscordButton";
-const AboutCard = ({ author_data }) => {
+import { Author, author_data } from '../../data/author_data';
+
+interface Props {
+  author_data: Author
+}
+
+const AboutCard = ({ author_data  }: Props) => {
   const sx = classNames.bind(style);
   let link = processLink(
     author_data.twitter_link,
@@ -28,7 +34,6 @@ const AboutCard = ({ author_data }) => {
       <div className={sx("linkContainer")}>
         <IconContext.Provider
           value={{
-            verticalAlign: "middle",
             color: "#CBC3C3",
             size: "1.5rem",
           }}

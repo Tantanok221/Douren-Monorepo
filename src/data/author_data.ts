@@ -1,3 +1,14 @@
+export type Author = {
+  name: string;
+    title: string;
+    description: null;
+    github_link: string;
+    github_name: string;
+    twitter_link: string;
+    twitter_name: string;
+    discord_name: string;
+}
+
 export const author_data = [
   {
     name: "Stangen",
