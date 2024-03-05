@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-const Animate = (OgComponent) => {
+const Animate = (OgComponent: React.FC) => {
   return () => (
     <>
       <OgComponent />
