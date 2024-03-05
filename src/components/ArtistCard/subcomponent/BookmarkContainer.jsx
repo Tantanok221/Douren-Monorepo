@@ -4,7 +4,7 @@ import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { useCollection } from "../../../hooks/useCollection";
+import { useCollection } from "../../../hooks/useCollection.ts";
 import { motion } from "framer-motion";
 const BookmarkContainer = () => {
   const sx = classNames.bind(styles);

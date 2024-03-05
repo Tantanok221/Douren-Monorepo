@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { IconContext } from "react-icons";
 import { processLink } from "../../helper/processLink";
-import LinkContainer from "../LinkContainer/LinkContainer";
+import LinkContainer from "../LinkContainer/LinkContainer.tsx";
 import DiscordButton from "./subcomponent/DiscordButton";
 import { Author, author_data } from '../../data/author_data';
 

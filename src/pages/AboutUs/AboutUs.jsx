@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../helper/supabase";
 import AboutCard from "../../components/AboutCard/AboutCard";
-import LinkContainer from "../../components/LinkContainer/LinkContainer";
+import LinkContainer from "../../components/LinkContainer/LinkContainer.tsx";
 import { IconContext } from "react-icons";
 import { DiscordGroup, author_data } from "../../data/author_data.ts";
 import Animate from "../../animate/Animate.jsx"

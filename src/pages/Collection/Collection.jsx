@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import style from "./Collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { useCollection } from "../../hooks/useCollection.js";
+import { useCollection } from "../../hooks/useCollection.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.jsx";
 import Animate from "../../animate/Animate.jsx"

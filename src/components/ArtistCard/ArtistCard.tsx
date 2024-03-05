@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
-import { useCollection } from "../../hooks/useCollection";
+import { useCollection } from "../../hooks/useCollection.ts";
 import ArtistCardContext from "./ArtistCardContext";
 import ImageContainer from "./subcomponent/ImageContainer.tsx";
 import TagContainer from "./subcomponent/TagContainer";

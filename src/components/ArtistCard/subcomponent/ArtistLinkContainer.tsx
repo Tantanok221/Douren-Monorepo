@@ -7,7 +7,7 @@ import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import DMButton from "./DMButton";
 import { processLink } from "../../../helper/processLink";
-import LinkContainer from "../../LinkContainer/LinkContainer";
+import LinkContainer from "../../LinkContainer/LinkContainer.tsx";
 const ArtistLinkContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();

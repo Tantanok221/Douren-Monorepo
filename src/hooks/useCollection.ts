@@ -1,8 +1,18 @@
 import { create } from "zustand";
 import { produce } from "immer";
+import { FF } from '../../types/FF';
+
+interface Collection {
+  collection: FF[]
+  addCollection : (data:FF) => void
+  removeCollection : (data:FF) => void
+  initCollection: () => void
+  updateLocalStorage: () => void
+  checkAvailable: (data:FF) => void
+}
 
 
-export const useCollection = create((set, get) => ({
+export const useCollection = create<Collection>()((set, get) => ({
   collection: [],
   addCollection: (data) => {
     set((state) =>
@@ -13,15 +23,17 @@ export const useCollection = create((set, get) => ({
   },
   removeCollection: (data) => {
     set((state) => ({
-      collection: state.collection.filter((val) => val.author_name !== data.author_name),
+      collection: state.collection.filter((val) => val.Booth_name !== data.Booth_name),
     }));
   },
   initCollection: () => {
     set(() => {
       const item = localStorage.getItem("FF42-Collection");
-      let object = JSON.parse(item);
-      if (object) {
-        return { collection: object };
+      if(item){
+        let object = JSON.parse(item);
+        if (object) {
+          return { collection: object };
+        }
       }
       return { collection: [] }
       
@@ -32,8 +44,8 @@ export const useCollection = create((set, get) => ({
     localStorage.setItem("FF42-Collection", JSON.stringify(get().collection));
   },
   checkAvailable: (data) => {
-    const collectionName = get().collection.flatMap((val) => val.author_name);
-    const dataName = data.author_name;
+    const collectionName = get().collection.flatMap((val) => val.Booth_name);
+    const dataName = data.Booth_name;
     return collectionName.filter((val) => val === dataName).length != 0;
   },
 }));
