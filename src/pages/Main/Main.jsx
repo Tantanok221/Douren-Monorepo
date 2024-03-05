@@ -4,7 +4,7 @@ import { infiniteQuery } from "../../helper/infiniteQuery.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.tsx";
-import SortSelect from "../../components/SortSelect/SortSelect.jsx";
+import SortSelect from "../../components/SortSelect/SortSelect.tsx";
 import styles from "./style.module.css";
 import { useSort } from "../../hooks/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.jsx";

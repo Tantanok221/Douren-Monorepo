@@ -1,11 +1,12 @@
+// @ts-nocheck
 import * as Select from "@radix-ui/react-select";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import classNames from "classnames/bind";
 import React from "react";
 import styles from "./style.module.css";
-import { SelectItem } from "./subcomponent/SelectItem";
-import { SelectSeperator } from "./subcomponent/SelectSeperator.jsx";
+import { SelectItem } from "./subcomponent/SelectItem.tsx";
+import { SelectSeperator } from "./subcomponent/SelectSeperator.tsx";
 import { useSort } from "../../hooks/useSort.ts";
 import { motion } from "framer-motion";
 const SortSelect = () => {
@@ -15,7 +16,7 @@ const SortSelect = () => {
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
-      <Select.Root onValueChange={setFilter}>
+      <Select.Root onValueChange={setFilter}> 
         <Select.Trigger asChild>
           <motion.div
             className={sx("selectTrigger") + " noSelect"}
