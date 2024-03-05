@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface NextPageAvailable {
   nextPageAvailable: boolean
   setNextPageAvailable: (bool: boolean) => void
+  initNextPageAvailable: () => void
 }
 
 export const useNextPageAvailable = create<NextPageAvailable>()((set) => ({

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useCollection } from "../../hooks/useCollection.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import Animate from "../../animate/Animate.jsx"
+import Animate from "../../animate/Animate.tsx"
 
 export const Collection = () => {
   const [posts, setPosts] = React.useState(false);

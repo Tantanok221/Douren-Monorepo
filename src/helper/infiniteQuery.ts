@@ -23,7 +23,7 @@ export function infiniteQuery(start: number ,end: number,table: string, ascendin
 
       let query = supabase.from("FF42").select("");
       if (!filterEmpty) {
-        let conditions:string[] | string  = tagFilter.map((tag) => `tag.ilike.%${tag}%`);
+        let conditions:string[] | string  = tagFilter.map((tag) => `Tag.ilike.%${tag}%`);
         conditions = conditions.join(",");
         query = query.or(conditions);
       }

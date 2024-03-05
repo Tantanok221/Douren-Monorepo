@@ -14,7 +14,7 @@ import { useCollection } from "../../hooks/useCollection.ts";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import { usePosition } from "../../hooks/usePosition.ts";
-import Animate from "../../animate/Animate.jsx";
+import Animate from "../../animate/Animate.tsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
 
 function Main() {
@@ -69,20 +69,20 @@ function Main() {
       setTimeout(async () => {
         let query = supabase.from("FF42").select("");
 
-        if (!tagFilter.length === 0) {
+        if (tagFilter.length !== 0) {
           const conditions = tagFilter
-            .map((tag) => `(tag.ilike.%${tag}%)`)
+            .map((tag) => `(Tag.ilike.%${tag}%)`)
             .join(",");
           query = query.or(conditions);
         }
-        query = query.filter("author_name", "ilike", `%${search}%`);
+        query = query.filter("Booth_name", "ilike", `%${search}%`);
 
         query = query.order(table, { ascending });
         let { data, error } = await query;
         if (tagFilter.length !== 0) {
-          // console.log(data)
+          console.log(data)
           data = data.filter((item) => {
-            // console.log(item)
+            console.log(item)
             if (!item.tag) return false;
             const tag = item.tag.split(",");
             tag.pop();

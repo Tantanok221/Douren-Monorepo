@@ -46,7 +46,7 @@ const SortSelect = () => {
                 </Select.Label>
                 <SelectItem
                   text={"A-Z"}
-                  value={["author_name", true, "攤位名字"]}
+                  value={["Booth_name", true, "攤位名字"]}
                 />
                 {/* <SelectItem
                   text={"Z-A"}

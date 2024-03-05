@@ -7,7 +7,7 @@ import AboutCard from "../../components/AboutCard/AboutCard";
 import LinkContainer from "../../components/LinkContainer/LinkContainer.tsx";
 import { IconContext } from "react-icons";
 import { DiscordGroup, author_data } from "../../data/author_data.ts";
-import Animate from "../../animate/Animate.jsx"
+import Animate from "../../animate/Animate.tsx"
 function AboutUs() {
   const sx = classNames.bind(styles);
 
