@@ -8,7 +8,7 @@ interface Collection {
   removeCollection : (data:FF) => void
   initCollection: () => void
   updateLocalStorage: () => void
-  checkAvailable: (data:FF) => void
+  checkAvailable: (data:FF) => boolean
 }
 
 

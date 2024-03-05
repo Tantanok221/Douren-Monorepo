@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext";
+import { useArtistCardContext } from "../ArtistCardContext.ts";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useCollection } from "../../../hooks/useCollection.ts";
