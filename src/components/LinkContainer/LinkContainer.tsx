@@ -3,7 +3,17 @@ import style from "./LinkContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import LinkIcon from "../LinkIcon/LinkIcon";
-const LinkContainer = ({ link }) => {
+
+interface linkObject {
+  name :string
+  link : string
+}
+
+interface Props {
+  link: linkObject[]
+}
+
+const LinkContainer = ({ link }:Props) => {
   const sx = classNames.bind(style);
   return (
     <>
