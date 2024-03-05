@@ -15,7 +15,6 @@ const ScrollToTop = () => {
   >
     <IconContext.Provider
       value={{
-        verticalAlign: "middle",
         color: "#CBC3C3",
         size: "2rem",
       }}

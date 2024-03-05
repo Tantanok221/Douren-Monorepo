@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface Search{
   search: string
-
+  setSearch: (search:string) => void
 }
 
 export const useSearch = create<Search>()((set) => ({
