@@ -15,23 +15,22 @@ const ArtistLinkContainer = () => {
   link = link.concat(
     processLink(data.Instagram_link, data.Instagram_name, "Instagram")
   );
-  link = link.concat(processLink(data.PIXIV_link, data.PIXIV_name, "Pixiv"));
+  link = link.concat(processLink(data.Pixiv_link, data.Pixiv_name, "Pixiv"));
   link = link.concat(processLink(data.Twitch_link, data.Twitch_name, "Twitch"));
   link = link.concat(
     processLink(data.Twitter_link, data.Twitter_name, "Twitter")
   );
   link = link.concat(
-    processLink(data.YouTube_link, data.YouTube_name, "Youtube")
+    processLink(data.Youtube_link, data.Youtube_name, "Youtube")
   );
-  link = link.concat(processLink(data.plurk_link, data.plurk_name, "Plurk"));
-  link = link.concat(processLink(data.baha_link, data.baha_name, "Baha"));
-  link = link.concat(processLink(data.other_website, "官網", "Other"));
+  link = link.concat(processLink(data.Plurk_link, data.Plurk_name, "Plurk"));
+  link = link.concat(processLink(data.Baha_link, data.Baha_name, "Baha"));
+  link = link.concat(processLink(data.Official_link, "官網", "Other"));
 
   return (
     <div className={sx("linkContainer")}>
       <IconContext.Provider
         value={{
-          verticalAlign: "middle",
           color: "#CBC3C3",
           size: "1.5rem",
         }}

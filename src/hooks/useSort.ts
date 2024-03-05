@@ -9,7 +9,7 @@ interface Sort {
 }
 
 export const useSort = create<Sort>()((set) => ({
-  table: "author_name",
+  table: "Booth_name",
   name: "攤位名字",
   setTable: (table) => {
     set(() => {

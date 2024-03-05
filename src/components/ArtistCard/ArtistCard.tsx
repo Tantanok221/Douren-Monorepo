@@ -10,37 +10,39 @@ import DayContainer from "./subcomponent/DayContainer";
 import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer.tsx";
 import { listVariants } from "../../helper/listAnimation";
-import { OldFF } from '../../../types/OldFF';
+import { FF } from "../../../types/FF.ts";
 interface Props {
-  index: number 
-  data: OldFF
+  index: number;
+  data: FF;
 }
-const ArtistCard = React.forwardRef<HTMLDivElement,Props>(({ index, data }, ref) => {
-  const collection = useCollection((state) => state.collection);
-  const sx = classNames.bind(styles);
-  return (
-    <ArtistCardContext.Provider value={data}>
-      <motion.div
-        variants={listVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        ref={ref}
-        className={sx("artistCard")}
-        custom={index}
-      >
-        <motion.div className={sx("mainContainer")}>
-          <ImageContainer />
-          <div className={sx("rightContainer")}>
-            <HeaderContainer />
-            <TagContainer />
-            <DayContainer />
-            <ArtistLinkContainer />
-          </div>
+const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
+  ({ index, data }, ref) => {
+    const collection = useCollection((state) => state.collection);
+    const sx = classNames.bind(styles);
+    return (
+      <ArtistCardContext.Provider value={data}>
+        <motion.div
+          variants={listVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          ref={ref}
+          className={sx("artistCard")}
+          custom={index}
+        >
+          <motion.div className={sx("mainContainer")}>
+            <ImageContainer />
+            <div className={sx("rightContainer")}>
+              <HeaderContainer />
+              <TagContainer />
+              <DayContainer />
+              <ArtistLinkContainer />
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </ArtistCardContext.Provider>
-  );
-});
+      </ArtistCardContext.Provider>
+    );
+  }
+);
 
 export default ArtistCard;

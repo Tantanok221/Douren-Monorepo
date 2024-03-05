@@ -25,7 +25,7 @@ const ImageContainer = () => {
   }
   return (
     <div className={sx("imageContainer")}>
-      <LazyLoadImage width={width} alt={data.author_name + " pictures"} className={sx("image")} effect="blur" src={data.photo} />
+      <LazyLoadImage width={width} alt={data.Booth_name + " pictures"} className={sx("image")} effect="blur" src={data.Photo} />
     </div>
   );
 };

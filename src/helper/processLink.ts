@@ -4,7 +4,7 @@ interface LinkResult {
   name: string
 }
 
-export function processLink(links: string, names: string, category: string) {
+export function processLink(links: string | null, names: string | null, category: string) {
   if (!links) {
     return [];
   }

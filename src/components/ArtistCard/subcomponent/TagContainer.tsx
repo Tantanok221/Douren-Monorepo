@@ -9,7 +9,7 @@ const TagContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
   const getTag = useTagFilter((state) => state.getTag);
-  const allTag = (data.tag ?? "").split(",");
+  const allTag = (data.Tag ?? "").split(",");
   const tagFilter = useTagFilter((state) => state.tagFilter);
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
@@ -36,7 +36,7 @@ const TagContainer = () => {
   renderTag = renderTag.flatMap((value) => value);
   return (
     <div className={sx("tagContainer")}>
-      {data.tag
+      {data.Tag
         ? renderTag.map((val, index) => {
             let active = tagFilter.filter((item) => item === val).length !== 0;
             return (

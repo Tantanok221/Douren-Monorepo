@@ -7,8 +7,8 @@ const TitleContainer = () => {
   const data = useArtistCardContext();
   return (
     <div className={sx("titleContainer")}>
-      <div className={sx("header")}>{data.author_name}</div>
-      <div className={sx("subheader")}>{data.doujin_name}</div>
+      <div className={sx("header")}>{data.Booth_name}</div>
+      <div className={sx("subheader")}>{data.Author}</div>
     </div>
   );
 };
