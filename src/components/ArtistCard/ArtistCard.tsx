@@ -12,7 +12,7 @@ import HeaderContainer from "./subcomponent/HeaderContainer.tsx";
 import { listVariants } from "../../helper/listAnimation";
 import { FF } from "../../../types/FF.ts";
 interface Props {
-  index: number;
+  index?: number;
   data: FF;
 }
 const ArtistCard = React.forwardRef<HTMLDivElement, Props>(

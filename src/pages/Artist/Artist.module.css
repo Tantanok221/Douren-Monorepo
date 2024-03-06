@@ -1,0 +1,21 @@
+.mainContainer {
+  padding: 3rem 6%;
+  padding-bottom: 0px;
+  padding-left: 26%;
+  
+}
+
+@media (max-width: 800px) {
+  .Root {
+    flex-direction: column;
+    }
+    .mainContainer {
+      margin: 1.25rem 5%;
+      box-sizing: border-box;
+      padding-left: 6%;
+    }
+    .ArtistContainer {
+      align-items: flex-start;
+    }
+  }
+  
