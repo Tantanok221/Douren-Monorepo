@@ -80,9 +80,8 @@ function FF42() {
         query = query.order(table, { ascending });
         let { data, error } = await query;
         if (tagFilter.length !== 0) {
-          console.log(data)
           data = data.filter((item) => {
-            console.log(item)
+      
             if (!item.tag) return false;
             const tag = item.tag.split(",");
             tag.pop();

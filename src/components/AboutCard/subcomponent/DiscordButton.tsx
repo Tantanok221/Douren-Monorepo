@@ -1,5 +1,5 @@
 import React from "react";
-import LinkIcon from "../../LinkIcon/LinkIcon";
+import LinkIcon from "../../LinkIcon/LinkIcon.tsx";
 import classNames from "classnames/bind";
 import style from "../AboutCard.module.css";
 import * as Toast from "@radix-ui/react-toast";

@@ -3,9 +3,14 @@ import { IoLinkOutline,IoLogoFacebook,IoLogoTwitter,IoLogoYoutube,IoLogoInstagra
 import { SiPlurk,SiPixiv } from "react-icons/si";
 import { GrCatalog } from "react-icons/gr";
 import { BiLogoGithub } from "react-icons/bi";
-import { FaDiscord } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa" 
+import { linkObject } from '../LinkContainer/LinkContainer';
 
-export const LinkIcon = ({data}) => {
+interface Props {
+  data: linkObject
+}
+
+export const LinkIcon = ({data}: Props) => {
   if(data.category === "DM"){
     return <GrCatalog></GrCatalog>
   }

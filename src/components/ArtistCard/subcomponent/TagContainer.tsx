@@ -32,7 +32,6 @@ const TagContainer = () => {
   allTag.forEach((item, index) => {
     renderTag[index] = getTag(item);
   });
-  console.log(renderTag)
   renderTag = renderTag.flatMap((value) => value);
   return (
     <div className={sx("tagContainer")}>
