@@ -17,7 +17,7 @@ import { usePosition } from "../../hooks/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
 
-function Main() {
+function FF42() {
   const FETCH_COUNT = 40;
   const [posts, setPosts] = useState(false);
   const [page, setPage] = useState(0);
@@ -163,4 +163,4 @@ function Main() {
     </motion.div>
   );
 }
-export default Animate(Main);
+export default Animate(FF42);

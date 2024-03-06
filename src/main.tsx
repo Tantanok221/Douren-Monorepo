@@ -6,7 +6,6 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import Main from "./pages/Main/Main.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
@@ -16,6 +15,7 @@ import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from 'posthog-js';
 import Artist from "./pages/Artist/Artist.tsx";
+import FF42 from "./pages/FF42/FF42.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Main />,
+        element: <FF42 />,
       },
       {
         path: "collection",
