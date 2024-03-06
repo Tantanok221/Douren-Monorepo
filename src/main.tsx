@@ -10,11 +10,12 @@ import Main from "./pages/Main/Main.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
-import Collection from "./pages/Collection/Collection.jsx";
+import Collection from "./pages/Collection/Collection.tsx";
 import Root from "./routes/Root/Root";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from 'posthog-js';
+import Artist from "./pages/Artist/Artist.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: "about",
         element: <AboutUs />,
       },
+      {
+        path: "artist",
+        element: <Artist/>
+      }
     ],
   },
 ]);
