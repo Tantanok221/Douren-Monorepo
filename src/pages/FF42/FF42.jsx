@@ -121,9 +121,9 @@ function FF42() {
       <div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
           if (index === posts.length - 5 && search === "") {
-            return <ArtistCard key={`${item.id}`} data={item} />;
+            return <ArtistCard key={`${item.uuid}`} data={item} />;
           }
-          return <ArtistCard key={`${item.id}`} data={item} />;
+          return <ArtistCard key={`${item.uuid}`} data={item} />;
         })}
         <div className={sx("fetchContainer")}>
           {page !== 0 && search.length === 0 ? (

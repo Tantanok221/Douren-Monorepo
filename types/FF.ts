@@ -9,7 +9,7 @@ export interface FF {
   DM: string | undefined;
   Facebook_link: string | null;
   Facebook_name: string | null;
-  id: string;
+  uuid: string;
   Instagram_link: string | null;
   Instagram_name: string | null;
   Official_link: string | null;

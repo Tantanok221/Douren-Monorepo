@@ -154,7 +154,6 @@ export type Database = {
           DM: string | null
           Facebook_link: string | null
           Facebook_name: string | null
-          id: string
           Instagram_link: string | null
           Instagram_name: string | null
           Official_link: string | null
@@ -169,6 +168,7 @@ export type Database = {
           Twitch_name: string | null
           Twitter_link: string | null
           Twitter_name: string | null
+          uuid: string
           Youtube_link: string | null
           Youtube_name: string | null
         }
@@ -183,7 +183,6 @@ export type Database = {
           DM?: string | null
           Facebook_link?: string | null
           Facebook_name?: string | null
-          id?: string
           Instagram_link?: string | null
           Instagram_name?: string | null
           Official_link?: string | null
@@ -198,6 +197,7 @@ export type Database = {
           Twitch_name?: string | null
           Twitter_link?: string | null
           Twitter_name?: string | null
+          uuid?: string
           Youtube_link?: string | null
           Youtube_name?: string | null
         }
@@ -212,7 +212,6 @@ export type Database = {
           DM?: string | null
           Facebook_link?: string | null
           Facebook_name?: string | null
-          id?: string
           Instagram_link?: string | null
           Instagram_name?: string | null
           Official_link?: string | null
@@ -227,6 +226,7 @@ export type Database = {
           Twitch_name?: string | null
           Twitter_link?: string | null
           Twitter_name?: string | null
+          uuid?: string
           Youtube_link?: string | null
           Youtube_name?: string | null
         }

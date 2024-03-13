@@ -35,7 +35,7 @@ export const Collection = () => {
         <div className={sx("artistContainer")}>
           {collection.length !== 0 ? (
             collection.map((item, index) => {
-              return <ArtistCard key={item.id} data={item} />;
+              return <ArtistCard key={item.uuid} data={item} />;
             })
           ) : (
             <div className={sx("emptyText")}>
