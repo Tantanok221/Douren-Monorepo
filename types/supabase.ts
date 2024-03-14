@@ -13,80 +13,53 @@ export type Database = {
         Row: {
           Author: string
           Baha_link: string | null
-          Baha_name: string | null
           Facebook_link: string | null
-          Facebook_name: string | null
           Instagram_link: string | null
-          Instagram_name: string | null
           Introduction: string | null
           Myacg_link: string | null
           Official_link: string | null
-          Official_name: string | null
           Photo: string | null
           Pixiv_link: string | null
-          Pixiv_name: string | null
           Plurk_link: string | null
-          Plurk_name: string | null
           Store_link: string | null
           Twitch_link: string | null
-          Twitch_name: string | null
           Twitter_link: string | null
-          Twitter_name: string | null
           uuid: number
           Youtube_link: string | null
-          Youtube_name: string | null
         }
         Insert: {
           Author: string
           Baha_link?: string | null
-          Baha_name?: string | null
           Facebook_link?: string | null
-          Facebook_name?: string | null
           Instagram_link?: string | null
-          Instagram_name?: string | null
           Introduction?: string | null
           Myacg_link?: string | null
           Official_link?: string | null
-          Official_name?: string | null
           Photo?: string | null
           Pixiv_link?: string | null
-          Pixiv_name?: string | null
           Plurk_link?: string | null
-          Plurk_name?: string | null
           Store_link?: string | null
           Twitch_link?: string | null
-          Twitch_name?: string | null
           Twitter_link?: string | null
-          Twitter_name?: string | null
           uuid?: number
           Youtube_link?: string | null
-          Youtube_name?: string | null
         }
         Update: {
           Author?: string
           Baha_link?: string | null
-          Baha_name?: string | null
           Facebook_link?: string | null
-          Facebook_name?: string | null
           Instagram_link?: string | null
-          Instagram_name?: string | null
           Introduction?: string | null
           Myacg_link?: string | null
           Official_link?: string | null
-          Official_name?: string | null
           Photo?: string | null
           Pixiv_link?: string | null
-          Pixiv_name?: string | null
           Plurk_link?: string | null
-          Plurk_name?: string | null
           Store_link?: string | null
           Twitch_link?: string | null
-          Twitch_name?: string | null
           Twitter_link?: string | null
-          Twitter_name?: string | null
           uuid?: number
           Youtube_link?: string | null
-          Youtube_name?: string | null
         }
         Relationships: []
       }
@@ -107,7 +80,7 @@ export type Database = {
           {
             foreignKeyName: "public_Author_Tag_uuid_fkey"
             columns: ["uuid"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "Author_Main"
             referencedColumns: ["uuid"]
           }
@@ -118,25 +91,25 @@ export type Database = {
           Booth_name: string | null
           DM: string | null
           Event: string | null
-          uuid: number | null
+          uuid: number
         }
         Insert: {
           Booth_name?: string | null
           DM?: string | null
           Event?: string | null
-          uuid?: number | null
+          uuid: number
         }
         Update: {
           Booth_name?: string | null
           DM?: string | null
           Event?: string | null
-          uuid?: number | null
+          uuid?: number
         }
         Relationships: [
           {
             foreignKeyName: "public_Event_DM_uuid_fkey"
             columns: ["uuid"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "Author_Main"
             referencedColumns: ["uuid"]
           }
