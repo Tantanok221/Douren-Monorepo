@@ -1,15 +1,34 @@
-import React from 'react'
-import ArtistCardContext from '../ArtistCard/ArtistCardContext'
-import { FF } from '../../../types/FF'
+import React from "react";
+import ArtistCardSmallContext from "./ArtistCardSmallContext";
+import { ArtistTypes } from "../../../types/Artist";
+import styles from "./style.module.css";
+import classNames from "classnames/bind";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type Props = {
-  data: FF
-}
+  data: ArtistTypes;
+};
 
-const ArtistCardSmall = ({data}: Props) => {
+const ArtistCardSmall = ({ data }: Props) => {
+  const sx = classNames.bind(styles);
   return (
-    <ArtistCardContext.Provider value={data}>ArtistCardSmall</ArtistCardContext.Provider>
-  )
-}
+    <ArtistCardSmallContext.Provider value={data}>
+      <div className={sx("mainContainer")}>
+        <div className={sx("imageContainer")}>
+          <LazyLoadImage
+            // width={width}
+            alt={data.Author + " pictures"}
+            className={sx("image")}
+            effect="blur"
+            src={data.Photo}
+          />
+        </div>
+        <div className={sx("rightContainer")}>
+          <div className={sx('')}></div>
+        </div>
+      </div>
+    </ArtistCardSmallContext.Provider>
+  );
+};
 
-export default ArtistCardSmall
+export default ArtistCardSmall;
