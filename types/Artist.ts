@@ -1,8 +1,3 @@
-interface Event_DM {
-  Booth_name: string | null;
-  DM: string | null;
-  Event: string | null;
-}
 
 export interface ArtistTypes {
   Author: string;
@@ -12,7 +7,7 @@ export interface ArtistTypes {
   Introduction: string | null;
   Myacg_link: string | null;
   Official_link: string | null;
-  Photo: string | null;
+  Photo: string | undefined;
   Pixiv_link: string | null;
   Plurk_link: string | null;
   Store_link: string | null;
@@ -20,8 +15,12 @@ export interface ArtistTypes {
   Twitter_link: string | null;
   uuid: number;
   Youtube_link: string | null;
-  Event_DM: Event_DM[];
+  Event_DM: {
+    Booth_name: string | null;
+    DM: string | null;
+    Event: string | null;
+  }[]| null;
   Author_Tag: {
-    Tag: string;
-  }[];
+    Tag: string | null;
+  }[]| null;
 }
