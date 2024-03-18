@@ -13,8 +13,8 @@ export interface ArtistTypes {
   Store_link: string | null;
   Twitch_link: string | null;
   Twitter_link: string | null;
-  uuid: number;
   Youtube_link: string | null;
+  uuid: number;
   Event_DM: {
     Booth_name: string | null;
     DM: string | null;
