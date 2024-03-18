@@ -1,0 +1,45 @@
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.75rem;
+  background: var(--Panel, #1f1f21);
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.header {
+  color: var(--White, #fff);
+  font-family: var(--Font);
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.subheader {
+  color: #d3d3d3;
+  font-family: var(--Font);
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.imageContainer {
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.image {
+  width: 100%;
+}
