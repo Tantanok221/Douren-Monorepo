@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-import { FF } from "../../../types/FF";
+import { ArtistTypes } from "../../../types/Artist";
 
-const ArtistCardContext = createContext<undefined | FF>(undefined);
+const ArtistCardContext = createContext<undefined | ArtistTypes>(undefined);
 
 export function useArtistCardContext() {
   const context = useContext(ArtistCardContext);
