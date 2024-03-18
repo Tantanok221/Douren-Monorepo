@@ -43,3 +43,47 @@
 .image {
   width: 100%;
 }
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1.25rem; 
+}
+
+
+.tagContainer {
+  display: flex;
+  gap: 0.75rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.tagDescription {
+  background: var(--TagBackground, #464646);
+  border-radius: 0.25rem;
+  color: var(--TagText, #aaa);
+  font-family: var(--Font);
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.tagItem {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+}
+
+.tagCount {
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+  background: var(--NumberTagBackground, #3c3c3c);
+  padding: 0.25rem 0.5rem;
+  color: var(--NumberTag, #686868);
+  font-size: 1rem;
+  font-family: var(--Font);
+}

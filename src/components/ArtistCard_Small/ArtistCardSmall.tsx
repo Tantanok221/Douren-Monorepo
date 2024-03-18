@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import classNames from "classnames/bind";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useGetImageSize } from "../../hooks/useGetImageSize";
+import TagContainer from './subcomponent/TagContainer';
 
 type Props = {
   data: ArtistTypes;
@@ -30,7 +31,7 @@ const ArtistCardSmall = ({ data }: Props) => {
             <div className={sx('header')}>{data.Author}</div>
             <div className={sx('subheader')}>{data.Introduction}</div>
           </div>
-          
+          <TagContainer />
         </div>
       </div>
     </ArtistCardSmallContext.Provider>
