@@ -2,9 +2,9 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useArtistCardContext } from "../ArtistCardContext";
-import { TagObject, useTagFilter } from '../../../hooks/useTagFilter';
+import { TagObject, useTagFilter } from "../../../hooks/useTagFilter";
 import { motion } from "framer-motion";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 const TagContainer = () => {
   const sx = classNames.bind(styles);
   const data = useArtistCardContext();
@@ -17,18 +17,20 @@ const TagContainer = () => {
   const setChecked = useTagFilter((state) => state.setChecked);
   const location = useLocation();
 
-  function handleClick(val:TagObject) {
-    
-    if (tagFilter.filter((item) => item === val).length === 0 && location.pathname != "/collection") {
+  function handleClick(val: TagObject) {
+    if (
+      tagFilter.filter((item) => item === val).length === 0 &&
+      location.pathname != "/collection"
+    ) {
       addTagFilter(val);
-      setChecked(val.index ,true);
+      setChecked(val.index, true);
     } else {
       removeTagFilter(val);
-      setChecked(val.index ,false);
+      setChecked(val.index, false);
     }
   }
-  allTag.filter((item) => item !== "")
-  let renderTag: TagObject[][]|TagObject[] = [];
+  allTag.filter((item) => item !== "");
+  let renderTag: TagObject[][] | TagObject[] = [];
   allTag.forEach((item, index) => {
     renderTag[index] = getTag(item);
   });
