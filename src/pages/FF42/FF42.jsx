@@ -16,6 +16,12 @@ import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import { usePosition } from "../../hooks/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
+import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
+import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
+import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer";
+import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
+import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";   
+import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
 
 function FF42() {
   const FETCH_COUNT = 40;
@@ -121,9 +127,29 @@ function FF42() {
       <div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
           if (index === posts.length - 5 && search === "") {
-            return <ArtistCard key={`${item.uuid}`} data={item} />;
+            return <ArtistCard key={`${item.uuid}`} data={item} >
+              
+            <ImageContainer />
+            <RightContainer>
+              <HeaderContainer />
+              <TagContainer />
+              <DayContainer />
+              <ArtistLinkContainer />
+            </RightContainer>
+          
+            </ArtistCard>;
           }
-          return <ArtistCard key={`${item.uuid}`} data={item} />;
+          return <ArtistCard key={`${item.uuid}`} data={item} >
+            
+            <ImageContainer />
+            <RightContainer>
+              <HeaderContainer />
+              <TagContainer />
+              <DayContainer />
+              <ArtistLinkContainer />
+            </RightContainer>
+          
+          </ArtistCard>;
         })}
         <div className={sx("fetchContainer")}>
           {page !== 0 && search.length === 0 ? (

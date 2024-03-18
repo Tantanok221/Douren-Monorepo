@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext.ts";
+import { useFFContext } from "../FFContext.ts";
 import TitleContainer from "./TitleContainer.tsx";
 import BookmarkContainer from "./BookmarkContainer.tsx";
 

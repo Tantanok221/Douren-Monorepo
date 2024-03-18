@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext";
+import { useFFContext } from "../FFContext.ts";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
@@ -11,9 +11,9 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import LinkIcon from "../../LinkIcon/LinkIcon.tsx";
 const DMButton = () => {
   const sx = classNames.bind(styles);
-  const data = useArtistCardContext();
+  const data = useFFContext();
   let link = (data.DM ?? "").split("\n");
-  
+
   return data.DM ? (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -49,14 +49,15 @@ const DMButton = () => {
               <Dialog.Title />
             </VisuallyHidden.Root>
             <div className={sx("DMContainer")}>
-              {link.map((item,index) => {
-
-                return <LazyLoadImage
-                  className={sx("image")}
-                  effect="blur"
-                  key={index+"DMImage"}
-                  src={item}
-                />;
+              {link.map((item, index) => {
+                return (
+                  <LazyLoadImage
+                    className={sx("image")}
+                    effect="blur"
+                    key={index + "DMImage"}
+                    src={item}
+                  />
+                );
               })}
             </div>
           </div>

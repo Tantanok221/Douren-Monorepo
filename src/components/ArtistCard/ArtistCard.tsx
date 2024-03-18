@@ -3,24 +3,22 @@ import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import { useCollection } from "../../hooks/useCollection.ts";
-import ArtistCardContext from "./ArtistCardContext";
-import ImageContainer from "./subcomponent/ImageContainer.tsx";
-import TagContainer from "./subcomponent/TagContainer";
-import DayContainer from "./subcomponent/DayContainer";
-import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
-import HeaderContainer from "./subcomponent/HeaderContainer.tsx";
+import FFContext from "./FFContext.ts";
+
 import { listVariants } from "../../helper/listAnimation";
 import { FF } from "../../../types/FF.ts";
+import { ArtistTypes } from "../../../types/Artist.ts";
 interface Props {
   index?: number;
-  data: FF;
+  data: FF ;
+  children?: React.ReactNode;
 }
 const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
-  ({ index, data }, ref) => {
+  ({ index, data, children }, ref) => {
     const collection = useCollection((state) => state.collection);
     const sx = classNames.bind(styles);
     return (
-      <ArtistCardContext.Provider value={data}>
+      <FFContext.Provider value={data}>
         <motion.div
           variants={listVariants}
           initial="hidden"
@@ -30,17 +28,9 @@ const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
           className={sx("artistCard")}
           custom={index}
         >
-          <motion.div className={sx("mainContainer")}>
-            <ImageContainer />
-            <div className={sx("rightContainer")}>
-              <HeaderContainer />
-              <TagContainer />
-              <DayContainer />
-              <ArtistLinkContainer />
-            </div>
-          </motion.div>
+          <motion.div className={sx("mainContainer")}>{children}</motion.div>
         </motion.div>
-      </ArtistCardContext.Provider>
+      </FFContext.Provider>
     );
   }
 );

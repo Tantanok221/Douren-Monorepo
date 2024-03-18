@@ -1,16 +1,15 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext";
 import { IconContext } from "react-icons";
-
 import { motion } from "framer-motion";
 import DMButton from "./DMButton";
 import { processLink } from "../../../helper/processLink";
 import LinkContainer from "../../LinkContainer/LinkContainer.tsx";
+import { useFFContext } from "../FFContext.ts";
 const ArtistLinkContainer = () => {
   const sx = classNames.bind(styles);
-  const data = useArtistCardContext();
+  const data = useFFContext();
   let link = processLink(data.Facebook_link, data.Facebook_name, "Facebook");
   link = link.concat(
     processLink(data.Instagram_link, data.Instagram_name, "Instagram")

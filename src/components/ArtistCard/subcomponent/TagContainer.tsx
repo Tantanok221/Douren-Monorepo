@@ -1,13 +1,13 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext";
+import { useFFContext } from "../FFContext";
 import { TagObject, useTagFilter } from "../../../hooks/useTagFilter";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 const TagContainer = () => {
   const sx = classNames.bind(styles);
-  const data = useArtistCardContext();
+  const data = useFFContext();
   const getTag = useTagFilter((state) => state.getTag);
   const allTag = (data.Tag ?? "").split(",");
   const tagFilter = useTagFilter((state) => state.tagFilter);
