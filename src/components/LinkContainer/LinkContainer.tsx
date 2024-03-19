@@ -12,9 +12,10 @@ export interface linkObject {
 
 interface Props {
   link: linkObject[]
+  size?: "s" | "l";
 }
 
-const LinkContainer = ({ link }:Props) => {
+const LinkContainer = ({ link,size }:Props) => {
   const sx = classNames.bind(style);
   return (
     <>
@@ -23,7 +24,7 @@ const LinkContainer = ({ link }:Props) => {
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={sx("linkButton")}
+          className={sx("linkButton",{"smallText" : size === "s"})}
           key={`${item.link}`}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

@@ -11,12 +11,15 @@ import { useArtistCardContext } from "../ArtistCardContext.ts";
 
 interface props {
   children?: React.ReactNode;
+  size?: "s" | "l";
 }
 
-const ArtistLinkContainer = ({ children }: props) => {
+const ArtistLinkContainer = ({ children,size }: props) => {
   const sx = classNames.bind(styles);
   const FFData = useFFContext();
   const ArtistData = useArtistCardContext();
+  size = size ?? "l";
+  const fontSize = size === "s" ? "1rem" : "1.5rem";
   let link: LinkResult[] = [];
   if (FFData) {
     link = processLink(FFData.Facebook_link, FFData.Facebook_name, "Facebook");
@@ -48,11 +51,11 @@ const ArtistLinkContainer = ({ children }: props) => {
       <IconContext.Provider
         value={{
           color: "#CBC3C3",
-          size: "1.5rem",
+          size: fontSize,
         }}
       >
         {children}
-        <LinkContainer link={link} />
+        <LinkContainer size={size} link={link}/>
       </IconContext.Provider>
     </div>
   );

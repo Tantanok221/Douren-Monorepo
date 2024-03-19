@@ -3,13 +3,13 @@ import style from "./Artist.module.css";
 import classNames from "classnames/bind";
 import { useLocation } from "react-router";
 import { artistQuery } from "../../helper/artistQuery";
-import ArtistCardSmall from "../../components/ArtistCard_Small/ArtistCardSmall";
 import { useTagFilter } from "../../hooks/useTagFilter";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
 import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
+import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 
 type Props = {};
 
@@ -27,6 +27,7 @@ const Artist = (props: Props) => {
     <RightContainer>
       <HeaderContainer></HeaderContainer>
       <TagContainer></TagContainer>
+      <ArtistLinkContainer size="s"></ArtistLinkContainer>
     </RightContainer>
     </ArtistCard>
 )}
