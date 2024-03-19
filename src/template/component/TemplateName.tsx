@@ -3,9 +3,11 @@ import style from "./TemplateName.module.css";
 import classNames from "classnames/bind";
 import {motion} from "framer-motion"
 
-const TemplateName = () => {
+interface Props {}
+
+const TemplateName = ({}:Props) => {
   const sx = classNames.bind(style);
-  return (<motion.div className={sx("TemplateName")}>TemplateName </motion.div>)
+  return (<motion.div className={sx("mainContainer")}>TemplateName </motion.div>)
 }
 
 export default TemplateName
