@@ -8,28 +8,32 @@ import FFContext from "./FFContext.ts";
 import { listVariants } from "../../helper/listAnimation";
 import { FF } from "../../../types/FF.ts";
 import { ArtistTypes } from "../../../types/Artist.ts";
+import ArtistCardContext from "./ArtistCardContext.ts";
 interface Props {
   index?: number;
-  data: FF ;
+  data?: FF;
   children?: React.ReactNode;
+  artistData?: ArtistTypes;
 }
 const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
-  ({ index, data, children }, ref) => {
+  ({ index, data, children, artistData }, ref) => {
     const collection = useCollection((state) => state.collection);
     const sx = classNames.bind(styles);
     return (
       <FFContext.Provider value={data}>
-        <motion.div
-          variants={listVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          ref={ref}
-          className={sx("artistCard")}
-          custom={index}
-        >
-          <motion.div className={sx("mainContainer")}>{children}</motion.div>
-        </motion.div>
+        <ArtistCardContext.Provider value={artistData}>
+          <motion.div
+            variants={listVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            ref={ref}
+            className={sx("artistCard")}
+            custom={index}
+          >
+            <motion.div className={sx("mainContainer")}>{children}</motion.div>
+          </motion.div>
+        </ArtistCardContext.Provider>
       </FFContext.Provider>
     );
   }

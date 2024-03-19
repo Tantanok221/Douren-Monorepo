@@ -6,11 +6,7 @@ const FFContext = createContext<undefined | FF >(undefined);
 
 export function useFFContext() {
   const context = useContext(FFContext);
-  if (!context) {
-    throw new Error(
-      "useFFContext must be used within a ArtistCardContextProvider"
-    );
-  }
+  
   return context;
 }
 
