@@ -12,9 +12,9 @@ import LinkIcon from "../../LinkIcon/LinkIcon.tsx";
 const DMButton = () => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
-  let link = (data.DM ?? "").split("\n");
+  let link = (data?.DM ?? "").split("\n");
 
-  return data.DM ? (
+  return data?.DM ? (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <motion.div
