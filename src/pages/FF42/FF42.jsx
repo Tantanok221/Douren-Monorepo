@@ -20,8 +20,9 @@ import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContai
 import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
 import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer";
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
-import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";   
+import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
+import DMButton from "../../components/ArtistCard/subcomponent/DMButton";
 
 function FF42() {
   const FETCH_COUNT = 40;
@@ -87,7 +88,6 @@ function FF42() {
         let { data, error } = await query;
         if (tagFilter.length !== 0) {
           data = data.filter((item) => {
-      
             if (!item.tag) return false;
             const tag = item.tag.split(",");
             tag.pop();
@@ -126,30 +126,20 @@ function FF42() {
       </div>
       <div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
-          if (index === posts.length - 5 && search === "") {
-            return <ArtistCard key={`${item.uuid}`} data={item} >
-              
-            <ImageContainer />
-            <RightContainer>
-              <HeaderContainer />
-              <TagContainer />
-              <DayContainer />
-              <ArtistLinkContainer />
-            </RightContainer>
           
-            </ArtistCard>;
-          }
-          return <ArtistCard key={`${item.uuid}`} data={item} >
-            
-            <ImageContainer />
-            <RightContainer>
-              <HeaderContainer />
-              <TagContainer />
-              <DayContainer />
-              <ArtistLinkContainer />
-            </RightContainer>
-          
-          </ArtistCard>;
+          return (
+            <ArtistCard key={`${item.uuid}`} data={item}>
+              <ImageContainer />
+              <RightContainer>
+                <HeaderContainer />
+                <TagContainer />
+                <DayContainer />
+                <ArtistLinkContainer>
+                  <DMButton />
+                </ArtistLinkContainer>
+              </RightContainer>
+            </ArtistCard>
+          );
         })}
         <div className={sx("fetchContainer")}>
           {page !== 0 && search.length === 0 ? (
