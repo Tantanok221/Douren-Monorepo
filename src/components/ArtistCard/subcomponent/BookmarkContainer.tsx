@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { useCollection } from "../../../hooks/useCollection.ts";
 import { motion } from "framer-motion";
 const BookmarkContainer = () => {
+  const [click, setClick] = React.useState(1);
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const addCollection = useCollection((state) => state.addCollection);
@@ -23,9 +24,11 @@ const BookmarkContainer = () => {
           transition={{ duration: 0.5 }}
           onClick={(event) => {
             if (!isAvailable) {
-              addCollection(data);
+              addCollection(data)
+              setClick(click + 1)
             } else {
               removeCollection(data);
+              setClick(click + 1);
             }
             updateLocalStorage();
           }}
