@@ -1,4 +1,4 @@
-interface LinkResult {
+export interface LinkResult {
   category: string
   link: string
   name: string
