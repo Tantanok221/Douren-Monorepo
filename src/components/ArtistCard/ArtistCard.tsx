@@ -6,8 +6,8 @@ import { useCollection } from "../../hooks/useCollection.ts";
 import FFContext from "./FFContext.ts";
 
 import { listVariants } from "../../helper/listAnimation";
-import { FF } from "../../../types/FF.ts";
-import { ArtistTypes } from "../../../types/Artist.ts";
+import { FF } from "../../types/FF.ts";
+import { ArtistTypes } from "../../types/Artist.ts";
 import ArtistCardContext from "./ArtistCardContext.ts";
 interface Props {
   index?: number;
