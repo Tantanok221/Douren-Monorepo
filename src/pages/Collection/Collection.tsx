@@ -45,7 +45,7 @@ export const Collection = () => {
               return <ArtistCard key={`${item.uuid}`} data={item}>
               <ImageContainer />
               <RightContainer>
-              <HeaderContainer bookmarkEnabled={true}/>
+              <HeaderContainer bookmarkEnabled/>
                 <TagContainer />
                 <DayContainer />
                 <ArtistLinkContainer>
