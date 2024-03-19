@@ -5,19 +5,22 @@ import styles from "../style.module.css";
 import { useFFContext } from "../FFContext";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useGetImageSize } from "../../../hooks/useGetImageSize";
+import { useArtistCardContext } from "../ArtistCardContext";
 
 const ImageContainer = () => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
+  const artistData = useArtistCardContext();
   let width = useGetImageSize();
+  let photo = data ? data.Photo : artistData?.Photo;
   return (
     <div className={sx("imageContainer")}>
       <LazyLoadImage
         width={width}
-        alt={data.Booth_name + " pictures"}
+        alt={data?.Booth_name  + " pictures"}
         className={sx("image")}
         effect="blur"
-        src={data.Photo}
+        src={photo}
       />
     </div>
   );

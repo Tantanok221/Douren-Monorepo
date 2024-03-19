@@ -5,6 +5,8 @@ import { useLocation } from "react-router";
 import { artistQuery } from "../../helper/artistQuery";
 import ArtistCardSmall from "../../components/ArtistCard_Small/ArtistCardSmall";
 import { useTagFilter } from "../../hooks/useTagFilter";
+import ArtistCard from "../../components/ArtistCard/ArtistCard";
+import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
 
 type Props = {};
 
@@ -17,7 +19,10 @@ const Artist = (props: Props) => {
   setAllFilter(); 
   return <div className={sx("mainContainer")}>
     {data?.map((item, index) => 
-  <ArtistCardSmall key={index} data={item}></ArtistCardSmall>
+  <ArtistCard key={index} artistData={item}>
+    <ImageContainer></ImageContainer>
+    
+    </ArtistCard>
 )}
     
     </div>;
