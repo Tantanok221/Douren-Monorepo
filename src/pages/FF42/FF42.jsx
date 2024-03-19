@@ -131,7 +131,7 @@ function FF42() {
             <ArtistCard key={`${item.uuid}`} data={item}>
               <ImageContainer />
               <RightContainer>
-                <HeaderContainer />
+                <HeaderContainer bookmarkEnabled={true}/>
                 <TagContainer />
                 <DayContainer />
                 <ArtistLinkContainer>

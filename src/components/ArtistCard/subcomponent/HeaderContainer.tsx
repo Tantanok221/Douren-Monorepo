@@ -5,12 +5,16 @@ import { useFFContext } from "../FFContext.ts";
 import TitleContainer from "./TitleContainer.tsx";
 import BookmarkContainer from "./BookmarkContainer.tsx";
 
-const HeaderContainer = () => {
+interface Props {
+  bookmarkEnabled?: boolean;
+}
+
+const HeaderContainer = ({bookmarkEnabled}:Props) => {
   const sx = classNames.bind(styles);
   return (
     <div className={sx("headerContainer")}>
       <TitleContainer />
-      <BookmarkContainer />
+      {bookmarkEnabled ? <BookmarkContainer />: null}
     </div>
   );
 };

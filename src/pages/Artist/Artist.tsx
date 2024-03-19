@@ -7,6 +7,8 @@ import ArtistCardSmall from "../../components/ArtistCard_Small/ArtistCardSmall";
 import { useTagFilter } from "../../hooks/useTagFilter";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
+import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
+import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
 
 type Props = {};
 
@@ -21,7 +23,9 @@ const Artist = (props: Props) => {
     {data?.map((item, index) => 
   <ArtistCard key={index} artistData={item}>
     <ImageContainer></ImageContainer>
-    
+    <RightContainer>
+      <HeaderContainer></HeaderContainer>
+    </RightContainer>
     </ArtistCard>
 )}
     
