@@ -9,6 +9,7 @@ import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
+import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
 
 type Props = {};
 
@@ -25,6 +26,7 @@ const Artist = (props: Props) => {
     <ImageContainer></ImageContainer>
     <RightContainer>
       <HeaderContainer></HeaderContainer>
+      <TagContainer></TagContainer>
     </RightContainer>
     </ArtistCard>
 )}

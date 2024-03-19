@@ -5,17 +5,19 @@ import { useFFContext } from "../FFContext";
 import { TagObject, useTagFilter } from "../../../hooks/useTagFilter";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { useArtistCardContext } from "../ArtistCardContext";
 const TagContainer = () => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
+  const artistData = useArtistCardContext();
   const getTag = useTagFilter((state) => state.getTag);
-  const allTag = (data.Tag ?? "").split(",");
   const tagFilter = useTagFilter((state) => state.tagFilter);
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
   const checked = useTagFilter((state) => state.checked);
   const setChecked = useTagFilter((state) => state.setChecked);
   const location = useLocation();
+  
 
   function handleClick(val: TagObject) {
     if (
@@ -29,16 +31,16 @@ const TagContainer = () => {
       setChecked(val.index, false);
     }
   }
-  allTag.filter((item) => item !== "");
+  let allTag = data ? (data.Tag ?? "").split(",") : artistData?.Author_Tag?.[0]?.Tag?.split(",")
+  allTag?.filter((item) => item !== "");
+  allTag = allTag?.map((item, index) => {return item.trim();});
   let renderTag: TagObject[][] | TagObject[] = [];
-  allTag.forEach((item, index) => {
-    renderTag[index] = getTag(item);
-  });
+  allTag?.forEach((item, index) => {renderTag[index] = getTag(item);});
+
   renderTag = renderTag.flatMap((value) => value);
   return (
     <div className={sx("tagContainer")}>
-      {data.Tag
-        ? renderTag.map((val, index) => {
+      {renderTag.map((val, index) => {
             let active = tagFilter.filter((item) => item === val).length !== 0;
             return (
               <motion.button
@@ -60,7 +62,7 @@ const TagContainer = () => {
               </motion.button>
             );
           })
-        : null}
+        }
     </div>
   );
 };
