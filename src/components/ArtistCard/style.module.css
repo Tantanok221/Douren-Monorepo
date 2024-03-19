@@ -235,6 +235,10 @@
   cursor: pointer;
 }
 
+.smallText {
+  font-size: 0.8rem;
+}
+
 @media(max-width: 1000px) {
   .mainContainer {
     flex-direction: column;

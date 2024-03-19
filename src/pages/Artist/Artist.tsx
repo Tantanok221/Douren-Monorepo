@@ -26,7 +26,7 @@ const Artist = (props: Props) => {
     <ImageContainer></ImageContainer>
     <RightContainer>
       <HeaderContainer></HeaderContainer>
-      <TagContainer></TagContainer>
+      <TagContainer size="s"></TagContainer>
       <ArtistLinkContainer size="s"></ArtistLinkContainer>
     </RightContainer>
     </ArtistCard>
