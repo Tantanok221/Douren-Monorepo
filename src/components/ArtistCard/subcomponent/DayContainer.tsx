@@ -6,9 +6,9 @@ const DayContainer = () => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const boothLocation = [
-    data.DAY01_location,
-    data.DAY02_location,
-    data.DAY03_location,
+    data?.DAY01_location,
+    data?.DAY02_location,
+    data?.DAY03_location,
   ];
   return (
     <div className={sx("dayContainer")}>
