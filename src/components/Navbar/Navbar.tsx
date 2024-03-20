@@ -35,7 +35,14 @@ const Navbar = ({}: Props) => {
           >
             {matches ? <MdOutlineBookmarkBorder /> : "我的收藏"}
           </Link>
-
+          <Link
+            to={"/artist"}
+            className={sx("linkButton", {
+              activeButton: location.pathname === "/artist",
+            })}
+          >
+            {matches ? <MdOutlineBookmarkBorder /> : "创作者"}
+          </Link>
           <Link
             to={"/about"}
             className={sx("linkButton", {

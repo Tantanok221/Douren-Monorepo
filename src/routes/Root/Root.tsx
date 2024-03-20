@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import Navbar from "../../components/Navbar/Navbar";
 
 const Root = () => {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ const Root = () => {
   return (
     <AnimatePresence>
       <div className={sx("Root")}>
-        <Sidebar />
+        <Navbar />
         <Outlet key={location.key} />
         <SpeedInsights/>
       </div>
