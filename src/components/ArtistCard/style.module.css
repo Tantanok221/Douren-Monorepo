@@ -235,8 +235,28 @@
   cursor: pointer;
 }
 
+.artistButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  color: #000;
+  background: #FB6363;
+  border: none;
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
 .smallText {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 @media(max-width: 1000px) {

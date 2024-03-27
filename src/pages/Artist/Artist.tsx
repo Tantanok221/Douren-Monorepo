@@ -10,6 +10,7 @@ import RightContainer from "../../components/ArtistCard/subcomponent/RightContai
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
 import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
+import ArtistButton from "../../components/ArtistCard/subcomponent/ArtistButton";
 
 type Props = {};
 
@@ -27,7 +28,7 @@ const Artist = (props: Props) => {
     <RightContainer>
       <HeaderContainer></HeaderContainer>
       <TagContainer size="s"></TagContainer>
-      <ArtistLinkContainer size="s"></ArtistLinkContainer>
+      <ArtistLinkContainer size="s"><ArtistButton size="s"></ArtistButton></ArtistLinkContainer>
     </RightContainer>
     </ArtistCard>
 )}
