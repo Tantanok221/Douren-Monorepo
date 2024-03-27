@@ -16,6 +16,7 @@ import { PostHogProvider } from "posthog-js/react";
 import posthog from 'posthog-js';
 import Artist from "./pages/Artist/Artist.tsx";
 import FF42 from "./pages/FF42/FF42.jsx";
+import ArtistPage from "./pages/ArtistPage/ArtistPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "artist",
-        element: <Artist/>
+        element: <Artist/>,
+      },
+      {
+        path: "artist/:id",
+        element: <ArtistPage/>,
       }
     ],
   },
