@@ -7,7 +7,11 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useGetImageSize } from "../../../hooks/useGetImageSize";
 import { useArtistCardContext } from "../ArtistCardContext";
 
-const ImageContainer = () => {
+interface Props {
+  followContainerSize?: boolean;
+
+}
+const ImageContainer = ({followContainerSize}:Props) => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const artistData = useArtistCardContext();
@@ -16,7 +20,7 @@ const ImageContainer = () => {
   return (
     <div className={sx("imageContainer")}>
       <LazyLoadImage
-        width={width}
+        width={followContainerSize ? "" : width}
         alt={data?.Booth_name  + " pictures"}
         className={sx("image")}
         effect="blur"

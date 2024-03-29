@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: space-between;
   gap: 3.5rem;
+  flex-wrap: wrap;
+  
 }
 
 @media (max-width: 800px) {

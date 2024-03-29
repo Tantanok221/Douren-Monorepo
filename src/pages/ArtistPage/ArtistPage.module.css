@@ -1,3 +1,10 @@
 .mainContainer {
-  
+  display: flex;
+  gap: 3.75rem
+}
+
+.leftContainer{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
