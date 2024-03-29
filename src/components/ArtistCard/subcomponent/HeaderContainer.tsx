@@ -7,13 +7,14 @@ import BookmarkContainer from "./BookmarkContainer.tsx";
 
 interface Props {
   bookmarkEnabled?: boolean;
+  subtitleDisabled?: boolean;
 }
 
-const HeaderContainer = ({bookmarkEnabled}:Props) => {
+const HeaderContainer = ({bookmarkEnabled,subtitleDisabled}:Props) => {
   const sx = classNames.bind(styles);
   return (
     <div className={sx("headerContainer")}>
-      <TitleContainer />
+      <TitleContainer subtitleDisabled={subtitleDisabled} />
       {bookmarkEnabled ? <BookmarkContainer />: null}
     </div>
   );
