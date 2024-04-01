@@ -8,12 +8,18 @@
   justify-content: center;
 }
 
+.padding {
+  padding-top: 5%;
+}
+
 .Navbar {
   display: flex;
   width: 100vw;
   align-items: center;
   justify-content: center;
   z-index: 3;
+  position: fixed;
+  top: 0;
 }
 
 .linkButton {
@@ -26,6 +32,14 @@
   border-radius: 0.5rem;
 }
 
-.activeButton {
+.activeButton,.linkButton:hover {
   background-color: var(--Sidebar-Active);
+}
+
+
+@media (max-width: 800px) {
+  .padding{
+    padding-top: 8%;
+  }
+
 }

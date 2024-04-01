@@ -16,6 +16,7 @@ const Navbar = ({}: Props) => {
   const matches = useMediaQuery("(max-width: 800px)");
   const location = useLocation();
   return (
+    <>
     <motion.div className={sx("Navbar")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "1.75rem" }}>
         <div className={sx("linkContainer")}>
@@ -24,7 +25,7 @@ const Navbar = ({}: Props) => {
             className={sx("linkButton", {
               activeButton: location.pathname === "/",
             })}
-          >
+            >
             {matches ? <RiHome2Line /> : "FF42"}
           </Link>
           <Link
@@ -48,12 +49,14 @@ const Navbar = ({}: Props) => {
             className={sx("linkButton", {
               activeButton: location.pathname === "/about",
             })}
-          >
+            >
             {matches ? <MdInfoOutline /> : "關於我們"}
           </Link>
         </div>
       </IconContext.Provider>
     </motion.div>
+    <div className={sx('padding')}></div>
+            </>
   );
 };
 
