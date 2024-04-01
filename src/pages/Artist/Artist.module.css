@@ -6,20 +6,25 @@
   justify-content: space-between;
   gap: 3.5rem;
   flex-wrap: wrap;
-  
+}
+
+.mainContainer > * {
+  flex: 1 1 33%;
 }
 
 @media (max-width: 800px) {
   .Root {
     flex-direction: column;
-    }
-    .mainContainer {
-      margin: 1.25rem 5%;
-      box-sizing: border-box;
-      padding-left: 6%;
-    }
-    .ArtistContainer {
-      align-items: flex-start;
-    }
   }
-  
+  .mainContainer {
+    margin: 1.25rem 5%;
+    box-sizing: border-box;
+    padding-left: 6%;
+  }
+  .ArtistContainer {
+    align-items: flex-start;
+  }
+  .mainContainer > * {
+    flex-basis: 100%;
+  }
+}
