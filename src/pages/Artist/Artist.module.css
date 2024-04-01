@@ -20,11 +20,13 @@
     margin: 1.25rem 5%;
     box-sizing: border-box;
     padding-left: 6%;
+    padding-top: 0;
   }
   .ArtistContainer {
     align-items: flex-start;
   }
   .mainContainer > * {
     flex-basis: 100%;
+
   }
 }
