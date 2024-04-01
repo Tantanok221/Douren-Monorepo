@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 
+
+
 .mainContainer {
   display: flex;
   gap: 1.5rem;
@@ -275,8 +277,8 @@
   .image {
     height: 40%;
   }
-  .linkButton {
-    padding: 1rem 1.25rem;
-    font-size: 1.25rem;
+  .linkButton,.artistButton {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
   }
 }
