@@ -41,7 +41,7 @@ const Navbar = ({}: Props) => {
               activeButton: location.pathname === "/artist",
             })}
           >
-            {matches ? <MdOutlineBookmarkBorder /> : "创作者"}
+            {matches ? <MdOutlineBookmarkBorder /> : "創作者"}
           </Link>
           <Link
             to={"/about"}
