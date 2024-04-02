@@ -9,6 +9,7 @@ import LinkContainer from "../../LinkContainer/LinkContainer.tsx";
 import { useFFContext } from "../FFContext.ts";
 import { useArtistCardContext } from "../ArtistCardContext.ts";
 import { processArtistData } from "../../../helper/processArtistData.ts";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface props {
   children?: React.ReactNode;
@@ -20,7 +21,9 @@ const ArtistLinkContainer = ({ children,size }: props) => {
   const FFData = useFFContext();
   const ArtistData = useArtistCardContext();
   size = size ?? "l";
-  const fontSize = size === "s" ? "1rem" : "1.5rem";
+  let fontSize = size === "s" ? "1rem" : "1.5rem";
+  let matches = useMediaQuery("(max-width: 1000px)")
+  fontSize = matches ? "1.5rem" : fontSize
   let link: LinkResult[] = [];
   if (FFData) {
     link = processLink(FFData.Facebook_link, FFData.Facebook_name, "Facebook");

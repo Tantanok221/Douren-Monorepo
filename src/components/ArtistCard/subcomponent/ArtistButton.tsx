@@ -18,8 +18,8 @@ const ArtistButton = ({ size }: Props) => {
 
   size = size ?? "l";
   let fontSize = size === "s" ? "1rem" : "1.5rem";
-  let matches = useMediaQuery("(max-width: 1000px)")
-  fontSize = matches ? "1.5rem" : fontSize
+  let matches = useMediaQuery("(max-width: 1000px)");
+  fontSize = matches ? "1.5rem" : fontSize;
   return (
     <IconContext.Provider
       value={{
@@ -27,10 +27,12 @@ const ArtistButton = ({ size }: Props) => {
         size: fontSize,
       }}
     >
-      <Link to={"/artist/" + artistData?.uuid} className={sx("artistButton","smallText")}>
+      <Link
+        to={"/artist/" + artistData?.uuid}
+        className={sx("artistButton", "smallText")}
+      >
         <IoLibraryOutline />
         详细资讯
-
       </Link>
     </IconContext.Provider>
   );
