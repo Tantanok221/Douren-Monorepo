@@ -17,7 +17,7 @@ import { usePosition } from "../../hooks/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
 import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
-import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
+import TagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
 import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer";
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
@@ -126,13 +126,12 @@ function FF42() {
       </div>
       <div className={sx("ArtistContainer")}>
         {(posts ?? []).map((item, index) => {
-          
           return (
             <ArtistCard key={`${item.uuid}`} data={item}>
               <ImageContainer />
               <RightContainer>
-                <HeaderContainer bookmarkEnabled/>
-                <TagContainer />
+                <HeaderContainer bookmarkEnabled />
+                <TagContainer activeButton/>
                 <DayContainer />
                 <ArtistLinkContainer>
                   <DMButton />

@@ -8,32 +8,35 @@ import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
-import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import ArtistButton from "../../components/ArtistCard/subcomponent/ArtistButton";
+import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer";
 
 type Props = {};
 
 const Artist = (props: Props) => {
   const sx = classNames.bind(style);
   const location = useLocation();
-  const {data} = artistQuery()
-  console.log(data)
+  const { data } = artistQuery();
+  console.log(data);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
-  setAllFilter(); 
-  return <div className={sx("mainContainer")}>
-    {data?.map((item, index) => 
-  <ArtistCard key={index} artistData={item}>
-    <ImageContainer></ImageContainer>
-    <RightContainer>
-      <HeaderContainer></HeaderContainer>
-      <TagContainer size="s"></TagContainer>
-      <ArtistLinkContainer size="s"><ArtistButton size="s"></ArtistButton></ArtistLinkContainer>
-    </RightContainer>
-    </ArtistCard>
-)}
-    
-    </div>;
+  setAllFilter();
+  return (
+    <div className={sx("mainContainer")}>
+      {data?.map((item, index) => (
+        <ArtistCard key={index} artistData={item}>
+          <ImageContainer></ImageContainer>
+          <RightContainer>
+            <HeaderContainer></HeaderContainer>
+            <ArtistTagContainer size="s"></ArtistTagContainer>
+            <ArtistLinkContainer size="s">
+              <ArtistButton size="s"></ArtistButton>
+            </ArtistLinkContainer>
+          </RightContainer>
+        </ArtistCard>
+      ))}
+    </div>
+  );
 };
 
 export default Artist;
