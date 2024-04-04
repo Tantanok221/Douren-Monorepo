@@ -1,14 +1,16 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useGetImageSize } from '../../hooks/useGetImageSize';
 
 type Props = {
-  width: string 
+  width?: string 
   photo: string | undefined
   alt: string | undefined
 }
 
 const LazyImage = ({width,alt,photo}: Props) => {
+  width = width ?? useGetImageSize();
   return (
     <>
     <LazyLoadImage

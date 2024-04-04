@@ -1,12 +1,12 @@
 import { useMediaQuery } from '@mantine/hooks';
 
 export function useGetImageSize() {
-  let width = "40rem"  
-  const phoneSize = useMediaQuery('(max-width: 590px)');
-  const smallPhoneSize = useMediaQuery('(max-width: 445px)');
+  let width = "30rem"  
+  const phoneSize = useMediaQuery('(max-width: 1000px)');
+  const smallPhoneSize = useMediaQuery('(max-width: 800px)');
 
   if(phoneSize) {
-    width = "35rem"
+    width = "25rem"
   }
   if(smallPhoneSize){
     width = "25rem"
