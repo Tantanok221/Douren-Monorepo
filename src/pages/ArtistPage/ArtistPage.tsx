@@ -6,17 +6,15 @@ import { useParams } from "react-router";
 import { artistLoader } from "../../helper/artistLoader";
 import { useGetImageSize } from "../../hooks/useGetImageSize";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { LinkResult, processLink } from "../../helper/processLink";
 import { processArtistData } from "../../helper/processArtistData";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
-import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
-import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
-import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
-import TagContainer from "../../components/ArtistCard/subcomponent/TagContainer";
 import { useTagFilter } from "../../hooks/useTagFilter";
-import IntroductionContainer from "../../components/ArtistCard/subcomponent/IntroductionContainer";
-
+import LazyImage from "../../components/LazyImage/LazyImage";
+import LinkContainer from "../../components/LinkContainer/LinkContainer";
+import { processTagData } from "../../helper/processTagData";
+import { ArtistTypes } from "../../types/Artist";
+import TagContainer from "../../components/TagContainer/TagContainer";
+import ArtistStyle from "../../components/ArtistCard/style.module.css";
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
@@ -27,23 +25,36 @@ const ArtistPage = ({}: Props) => {
   setAllFilter();
   const width = useGetImageSize();
   const sx = classNames.bind(style);
+  const ax = classNames.bind(ArtistStyle);
 
-  if (!data) return null;
-  let ArtistData = data[0];
-  console.log(ArtistData);
+  let artistData:ArtistTypes|null = data ? data[0] : null;
+  const artistTagData = processTagData(artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? [])
+  if (!artistData) return null;
+  console.log(artistData);
+  const artistLinkData = processArtistData(artistData);
   return (
     <motion.div className={sx("mainContainer")}>
-      <ArtistCard artistData={ArtistData}>
+      <div className={sx("topContainer")}>
         <div className={sx("leftContainer")}>
-          <ImageContainer followContainerSize></ImageContainer>
-          <ArtistLinkContainer></ArtistLinkContainer>0
+            <LazyImage
+              alt={artistData.Author}
+              photo={artistData.Photo}
+            />
+          
+          <div className={sx("linkContainer")}>
+            <LinkContainer link={artistLinkData} ></LinkContainer>
+          </div>
         </div>
         <div className={sx("rightContainer")}>
-          <HeaderContainer subtitleDisabled></HeaderContainer>
-          <TagContainer></TagContainer>
-          <IntroductionContainer></IntroductionContainer>
+          <div className={sx("headerContainer")}>
+            <div className={ax('header')}>{artistData.Author}</div>
+          </div>
+          <div className={ax("tagContainer")}>
+            <TagContainer renderTag={artistTagData}></TagContainer>
+          </div>
+          <div className={sx("introductionContainer")}>{artistData.Introduction}</div>
         </div>
-      </ArtistCard>
+      </div>
     </motion.div>
   );
 };

@@ -1,10 +1,55 @@
 .mainContainer {
   display: flex;
-  gap: 3.75rem
+  gap: 3.75rem;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  background: var(--Dark-Panel, #1f1f21);
+  border-radius: 1rem;
+  padding: 3rem 2.5rem;
 }
 
-.leftContainer{
-  width: 50%;
+.topContainer {
+  display: flex;
+  gap: 3.75rem;
+}
+
+.leftContainer {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  width: max-content;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.linkContainer {
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.4rem 0.75rem;
+  width: 100%
+}
+
+.introductionContainer {
+  font-family: var(--Font);
+  color: #FFF;
+  border-radius: 1.25rem;
+  background: #2C2929;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.imageContainer {
+  width: 100%;
+  
+}
+
+.linkContainer > * {
+  flex-basis: 10rem;
 }
