@@ -37,8 +37,8 @@ const Artist = (props: Props) => {
           </RightContainer>
         </ArtistCard>
       ))}
-    </div>
     <NavbarMargin></NavbarMargin>
+    </div>
       </>
   );
 };
