@@ -24,8 +24,12 @@ html {
   scroll-behavior: smooth;
 
 }
-* {
+
+*,
+*::before,
+*::after {
   min-width: 0px;
+  box-sizing: border-box;
 }
 
 .image {
