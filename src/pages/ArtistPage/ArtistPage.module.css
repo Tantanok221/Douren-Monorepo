@@ -12,6 +12,7 @@
 .topContainer {
   display: flex;
   gap: 3.75rem;
+  width: 100%;
 }
 
 .leftContainer {
@@ -19,13 +20,14 @@
   flex-direction: column;
   align-items: stretch;
   gap: 1.5rem;
-  width: max-content;
+  width: min-content;
 }
 
 .rightContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
 }
 .linkContainer {
   display: flex;
@@ -43,13 +45,18 @@
   padding: 1.25rem 1.5rem;
   font-size: 1.25rem;
   font-weight: 400;
+  height: 100%;
 }
 
 .imageContainer {
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  
 }
 
 .linkContainer > * {
-  flex-basis: 10rem;
+  flex: 1 1 25%;
 }
+

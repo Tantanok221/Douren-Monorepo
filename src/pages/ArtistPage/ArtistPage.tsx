@@ -15,6 +15,8 @@ import { processTagData } from "../../helper/processTagData";
 import { ArtistTypes } from "../../types/Artist";
 import TagContainer from "../../components/TagContainer/TagContainer";
 import ArtistStyle from "../../components/ArtistCard/style.module.css";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
@@ -23,39 +25,60 @@ const ArtistPage = ({}: Props) => {
   let { data } = artistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
-  const width = useGetImageSize();
+  let width = "25rem";
+  const phoneSize = useMediaQuery("(max-width: 1000px)");
+  const smallPhoneSize = useMediaQuery("(max-width: 800px)");
+
+  if (phoneSize) {
+    width = "20rem";
+  }
+  if (smallPhoneSize) {
+    width = "20rem";
+  }
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);
 
-  let artistData:ArtistTypes|null = data ? data[0] : null;
-  const artistTagData = processTagData(artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? [])
+  let artistData: ArtistTypes | null = data ? data[0] : null;
+  const artistTagData = processTagData(
+    artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? []
+  );
   if (!artistData) return null;
   console.log(artistData);
   const artistLinkData = processArtistData(artistData);
   return (
-    <motion.div className={sx("mainContainer")}>
-      <div className={sx("topContainer")}>
-        <div className={sx("leftContainer")}>
-            <LazyImage
-              alt={artistData.Author}
-              photo={artistData.Photo}
-            />
-          
-          <div className={sx("linkContainer")}>
-            <LinkContainer link={artistLinkData} ></LinkContainer>
+    <>
+      <motion.div className={sx("mainContainer")}>
+        <div className={sx("topContainer")}>
+          <div className={sx("leftContainer")}>
+            <div className={sx("imageContainer")}>
+              <LazyImage
+                alt={artistData.Author}
+                photo={artistData.Photo}
+                width={width}
+              />
+            </div>
+
+            <div className={sx("linkContainer")}>
+              <LinkContainer link={artistLinkData}></LinkContainer>
+            </div>
+          </div>
+          <div className={sx("rightContainer")}>
+            <div className={sx("headerContainer")}>
+              <div className={ax("header")}>{artistData.Author}</div>
+            </div>
+            <div className={ax("tagContainer")}>
+              <TagContainer renderTag={artistTagData}></TagContainer>
+            </div>
+            <div className={sx("introductionContainer")}>
+              {artistData.Introduction
+                ? artistData.Introduction
+                : "大大没有留下任何自我介绍"}
+            </div>
           </div>
         </div>
-        <div className={sx("rightContainer")}>
-          <div className={sx("headerContainer")}>
-            <div className={ax('header')}>{artistData.Author}</div>
-          </div>
-          <div className={ax("tagContainer")}>
-            <TagContainer renderTag={artistTagData}></TagContainer>
-          </div>
-          <div className={sx("introductionContainer")}>{artistData.Introduction}</div>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+      <NavbarMargin></NavbarMargin>
+    </>
   );
 };
 
