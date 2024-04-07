@@ -11,6 +11,7 @@ import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderCont
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import ArtistButton from "../../components/ArtistCard/subcomponent/ArtistButton";
 import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer";
+import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 
 type Props = {};
 
@@ -22,6 +23,7 @@ const Artist = (props: Props) => {
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
   return (
+    <>
     <div className={sx("mainContainer")}>
       {data?.map((item, index) => (
         <ArtistCard key={index} artistData={item}>
@@ -36,6 +38,8 @@ const Artist = (props: Props) => {
         </ArtistCard>
       ))}
     </div>
+    <NavbarMargin></NavbarMargin>
+      </>
   );
 };
 

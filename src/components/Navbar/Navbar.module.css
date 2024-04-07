@@ -9,7 +9,7 @@
 }
 
 .padding {
-  padding-top: 5%;
+  padding-top: 100px;
 }
 
 .Navbar {
@@ -32,16 +32,21 @@
   border-radius: 0.5rem;
 }
 
-.activeButton,.linkButton:hover {
+.activeButton,
+.linkButton:hover {
   background-color: var(--Sidebar-Active);
 }
 
+.bottomPadding {
+  height: 100px;
+}
 
 @media (max-width: 800px) {
-
-  .Navbar{
+  .Navbar {
     bottom: 0;
     top: 92%;
   }
-
+  .padding {
+    padding-top: 35px;
+  }
 }
