@@ -16,6 +16,7 @@
   text-decoration: none;
   gap: 0.5rem;
   cursor: pointer;
+  min-width: 100px;
 }
 
 .smallText {

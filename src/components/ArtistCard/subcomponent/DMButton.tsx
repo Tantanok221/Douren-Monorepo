@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
+import linkStyle from "../../LinkContainer/LinkContainer.module.css";
 import { useFFContext } from "../FFContext.ts";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -9,26 +10,28 @@ import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import LinkIcon from "../../LinkIcon/LinkIcon.tsx";
+
 const DMButton = () => {
   const sx = classNames.bind(styles);
+  const ax = classNames.bind(linkStyle);
   const data = useFFContext();
   let link = (data?.DM ?? "").split("\n");
 
   return data?.DM ? (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <motion.div
+        <motion.a
           whileHover={{
             backgroundColor: "#4D4D4D",
           }}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
-          className={sx("linkButton")}
+          className={ax("linkButton")}
         >
           <LinkIcon data={{ category: "DM" }} />
           商品項目
-        </motion.div>
+        </motion.a>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay>
