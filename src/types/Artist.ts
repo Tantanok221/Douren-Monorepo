@@ -18,7 +18,11 @@ export interface ArtistTypes {
   Event_DM: {
     Booth_name: string | null;
     DM: string | null;
-    Event: string | null;
+    Event: {
+      name: string | null
+    }
+    Location: string;
+
   }[]| null;
   Author_Tag: {
     Tag: string | null;
