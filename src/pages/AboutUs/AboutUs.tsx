@@ -1,12 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../../helper/supabase.ts";
 import AboutCard from "../../components/AboutCard/AboutCard.tsx";
-import LinkContainer from "../../components/LinkContainer/LinkContainer.tsx";
-import { IconContext } from "react-icons";
-import { DiscordGroup, author_data } from "../../data/author_data.ts";
 import Animate from "../../animate/Animate.tsx";
 import { Owner } from "../../types/Owner.ts";
 async function fetchOwner():Promise<Owner[] | null> {
@@ -24,7 +21,6 @@ async function fetchOwner():Promise<Owner[] | null> {
 function AboutUs() {
   const sx = classNames.bind(styles);
   const {data} = ownerQuery();
-  console.log(data);
   return (
     <motion.div
       initial={{ opacity: 0 }}
