@@ -35,12 +35,12 @@ const AboutCard = ({ author_data  }: Props) => {
         <IconContext.Provider
           value={{
             color: "#CBC3C3",
-            size: "1.5rem",
+            size: "1.25rem",
           }}
         >
-          <LinkContainer link={link} />
+          <LinkContainer size='s' link={link} />
           {author_data.discord_name ?
-          <DiscordButton discord_name={author_data.discord_name}/> : null}
+          <DiscordButton  size='s' discord_name={author_data.discord_name}/> : null}
         </IconContext.Provider>
       </div>
     </motion.div>

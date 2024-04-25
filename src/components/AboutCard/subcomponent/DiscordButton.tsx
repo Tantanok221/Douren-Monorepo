@@ -4,12 +4,13 @@ import classNames from "classnames/bind";
 import style from "../AboutCard.module.css";
 import * as Toast from "@radix-ui/react-toast";
 import { motion } from "framer-motion";
-
+import LinkStyle from "../../LinkContainer/LinkContainer.module.css";
 interface Props {
   discord_name: string;
+  size : 's' | 'l' 
 }
 
-const DiscordButton = ({ discord_name }: Props) => {
+const DiscordButton = ({ discord_name,size }: Props) => {
   const [open, setOpen] = React.useState(false);
   const timerRef = React.useRef(0);
 
@@ -18,10 +19,11 @@ const DiscordButton = ({ discord_name }: Props) => {
   }, []);
 
   const sx = classNames.bind(style);
+  const ax = classNames.bind(LinkStyle);
   return (
     <Toast.Provider>
       <motion.button
-        className={sx("linkButton")}
+        className={ax("linkButton",{"smallText" : size === "s"})}
         value={discord_name}
         whileHover={{
           backgroundColor: "#4D4D4D",
