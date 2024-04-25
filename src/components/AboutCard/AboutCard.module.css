@@ -9,7 +9,7 @@
 
 .title {
   font-family: var(--Font);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #fff;
   margin: 0px;
@@ -18,7 +18,7 @@
 .subtitle {
   color: #C8C3C3;
   font-family: var(--Font);
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0px;
 }

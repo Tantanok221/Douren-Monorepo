@@ -6,10 +6,10 @@ import { IconContext } from "react-icons";
 import { processLink } from "../../helper/processLink";
 import LinkContainer from "../LinkContainer/LinkContainer.tsx";
 import DiscordButton from "./subcomponent/DiscordButton";
-import { Author, author_data } from '../../data/author_data';
+import { Owner } from "../../types/Owner.ts";
 
 interface Props {
-  author_data: Author
+  author_data: Owner
 }
 
 const AboutCard = ({ author_data  }: Props) => {
