@@ -76,6 +76,12 @@ const ArtistPage = ({}: Props) => {
             </div>
           </div>
         </div>
+        <div className={sx('bottomContainer')}>
+          <div className={sx('dmText')}>商品總覽/過往DM</div>
+          <div className={sx('dmContainer')}>
+            
+          </div>
+        </div>
       </motion.div>
       <NavbarMargin></NavbarMargin>
     </>
