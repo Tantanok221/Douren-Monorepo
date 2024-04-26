@@ -78,10 +78,6 @@
 
 }
 
-.dmContainer > * {
-  flex: 0 1 20%
-}
-
 .artistPage {
   display: flex;
   gap: 2rem;
