@@ -12,11 +12,12 @@ import { useTagFilter } from "../../hooks/useTagFilter";
 import LazyImage from "../../components/LazyImage/LazyImage";
 import LinkContainer from "../../components/LinkContainer/LinkContainer";
 import { processTagData } from "../../helper/processTagData";
-import { ArtistTypes } from "../../types/Artist";
+import { ArtistPageTypes, ArtistTypes } from "../../types/Artist";
 import TagContainer from "../../components/TagContainer/TagContainer";
 import ArtistStyle from "../../components/ArtistCard/style.module.css";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
+import DMButton from "../../components/DMButton/component/DMButton";
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
@@ -29,6 +30,7 @@ const ArtistPage = ({}: Props) => {
   const phoneSize = useMediaQuery("(max-width: 1000px)");
   const smallPhoneSize = useMediaQuery("(max-width: 800px)");
 
+
   if (phoneSize) {
     width = "20rem";
   }
@@ -38,15 +40,16 @@ const ArtistPage = ({}: Props) => {
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);
 
-  let artistData: ArtistTypes | null = data ? data[0] : null;
+  let artistData: ArtistPageTypes | null = data ? data[0] : null;
   const artistTagData = processTagData(
     artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? []
   );
   if (!artistData) return null;
+
   console.log(artistData);
   const artistLinkData = processArtistData(artistData);
   return (
-    <>
+    <motion.div className={sx("artistPage")}>
       <motion.div className={sx("mainContainer")}>
         <div className={sx("topContainer")}>
           <div className={sx("leftContainer")}>
@@ -76,15 +79,26 @@ const ArtistPage = ({}: Props) => {
             </div>
           </div>
         </div>
+      </motion.div>
         <div className={sx('bottomContainer')}>
-          <div className={sx('dmText')}>商品總覽/過往DM</div>
+          <div className={sx('dmText')}>過往DM</div>
           <div className={sx('dmContainer')}>
-            
+            {
+              artistData.Event_DM?.map((item,index) => {
+                let link = (item?.DM ?? "").split("\n");
+
+                return (
+                  link[0] != "" ? <div className={sx('dmCard')} key={index + "ArtistID"}>
+                    <div className={sx('dmEvent')}>{item.Event.name}</div>
+                    <DMButton link={link}></DMButton>
+                  </div>  : null
+                );
+              })
+            }
           </div>
         </div>
-      </motion.div>
       <NavbarMargin></NavbarMargin>
-    </>
+    </motion.div>
   );
 };
 

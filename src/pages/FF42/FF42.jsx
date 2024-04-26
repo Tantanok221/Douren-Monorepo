@@ -22,7 +22,7 @@ import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer"
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
-import DMButton from "../../components/ArtistCard/subcomponent/DMButton";
+import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
 
 function FF42() {
   const FETCH_COUNT = 40;
@@ -131,7 +131,7 @@ function FF42() {
               <ImageContainer />
               <RightContainer>
                 <HeaderContainer bookmarkEnabled />
-                <TagContainer activeButton/>
+                <TagContainer activeButton />
                 <DayContainer />
                 <ArtistLinkContainer>
                   <DMButton />

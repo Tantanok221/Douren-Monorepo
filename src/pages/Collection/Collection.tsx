@@ -11,7 +11,7 @@ import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer"
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
-import DMButton from "../../components/ArtistCard/subcomponent/DMButton";
+import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
 import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
 
 export const Collection = () => {
