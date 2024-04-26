@@ -2,14 +2,14 @@
   padding: 0.5rem 3rem 3rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 3.5rem;
   flex-wrap: wrap;
   height: 100%;
 }
 
 .mainContainer > * {
-  flex: 1 1 33%;
+  flex: 0 1 45%;
 }
 
 @media (max-width: 800px) {
