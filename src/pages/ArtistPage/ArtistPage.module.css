@@ -1,7 +1,7 @@
 .mainContainer {
   display: flex;
   gap: 3.75rem;
-  width: 90%;
+  width: 100%;
   align-items: center;
   justify-content: center;
   background: var(--Dark-Panel, #1f1f21);
@@ -34,14 +34,14 @@
   align-content: space-between;
   flex-wrap: wrap;
   gap: 1.4rem 0.75rem;
-  width: 100%
+  width: 100%;
 }
 
 .introductionContainer {
   font-family: var(--Font);
-  color: #FFF;
+  color: #fff;
   border-radius: 1.25rem;
-  background: #2C2929;
+  background: #2c2929;
   padding: 1.25rem 1.5rem;
   font-size: 1.25rem;
   font-weight: 400;
@@ -60,3 +60,52 @@
   flex: 1 1 25%;
 }
 
+.dmText {
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.dmContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.dmContainer > * {
+  flex: 0 1 20%
+}
+
+.artistPage {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  width: 90%;
+}
+
+.dmCard {
+  display: flex;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+  border-radius: 0.75rem;
+  background: #2c2929;
+}
+
+.dmEvent {
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.bottomContainer {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+}
