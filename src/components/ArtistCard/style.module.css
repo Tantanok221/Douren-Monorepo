@@ -11,6 +11,7 @@
 
 
 .mainContainer {
+  height: 100%;
   display: flex;
   gap: 1.5rem;
   justify-content: flex-start;

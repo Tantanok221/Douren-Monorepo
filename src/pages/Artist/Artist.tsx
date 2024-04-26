@@ -24,22 +24,24 @@ const Artist = (props: Props) => {
   setAllFilter();
   return (
     <>
-    <div className={sx("mainContainer")}>
-      {data?.map((item, index) => (
-        <ArtistCard key={index} artistData={item}>
-          <ImageContainer></ImageContainer>
-          <RightContainer>
-            <HeaderContainer></HeaderContainer>
-            <ArtistTagContainer size="s"></ArtistTagContainer>
-            <ArtistLinkContainer size="s">
-              <ArtistButton size="s"></ArtistButton>
-            </ArtistLinkContainer>
-          </RightContainer>
-        </ArtistCard>
-      ))}
-    <NavbarMargin></NavbarMargin>
-    </div>
-      </>
+      <div className={sx("mainContainer")}>
+        {data?.map((item, index) => (
+          <ArtistCard key={index} artistData={item}>
+            <ImageContainer></ImageContainer>
+            <RightContainer>
+              <div className={sx("rightHeaderContainer")}>
+                <HeaderContainer></HeaderContainer>
+                <ArtistTagContainer size="s"></ArtistTagContainer>
+              </div>
+              <ArtistLinkContainer size="s">
+                <ArtistButton size="s"></ArtistButton>
+              </ArtistLinkContainer>
+            </RightContainer>
+          </ArtistCard>
+        ))}
+        <NavbarMargin></NavbarMargin>
+      </div>
+    </>
   );
 };
 
