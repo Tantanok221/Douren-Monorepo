@@ -81,7 +81,7 @@ const ArtistPage = ({}: Props) => {
         </div>
       </motion.div>
         <div className={sx('bottomContainer')}>
-          <div className={sx('dmText')}>過往DM</div>
+          {(artistData?.Event_DM && artistData.Event_DM[0]?.DM) ? <div className={sx('dmText')}>過往DM</div> : null}
           <div className={sx('dmContainer')}>
             {
               artistData.Event_DM?.map((item,index) => {

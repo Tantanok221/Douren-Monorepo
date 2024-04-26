@@ -74,6 +74,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  width: 100%;
+
 }
 
 .dmContainer > * {
@@ -89,11 +91,14 @@
 
 .dmCard {
   display: flex;
+  flex-direction: column;
   padding: 1.5rem 2rem;
   gap: 1rem;
   border-radius: 0.75rem;
   background: #2c2929;
 }
+
+
 
 .dmEvent {
   color: #fff;
