@@ -7,11 +7,8 @@ const fetchArtistData = async (): Promise<ArtistTypes[] | null> => {
     *,
     Author_Tag (
       Tag
-    ),
-    Event_DM (
-      DM,Booth_name,Location,Event(
-        name
-      )
+    ),Event_DM (
+      Booth_name
     )
     `);
   const { data } = await query;
