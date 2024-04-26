@@ -30,7 +30,11 @@ export interface ArtistPageTypes extends ArtistTypes {
     Event: {
       name: string | null
     }
-    Location: string;
 
   }[]| null;
+  Author_Product: {
+    Thumbnail: string 
+    Title: string 
+    Preview: string| null
+  }[]| null
 }
