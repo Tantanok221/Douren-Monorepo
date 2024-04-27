@@ -11,9 +11,10 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 interface Props {
   link: string[]
+  text?: string
 }
 
-const DMButton = ({link}:Props) => {
+const DMButton = ({link,text}:Props) => {
   const sx = classNames.bind(style);
   const ax = classNames.bind(linkStyle);
 
@@ -29,7 +30,7 @@ const DMButton = ({link}:Props) => {
         className={ax("linkButton")}
       >
         <LinkIcon data={{ category: "DM" }} />
-        商品項目
+        {text ? text : `商品項目`}
       </motion.a>
     </Dialog.Trigger>
     <Dialog.Portal>
