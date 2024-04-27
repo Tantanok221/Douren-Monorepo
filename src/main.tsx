@@ -11,7 +11,7 @@ import "./index.css";
 import "normalize.css";
 import Collection from "./pages/Collection/Collection.tsx";
 import Root from "./routes/Root/Root";
-import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from 'posthog-js';
 import Artist from "./pages/Artist/Artist.tsx";
