@@ -35,15 +35,15 @@
 .title {
   color: #fff;
   font-family: var(--Font);
-  font-size: 2.625rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
 .emptyText {
   color: #fff;
   font-family: var(--Font);
-  font-size: 2.25rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 400;
 }
 @media (max-width: 800px) {
 .Root {
