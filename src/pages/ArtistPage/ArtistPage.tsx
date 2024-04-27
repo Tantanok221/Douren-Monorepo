@@ -18,6 +18,8 @@ import ArtistStyle from "../../components/ArtistCard/style.module.css";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import DMButton from "../../components/DMButton/component/DMButton";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
@@ -29,7 +31,6 @@ const ArtistPage = ({}: Props) => {
   let width = "25rem";
   const phoneSize = useMediaQuery("(max-width: 1000px)");
   const smallPhoneSize = useMediaQuery("(max-width: 800px)");
-
 
   if (phoneSize) {
     width = "20rem";
@@ -80,23 +81,45 @@ const ArtistPage = ({}: Props) => {
           </div>
         </div>
       </motion.div>
-        <div className={sx('bottomContainer')}>
-          {(artistData?.Event_DM && artistData.Event_DM[0]?.DM) ? <div className={sx('dmText')}>過往DM</div> : null}
-          <div className={sx('dmContainer')}>
-            {
-              artistData.Event_DM?.map((item,index) => {
-                let link = (item?.DM ?? "").split("\n");
+      <div className={sx("bottomContainer")}>
+        {artistData?.Event_DM && artistData.Event_DM[0]?.DM ? (
+          <div className={sx("dmText")}>過往DM</div>
+        ) : null}
+        <div className={sx("dmContainer")}>
+          {artistData.Event_DM?.map((item, index) => {
+            let link = (item?.DM ?? "").split("\n");
 
-                return (
-                  link[0] != "" ? <div className={sx('dmCard')} key={index + "ArtistID"}>
-                    <div className={sx('dmEvent')}>{item.Event.name}</div>
-                    <DMButton link={link}></DMButton>
-                  </div>  : null
-                );
-              })
-            }
-          </div>
+            return link[0] != "" ? (
+              <div className={sx("dmCard")} key={index + "ArtistID"}>
+                <div className={sx("dmEvent")}>{item.Event.name}</div>
+                <DMButton link={link}></DMButton>
+              </div>
+            ) : null;
+          })}
         </div>
+      </div>
+      <div className={sx("mediumContainer")}>
+        <div className={sx("dmText")}>作品试阅</div>
+        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+          <Masonry gutter="15px">
+            {artistData.Author_Product?.map((item, index) => {
+              let link = (item?.Preview ?? "").split("\n");
+              return (
+                <div className={sx("productCard")}>
+                  <LazyImage
+                    width={"100%"}
+                    photo={item.Thumbnail}
+                    alt={item.Thumbnail}
+                  ></LazyImage>
+                  <div className={sx("productText")}>{item.Title}</div>
+                  <DMButton link={link} text="查看产品试阅"></DMButton>
+                </div>
+              );
+            })}
+          </Masonry>
+        </ResponsiveMasonry>
+      </div>
+      
       <NavbarMargin></NavbarMargin>
     </motion.div>
   );

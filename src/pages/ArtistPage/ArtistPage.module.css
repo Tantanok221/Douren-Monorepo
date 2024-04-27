@@ -75,7 +75,6 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-
 }
 
 .artistPage {
@@ -94,8 +93,6 @@
   background: #2c2929;
 }
 
-
-
 .dmEvent {
   color: #fff;
   font-family: var(--Font);
@@ -109,4 +106,35 @@
   display: flex;
   gap: 1.5rem;
   flex-direction: column;
+}
+
+.artistContainer {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.artistContainer > * {
+  flex: 1 0 25%;
+}
+
+.productText {
+  color: #fff;
+  font-family: var(--Font);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.productCard {
+  display: flex;
+  padding: 1.5rem 2rem;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 0.75rem;
+  background: #2c2929;
 }
