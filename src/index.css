@@ -35,6 +35,7 @@ html {
 .image {
   width: 100%;
   object-fit: contain;
+  border-radius:  8px;
 }
 
 @media (min-width: 320px) {
