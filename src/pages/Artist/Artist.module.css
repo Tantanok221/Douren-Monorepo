@@ -1,11 +1,11 @@
 .mainContainer {
-  padding: 0.5rem 3rem 3rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-content: stretch;
   gap: 3.5rem;
   flex-wrap: wrap;
+  max-width: 1300px;
 }
 
 .rightHeaderContainer {
