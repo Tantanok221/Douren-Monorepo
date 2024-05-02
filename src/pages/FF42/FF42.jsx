@@ -26,7 +26,7 @@ import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.ts
 
 function FF42() {
   const FETCH_COUNT = 40;
-  const [posts, setPosts] = useState(false);
+  const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(FETCH_COUNT);
@@ -41,6 +41,7 @@ function FF42() {
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
     (item) => item.tag
   );
+  const resetSearch = useSearch((state) => state.resetSearch);
   const tagFilterList = useTagFilter((state) => state.tagFilter);
   const initCollection = useCollection((state) => state.initCollection);
   const position = usePosition((state) => state.position);
@@ -55,6 +56,7 @@ function FF42() {
   window.scrollTo(0, position);
   useEffect(() => {
     setAllFilter();
+    resetSearch();
     initNextPageAvailable();
     initCollection();
   }, []);
@@ -71,10 +73,11 @@ function FF42() {
     if (data?.length != 0) setPosts(data);
   }, [data]);
   // Search Function Implementation
+  // !To do list: search tag filter broken
   useEffect(() => {
     if (search.length > 0) {
       setTimeout(async () => {
-        let query = supabase.from("FF42").select("");
+        let query = supabase.from("FF42").select("*");
 
         if (tagFilter.length !== 0) {
           const conditions = tagFilter
@@ -86,15 +89,16 @@ function FF42() {
 
         query = query.order(table, { ascending });
         let { data, error } = await query;
-        if (tagFilter.length !== 0) {
+        console.log(error)
+        if (tagFilter.length !== 0 && data) {
           data = data.filter((item) => {
-            if (!item.tag) return false;
-            const tag = item.tag.split(",");
-            tag.pop();
-            // console.log(tag);
-            return tagFilter.every((filter) => tag.includes(filter));
-          });
-        }
+            if (!item.Tag) return false;
+              const tag = item.Tag.split(",");
+              tag.pop();
+              // console.log(tag);
+              return tagFilter.every((filter) => tag.includes(filter));
+            });
+          }
         setPosts(data);
       }, 0);
     }

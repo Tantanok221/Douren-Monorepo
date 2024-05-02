@@ -2,6 +2,7 @@ import { useInfiniteQuery,useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
 import { useSearch } from "../hooks/useSearch";
 import { useNextPageAvailable } from "../hooks/useNextPageAvailable";
+import { FF } from "../types/FF";
 
 
 export function infiniteQuery(start: number ,end: number,table: string, ascending: boolean, tagFilter: string[]) {
@@ -21,20 +22,28 @@ export function infiniteQuery(start: number ,end: number,table: string, ascendin
       let filterEmpty = tagFilter.length === 0;
       
 
-      let query = supabase.from("FF42").select("");
+      let query = supabase.from("FF42").select("*");
       if (!filterEmpty) {
         let conditions:string[] | string  = tagFilter.map((tag) => `Tag.ilike.%${tag}%`);
         conditions = conditions.join(",");
         query = query.or(conditions);
       }
       query = query.order(table, { ascending }).range(start, end +1);
-      const { data, error } = await query;
-      
+      let { data, error } = await query;
       if((data?.length ?? 0 )< end - start + 1) {
         setNextPageAvailable(false)
       }
+      if (tagFilter.length !== 0 && data) {
+      data = data.filter((item) => {
+        if (!item.Tag) return false;
+          const tag = item.Tag.split(",");
+          tag.pop();
+          // console.log(tag);
+          return tagFilter.every((filter) => tag.includes(filter));
+        });
+      }
       if (error) throw error;
-      if(filterEmpty) {
+      if(filterEmpty && data) {
         data.pop()
       }
       return data;
