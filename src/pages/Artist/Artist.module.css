@@ -1,7 +1,7 @@
 .mainContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-content: stretch;
   gap: 3.5rem;
   flex-wrap: wrap;
@@ -13,8 +13,7 @@
   gap: 1.5rem;
   flex-direction: column;
   justify-content: flex-start;
-  
-
+  padding: 1rem 2rem;
 }
 
 .rightHeaderContainer {
