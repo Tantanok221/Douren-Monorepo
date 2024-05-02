@@ -6,8 +6,8 @@
 }
 
 .MainContainer {
-  margin: 3rem 6%;
-  margin-bottom: 0px;
+  padding: 3rem 6%;
+  padding-bottom: 0px;
   display: flex;
   gap: 1.5rem;
   flex-direction: column;
@@ -15,6 +15,7 @@
   justify-content: flex-start;
   box-sizing: border-box;
   max-width: 1300px;
+  width: 100%;
 }  
 
 
@@ -23,6 +24,7 @@
   flex-direction: column;
   gap: 4rem;
   align-items: stretch;
+  width: 100%;
 }  
 .searchContainer {
   width: 100%;
