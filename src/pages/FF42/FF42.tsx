@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../helper/supabase.ts";
-import { FF42Query, infiniteQuery } from "../../helper/FF42Query.ts";
+import { FF42Query } from "../../helper/FF42Query.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.tsx";
@@ -23,8 +22,6 @@ import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/Artist
 import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
 import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
-import { FF } from "../../types/FF.ts";
-
 function FF42() {
   const FETCH_COUNT = 40;
   const [page, setPage] = useState(0);
