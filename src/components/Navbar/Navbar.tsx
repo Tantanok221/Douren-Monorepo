@@ -8,6 +8,7 @@ import { IconContext } from "react-icons";
 import { useMediaQuery } from "@mantine/hooks";
 import { MdOutlineBookmarkBorder, MdInfoOutline } from "react-icons/md";
 import { RiHome2Line } from "react-icons/ri";
+import { IoLibraryOutline } from "react-icons/io5";
 
 interface Props {}
 
@@ -42,7 +43,7 @@ const Navbar = ({}: Props) => {
               activeButton: location.pathname === "/artist",
             })}
           >
-            {matches ? <MdOutlineBookmarkBorder /> : "創作者"}
+            {matches ? <IoLibraryOutline /> : "創作者"}
           </Link>
           <Link
             to={"/about"}
