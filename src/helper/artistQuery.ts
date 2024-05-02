@@ -1,23 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
 import { ArtistTypes } from "../types/Artist";
-
-const fetchArtistData = async (): Promise<ArtistTypes[] | null> => {
-  const query = supabase.from("Author_Main").select(`
-    *,
-    Author_Tag (
-      Tag
-    ),Event_DM (
-      Booth_name
-    )
-    `);
-  const { data } = await query;
-  return data;
-};
+import { useSearch } from "../hooks/useSearch";
 
 export const artistQuery = () => {
+  let search = useSearch((state) => state.search)
   return useQuery({
-    queryKey: ["artist"],
-    queryFn: fetchArtistData,
-  });
+    queryKey: ["artist",search],
+    queryFn: async (): Promise<ArtistTypes[] | null> => {
+      let query = supabase.from("Author_Main").select(`
+        *,
+        Author_Tag (
+          Tag
+        ),Event_DM (
+          Booth_name
+        )
+        `);
+      if(search.length > 0){
+        query = query.filter("Author", "ilike", `%${search}%`);
+      }
+
+      const { data,error } = await query;
+      if (error)throw error
+      return data;
+  }});
 };
