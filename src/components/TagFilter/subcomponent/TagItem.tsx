@@ -3,20 +3,25 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import style from "../TagFilter.module.css";
 import classNames from "classnames/bind";
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
-import { useTagFilter } from "../../../hooks/useTagFilter";
+import { TagObject, useTagFilter } from "../../../hooks/useTagFilter";
 
-export const TagItem = ({ data,index }) => {
+interface Props {
+  data: TagObject
+  index: number
+}
+
+export const TagItem = ({ data,index }:Props) => {
   const sx = classNames.bind(style);
   const { tag } = data;
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
-  const checked = useTagFilter((state) => state.checked);
+  const checked:any = useTagFilter((state) => state.checked); // any to avoid type error cause by third party
   const setChecked = useTagFilter((state) => state.setChecked);
   return (
     <Checkbox.Root
       className={sx("tagItem")}
       checked={checked[index]}
-      onCheckedChange={(check) => {
+      onCheckedChange={(check:boolean) => {
         setChecked(index,check);
         if (check) {
           addTagFilter(data);

@@ -12,7 +12,7 @@ export interface TagObject {
 interface TagFilter {
   allFilter: TagObject[]
   tagFilter: TagObject[]
-  checked: Boolean[]
+  checked: Boolean[] 
   setAllFilter: () => void
   addTagFilter: (data:TagObject) => void
   removeTagFilter: (data:TagObject) => void
