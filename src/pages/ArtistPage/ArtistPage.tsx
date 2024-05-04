@@ -3,7 +3,6 @@ import style from "./ArtistPage.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { useParams } from "react-router";
-import { useGetImageSize } from "../../hooks/useGetImageSize";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { processArtistData } from "../../helper/processArtistData";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
@@ -29,16 +28,7 @@ const ArtistPage = ({}: Props) => {
   const { data } = useArtistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
-  let width = "25rem";
-  const phoneSize = useMediaQuery("(max-width: 1000px)");
-  const smallPhoneSize = useMediaQuery("(max-width: 800px)");
-
-  if (phoneSize) {
-    width = "20rem";
-  }
-  if (smallPhoneSize) {
-    width = "20rem";
-  }
+  
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);
 
@@ -59,7 +49,6 @@ const ArtistPage = ({}: Props) => {
               <LazyImage
                 alt={artistData.Author}
                 photo={artistData.Photo}
-                width={width}
               />
             </div>
 
