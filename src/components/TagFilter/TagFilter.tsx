@@ -26,9 +26,10 @@ export const TagFilter = () => {
                 標簽:
                 {tagFilter.length === 0 ? " 全部" : null}
                 {tagFilter.length <= 3 && tagFilter.length !== 0
-                  ? " "+ (tagFilter.map((item) => {
+                  ? " " +
+                    tagFilter.map((item) => {
                       return item.tag;
-                    }))
+                    })
                   : null}
                 {tagFilter.length > 3
                   ? " " + tagFilter.length + " 個標簽"

@@ -24,8 +24,8 @@ const BookmarkContainer = () => {
           transition={{ duration: 0.5 }}
           onClick={(event) => {
             if (!isAvailable) {
-              addCollection(data)
-              setClick(click + 1)
+              addCollection(data);
+              setClick(click + 1);
             } else {
               removeCollection(data);
               setClick(click + 1);

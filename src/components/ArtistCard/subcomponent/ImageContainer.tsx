@@ -6,17 +6,20 @@ import { useGetImageSize } from "../../../hooks/useGetImageSize";
 import { useArtistCardContext } from "../ArtistCardContext";
 import LazyImage from "../../LazyImage/LazyImage";
 
-interface Props {
-}
-const ImageContainer = ({}:Props) => {
+interface Props {}
+const ImageContainer = ({}: Props) => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const artistData = useArtistCardContext();
-  let width = useGetImageSize();
-  let photo = data ? data.Photo : artistData?.Photo;
+  const width = useGetImageSize();
+  const photo = data ? data.Photo : artistData?.Photo;
   return (
     <div className={sx("imageContainer")}>
-      <LazyImage alt={artistData?.Author} photo={photo} width={width}></LazyImage>
+      <LazyImage
+        alt={artistData?.Author}
+        photo={photo}
+        width={width}
+      ></LazyImage>
     </div>
   );
 };

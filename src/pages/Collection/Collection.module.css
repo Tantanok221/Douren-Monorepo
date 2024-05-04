@@ -11,7 +11,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-}  
+}
 
 .artistContainer {
   display: flex;
@@ -46,8 +46,8 @@
   font-weight: 400;
 }
 @media (max-width: 800px) {
-.Root {
-  flex-direction: column;
+  .Root {
+    flex-direction: column;
   }
   .mainContainer {
     margin: 1.25rem 5%;

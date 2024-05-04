@@ -52,16 +52,16 @@
   font-weight: 600;
 }
 
-.tagContainer[data-state='open'][data-side='top'] {
+.tagContainer[data-state="open"][data-side="top"] {
   animation-name: slideDownAndFade;
 }
-.tagContainer[data-state='open'][data-side='right'] {
+.tagContainer[data-state="open"][data-side="right"] {
   animation-name: slideLeftAndFade;
 }
-.tagContainer[data-state='open'][data-side='bottom'] {
+.tagContainer[data-state="open"][data-side="bottom"] {
   animation-name: slideUpAndFade;
 }
-.tagContainer[data-state='open'][data-side='left'] {
+.tagContainer[data-state="open"][data-side="left"] {
   animation-name: slideRightAndFade;
 }
 

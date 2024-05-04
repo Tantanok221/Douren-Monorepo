@@ -22,10 +22,9 @@
   gap: 1rem;
 }
 
-.mainContainer > *{
-  flex: 0 1 47%
+.mainContainer > * {
+  flex: 0 1 47%;
 }
-
 
 @media (max-width: 800px) {
   .Root {
@@ -42,6 +41,5 @@
   }
   .mainContainer > * {
     flex-basis: 100%;
-
   }
 }

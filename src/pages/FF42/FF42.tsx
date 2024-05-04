@@ -28,14 +28,14 @@ function FF42() {
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(FETCH_COUNT);
   const nextPageAvailable = useNextPageAvailable(
-    (state) => state.nextPageAvailable
+    (state) => state.nextPageAvailable,
   );
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   const allFilter = useTagFilter((state) => state.allFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
-    (item) => item.tag
+    (item) => item.tag,
   );
   const search = useSearch((state) => state.search);
   const resetSearch = useSearch((state) => state.resetSearch);
@@ -45,7 +45,7 @@ function FF42() {
   const setPosition = usePosition((state) => state.setPosition);
   const initPosition = usePosition((state) => state.initPosition);
   const initNextPageAvailable = useNextPageAvailable(
-    (state) => state.initNextPageAvailable
+    (state) => state.initNextPageAvailable,
   );
   useEffect(() => {
     initPosition();
@@ -62,10 +62,8 @@ function FF42() {
     end,
     table,
     ascending,
-    tagFilter
+    tagFilter,
   );
-  
-
 
   if (status === "error") {
     return <div>error</div>;

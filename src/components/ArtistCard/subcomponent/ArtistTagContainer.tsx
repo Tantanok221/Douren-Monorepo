@@ -19,7 +19,7 @@ const ArtistTagContainer = ({ size, activeButton }: Props) => {
   const data = useFFContext();
   const artistData = useArtistCardContext();
 
-  let allTag = data
+  const allTag = data
     ? (data.Tag ?? "").split(",")
     : artistData?.Author_Tag?.[0]?.Tag?.split(",");
   const renderTag = processTagData(allTag ?? []);

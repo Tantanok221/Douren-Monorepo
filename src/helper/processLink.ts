@@ -1,16 +1,20 @@
 export interface LinkResult {
-  category: string
-  link: string
-  name: string
+  category: string;
+  link: string;
+  name: string;
 }
 
-export function processLink(links: string | null, names: string | null, category: string) {
+export function processLink(
+  links: string | null,
+  names: string | null,
+  category: string,
+) {
   if (!links) {
     return [];
   }
-  let link = (links ?? "").split("\n");
-  let name = (names ?? "")?.split("\n");
-  let result:LinkResult[] = [];
+  const link = (links ?? "").split("\n");
+  const name = (names ?? "")?.split("\n");
+  const result: LinkResult[] = [];
 
   link?.forEach((item, index) => {
     result.push({

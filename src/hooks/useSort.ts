@@ -4,9 +4,9 @@ interface Sort {
   table: string;
   name: string;
   setTable: (table: string) => void;
-  ascending: boolean
+  ascending: boolean;
   setAscending: (ascending: boolean) => void;
-  setFilter: (filter: [string,boolean,string]) => void
+  setFilter: (filter: [string, boolean, string]) => void;
 }
 
 export const useSort = create<Sort>()((set) => ({
@@ -18,8 +18,7 @@ export const useSort = create<Sort>()((set) => ({
     });
   },
   ascending: true,
-  setAscending: (ascending) =>
-  {
+  setAscending: (ascending) => {
     set(() => {
       return { ascending };
     });

@@ -35,12 +35,11 @@ const SearchBox = () => {
   );
 };
 
-
 type IconProps = {
-  isFocused: boolean
-}
+  isFocused: boolean;
+};
 
-const Icon = ({ isFocused }:IconProps) => {
+const Icon = ({ isFocused }: IconProps) => {
   return (
     <IconContext.Provider
       value={{ color: isFocused ? "#CBC3C3" : "#AAAAAA", size: "1.75rem" }}

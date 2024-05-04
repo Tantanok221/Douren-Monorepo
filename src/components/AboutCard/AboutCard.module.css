@@ -16,7 +16,7 @@
 }
 
 .subtitle {
-  color: #C8C3C3;
+  color: #c8c3c3;
   font-family: var(--Font);
   font-size: 1rem;
   font-weight: 500;
@@ -25,7 +25,7 @@
 
 .description {
   font-family: var(--Font);
-  color: #FFF;
+  color: #fff;
   font-weight: 400;
   margin: 0px;
 }
@@ -78,10 +78,9 @@
 }
 
 .toastRoot {
-  background-color: #C8F3D6;
+  background-color: #c8f3d6;
   border-radius: 6px;
   padding: 0.75rem 1rem;
-
 }
 
 .toastTitle {
@@ -89,23 +88,23 @@
   font-size: 1.1rem;
   font-family: var(--Font);
   font-weight: 500;
-  color: #74B789;
+  color: #74b789;
 }
 
-.toastRoot[data-state='open'] {
+.toastRoot[data-state="open"] {
   animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.toastRoot[data-state='closed'] {
+.toastRoot[data-state="closed"] {
   animation: hide 100ms ease-in;
 }
-.toastRoot[data-swipe='move'] {
+.toastRoot[data-swipe="move"] {
   transform: translateX(var(--radix-toast-swipe-move-x));
 }
-.toastRoot[data-swipe='cancel'] {
+.toastRoot[data-swipe="cancel"] {
   transform: translateX(0);
   transition: transform 200ms ease-out;
 }
-.toastRoot[data-swipe='end'] {
+.toastRoot[data-swipe="end"] {
   animation: swipeOut 100ms ease-out;
 }
 
@@ -136,8 +135,7 @@
   }
 }
 
-
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
   .linkButton {
     padding: 1rem 1.25rem;
     font-size: 1.25rem;

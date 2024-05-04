@@ -10,12 +10,12 @@ interface Props {
   subtitleDisabled?: boolean;
 }
 
-const HeaderContainer = ({bookmarkEnabled,subtitleDisabled}:Props) => {
+const HeaderContainer = ({ bookmarkEnabled, subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
   return (
     <div className={sx("headerContainer")}>
       <TitleContainer subtitleDisabled={subtitleDisabled} />
-      {bookmarkEnabled ? <BookmarkContainer />: null}
+      {bookmarkEnabled ? <BookmarkContainer /> : null}
     </div>
   );
 };

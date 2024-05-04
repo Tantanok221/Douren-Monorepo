@@ -1,7 +1,10 @@
-const duration = 0.25
+const duration = 0.25;
 
 export const listVariants = {
-  visible: (index:number) => ({ opacity: 1, transition: { delay: 0.1 * index} }),
+  visible: (index: number) => ({
+    opacity: 1,
+    transition: { delay: 0.1 * index },
+  }),
   hidden: { opacity: 0, transition: { duration } },
 };
 

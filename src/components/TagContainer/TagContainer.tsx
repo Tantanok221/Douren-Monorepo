@@ -31,7 +31,7 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   return (
     <>
       {renderTag.map((val, index) => {
-        let active = tagFilter.filter((item) => item === val).length !== 0;
+        const active = tagFilter.filter((item) => item === val).length !== 0;
         return (
           <motion.button
             key={index + val.tag}
@@ -43,7 +43,7 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
               className={sx(
                 "tagDescription",
                 { activeTagCount: active },
-                { smallText: size === "s" }
+                { smallText: size === "s" },
               )}
             >
               {val.tag}
@@ -52,7 +52,7 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
               className={sx(
                 "tagCount",
                 { activeTagDescription: active },
-                { smallText: size === "s" }
+                { smallText: size === "s" },
               )}
             >
               {val.count}

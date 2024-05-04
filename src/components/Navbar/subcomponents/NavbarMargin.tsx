@@ -8,9 +8,7 @@ const NavbarMargin = (props: Props) => {
   const sx = classNames.bind(style);
   const smallPhoneSize = useMediaQuery("(max-width: 800px)");
   return (
-    <>
-      {smallPhoneSize ? <div className={sx('bottomPadding')}></div>: null}
-    </>
+    <>{smallPhoneSize ? <div className={sx("bottomPadding")}></div> : null}</>
   );
 };
 

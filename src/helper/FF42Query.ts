@@ -9,14 +9,14 @@ export function FF42Query(
   end: number,
   table: string,
   ascending: boolean,
-  tagFilter: string[]
+  tagFilter: string[],
 ) {
   const search = useSearch((state) => state.search);
   const nextPageAvailable = useNextPageAvailable(
-    (state) => state.nextPageAvailable
+    (state) => state.nextPageAvailable,
   );
   const setNextPageAvailable = useNextPageAvailable(
-    (state) => state.setNextPageAvailable
+    (state) => state.setNextPageAvailable,
   );
   // todo something broken related to data dissapering
 
@@ -29,7 +29,7 @@ export function FF42Query(
       { start, end },
     ],
     queryFn: async () => {
-      let filterEmpty = tagFilter.length === 0;
+      const filterEmpty = tagFilter.length === 0;
       let query = supabase.from("FF42").select("*");
       if (!filterEmpty) {
         tagFilter.forEach((tag) => {
@@ -40,11 +40,11 @@ export function FF42Query(
         query = query.filter("Booth_name", "ilike", `%${search}%`);
       }
       query = query.order(table, { ascending }).range(start, end + 1);
-      let { data, error } = await query;
+      const { data, error } = await query;
       if ((data?.length ?? 0) < end - start + 1) {
         setNextPageAvailable(false);
       }
-      
+
       if (error) throw error;
 
       return data;

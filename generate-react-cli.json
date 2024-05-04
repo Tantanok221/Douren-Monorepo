@@ -1,5 +1,3 @@
-
-
 {
   "usesTypeScript": false,
   "usesStyledComponents": false,
@@ -11,7 +9,7 @@
       "customTemplates": {
         "component": "src/template/component/TemplateName.tsx",
         "style": "src/template/component/TemplateName.module.css"
-        },
+      },
       "path": "src/components",
       "withStyle": true,
       "withIndex": false,

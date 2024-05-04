@@ -18,14 +18,14 @@ export const useCollection = create<Collection>()((set, get) => ({
     set((state) =>
       produce(state, (draftState) => {
         draftState.collection.push(data);
-      })
+      }),
     );
   },
   removeCollection: (data) => {
     if (!data) return;
     set((state) => ({
       collection: state.collection.filter(
-        (val) => val.Booth_name !== data.Booth_name
+        (val) => val.Booth_name !== data.Booth_name,
       ),
     }));
   },
@@ -33,7 +33,7 @@ export const useCollection = create<Collection>()((set, get) => ({
     set(() => {
       const item = localStorage.getItem("FF42-Collection");
       if (item) {
-        let object = JSON.parse(item);
+        const object = JSON.parse(item);
         if (object) {
           return { collection: object };
         }

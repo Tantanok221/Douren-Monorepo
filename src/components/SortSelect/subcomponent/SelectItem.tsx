@@ -5,18 +5,18 @@ import styles from "../style.module.css";
 
 import React from "react";
 
-interface Props { 
-  text: string
-  value: [string,boolean,string]
+interface Props {
+  text: string;
+  value: [string, boolean, string];
 }
 
-export const SelectItem = ({text,value}:Props) => {
+export const SelectItem = ({ text, value }: Props) => {
   const sx = classNames.bind(styles);
 
   return (
     <Select.Item className={sx("selectItem")} value={value}>
       <Select.ItemText>{text}</Select.ItemText>
-      <Select.ItemIndicator/>
+      <Select.ItemIndicator />
     </Select.Item>
   );
 };

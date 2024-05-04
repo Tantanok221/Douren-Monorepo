@@ -1,17 +1,17 @@
 import { create } from "zustand";
 
-interface Search{
-  search: string
-  setSearch: (search:string) => void
-  resetSearch: () => void
+interface Search {
+  search: string;
+  setSearch: (search: string) => void;
+  resetSearch: () => void;
 }
 
 export const useSearch = create<Search>()((set) => ({
   search: "",
   setSearch: (search: string) => {
-    set(() => ({search}))
+    set(() => ({ search }));
   },
   resetSearch: () => {
-    set(() => ({search: ""}))
-  }
-}))
+    set(() => ({ search: "" }));
+  },
+}));

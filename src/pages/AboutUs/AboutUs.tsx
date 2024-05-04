@@ -6,12 +6,12 @@ import { supabase } from "../../helper/supabase.ts";
 import AboutCard from "../../components/AboutCard/AboutCard.tsx";
 import Animate from "../../animate/Animate.tsx";
 import { Owner } from "../../types/Owner.ts";
-async function fetchOwner():Promise<Owner[] | null> {
+async function fetchOwner(): Promise<Owner[] | null> {
   const query = supabase.from("Owner").select(`*`);
   const { data } = await query;
   return data;
 }
- const ownerQuery = () => {
+const ownerQuery = () => {
   return useQuery({
     queryKey: ["Owner"],
     queryFn: fetchOwner,
@@ -20,7 +20,7 @@ async function fetchOwner():Promise<Owner[] | null> {
 
 function AboutUs() {
   const sx = classNames.bind(styles);
-  const {data} = ownerQuery();
+  const { data } = ownerQuery();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -32,9 +32,11 @@ function AboutUs() {
       <div className={sx("header")}>關於我們</div>
 
       <div className={sx("authorContainer")}>
-        {data? data.map((item, index) => {
-          return <AboutCard key={index} author_data={item} />;
-        }):null}
+        {data
+          ? data.map((item, index) => {
+              return <AboutCard key={index} author_data={item} />;
+            })
+          : null}
       </div>
       {/* <div className={sx("dcContainer")}>
         <div className={sx("text")}>

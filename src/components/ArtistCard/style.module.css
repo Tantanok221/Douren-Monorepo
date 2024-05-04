@@ -8,8 +8,6 @@
   box-sizing: border-box;
 }
 
-
-
 .mainContainer {
   height: 100%;
   display: flex;
@@ -120,8 +118,6 @@
   text-align: left;
 }
 
-
-
 .linkContainer {
   display: flex;
   gap: 0.75rem;
@@ -129,9 +125,7 @@
   align-content: center;
   align-self: stretch;
   flex-wrap: wrap;
-  
 }
-
 
 .bookmarkButton {
   background: none;
@@ -169,9 +163,9 @@
 
 .introductionContainer {
   font-family: var(--Font);
-  color: #FFF;
+  color: #fff;
   border-radius: 1.25rem;
-  background: #2C2929;
+  background: #2c2929;
   padding: 1.25rem 1.5rem;
   font-size: 1.25rem;
   font-weight: 400;

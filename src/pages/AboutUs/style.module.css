@@ -6,14 +6,12 @@
   gap: 4rem;
   width: 60%;
   max-width: 1300px;
-
 }
 
-.authorContainer{
+.authorContainer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  
 }
 
 .header {
@@ -28,10 +26,9 @@
   font-family: var(--Font);
   font-size: 1.5rem;
   font-weight: 500;
-  
 }
 
-.dcContainer{
+.dcContainer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -40,7 +37,6 @@
 
 .discordButton {
   width: 50%;
-
 }
 
 @media (max-width: 800px) {

@@ -18,7 +18,7 @@ const ArtistButton = ({ size }: Props) => {
 
   size = size ?? "l";
   let fontSize = size === "s" ? "1rem" : "1.5rem";
-  let matches = useMediaQuery("(max-width: 1000px)");
+  const matches = useMediaQuery("(max-width: 1000px)");
   fontSize = matches ? "1.5rem" : fontSize;
   return (
     <IconContext.Provider

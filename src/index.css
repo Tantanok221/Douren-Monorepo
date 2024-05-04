@@ -11,7 +11,7 @@
   --White: #ffffff;
   --Font: Noto Sans TC;
   --OnHover: #4d4d4d;
-  --Sidebar-BG: #1D1D1D;
+  --Sidebar-BG: #1d1d1d;
   --Sidebar-Active: #292929;
 }
 
@@ -22,7 +22,6 @@ body {
 html {
   font-size: 13px;
   scroll-behavior: smooth;
-
 }
 
 *,
@@ -35,7 +34,7 @@ html {
 .image {
   width: 100%;
   object-fit: contain;
-  border-radius:  8px;
+  border-radius: 8px;
 }
 
 @media (min-width: 320px) {
@@ -84,11 +83,11 @@ html {
 
 .noSelect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 

@@ -4,9 +4,9 @@ import { ArtistTypes } from "../types/Artist";
 import { useSearch } from "../hooks/useSearch";
 
 export const artistQuery = () => {
-  let search = useSearch((state) => state.search)
+  const search = useSearch((state) => state.search);
   return useQuery({
-    queryKey: ["artist",search],
+    queryKey: ["artist", search],
     queryFn: async (): Promise<ArtistTypes[] | null> => {
       let query = supabase.from("Author_Main").select(`
         *,
@@ -16,12 +16,13 @@ export const artistQuery = () => {
           Booth_name
         )
         `);
-      if(search.length > 0){
+      if (search.length > 0) {
         query = query.filter("Author", "ilike", `%${search}%`);
       }
 
-      const { data,error } = await query;
-      if (error)throw error
+      const { data, error } = await query;
+      if (error) throw error;
       return data;
-  }});
+    },
+  });
 };

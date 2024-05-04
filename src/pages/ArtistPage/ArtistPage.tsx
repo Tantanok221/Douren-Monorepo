@@ -23,9 +23,9 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
-  let { id = "" } = useParams<{ id: string }>();
-  let uuid = parseInt(id, 10);
-  let { data } = artistLoader(uuid);
+  const { id = "" } = useParams<{ id: string }>();
+  const uuid = parseInt(id, 10);
+  const { data } = artistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
   let width = "25rem";
@@ -41,9 +41,9 @@ const ArtistPage = ({}: Props) => {
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);
 
-  let artistData: ArtistPageTypes | null = data ? data[0] : null;
+  const artistData: ArtistPageTypes | null = data ? data[0] : null;
   const artistTagData = processTagData(
-    artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? []
+    artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? [],
   );
   if (!artistData) return null;
 
@@ -87,7 +87,7 @@ const ArtistPage = ({}: Props) => {
         ) : null}
         <div className={sx("dmContainer")}>
           {artistData.Event_DM?.map((item, index) => {
-            let link = (item?.DM ?? "").split("\n");
+            const link = (item?.DM ?? "").split("\n");
 
             return link[0] != "" ? (
               <div className={sx("dmCard")} key={index + "ArtistID"}>
@@ -103,7 +103,7 @@ const ArtistPage = ({}: Props) => {
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="15px">
             {artistData.Author_Product?.map((item, index) => {
-              let link = (item?.Preview ?? "").split("\n");
+              const link = (item?.Preview ?? "").split("\n");
               return (
                 <div className={sx("productCard")}>
                   <LazyImage
@@ -119,7 +119,7 @@ const ArtistPage = ({}: Props) => {
           </Masonry>
         </ResponsiveMasonry>
       </div>
-      
+
       <NavbarMargin></NavbarMargin>
     </motion.div>
   );

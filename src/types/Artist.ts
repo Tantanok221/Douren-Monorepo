@@ -1,4 +1,3 @@
-
 export interface ArtistTypes {
   Author: string;
   Baha_link: string | null;
@@ -15,26 +14,33 @@ export interface ArtistTypes {
   Twitter_link: string | null;
   Youtube_link: string | null;
   uuid: number;
-  Author_Tag: {
-    Tag: string | null;
-  }[]| null;
-  Event_DM: {
-    Booth_name: string | null;
-  }[]| null;
+  Author_Tag:
+    | {
+        Tag: string | null;
+      }[]
+    | null;
+  Event_DM:
+    | {
+        Booth_name: string | null;
+      }[]
+    | null;
 }
 
 export interface ArtistPageTypes extends ArtistTypes {
-  Event_DM: {
-    Booth_name: string | null;
-    DM: string | null;
-    Event: {
-      name: string | null
-    }
-
-  }[]| null;
-  Author_Product: {
-    Thumbnail: string 
-    Title: string 
-    Preview: string| null
-  }[]| null
+  Event_DM:
+    | {
+        Booth_name: string | null;
+        DM: string | null;
+        Event: {
+          name: string | null;
+        };
+      }[]
+    | null;
+  Author_Product:
+    | {
+        Thumbnail: string;
+        Title: string;
+        Preview: string | null;
+      }[]
+    | null;
 }

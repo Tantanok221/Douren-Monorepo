@@ -13,11 +13,9 @@ import DMButton from "../../DMButton/component/DMButton.tsx";
 
 const ArtistDMButton = () => {
   const data = useFFContext();
-  let link = (data?.DM ?? "").split("\n");
+  const link = (data?.DM ?? "").split("\n");
 
-  return data?.DM ? (
-    <DMButton link={link}></DMButton>
-  ) : null;
+  return data?.DM ? <DMButton link={link}></DMButton> : null;
 };
 
 export default ArtistDMButton;

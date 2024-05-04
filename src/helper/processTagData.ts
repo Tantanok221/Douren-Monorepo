@@ -12,5 +12,5 @@ export function processTagData(allTag: string[]) {
   });
 
   renderTag = renderTag.flatMap((value) => value);
-  return renderTag
+  return renderTag;
 }

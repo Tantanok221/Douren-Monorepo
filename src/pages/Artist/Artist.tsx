@@ -22,10 +22,10 @@ const Artist = (props: Props) => {
   const location = useLocation();
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   const resetSearch = useSearch((state) => state.resetSearch);
-  useEffect(()=> {
+  useEffect(() => {
     setAllFilter();
     resetSearch();
-  },[])
+  }, []);
   const { data } = artistQuery();
 
   return (

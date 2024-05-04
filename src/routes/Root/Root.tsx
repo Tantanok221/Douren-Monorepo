@@ -6,7 +6,7 @@ import style from "./root.module.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "../../components/Navbar/Navbar";
 
 const Root = () => {
@@ -18,7 +18,7 @@ const Root = () => {
       <div className={sx("Root")}>
         <Navbar />
         <Outlet key={location.key} />
-        <SpeedInsights/>
+        <SpeedInsights />
       </div>
     </AnimatePresence>
   );

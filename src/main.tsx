@@ -13,7 +13,7 @@ import Collection from "./pages/Collection/Collection.tsx";
 import Root from "./routes/Root/Root";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import { PostHogProvider } from "posthog-js/react";
-import posthog from 'posthog-js';
+import posthog from "posthog-js";
 import Artist from "./pages/Artist/Artist.tsx";
 import FF42 from "./pages/FF42/FF42.jsx";
 import ArtistPage from "./pages/ArtistPage/ArtistPage.tsx";
@@ -37,32 +37,27 @@ const router = createBrowserRouter([
       },
       {
         path: "artist",
-        element: <Artist/>,
+        element: <Artist />,
       },
       {
         path: "artist/:id",
-        element: <ArtistPage/>,
-      }
+        element: <ArtistPage />,
+      },
     ],
   },
 ]);
 const queryClient = new QueryClient();
 
-posthog.init(
-  import.meta.env.VITE_PUBLIC_POSTHOG_KEY,
-  {
-    api_host: "https://app.posthog.com",
-  }
-);
+posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_KEY, {
+  api_host: "https://app.posthog.com",
+});
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <PostHogProvider
-        client={posthog}
-      >
+      <PostHogProvider client={posthog}>
         <RouterProvider router={router} />
       </PostHogProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -36,7 +36,7 @@ const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
         </ArtistCardContext.Provider>
       </FFContext.Provider>
     );
-  }
+  },
 );
 
 export default ArtistCard;

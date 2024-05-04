@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import LinkStyle from "../../LinkContainer/LinkContainer.module.css";
 interface Props {
   discord_name: string;
-  size : 's' | 'l' 
+  size: "s" | "l";
 }
 
-const DiscordButton = ({ discord_name,size }: Props) => {
+const DiscordButton = ({ discord_name, size }: Props) => {
   const [open, setOpen] = React.useState(false);
   const timerRef = React.useRef(0);
 
@@ -23,7 +23,7 @@ const DiscordButton = ({ discord_name,size }: Props) => {
   return (
     <Toast.Provider>
       <motion.button
-        className={ax("linkButton",{"smallText" : size === "s"})}
+        className={ax("linkButton", { smallText: size === "s" })}
         value={discord_name}
         whileHover={{
           backgroundColor: "#4D4D4D",

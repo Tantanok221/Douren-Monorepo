@@ -16,7 +16,7 @@ const SortSelect = () => {
   const sx = classNames.bind(styles);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
-      <Select.Root onValueChange={setFilter}> 
+      <Select.Root onValueChange={setFilter}>
         <Select.Trigger asChild>
           <motion.div
             className={sx("selectTrigger") + " noSelect"}

@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 import LinkIcon from "../LinkIcon/LinkIcon.tsx";
 
 export interface linkObject {
-  name ?:string
-  link ?: string
-  category ?: string
+  name?: string;
+  link?: string;
+  category?: string;
 }
 
 interface Props {
-  link: linkObject[]
+  link: linkObject[];
   size?: "s" | "l";
 }
 
-const LinkContainer = ({ link,size }:Props) => {
+const LinkContainer = ({ link, size }: Props) => {
   const sx = classNames.bind(style);
   return (
     <>
@@ -24,7 +24,7 @@ const LinkContainer = ({ link,size }:Props) => {
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={sx("linkButton",{"smallText" : size === "s"})}
+          className={sx("linkButton", { smallText: size === "s" })}
           key={`${item.link}`}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

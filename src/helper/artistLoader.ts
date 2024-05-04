@@ -3,7 +3,7 @@ import { ArtistPageTypes, ArtistTypes } from "../types/Artist";
 import { supabase } from "./supabase";
 
 const fetchArtistPageData = async (
-  id: number | undefined
+  id: number | undefined,
 ): Promise<ArtistPageTypes[] | null> => {
   const query = supabase
     .from("Author_Main")
@@ -22,7 +22,7 @@ const fetchArtistPageData = async (
   
   
   )
-    `
+    `,
     )
     .eq("uuid", id);
   const { data } = await query;

@@ -9,20 +9,19 @@ import DiscordButton from "./subcomponent/DiscordButton";
 import { Owner } from "../../types/Owner.ts";
 
 interface Props {
-  author_data: Owner
+  author_data: Owner;
 }
 
-const AboutCard = ({ author_data  }: Props) => {
+const AboutCard = ({ author_data }: Props) => {
   const sx = classNames.bind(style);
   let link = processLink(
     author_data.twitter_link,
     author_data.twitter_name,
-    "Twitter"
+    "Twitter",
   );
   link = link.concat(
-    processLink(author_data.github_link, author_data.github_name, "Github")
+    processLink(author_data.github_link, author_data.github_name, "Github"),
   );
-  
 
   return (
     <motion.div className={sx("AboutCard")}>
@@ -38,9 +37,10 @@ const AboutCard = ({ author_data  }: Props) => {
             size: "1.25rem",
           }}
         >
-          <LinkContainer size='s' link={link} />
-          {author_data.discord_name ?
-          <DiscordButton  size='s' discord_name={author_data.discord_name}/> : null}
+          <LinkContainer size="s" link={link} />
+          {author_data.discord_name ? (
+            <DiscordButton size="s" discord_name={author_data.discord_name} />
+          ) : null}
         </IconContext.Provider>
       </div>
     </motion.div>
