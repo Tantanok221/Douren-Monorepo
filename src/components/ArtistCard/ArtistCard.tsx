@@ -39,4 +39,5 @@ const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
   },
 );
 
+ArtistCard.displayName = "ArtistCard";
 export default ArtistCard;

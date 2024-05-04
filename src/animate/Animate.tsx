@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 const Animate = (OgComponent: React.FC) => {
-  return () => (
+  const AnimatedComponent = () => (
     <>
       <OgComponent />
       <motion.div
@@ -19,7 +19,9 @@ const Animate = (OgComponent: React.FC) => {
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       ></motion.div>
     </>
-  );
+  )
+  AnimatedComponent.displayName = `Animate(${OgComponent.displayName})`;
+  return AnimatedComponent;
 };
 
 export default Animate;
