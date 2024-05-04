@@ -17,6 +17,9 @@ import Artist from "./pages/Artist/Artist.tsx";
 import ArtistPage from "./pages/ArtistPage/ArtistPage.tsx";
 import FF42Animate from "./pages/FF42/FF42.tsx";
 import AnimateCollection from "./pages/Collection/Collection.tsx";
+import EventPageAnimate from "./pages/EventPage/EventPage.tsx";
+import { useEventIDQuery } from "./hooks/useEventIDQuery.ts";
+import { supabase } from "./helper/supabase.ts";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,24 @@ const router = createBrowserRouter([
       {
         path: "artist/:id",
         element: <ArtistPage />,
+      },
+      {
+        path: "event/:eventName",
+        element: <EventPageAnimate />,
+        loader: async ({ params }):Promise<number> => {
+          if (!params.eventName) {
+            return 0;
+          }
+          const query = supabase
+            .from("Event")
+            .select("id")
+            .eq("name", params?.eventName.toUpperCase());
+          const { data, error } = await query;
+          if (error || !data || data.length === 0) {
+            return 0;
+          }
+          return data[0].id;
+        },
       },
     ],
   },
