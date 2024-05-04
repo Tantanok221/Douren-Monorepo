@@ -57,4 +57,5 @@ function AboutUs() {
     </motion.div>
   );
 }
-export default Animate(AboutUs);
+const AnimateAboutUs = Animate(AboutUs);
+export default AnimateAboutUs;

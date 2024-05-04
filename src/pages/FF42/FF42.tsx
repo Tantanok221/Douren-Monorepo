@@ -137,4 +137,6 @@ function FF42() {
     </motion.div>
   );
 }
-export default Animate(FF42);
+
+const FF42Animate = Animate(FF42);
+export default FF42Animate;

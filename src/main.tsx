@@ -9,14 +9,14 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
-import Collection from "./pages/Collection/Collection.tsx";
 import Root from "./routes/Root/Root";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
 import Artist from "./pages/Artist/Artist.tsx";
-import FF42 from "./pages/FF42/FF42.jsx";
 import ArtistPage from "./pages/ArtistPage/ArtistPage.tsx";
+import FF42Animate from "./pages/FF42/FF42.tsx";
+import AnimateCollection from "./pages/Collection/Collection.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,11 +25,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <FF42 />,
+        element: <FF42Animate />,
       },
       {
         path: "collection",
-        element: <Collection />,
+        element: <AnimateCollection />,
       },
       {
         path: "about",

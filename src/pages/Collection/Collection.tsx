@@ -67,4 +67,6 @@ export const Collection = () => {
     </motion.div>
   );
 };
-export default Animate(Collection);
+
+const AnimateCollection = Animate(Collection);
+export default AnimateCollection;
