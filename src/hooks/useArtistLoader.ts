@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ArtistPageTypes, ArtistTypes } from "../types/Artist";
-import { supabase } from "./supabase";
+import { supabase } from "../helper/supabase";
 
 const fetchArtistPageData = async (
   id: number | undefined,
@@ -28,10 +28,11 @@ const fetchArtistPageData = async (
   const { data } = await query;
   return data;
 };
-
-export const artistLoader = (id?: number) => {
+const useArtistLoader = (id?: number) => {
   return useQuery({
     queryKey: ["artist", id],
     queryFn: () => fetchArtistPageData(id),
   });
 };
+
+export default useArtistLoader

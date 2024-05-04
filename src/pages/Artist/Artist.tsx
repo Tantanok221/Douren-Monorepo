@@ -14,6 +14,7 @@ import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistT
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import { useSearch } from "../../hooks/useSearch";
+import Animate from "../../animate/Animate";
 
 type Props = {};
 
@@ -54,4 +55,5 @@ const Artist = (props: Props) => {
   );
 };
 
-export default Artist;
+const AnimateArtist = Animate(Artist);
+export default AnimateArtist;

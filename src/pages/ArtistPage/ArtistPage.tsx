@@ -3,7 +3,6 @@ import style from "./ArtistPage.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { useParams } from "react-router";
-import { artistLoader } from "../../helper/artistLoader";
 import { useGetImageSize } from "../../hooks/useGetImageSize";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { processArtistData } from "../../helper/processArtistData";
@@ -19,13 +18,15 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import DMButton from "../../components/DMButton/component/DMButton";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import  useArtistLoader  from "../../hooks/useArtistLoader";
+import Animate from "../../animate/Animate";
 
 interface Props {}
 
 const ArtistPage = ({}: Props) => {
   const { id = "" } = useParams<{ id: string }>();
   const uuid = parseInt(id, 10);
-  const { data } = artistLoader(uuid);
+  const { data } = useArtistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
   let width = "25rem";
@@ -105,7 +106,7 @@ const ArtistPage = ({}: Props) => {
             {artistData.Author_Product?.map((item, index) => {
               const link = (item?.Preview ?? "").split("\n");
               return (
-                <div className={sx("productCard")}>
+                <div className={sx("productCard")} key={artistData.Author}>
                   <LazyImage
                     width={"100%"}
                     photo={item.Thumbnail}
@@ -124,5 +125,5 @@ const ArtistPage = ({}: Props) => {
     </motion.div>
   );
 };
-
-export default ArtistPage;
+const AnimateArtistPage = Animate(ArtistPage);
+export default AnimateArtistPage;
