@@ -10,6 +10,8 @@ import { useFFContext } from "../FFContext.ts";
 import { useArtistCardContext } from "../ArtistCardContext.ts";
 import { processArtistData } from "../../../helper/processArtistData.ts";
 import { useMediaQuery } from "@mantine/hooks";
+import { useEventDataContext } from "../EventDataContext.ts";
+import { ArtistTypes } from "../../../types/Artist.ts";
 
 interface props {
   children?: React.ReactNode;
@@ -19,7 +21,11 @@ interface props {
 const ArtistLinkContainer = ({ children, size }: props) => {
   const sx = classNames.bind(styles);
   const FFData = useFFContext();
-  const ArtistData = useArtistCardContext();
+  let artistData = useArtistCardContext();
+  const eventData = useEventDataContext();
+  if (!artistData && !FFData) {
+    artistData = eventData?.Author_Main as ArtistTypes;
+  }
   size = size ?? "l";
   let fontSize = size === "s" ? "1rem" : "1.5rem";
   const matches = useMediaQuery("(max-width: 1000px)");
@@ -48,8 +54,8 @@ const ArtistLinkContainer = ({ children, size }: props) => {
     link = link.concat(processLink(FFData.Baha_link, FFData.Baha_name, "Baha"));
     link = link.concat(processLink(FFData.Official_link, "官網", "Other"));
   }
-  if (ArtistData) {
-    link = processArtistData(ArtistData);
+  if (artistData) {
+    link = processArtistData(artistData);
   }
 
   return (
