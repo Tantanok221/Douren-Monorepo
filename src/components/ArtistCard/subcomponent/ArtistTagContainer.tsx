@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { processTagData } from "../../../helper/processTagData";
 import TagContainer from "../../TagContainer/TagContainer";
+import { useEventDataContext } from "../EventDataContext";
+import { ArtistTypes } from "../../../types/Artist";
 
 interface Props {
   size?: "s" | "l";
@@ -17,7 +19,11 @@ interface Props {
 const ArtistTagContainer = ({ size, activeButton }: Props) => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
-  const artistData = useArtistCardContext();
+  let artistData = useArtistCardContext();
+  const eventData = useEventDataContext();
+  if (!artistData && !data) {
+    artistData = eventData?.Author_Main as ArtistTypes;
+  }
 
   const allTag = data
     ? (data.Tag ?? "").split(",")
