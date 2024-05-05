@@ -10,9 +10,7 @@ export const artistQuery = () => {
     queryFn: async (): Promise<ArtistTypes[] | null> => {
       let query = supabase.from("Author_Main").select(`
         *,
-        Author_Tag (
-          Tag
-        ),Event_DM (
+        Event_DM (
           Booth_name
         )
         `);

@@ -10,17 +10,12 @@ const fetchArtistPageData = async (
     .select(
       `
   *,
-  Author_Tag (
-    Tag
-  ),
   Author_Product(
     Title,Thumbnail,Preview
   ),
   Event_DM (
     DM,Booth_name,Location,Event(name
     )
-  
-  
   )
     `,
     )
