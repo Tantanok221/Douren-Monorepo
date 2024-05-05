@@ -48,5 +48,5 @@ export interface ArtistEventType {
   Booth_name: string | null;
   DM: string | null;
   Location: string | null;
-  Author_Main: ArtistPrimitiveTypes[]
+  Author_Main: ArtistPrimitiveTypes
 }
