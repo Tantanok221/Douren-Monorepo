@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../helper/supabase";
 import { useNextPageAvailable } from "./useNextPageAvailable";
 import { useSearch } from "./useSearch";
+import { ArtistEventType } from "../types/Artist";
 
 export function useEventIDQuery(
   eventId: unknown,
@@ -21,7 +22,7 @@ export function useEventIDQuery(
   );
   return useQuery({
     queryKey: [eventId],
-    queryFn: async () => {
+    queryFn: async ():Promise<ArtistEventType[] | null> => {
       let query = supabase.from('Event_DM').select(`
       Location,
       Booth_name,
@@ -32,8 +33,10 @@ export function useEventIDQuery(
       `).eq('Event_id',eventId)
       const { data,error} = await query
       console.log(data)
-      return data
-
+      if(error){
+        throw error
+      }
+      return data as ArtistEventType[] | null;
     },
     enabled: true,
     refetchOnWindowFocus: false,

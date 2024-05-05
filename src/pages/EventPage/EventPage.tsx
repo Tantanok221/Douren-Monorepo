@@ -91,7 +91,7 @@ function EventPage() {
       <div className={sx("ArtistContainer")}>
         {(data ?? []).map((item, index) => {
           return (
-            <ArtistCard key={`${item.Booth_name}`} data={item}>
+            <ArtistCard key={`${item.Booth_name}`} eventData={item}>
               <ImageContainer />
               <RightContainer>
                 <HeaderContainer bookmarkEnabled />

@@ -1,4 +1,4 @@
-export interface ArtistTypes {
+interface ArtistPrimitiveTypes{
   Author: string;
   Baha_link: string | null;
   Facebook_link: string | null;
@@ -15,6 +15,9 @@ export interface ArtistTypes {
   Youtube_link: string | null;
   uuid: number;
   Tag: string | null;
+}
+
+export interface ArtistTypes extends ArtistPrimitiveTypes {
   Event_DM:
     | {
         Booth_name: string | null;
@@ -39,4 +42,11 @@ export interface ArtistPageTypes extends ArtistTypes {
         Preview: string | null;
       }[]
     | null;
+}
+
+export interface ArtistEventType {
+  Booth_name: string | null;
+  DM: string | null;
+  Location: string | null;
+  Author_Main: ArtistPrimitiveTypes[]
 }
