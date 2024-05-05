@@ -14,7 +14,7 @@ interface ArtistPrimitiveTypes{
   Twitter_link: string | null;
   Youtube_link: string | null;
   uuid: number;
-  Tag: string | null;
+  Tags: string | null;
 }
 
 export interface ArtistTypes extends ArtistPrimitiveTypes {

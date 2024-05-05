@@ -34,7 +34,7 @@ const ArtistPage = ({}: Props) => {
 
   const artistData: ArtistPageTypes | null = data ? data[0] : null;
   const artistTagData = processTagData(
-    artistData?.Author_Tag?.[0]?.Tag?.split(",") ?? [],
+    artistData?.Tags?.split(",") ?? [],
   );
   if (!artistData) return null;
 
