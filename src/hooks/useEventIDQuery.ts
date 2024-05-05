@@ -31,12 +31,13 @@ export function useEventIDQuery(
         *
       )
       `).eq('Event_id',eventId)
-      const { data,error} = await query
+      const { data,error} = await query 
       console.log(data)
       if(error){
         throw error
       }
       return data as ArtistEventType[] | null;
+
     },
     enabled: true,
     refetchOnWindowFocus: false,
