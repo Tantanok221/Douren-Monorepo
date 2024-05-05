@@ -4,12 +4,18 @@ import styles from "../style.module.css";
 import { useFFContext } from "../FFContext";
 import { useArtistCardContext } from "../ArtistCardContext";
 import LazyImage from "../../LazyImage/LazyImage";
+import { useEventDataContext } from "../EventDataContext";
+import { ArtistTypes } from "../../../types/Artist";
 
 interface Props {}
 const ImageContainer = ({}: Props) => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
-  const artistData = useArtistCardContext();
+  let artistData = useArtistCardContext();
+  const eventData = useEventDataContext();
+  if (!artistData && !data) {
+    artistData = eventData?.Author_Main as ArtistTypes;
+  }
   const photo = data ? data.Photo : artistData?.Photo;
   return (
     <div className={sx("imageContainer")}>
