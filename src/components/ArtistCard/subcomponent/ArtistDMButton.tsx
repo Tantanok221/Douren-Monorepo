@@ -10,12 +10,14 @@ import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import LinkIcon from "../../LinkIcon/LinkIcon.tsx";
 import DMButton from "../../DMButton/component/DMButton.tsx";
+import { useEventDataContext } from "../EventDataContext.ts";
 
 const ArtistDMButton = () => {
   const data = useFFContext();
-  const link = (data?.DM ?? "").split("\n");
+  const eventData = useEventDataContext();
+  const link = ((data ? data?.DM : eventData?.DM )?? "").split("\n");
 
-  return data?.DM ? <DMButton link={link}></DMButton> : null;
+  return link[0] != "" ? <DMButton link={link}></DMButton> : null;
 };
 
 export default ArtistDMButton;
