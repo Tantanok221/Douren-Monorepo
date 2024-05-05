@@ -14,11 +14,7 @@ export interface ArtistTypes {
   Twitter_link: string | null;
   Youtube_link: string | null;
   uuid: number;
-  Author_Tag:
-    | {
-        Tag: string | null;
-      }[]
-    | null;
+  Tag: string | null;
   Event_DM:
     | {
         Booth_name: string | null;

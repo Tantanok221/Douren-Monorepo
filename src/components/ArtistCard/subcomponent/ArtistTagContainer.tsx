@@ -21,7 +21,7 @@ const ArtistTagContainer = ({ size, activeButton }: Props) => {
 
   const allTag = data
     ? (data.Tag ?? "").split(",")
-    : artistData?.Author_Tag?.[0]?.Tag?.split(",");
+    : artistData?.Tag?.split(",");
   const renderTag = processTagData(allTag ?? []);
   return (
     <div className={sx("tagContainer")}>
