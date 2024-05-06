@@ -27,7 +27,7 @@ import { useLoaderData } from "react-router";
 function EventPage() {
   const FETCH_COUNT = 40;
   const [page, setPage] = useState(0);
-  const [start, setStart] = useState(1);
+  const [start, setStart] = useState(0);
   const [end, setEnd] = useState(FETCH_COUNT);
   const nextPageAvailable = useNextPageAvailable(
     (state) => state.nextPageAvailable,
@@ -59,7 +59,7 @@ function EventPage() {
     initCollection();
   }, []);
   const id = useLoaderData();
-  console.log(id);
+  console.log(start,end);
   const { data, status } = useEventIDQuery(
     id,
     start,

@@ -25,7 +25,7 @@ import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.ts
 function FF42() {
   const FETCH_COUNT = 40;
   const [page, setPage] = useState(0);
-  const [start, setStart] = useState(1);
+  const [start, setStart] = useState(0);
   const [end, setEnd] = useState(FETCH_COUNT);
   const nextPageAvailable = useNextPageAvailable(
     (state) => state.nextPageAvailable,
