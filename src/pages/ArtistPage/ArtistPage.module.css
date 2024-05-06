@@ -15,16 +15,19 @@
   width: 100%;
 }
 
+
 .leftContainer {
+  flex-basis: 30%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 1.5rem;
-  width: min-content;
+  width: 100%;
 }
 
 .rightContainer {
   display: flex;
+  flex-basis: 70%;
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
