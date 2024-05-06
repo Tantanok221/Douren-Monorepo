@@ -104,7 +104,7 @@ function EventPage() {
             </ArtistCard>
           );
         })}
-        <div className={sx("fetchContainer")}>
+        { data? <div className={sx("fetchContainer")}>
           {page !== 0 && search.length === 0 ? (
             <motion.button
               className={sx("fetchButton")}
@@ -135,7 +135,7 @@ function EventPage() {
               下一頁
             </motion.button>
           ) : null}
-        </div>
+        </div>: null}
       </div>
       <ScrollToTop />
     </motion.div>
