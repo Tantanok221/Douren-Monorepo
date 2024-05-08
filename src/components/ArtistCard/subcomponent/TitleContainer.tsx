@@ -13,14 +13,19 @@ interface Props {
 const TitleContainer = ({ subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
-  let artistData = useArtistCardContext();
+  const artistData = useArtistCardContext();
   const eventData = useEventDataContext();
-  if (!artistData && !data) {
-    artistData = eventData?.Author_Main as ArtistTypes;
+  let subtitle: string | null = "";
+  let title: string | null = "";
+  if (data) {
+    title = data?.Booth_name;
+  } else if (artistData) {
+    title = artistData?.Author;
+  } else if (eventData) {
+    title = eventData?.Booth_name;
+    subtitle = eventData?.Author_Main?.Author;
   }
 
-  const subtitle = data ? data.Author : artistData?.Author;
-  const title = data ? data.Booth_name : eventData?.Booth_name;
   return (
     <div className={sx("titleContainer")}>
       <div className={sx("header")}>{title}</div>
