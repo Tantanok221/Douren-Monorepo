@@ -89,7 +89,7 @@ const ArtistPage = ({}: Props) => {
         </div>
       </div>
       <div className={sx("mediumContainer")}>
-        <div className={sx("dmText")}>作品试阅</div>
+        <div className={sx("dmText")}>作品試閱</div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="15px">
             {artistData.Author_Product?.map((item, index) => {

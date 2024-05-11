@@ -32,7 +32,7 @@ const ArtistButton = ({ size }: Props) => {
         className={sx("artistButton", "smallText")}
       >
         <IoLibraryOutline />
-        详细资讯
+        詳細資訊 
       </Link>
     </IconContext.Provider>
   );
