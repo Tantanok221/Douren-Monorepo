@@ -102,7 +102,7 @@ const ArtistPage = ({}: Props) => {
                     alt={item.Thumbnail}
                   ></LazyImage>
                   <div className={sx("productText")}>{item.Title}</div>
-                  <DMButton link={link} text="查看产品试阅"></DMButton>
+                  <DMButton link={link} text="查看產品試閱"></DMButton>
                 </div>
               );
             })}
