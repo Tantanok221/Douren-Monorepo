@@ -21,7 +21,7 @@ export function useEventIDQuery(
     (state) => state.setNextPageAvailable,
   );
   return useQuery({
-    queryKey: [eventId],
+    queryKey: [eventId,search,tagFilter,start,end,table,ascending],
     queryFn: async ():Promise<ArtistEventType[] | null> => {
       const filterEmpty = tagFilter.length === 0;
 
@@ -35,18 +35,19 @@ export function useEventIDQuery(
       `).eq('Event_id',eventId)
       if (!filterEmpty) {
         tagFilter.forEach((tag) => {
-          query = query.filter("Tag", "ilike", `%${tag}%`);
+          // !Bug: filter is not working
+          query = query.filter("Author_Main.Tags", "ilike", `%${tag}%`);
         });
       }
       if (search.length > 0) {
         query = query.filter("Booth_name", "ilike", `%${search}%`);
       }
       query = query.order(table, { ascending }).range(start, end + 1);
-      const { data,error} = await query 
+      let { data,error} = await query 
       if ((data?.length ?? 0) < end - start + 1) {
         setNextPageAvailable(false);
       }
-      console.log(data)
+      data = data.filter((val:ArtistEventType) => val.Author_Main !== null);
       if(error){
         throw error
       }
