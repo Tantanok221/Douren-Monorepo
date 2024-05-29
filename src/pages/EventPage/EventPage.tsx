@@ -23,6 +23,7 @@ import RightContainer from "../../components/ArtistCard/subcomponent/RightContai
 import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
 import { useEventIDQuery } from "../../hooks/useEventIDQuery.ts";
 import { useLoaderData } from "react-router";
+import { usePageInit } from "../../hooks/usePageInit.ts";
 
 function EventPage() {
   const FETCH_COUNT = 40;
@@ -34,26 +35,13 @@ function EventPage() {
   );
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
-  const setAllFilter = useTagFilter((state) => state.setAllFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
     (item) => item.tag,
   );
   const search = useSearch((state) => state.search);
-  const initCollection = useCollection((state) => state.initCollection);
-  const position = usePosition((state) => state.position);
-  const initPosition = usePosition((state) => state.initPosition);
-  const initNextPageAvailable = useNextPageAvailable(
-    (state) => state.initNextPageAvailable,
-  );
-  useEffect(() => {
-    initPosition();
-  }, [table, ascending, tagFilter]);
-  window.scrollTo(0, position);
-  useEffect(() => {
-    setAllFilter();
-    initNextPageAvailable();
-    initCollection();
-  }, []);
+  usePageInit();
+ 
+
   const id = useLoaderData();
   console.log(start, end);
   const { data, status } = useEventIDQuery(
