@@ -35,7 +35,6 @@ export function useEventIDQuery(
       `).eq('Event_id',eventId)
       if (!filterEmpty) {
         tagFilter.forEach((tag) => {
-          // !Bug: filter is not working
           query = query.filter("Author_Main.Tags", "ilike", `%${tag}%`);
         });
       }
