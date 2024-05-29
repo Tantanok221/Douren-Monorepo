@@ -25,7 +25,7 @@ const CollectionLayout = ({ keys, legacyData, eventData }: Props) => {
       <>
         {legacyData.map((item) => {
           return (
-            <ArtistCard key={`${item.uuid}`} data={item}>
+            <ArtistCard key={`${item.uuid}`} legacyData={item}>
               <ImageContainer />
               <RightContainer>
                 <HeaderContainer keys={keys} />
