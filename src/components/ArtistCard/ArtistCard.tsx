@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
-import { useCollection } from "../../hooks/useCollection.ts";
 import FFContext from "./FFContext.ts";
 
 import { listVariants } from "../../helper/listAnimation";
@@ -12,17 +11,16 @@ import ArtistCardContext from "./ArtistCardContext.ts";
 import EventDataContext from "./EventDataContext.ts";
 interface Props {
   index?: number;
-  data?: FF;
+  legacyData?: FF;
   children?: React.ReactNode;
   artistData?: ArtistTypes;
   eventData ?: ArtistEventType;
 }
 const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
-  ({ index, data, children, artistData,eventData }, ref) => {
-    const collection = useCollection((state) => state.collection);
+  ({ index, legacyData, children, artistData,eventData }, ref) => {
     const sx = classNames.bind(styles);
     return (
-      <FFContext.Provider value={data}>
+      <FFContext.Provider value={legacyData}>
         <ArtistCardContext.Provider value={artistData}>
           <EventDataContext.Provider value={eventData}>
 
