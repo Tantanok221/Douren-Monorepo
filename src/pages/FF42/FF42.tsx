@@ -9,7 +9,7 @@ import { useSort } from "../../hooks/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.tsx";
 import { useTagFilter } from "../../hooks/useTagFilter.ts";
 import { useSearch } from "../../hooks/useSearch.ts";
-import { useCollection } from "../../hooks/useCollection.ts";
+import {  useLegacyCollection } from "../../hooks/useLegacyCollection.ts";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import { usePosition } from "../../hooks/usePosition.ts";
@@ -40,7 +40,7 @@ function FF42() {
   const search = useSearch((state) => state.search);
   const resetSearch = useSearch((state) => state.resetSearch);
   const tagFilterList = useTagFilter((state) => state.tagFilter);
-  const initCollection = useCollection((state) => state.initCollection);
+  const initCollection = useLegacyCollection((state) => state.initCollection);
   const position = usePosition((state) => state.position);
   const setPosition = usePosition((state) => state.setPosition);
   const initPosition = usePosition((state) => state.initPosition);
@@ -54,7 +54,7 @@ function FF42() {
   useEffect(() => {
     setAllFilter();
     initNextPageAvailable();
-    initCollection();
+    initCollection("FF42 Collection");
   }, []);
   // Infinite Scroll
   const { data, error, isFetching, status } = FF42Query(
@@ -87,10 +87,10 @@ function FF42() {
       <div className={sx("ArtistContainer")}>
         {(data ?? []).map((item, index) => {
           return (
-            <ArtistCard key={`${item.uuid}`} data={item}>
+            <ArtistCard key={`${item.uuid}`} legacyData={item}>
               <ImageContainer />
               <RightContainer>
-                <HeaderContainer bookmarkEnabled />
+                <HeaderContainer keys="FF42 Collection" />
                 <TagContainer activeButton />
                 <DayContainer />
                 <ArtistLinkContainer>

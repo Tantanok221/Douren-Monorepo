@@ -3,19 +3,19 @@ import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useFFContext } from "../FFContext.ts";
 import TitleContainer from "./TitleContainer.tsx";
-import BookmarkContainer from "./BookmarkContainer.tsx";
+import LegacyBookmarkContainer from "./LegacyBookmarkContainer.tsx";
 
 interface Props {
-  bookmarkEnabled?: boolean;
+  keys?: string;
   subtitleDisabled?: boolean;
 }
 
-const HeaderContainer = ({ bookmarkEnabled, subtitleDisabled }: Props) => {
+const HeaderContainer = ({ keys, subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
   return (
     <div className={sx("headerContainer")}>
       <TitleContainer subtitleDisabled={subtitleDisabled} />
-      {bookmarkEnabled ? <BookmarkContainer /> : null}
+      {keys === 'FF42 Collection' ? <LegacyBookmarkContainer keys={keys} /> : null}
     </div>
   );
 };

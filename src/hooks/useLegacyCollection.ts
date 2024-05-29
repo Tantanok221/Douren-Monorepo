@@ -6,12 +6,12 @@ interface Collection {
   collection: FF[];
   addCollection: (data: FF | undefined) => void;
   removeCollection: (data: FF | undefined) => void;
-  initCollection: () => void;
-  updateLocalStorage: () => void;
+  initCollection: (key:string) => void;
+  updateLocalStorage: (key:string) => void;
   checkAvailable: (data: FF | undefined) => boolean;
 }
 
-export const useCollection = create<Collection>()((set, get) => ({
+export const useLegacyCollection = create<Collection>()((set, get) => ({
   collection: [],
   addCollection: (data) => {
     if (!data) return;
@@ -29,9 +29,9 @@ export const useCollection = create<Collection>()((set, get) => ({
       ),
     }));
   },
-  initCollection: () => {
+  initCollection: (key) => {
     set(() => {
-      const item = localStorage.getItem("FF42-Collection");
+      const item = localStorage.getItem(key);
       if (item) {
         const object = JSON.parse(item);
         if (object) {
@@ -41,9 +41,9 @@ export const useCollection = create<Collection>()((set, get) => ({
       return { collection: [] };
     });
   },
-  updateLocalStorage: () => {
-    localStorage.removeItem("FF42-Collection");
-    localStorage.setItem("FF42-Collection", JSON.stringify(get().collection));
+  updateLocalStorage: (key) => {
+    localStorage.removeItem(key);
+    localStorage.setItem(key, JSON.stringify(get().collection));
   },
   checkAvailable: (data) => {
     if (!data) return false;

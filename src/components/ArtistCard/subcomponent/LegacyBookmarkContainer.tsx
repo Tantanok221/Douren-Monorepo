@@ -4,16 +4,22 @@ import styles from "../style.module.css";
 import { useFFContext } from "../FFContext.ts";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { useCollection } from "../../../hooks/useCollection.ts";
+import { useLegacyCollection } from "../../../hooks/useLegacyCollection.ts";
 import { motion } from "framer-motion";
-const BookmarkContainer = () => {
+
+interface Props {
+  keys: string;
+
+}
+
+const LegacyBookmarkContainer = ({keys}:Props) => {
   const [click, setClick] = React.useState(1);
   const sx = classNames.bind(styles);
   const data = useFFContext();
-  const addCollection = useCollection((state) => state.addCollection);
-  const removeCollection = useCollection((state) => state.removeCollection);
-  const updateLocalStorage = useCollection((state) => state.updateLocalStorage);
-  const checkAvailable = useCollection((state) => state.checkAvailable);
+  const addCollection = useLegacyCollection((state) => state.addCollection);
+  const removeCollection = useLegacyCollection((state) => state.removeCollection);
+  const updateLocalStorage = useLegacyCollection((state) => state.updateLocalStorage);
+  const checkAvailable = useLegacyCollection((state) => state.checkAvailable);
   const isAvailable = checkAvailable(data);
   return (
     <motion.div whileHover={{ scale: 1.1 }} className={sx("bookmarkContainer")}>
@@ -30,7 +36,7 @@ const BookmarkContainer = () => {
               removeCollection(data);
               setClick(click + 1);
             }
-            updateLocalStorage();
+            updateLocalStorage(keys);
           }}
           className={sx("bookmarkButton")}
         >
@@ -41,4 +47,4 @@ const BookmarkContainer = () => {
   );
 };
 
-export default BookmarkContainer;
+export default LegacyBookmarkContainer;

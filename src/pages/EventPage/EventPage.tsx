@@ -8,7 +8,6 @@ import { useSort } from "../../hooks/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.tsx";
 import { useTagFilter } from "../../hooks/useTagFilter.ts";
 import { useSearch } from "../../hooks/useSearch.ts";
-import { useCollection } from "../../hooks/useCollection.ts";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import { usePosition } from "../../hooks/usePosition.ts";
@@ -22,7 +21,7 @@ import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderCont
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
 import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
 import { useEventIDQuery } from "../../hooks/useEventIDQuery.ts";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useLocation } from "react-router";
 import { usePageInit } from "../../hooks/usePageInit.ts";
 
 function EventPage() {
@@ -41,9 +40,9 @@ function EventPage() {
   const search = useSearch((state) => state.search);
   usePageInit();
  
-
+  const location = useLocation()
   const id = useLoaderData();
-  console.log(start, end);
+  console.log(location.pathname);
   const { data, status } = useEventIDQuery(
     id,
     start,
@@ -78,7 +77,7 @@ function EventPage() {
             <ArtistCard key={`${item.Booth_name}`} eventData={item}>
               <ImageContainer />
               <RightContainer>
-                <HeaderContainer bookmarkEnabled />
+                <HeaderContainer keys={location.pathname}  />
                 <TagContainer activeButton />
                 <DayContainer />
                 <ArtistLinkContainer>

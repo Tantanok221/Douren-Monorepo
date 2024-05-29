@@ -1,28 +1,35 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "./Collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { useCollection } from "../../hooks/useCollection.ts";
+import {  useLegacyCollection } from "../../hooks/useLegacyCollection.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
-import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
-import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer";
-import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
-import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
-import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
-import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
-import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
-
+import { ArtistEventType } from "../../types/Artist.ts";
+import { FF } from "../../types/FF.ts";
+import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
+ 
 export const Collection = () => {
-  const [posts, setPosts] = React.useState(false);
+  const [posts, setPosts] = useState(false);
   const sx = classNames.bind(style);
-  const initCollection = useCollection((state) => state.initCollection);
-  const collection = useCollection((state) => state.collection);
+  const keyCollection = ["event/ff43"];
+  const [allCollection, setAllCollection] = useState<ArtistEventType[]>([]);
+  const collection = useLegacyCollection((state) => state.collection);
+  const initCollection = useLegacyCollection((state) => state.initCollection);
+
   useEffect(() => {
-    initCollection();
+    initCollection("FF42 Collection");
+    keyCollection.map((key) => {
+      const collection = JSON.parse(localStorage.getItem(key) as string);
+      console.log(collection);
+      if (collection) {
+        setAllCollection(collection);
+      }
+    });
     setPosts(true);
   }, []);
+  console.log(allCollection);
   if (!posts) return null;
   return (
     <motion.div
@@ -40,28 +47,13 @@ export const Collection = () => {
           <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
         </div>
         <div className={sx("artistContainer")}>
-          {collection.length !== 0 ? (
-            collection.map((item, index) => {
-              return (
-                <ArtistCard key={`${item.uuid}`} data={item}>
-                  <ImageContainer />
-                  <RightContainer>
-                    <HeaderContainer bookmarkEnabled />
-                    <ArtistTagContainer />
-                    <DayContainer />
-                    <ArtistLinkContainer>
-                      <DMButton />
-                    </ArtistLinkContainer>
-                  </RightContainer>
-                </ArtistCard>
-              );
-            })
-          ) : (
-            <div className={sx("emptyText")}>
-              你目前還沒有把任何攤位加入我的收藏！
-            </div>
-          )}
+          <CollectionLayout legacyData={collection} keys="FF42 Collection" />{" "}
         </div>
+        {collection.length === 0 && allCollection.length === 0 ? (
+          <div className={sx("emptyText")}>
+            你目前還沒有把任何攤位加入我的收藏！
+          </div>
+        ) : null}
       </motion.div>
       <ScrollToTop />
     </motion.div>
