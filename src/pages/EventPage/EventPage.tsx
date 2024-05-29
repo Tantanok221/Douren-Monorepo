@@ -35,16 +35,12 @@ function EventPage() {
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
-  const allFilter = useTagFilter((state) => state.allFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
     (item) => item.tag,
   );
   const search = useSearch((state) => state.search);
-  const resetSearch = useSearch((state) => state.resetSearch);
-  const tagFilterList = useTagFilter((state) => state.tagFilter);
   const initCollection = useCollection((state) => state.initCollection);
   const position = usePosition((state) => state.position);
-  const setPosition = usePosition((state) => state.setPosition);
   const initPosition = usePosition((state) => state.initPosition);
   const initNextPageAvailable = useNextPageAvailable(
     (state) => state.initNextPageAvailable,
@@ -59,7 +55,7 @@ function EventPage() {
     initCollection();
   }, []);
   const id = useLoaderData();
-  console.log(start,end);
+  console.log(start, end);
   const { data, status } = useEventIDQuery(
     id,
     start,
@@ -104,38 +100,40 @@ function EventPage() {
             </ArtistCard>
           );
         })}
-        { data? <div className={sx("fetchContainer")}>
-          {page !== 0 && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setPage(page - 1);
-                setStart(start - FETCH_COUNT);
-                setEnd(end - FETCH_COUNT);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              上一頁
-            </motion.button>
-          ) : null}
-          {nextPageAvailable && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setStart(start + FETCH_COUNT);
-                setEnd(end + FETCH_COUNT);
-                setPage(page + 1);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              下一頁
-            </motion.button>
-          ) : null}
-        </div>: null}
+        {data ? (
+          <div className={sx("fetchContainer")}>
+            {page !== 0 && search.length === 0 ? (
+              <motion.button
+                className={sx("fetchButton")}
+                onClick={() => {
+                  setPage(page - 1);
+                  setStart(start - FETCH_COUNT);
+                  setEnd(end - FETCH_COUNT);
+                }}
+                whileHover={{
+                  backgroundColor: "#4D4D4D",
+                }}
+              >
+                上一頁
+              </motion.button>
+            ) : null}
+            {nextPageAvailable && search.length === 0 ? (
+              <motion.button
+                className={sx("fetchButton")}
+                onClick={() => {
+                  setStart(start + FETCH_COUNT);
+                  setEnd(end + FETCH_COUNT);
+                  setPage(page + 1);
+                }}
+                whileHover={{
+                  backgroundColor: "#4D4D4D",
+                }}
+              >
+                下一頁
+              </motion.button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <ScrollToTop />
     </motion.div>
