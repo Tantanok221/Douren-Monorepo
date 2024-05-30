@@ -23,6 +23,7 @@ import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.ts
 import { useEventIDQuery } from "../../hooks/useEventIDQuery.ts";
 import { useLoaderData, useLocation } from "react-router";
 import { usePageInit } from "../../hooks/usePageInit.ts";
+import { CollectionContextProvider } from "../../context/CollectionContext/CollectionContext.tsx";
 
 function EventPage() {
   const FETCH_COUNT = 40;
@@ -64,65 +65,67 @@ function EventPage() {
       transition={{ duration: 1, ease: "easeInOut" }}
       className={sx("MainContainer")}
     >
-      <form id="top" className={sx("searchContainer")}>
-        <SearchBox />
-      </form>
-      <div className={sx("filterContainer")}>
-        <SortSelect />
-        <TagFilter />
-      </div>
-      <div className={sx("ArtistContainer")}>
-        {(data ?? []).map((item, index) => {
-          return (
-            <ArtistCard key={`${item.Booth_name}`} eventData={item}>
-              <ImageContainer />
-              <RightContainer>
-                <HeaderContainer keys={location.pathname} />
-                <TagContainer activeButton />
-                <DayContainer />
-                <ArtistLinkContainer>
-                  <DMButton />
-                </ArtistLinkContainer>
-              </RightContainer>
-            </ArtistCard>
-          );
-        })}
-        {data ? (
-          <div className={sx("fetchContainer")}>
-            {page !== 0 && search.length === 0 ? (
-              <motion.button
-                className={sx("fetchButton")}
-                onClick={() => {
-                  setPage(page - 1);
-                  setStart(start - FETCH_COUNT);
-                  setEnd(end - FETCH_COUNT);
-                }}
-                whileHover={{
-                  backgroundColor: "#4D4D4D",
-                }}
-              >
-                上一頁
-              </motion.button>
-            ) : null}
-            {nextPageAvailable && search.length === 0 ? (
-              <motion.button
-                className={sx("fetchButton")}
-                onClick={() => {
-                  setStart(start + FETCH_COUNT);
-                  setEnd(end + FETCH_COUNT);
-                  setPage(page + 1);
-                }}
-                whileHover={{
-                  backgroundColor: "#4D4D4D",
-                }}
-              >
-                下一頁
-              </motion.button>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
-      <ScrollToTop />
+      <CollectionContextProvider key={location.pathname}>
+        <form id="top" className={sx("searchContainer")}>
+          <SearchBox />
+        </form>
+        <div className={sx("filterContainer")}>
+          <SortSelect />
+          <TagFilter />
+        </div>
+        <div className={sx("ArtistContainer")}>
+          {(data ?? []).map((item, index) => {
+            return (
+              <ArtistCard key={`${item.Booth_name}`} eventData={item}>
+                <ImageContainer />
+                <RightContainer>
+                  <HeaderContainer keys={location.pathname} />
+                  <TagContainer activeButton />
+                  <DayContainer />
+                  <ArtistLinkContainer>
+                    <DMButton />
+                  </ArtistLinkContainer>
+                </RightContainer>
+              </ArtistCard>
+            );
+          })}
+          {data ? (
+            <div className={sx("fetchContainer")}>
+              {page !== 0 && search.length === 0 ? (
+                <motion.button
+                  className={sx("fetchButton")}
+                  onClick={() => {
+                    setPage(page - 1);
+                    setStart(start - FETCH_COUNT);
+                    setEnd(end - FETCH_COUNT);
+                  }}
+                  whileHover={{
+                    backgroundColor: "#4D4D4D",
+                  }}
+                >
+                  上一頁
+                </motion.button>
+              ) : null}
+              {nextPageAvailable && search.length === 0 ? (
+                <motion.button
+                  className={sx("fetchButton")}
+                  onClick={() => {
+                    setStart(start + FETCH_COUNT);
+                    setEnd(end + FETCH_COUNT);
+                    setPage(page + 1);
+                  }}
+                  whileHover={{
+                    backgroundColor: "#4D4D4D",
+                  }}
+                >
+                  下一頁
+                </motion.button>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+        <ScrollToTop />
+      </CollectionContextProvider>
     </motion.div>
   );
 }
