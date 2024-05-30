@@ -9,7 +9,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "normalize.css";
-import Root from "./routes/Root/Root";
+import Root from "./pages/Root/Root.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
