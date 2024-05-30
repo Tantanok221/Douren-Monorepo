@@ -1,10 +1,10 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { supabase } from "./supabase";
+import { supabase } from "../helper/supabase";
 import { useSearch } from "../stores/useSearch";
 import { useNextPageAvailable } from "../stores/useNextPageAvailable";
 import { FF } from "../types/FF";
 
-export function FF42Query(
+export function useFF42Query(
   start: number,
   end: number,
   table: string,
@@ -18,7 +18,6 @@ export function FF42Query(
   const setNextPageAvailable = useNextPageAvailable(
     (state) => state.setNextPageAvailable,
   );
-  // todo something broken related to data dissapering
 
   return useQuery({
     queryKey: [

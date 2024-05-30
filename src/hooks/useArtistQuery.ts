@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "./supabase";
 import { ArtistTypes } from "../types/Artist";
 import { useSearch } from "../stores/useSearch";
+import { supabase } from "../helper/supabase";
 
-export const artistQuery = () => {
+export const useArtistQuery = () => {
   const search = useSearch((state) => state.search);
   return useQuery({
     queryKey: ["artist", search],

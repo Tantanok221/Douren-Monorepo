@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
 import { useLocation } from "react-router";
-import { artistQuery } from "../../helper/artistQuery";
 import { useTagFilter } from "../../stores/useTagFilter";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
@@ -15,6 +14,7 @@ import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import { useSearch } from "../../stores/useSearch";
 import Animate from "../../animate/Animate";
+import { useArtistQuery } from "../../hooks/useArtistQuery";
 
 type Props = {};
 
@@ -27,7 +27,7 @@ const Artist = (props: Props) => {
     setAllFilter();
     resetSearch();
   }, []);
-  const { data } = artistQuery();
+  const { data } = useArtistQuery();
 
   return (
     <>
