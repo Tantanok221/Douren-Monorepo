@@ -65,7 +65,7 @@ function EventPage() {
       transition={{ duration: 1, ease: "easeInOut" }}
       className={sx("MainContainer")}
     >
-      <CollectionContextProvider key={location.pathname}>
+      <CollectionContextProvider keys={location.pathname}>
         <form id="top" className={sx("searchContainer")}>
           <SearchBox />
         </form>

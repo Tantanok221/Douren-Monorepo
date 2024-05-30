@@ -5,22 +5,20 @@ import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useLegacyCollection } from "../../../stores/useLegacyCollection.ts";
 import { motion } from "framer-motion";
-import { useFFContext } from "../FFContext.ts";
+import { useCollectionProvider } from "../../../context/CollectionContext/useCollectionContext.ts";
+import { useEventDataContext } from "../EventDataContext.ts";
 
 interface Props {
   keys: string;
 
 }
 
-const LegacyBookmarkContainer = ({keys}:Props) => {
+const EventBookmarkContainer = ({keys}:Props) => {
   const [click, setClick] = React.useState(1);
+  const data = useEventDataContext();
   const sx = classNames.bind(styles);
-  const data = useFFContext();
-  const addCollection = useLegacyCollection((state) => state.addCollection);
-  const removeCollection = useLegacyCollection((state) => state.removeCollection);
-  const updateLocalStorage = useLegacyCollection((state) => state.updateLocalStorage);
-  const checkAvailable = useLegacyCollection((state) => state.checkAvailable);
-  const isAvailable = checkAvailable(data);
+  const [collection,actions] = useCollectionProvider();
+  const isAvailable  = collection.some((item) => item.Booth_name === data?.Booth_name)
   return (
     <motion.div whileHover={{ scale: 1.1 }} className={sx("bookmarkContainer")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
@@ -30,13 +28,12 @@ const LegacyBookmarkContainer = ({keys}:Props) => {
           transition={{ duration: 0.5 }}
           onClick={(event) => {
             if (!isAvailable) {
-              addCollection(data);
+              actions({action: 'add', keys: keys, data: data})
               setClick(click + 1);
             } else {
-              removeCollection(data);
+              actions({action: 'remove', keys: keys, data: data})
               setClick(click + 1);
             }
-            updateLocalStorage(keys);
           }}
           className={sx("bookmarkButton")}
         >
@@ -47,4 +44,4 @@ const LegacyBookmarkContainer = ({keys}:Props) => {
   );
 };
 
-export default LegacyBookmarkContainer;
+export default EventBookmarkContainer;
