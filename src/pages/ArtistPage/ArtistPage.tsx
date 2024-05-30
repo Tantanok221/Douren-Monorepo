@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { processArtistData } from "../../helper/processArtistData";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import { useTagFilter } from "../../hooks/useTagFilter";
+import { useTagFilter } from "../../stores/useTagFilter";
 import LazyImage from "../../components/LazyImage/LazyImage";
 import LinkContainer from "../../components/LinkContainer/LinkContainer";
 import { processTagData } from "../../helper/processTagData";
@@ -17,7 +17,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import DMButton from "../../components/DMButton/component/DMButton";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import  useArtistLoader  from "../../hooks/useArtistLoader";
+import useArtistLoader from "../../hooks/useArtistLoader";
 import Animate from "../../animate/Animate";
 
 interface Props {}
@@ -28,14 +28,12 @@ const ArtistPage = ({}: Props) => {
   const { data } = useArtistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   setAllFilter();
-  
+
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);
 
   const artistData: ArtistPageTypes | null = data ? data[0] : null;
-  const artistTagData = processTagData(
-    artistData?.Tags?.split(",") ?? [],
-  );
+  const artistTagData = processTagData(artistData?.Tags?.split(",") ?? []);
   if (!artistData) return null;
 
   console.log(artistData);
@@ -46,10 +44,7 @@ const ArtistPage = ({}: Props) => {
         <div className={sx("topContainer")}>
           <div className={sx("leftContainer")}>
             <div className={sx("imageContainer")}>
-              <LazyImage
-                alt={artistData.Author}
-                photo={artistData.Photo}
-              />
+              <LazyImage alt={artistData.Author} photo={artistData.Photo} />
             </div>
 
             <div className={sx("linkContainer")}>

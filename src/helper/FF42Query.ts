@@ -1,8 +1,8 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
-import { useSearch } from "../hooks/useSearch";
-import { useNextPageAvailable } from "../hooks/useNextPageAvailable";
-import { FF } from '../types/FF';
+import { useSearch } from "../stores/useSearch";
+import { useNextPageAvailable } from "../stores/useNextPageAvailable";
+import { FF } from "../types/FF";
 
 export function FF42Query(
   start: number,
@@ -28,7 +28,7 @@ export function FF42Query(
       { tagFilter },
       { start, end },
     ],
-    queryFn: async ():Promise<FF[] |null> => {
+    queryFn: async (): Promise<FF[] | null> => {
       const filterEmpty = tagFilter.length === 0;
       let query = supabase.from("FF42").select("*");
       if (!filterEmpty) {

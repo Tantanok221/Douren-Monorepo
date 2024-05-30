@@ -3,7 +3,7 @@ import style from "./Artist.module.css";
 import classNames from "classnames/bind";
 import { useLocation } from "react-router";
 import { artistQuery } from "../../helper/artistQuery";
-import { useTagFilter } from "../../hooks/useTagFilter";
+import { useTagFilter } from "../../stores/useTagFilter";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
 import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
@@ -13,7 +13,7 @@ import ArtistButton from "../../components/ArtistCard/subcomponent/ArtistButton"
 import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer";
 import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import SearchBox from "../../components/SearchBox/SearchBox";
-import { useSearch } from "../../hooks/useSearch";
+import { useSearch } from "../../stores/useSearch";
 import Animate from "../../animate/Animate";
 
 type Props = {};

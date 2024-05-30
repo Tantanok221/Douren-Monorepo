@@ -4,7 +4,7 @@ import styles from "../style.module.css";
 import { useFFContext } from "../FFContext.ts";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { useLegacyCollection } from "../../../hooks/useLegacyCollection.ts";
+import { useLegacyCollection } from "../../../stores/useLegacyCollection.ts";
 import { motion } from "framer-motion";
 
 interface Props {

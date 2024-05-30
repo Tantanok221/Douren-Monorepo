@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import style from "./Collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import {  useLegacyCollection } from "../../hooks/useLegacyCollection.ts";
+import { useLegacyCollection } from "../../stores/useLegacyCollection.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
 import { ArtistEventType } from "../../types/Artist.ts";
 import { FF } from "../../types/FF.ts";
 import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
- 
+
 export const Collection = () => {
   const [posts, setPosts] = useState(false);
   const sx = classNames.bind(style);

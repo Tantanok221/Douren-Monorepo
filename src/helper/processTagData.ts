@@ -1,4 +1,4 @@
-import { TagObject, useTagFilter } from "../hooks/useTagFilter";
+import { TagObject, useTagFilter } from "../stores/useTagFilter";
 
 export function processTagData(allTag: string[]) {
   const getTag = useTagFilter((state) => state.getTag);

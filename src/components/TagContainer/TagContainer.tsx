@@ -2,7 +2,7 @@ import React from "react";
 import style from "./TagContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { TagObject, useTagFilter } from "../../hooks/useTagFilter";
+import { TagObject, useTagFilter } from "../../stores/useTagFilter";
 
 interface Props {
   renderTag: TagObject[];

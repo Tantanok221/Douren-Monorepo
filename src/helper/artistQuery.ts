@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "./supabase";
 import { ArtistTypes } from "../types/Artist";
-import { useSearch } from "../hooks/useSearch";
+import { useSearch } from "../stores/useSearch";
 
 export const artistQuery = () => {
   const search = useSearch((state) => state.search);

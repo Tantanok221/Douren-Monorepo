@@ -7,7 +7,7 @@ import React from "react";
 import styles from "./style.module.css";
 import { SelectItem } from "./subcomponent/SelectItem.tsx";
 import { SelectSeperator } from "./subcomponent/SelectSeperator.tsx";
-import { useSort } from "../../hooks/useSort.ts";
+import { useSort } from "../../stores/useSort.ts";
 import { motion } from "framer-motion";
 const SortSelect = () => {
   const ascending = useSort((state) => state.ascending);

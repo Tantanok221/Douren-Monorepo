@@ -4,15 +4,15 @@ import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.tsx";
 import SortSelect from "../../components/SortSelect/SortSelect.tsx";
 import styles from "./EventPage.module.css";
-import { useSort } from "../../hooks/useSort.ts";
+import { useSort } from "../../stores/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.tsx";
-import { useTagFilter } from "../../hooks/useTagFilter.ts";
-import { useSearch } from "../../hooks/useSearch.ts";
+import { useTagFilter } from "../../stores/useTagFilter.ts";
+import { useSearch } from "../../stores/useSearch.ts";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import { usePosition } from "../../hooks/usePosition.ts";
+import { usePosition } from "../../stores/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
-import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
+import { useNextPageAvailable } from "../../stores/useNextPageAvailable.ts";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
 import TagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
 import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer.tsx";
@@ -39,8 +39,8 @@ function EventPage() {
   );
   const search = useSearch((state) => state.search);
   usePageInit();
- 
-  const location = useLocation()
+
+  const location = useLocation();
   const id = useLoaderData();
   console.log(location.pathname);
   const { data, status } = useEventIDQuery(
@@ -77,7 +77,7 @@ function EventPage() {
             <ArtistCard key={`${item.Booth_name}`} eventData={item}>
               <ImageContainer />
               <RightContainer>
-                <HeaderContainer keys={location.pathname}  />
+                <HeaderContainer keys={location.pathname} />
                 <TagContainer activeButton />
                 <DayContainer />
                 <ArtistLinkContainer>

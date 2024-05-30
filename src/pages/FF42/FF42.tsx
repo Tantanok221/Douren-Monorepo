@@ -5,16 +5,16 @@ import classNames from "classnames/bind";
 import SearchBox from "../../components/SearchBox/SearchBox.tsx";
 import SortSelect from "../../components/SortSelect/SortSelect.tsx";
 import styles from "./style.module.css";
-import { useSort } from "../../hooks/useSort.ts";
+import { useSort } from "../../stores/useSort.ts";
 import { TagFilter } from "../../components/TagFilter/TagFilter.tsx";
-import { useTagFilter } from "../../hooks/useTagFilter.ts";
-import { useSearch } from "../../hooks/useSearch.ts";
-import {  useLegacyCollection } from "../../hooks/useLegacyCollection.ts";
+import { useTagFilter } from "../../stores/useTagFilter.ts";
+import { useSearch } from "../../stores/useSearch.ts";
+import { useLegacyCollection } from "../../stores/useLegacyCollection.ts";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import { usePosition } from "../../hooks/usePosition.ts";
+import { usePosition } from "../../stores/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
-import { useNextPageAvailable } from "../../hooks/useNextPageAvailable.ts";
+import { useNextPageAvailable } from "../../stores/useNextPageAvailable.ts";
 import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
 import TagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
 import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer.tsx";
@@ -100,38 +100,40 @@ function FF42() {
             </ArtistCard>
           );
         })}
-        {data ? <div className={sx("fetchContainer")}>
-          {page !== 0 && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setPage(page - 1);
-                setStart(start - FETCH_COUNT);
-                setEnd(end - FETCH_COUNT);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              上一頁
-            </motion.button>
-          ) : null}
-          {nextPageAvailable && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setStart(start + FETCH_COUNT);
-                setEnd(end + FETCH_COUNT);
-                setPage(page + 1);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              下一頁
-            </motion.button>
-          ) : null}
-        </div>: null}
+        {data ? (
+          <div className={sx("fetchContainer")}>
+            {page !== 0 && search.length === 0 ? (
+              <motion.button
+                className={sx("fetchButton")}
+                onClick={() => {
+                  setPage(page - 1);
+                  setStart(start - FETCH_COUNT);
+                  setEnd(end - FETCH_COUNT);
+                }}
+                whileHover={{
+                  backgroundColor: "#4D4D4D",
+                }}
+              >
+                上一頁
+              </motion.button>
+            ) : null}
+            {nextPageAvailable && search.length === 0 ? (
+              <motion.button
+                className={sx("fetchButton")}
+                onClick={() => {
+                  setStart(start + FETCH_COUNT);
+                  setEnd(end + FETCH_COUNT);
+                  setPage(page + 1);
+                }}
+                whileHover={{
+                  backgroundColor: "#4D4D4D",
+                }}
+              >
+                下一頁
+              </motion.button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <ScrollToTop />
     </motion.div>
