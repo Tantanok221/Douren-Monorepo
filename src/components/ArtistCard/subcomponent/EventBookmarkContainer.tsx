@@ -18,7 +18,7 @@ const EventBookmarkContainer = ({keys}:Props) => {
   const data = useEventDataContext();
   const sx = classNames.bind(styles);
   const [collection,actions] = useCollectionProvider();
-  const isAvailable  = collection.some((item) => item.Booth_name === data?.Booth_name)
+  const isAvailable  = collection?.some((item) => item.Booth_name === data?.Booth_name)
   return (
     <motion.div whileHover={{ scale: 1.1 }} className={sx("bookmarkContainer")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
