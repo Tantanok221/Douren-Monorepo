@@ -13,24 +13,13 @@ import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.ts
 export const Collection = () => {
   const [posts, setPosts] = useState(false);
   const sx = classNames.bind(style);
-  const keyCollection = ["event/ff43"];
-  const [allCollection, setAllCollection] = useState<ArtistEventType[]>([]);
+  const keyCollection = ["/event/ff43"];
   const collection = useLegacyCollection((state) => state.collection);
   const initCollection = useLegacyCollection((state) => state.initCollection);
 
   useEffect(() => {
     initCollection("FF42 Collection");
-    keyCollection.map((key) => {
-      const collection = JSON.parse(localStorage.getItem(key) as string);
-      console.log(collection);
-      if (collection) {
-        setAllCollection(collection);
-      }
-    });
-    setPosts(true);
   }, []);
-  console.log(allCollection);
-  if (!posts) return null;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -46,14 +35,9 @@ export const Collection = () => {
           </div>
           <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
         </div>
-        <div className={sx("artistContainer")}>
-          <CollectionLayout legacyData={collection} keys="FF42 Collection" />{" "}
-        </div>
-        {collection.length === 0 && allCollection.length === 0 ? (
-          <div className={sx("emptyText")}>
-            你目前還沒有把任何攤位加入我的收藏！
-          </div>
-        ) : null}
+        <CollectionLayout title='FF43 收藏' keys="/event/ff43" />
+        <CollectionLayout title="FF42 收藏" legacyData={collection} keys="FF42 Collection" />
+        
       </motion.div>
       <ScrollToTop />
     </motion.div>
