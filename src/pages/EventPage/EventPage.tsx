@@ -20,9 +20,7 @@ function EventPage() {
   console.log(location.pathname);
   
 
-  if (status === "error") {
-    return <div>error</div>;
-  }
+  
   const sx = classNames.bind(styles);
   return (
     <motion.div

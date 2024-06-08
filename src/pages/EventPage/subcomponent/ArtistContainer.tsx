@@ -46,7 +46,9 @@ const ArtistContainer = (props: Props) => {
     ascending,
     tagFilter,
   );
-
+  if (status === "error") {
+    return <div>error</div>;
+  }
   return (
     <div className={sx("ArtistContainer")}>
           {(data ?? []).map((item, index) => {
