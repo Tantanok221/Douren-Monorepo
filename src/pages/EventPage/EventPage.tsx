@@ -27,34 +27,17 @@ import { CollectionContextProvider } from "../../context/CollectionContext/Colle
 import SelectComponent from "../../components/SelectComponent/SelectComponent.tsx";
 import SearchContainer from "./subcomponent/SearchContainer.tsx";
 import FilterContainer from "./subcomponent/FilterContainer.tsx";
+import ArtistContainer from "./subcomponent/ArtistContainer.tsx";
 
 function EventPage() {
-  const FETCH_COUNT = 40;
-  const [page, setPage] = useState(0);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(FETCH_COUNT);
-  const nextPageAvailable = useNextPageAvailable(
-    (state) => state.nextPageAvailable,
-  );
-  const table = useSort((state) => state.table);
-  const ascending = useSort((state) => state.ascending);
-  const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
-    (item) => item.tag,
-  );
-  const search = useSearch((state) => state.search);
+  
+  
+  
   usePageInit();
 
   const location = useLocation();
-  const id = useLoaderData();
   console.log(location.pathname);
-  const { data, status } = useEventIDQuery(
-    id,
-    start,
-    end,
-    table,
-    ascending,
-    tagFilter,
-  );
+  
 
   if (status === "error") {
     return <div>error</div>;
@@ -71,57 +54,7 @@ function EventPage() {
       <CollectionContextProvider keys={location.pathname}>
         <SearchContainer/>
         <FilterContainer/>
-        <div className={sx("ArtistContainer")}>
-          {(data ?? []).map((item, index) => {
-            return (
-              <ArtistCard key={`${item.Booth_name}`} eventData={item}>
-                <ImageContainer />
-                <RightContainer>
-                  <HeaderContainer keys={location.pathname} />
-                  <TagContainer activeButton />
-                  <DayContainer />
-                  <ArtistLinkContainer>
-                    <DMButton />
-                  </ArtistLinkContainer>
-                </RightContainer>
-              </ArtistCard>
-            );
-          })}
-          {data ? (
-            <div className={sx("fetchContainer")}>
-              {page !== 0 && search.length === 0 ? (
-                <motion.button
-                  className={sx("fetchButton")}
-                  onClick={() => {
-                    setPage(page - 1);
-                    setStart(start - FETCH_COUNT);
-                    setEnd(end - FETCH_COUNT);
-                  }}
-                  whileHover={{
-                    backgroundColor: "#4D4D4D",
-                  }}
-                >
-                  上一頁
-                </motion.button>
-              ) : null}
-              {nextPageAvailable && search.length === 0 ? (
-                <motion.button
-                  className={sx("fetchButton")}
-                  onClick={() => {
-                    setStart(start + FETCH_COUNT);
-                    setEnd(end + FETCH_COUNT);
-                    setPage(page + 1);
-                  }}
-                  whileHover={{
-                    backgroundColor: "#4D4D4D",
-                  }}
-                >
-                  下一頁
-                </motion.button>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
+        <ArtistContainer/>
         <ScrollToTop />
       </CollectionContextProvider>
     </motion.div>
