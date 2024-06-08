@@ -6,43 +6,51 @@ import { CaretDown, IconContext } from "@phosphor-icons/react";
 import SelectItem from "./subcomponents/SelectItem";
 import SelectLabel from "./subcomponents/SelectLabel";
 import SelectGroup from "./subcomponents/SelectGroup";
+import { useState } from "react";
 
 interface Props {
-  triggerText: string
-  children: React.ReactNode
+  defaultValue: string;
+  children: React.ReactNode;
 }
 
-const SelectComponent = ({triggerText,children  }: Props) => {
+const SelectComponent = ({ defaultValue, children }: Props) => {
   const sx = classNames.bind(style);
   return (
-    <IconContext.Provider value={{
-      size: 16,
-      color: '#aaaaaa'
-    }}
+    <IconContext.Provider
+      value={{
+        size: 16,
+        color: "#aaaaaa",
+      }}
     >
-      <Select.Root >
+      <Select.Root defaultValue={defaultValue}>
         <Select.Trigger asChild>
-          <motion.div className={sx('selectTrigger')}>
-            <motion.div className={sx('selectText')}>
-            {triggerText}
+          <motion.div
+            whileHover={{
+              backgroundColor: "#4D4D4D",
+            }}
+            className={sx("selectTrigger")}
+          >
+            <motion.div className={sx("selectContainer")}>
+              <Select.Value />
+              <Select.Icon className={sx("selectIcon")}>
+                <CaretDown />
+              </Select.Icon>
             </motion.div>
-            <Select.Icon className={sx("selectIcon")}>
-            <CaretDown  />
-            </Select.Icon>
           </motion.div>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content className={sx('selectContent')}>
-            {children}
+          <Select.Content position="popper" className={sx("selectContent")}>
+            <Select.Viewport className={sx("selectViewport")}>
+              {children}
+            </Select.Viewport>
           </Select.Content>
         </Select.Portal>
-
       </Select.Root>
     </IconContext.Provider>
   );
 };
 
-SelectComponent.Item = SelectItem
-SelectComponent.Label = SelectLabel
-SelectComponent.Group = SelectGroup
+SelectComponent.Item = SelectItem;
+SelectComponent.Label = SelectLabel;
+SelectComponent.Group = SelectGroup;
 export default SelectComponent;

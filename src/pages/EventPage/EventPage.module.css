@@ -28,6 +28,16 @@
 }
 .searchContainer {
   width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.searchBox {
+  width: 100%;
+}
+
+.searchFilter {
+  width: 30%;
 }
 
 .filterContainer {

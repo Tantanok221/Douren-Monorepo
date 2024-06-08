@@ -24,6 +24,7 @@ import { useEventIDQuery } from "../../hooks/useEventIDQuery.ts";
 import { useLoaderData, useLocation } from "react-router";
 import { usePageInit } from "../../hooks/usePageInit.ts";
 import { CollectionContextProvider } from "../../context/CollectionContext/CollectionContext.tsx";
+import SelectComponent from "../../components/SelectComponent/SelectComponent.tsx";
 
 function EventPage() {
   const FETCH_COUNT = 40;
@@ -67,7 +68,19 @@ function EventPage() {
     >
       <CollectionContextProvider keys={location.pathname}>
         <form id="top" className={sx("searchContainer")}>
-          <SearchBox />
+          <div className={sx('searchFilter')}>
+          <SelectComponent defaultValue="booth">
+            <SelectComponent.Group>
+              <SelectComponent.Label text="搜尋欄位" />
+              <SelectComponent.Item text="攤位名稱" value="booth" />
+              <SelectComponent.Item text="創作者名稱" value="owner" />
+              <SelectComponent.Item text="攤位位置" value="location" />
+            </SelectComponent.Group>
+          </SelectComponent>
+          </div>
+          <div className={sx("searchBox")}>
+            <SearchBox />
+          </div>
         </form>
         <div className={sx("filterContainer")}>
           <SortSelect />
