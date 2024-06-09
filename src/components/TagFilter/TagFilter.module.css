@@ -22,6 +22,7 @@
   background: var(--Panel, #1f1f21);
   cursor: pointer;
   height: 100%;
+  display: flex;
 }
 
 .tagContainer {
