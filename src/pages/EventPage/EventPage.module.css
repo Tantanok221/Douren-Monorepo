@@ -15,7 +15,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-  max-width: 1300px;
+  max-width: 1800px;
   width: 100%;
 }
 
@@ -83,9 +83,7 @@
     margin: 1.25rem 5%;
     box-sizing: border-box;
   }
-  .ArtistContainer {
-    align-items: flex-start;
-  }
+
   .fetchContainer {
     width: 100%;
   }
@@ -94,5 +92,8 @@
 @media (max-width: 500px) {
   .MainContainer {
     margin: 1rem 10%;
+  }
+  .searchFilter {
+    width: 40%;
   }
 }
