@@ -3,6 +3,7 @@ import { supabase } from "../helper/supabase";
 import { useNextPageAvailable } from "../stores/useNextPageAvailable";
 import { useSearch } from "../stores/useSearch";
 import { ArtistEventType } from "../types/Artist";
+import { useTagFilter } from "../stores/useTagFilter";
 
 export function useEventIDQuery(
   eventId: unknown,
@@ -10,12 +11,12 @@ export function useEventIDQuery(
   end: number,
   table: string,
   ascending: boolean,
-  tagFilter: string[],
+  
 ) {
-  const search = useSearch((state) => state.search);
-  const nextPageAvailable = useNextPageAvailable(
-    (state) => state.nextPageAvailable,
+  const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
+    (item) => item.tag,
   );
+  const search = useSearch((state) => state.search);
   const setNextPageAvailable = useNextPageAvailable(
     (state) => state.setNextPageAvailable,
   );
@@ -28,7 +29,9 @@ export function useEventIDQuery(
         .from("Event_DM")
         .select(
           `
-      Location,
+      Location_Day01,
+      Location_Day02,
+      Location_Day03,
       Booth_name,
       DM,
       Author_Main(

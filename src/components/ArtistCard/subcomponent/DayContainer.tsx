@@ -7,15 +7,19 @@ const DayContainer = () => {
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const eventData = useEventDataContext();
-  let boothLocation: (string|null)[] = [];
+  let boothLocation: (string | null)[] = [];
   if (data?.DAY01_location) {
-      boothLocation = [
+    boothLocation = [
       data?.DAY01_location,
       data?.DAY02_location,
       data?.DAY03_location,
     ];
-  } else if (eventData?.Location) {
-    boothLocation = eventData?.Location?.split(",");
+  } else if (eventData) {
+    boothLocation = [
+      eventData.Location_Day01,
+      eventData.Location_Day02,
+      eventData.Location_Day03,
+    ];
   }
 
   return (

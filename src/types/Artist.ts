@@ -47,6 +47,8 @@ export interface ArtistPageTypes extends ArtistTypes {
 export interface ArtistEventType {
   Booth_name: string | null;
   DM: string | null;
-  Location: string | null;
+  Location_Day01: string | null;
+  Location_Day02: string | null;
+  Location_Day03: string | null;
   Author_Main: ArtistPrimitiveTypes
 }
