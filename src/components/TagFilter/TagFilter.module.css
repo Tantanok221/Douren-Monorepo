@@ -1,9 +1,10 @@
 .buttonContainer {
   padding: 0.75rem 1.5rem;
-  justify-content: center;
-  align-items: center;
   gap: 0.1875rem;
   display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .buttonText {
@@ -20,16 +21,21 @@
   border-radius: 0.5rem;
   background: var(--Panel, #1f1f21);
   cursor: pointer;
+  height: 100%;
 }
 
 .tagContainer {
   display: inline-flex;
-  padding: 1rem 1.5rem;
-  flex-direction: column;
+  padding: 12px 1.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
   align-items: flex-start;
   gap: 1.25rem;
   border-radius: 0.5rem;
+  width: var(--radix-popover-trigger-width);
   z-index: 2;
+  height: 100%;
   background: var(--Panel, #1f1f21);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,10 +44,12 @@
 
 .tagItem {
   display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 1.5rem;
   background: none;
   border: none;
+  min-width: 100px;
+  height: 100%;
 }
 
 .tagLabel {

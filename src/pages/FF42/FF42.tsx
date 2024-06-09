@@ -81,8 +81,12 @@ function FF42() {
         <SearchBox />
       </form>
       <div className={sx("filterContainer")}>
-        <SortSelect />
-        <TagFilter />
+        <div className={sx("sortSelect")}>
+          <SortSelect />
+        </div>
+        <div className={sx("tagFilter")}>
+          <TagFilter />
+        </div>
       </div>
       <div className={sx("ArtistContainer")}>
         {(data ?? []).map((item, index) => {
