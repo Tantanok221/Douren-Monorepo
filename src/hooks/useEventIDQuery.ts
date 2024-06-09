@@ -49,7 +49,7 @@ export function useEventIDQuery(
         });
       }
       if (search.length > 0) {
-        query = query.filter("Booth_name", "ilike", `%${search}%`);
+        query = query.filter(searchColumn, "ilike", `%${search}%`);
       }
       query = query.order(table,  {ascending} ).range(start, end + 1);
       let { data, error } = await query;

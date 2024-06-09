@@ -29,7 +29,7 @@ function EventPage() {
     >
       <CollectionContextProvider keys={location.pathname}>
         <SortSelectContextProvider defaultValue='Author_Main(Author) asc'>
-          <SearchColumnContextProvider defaultValue='booth'>
+          <SearchColumnContextProvider defaultValue='Booth_name'>
             <SearchContainer />
             <FilterContainer />
             <ArtistContainer />
