@@ -9,8 +9,8 @@ export function useEventIDQuery(
   eventId: unknown,
   start: number,
   end: number,
-  table: string,
-  ascending: boolean,
+  sortSelect: string,
+  searchColumn: string
   
 ) {
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
@@ -20,8 +20,11 @@ export function useEventIDQuery(
   const setNextPageAvailable = useNextPageAvailable(
     (state) => state.setNextPageAvailable,
   );
+  const table = sortSelect.split(' ')[0]  
+  const ascending = sortSelect.split(' ')[1] === 'asc' ? true : false
+  console.log(table,ascending)
   return useQuery({
-    queryKey: [eventId, search, tagFilter, start, end, table, ascending],
+    queryKey: [eventId, search, tagFilter, start, end, sortSelect, searchColumn],
     queryFn: async (): Promise<ArtistEventType[] | null> => {
       const filterEmpty = tagFilter.length === 0;
 
@@ -48,7 +51,7 @@ export function useEventIDQuery(
       if (search.length > 0) {
         query = query.filter("Booth_name", "ilike", `%${search}%`);
       }
-      query = query.order(table, { ascending }).range(start, end + 1);
+      query = query.order(table,  {ascending} ).range(start, end + 1);
       let { data, error } = await query;
       if ((data?.length ?? 0) < end - start + 1) {
         setNextPageAvailable(false);

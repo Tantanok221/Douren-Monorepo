@@ -43,6 +43,16 @@
 .filterContainer {
   display: flex;
   gap: 1.5rem;
+  height: 50px;
+  width: 100%;
+}
+
+.sortSelect  {
+  width: 100%;
+}
+
+.tagFilter{
+  width: 100%
 }
 
 .fetchContainer {

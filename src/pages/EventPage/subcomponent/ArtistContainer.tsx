@@ -18,6 +18,8 @@ import { useLoaderData } from 'react-router'
 import { useTagFilter } from '../../../stores/useTagFilter'
 import { useSort } from '../../../stores/useSort'
 import { useEventIDQuery } from '../../../hooks/useEventIDQuery'
+import { useSortSelectContextProvider } from '../context/SortSelectContext/useSortSelectContextProvider'
+import { useSearchColumnContext } from '../context/SearchColumnContext/useSearchColumnContext'
 
 interface Props {}
 
@@ -33,18 +35,16 @@ const ArtistContainer = (props: Props) => {
   );
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
-  const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
-    (item) => item.tag,
-  );
+  const [sortSelect] = useSortSelectContextProvider()
+  const [searchColumn] = useSearchColumnContext()
   const id = useLoaderData();
 
   const { data, status } = useEventIDQuery(
     id,
     start,
     end,
-    table,
-    ascending,
-    tagFilter,
+    sortSelect,
+    searchColumn
   );
   if (status === "error") {
     return <div>error</div>;
