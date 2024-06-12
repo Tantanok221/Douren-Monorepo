@@ -14,7 +14,7 @@ const fetchArtistPageData = async (
     Title,Thumbnail,Preview
   ),
   Event_DM (
-    DM,Booth_name,Location,Event(name
+    DM,Booth_name,Location_Day01,Location_Day02,Location_Day03,Event(name
     )
   )
     `,
