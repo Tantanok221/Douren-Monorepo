@@ -23,7 +23,7 @@ const FilterContainer = (props: Props) => {
             />
             <SelectComponent.Item
               text="排序: 攤位名稱(順序)"
-              value="Booth_Name asc"
+              value="Booth_name asc"
             />
             <SelectComponent.Item
               text="排序: 攤位位置 Day 01(順序)"
