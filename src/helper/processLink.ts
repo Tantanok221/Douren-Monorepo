@@ -20,7 +20,7 @@ export function processLink(
     result.push({
       category: category ?? "",
       link: item ?? "",
-      name: name[index] ?? "",
+      name: name[index] ?? name[0],
     });
   });
   return result;
