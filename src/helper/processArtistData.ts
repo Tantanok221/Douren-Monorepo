@@ -2,7 +2,6 @@ import { ArtistTypes } from "../types/Artist";
 import { LinkResult, processLink } from "./processLink";
 
 export function processArtistData(ArtistData: ArtistTypes) {
-  console.log(ArtistData);
   let link: LinkResult[] = [];
   link = processLink(ArtistData.Facebook_link, "Facebook", "Facebook");
   link = link.concat(
