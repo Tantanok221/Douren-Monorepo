@@ -17,6 +17,7 @@ import Animate from "../../animate/Animate";
 import { useArtistQuery } from "../../hooks/useArtistQuery";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../components/Pagination/Pagination";
+import {  useGetTotalPage } from "../../hooks/useGetTotalPage";
 
 type Props = {};
 
@@ -29,9 +30,12 @@ const Artist = (props: Props) => {
     setAllFilter();
     resetSearch();
   }, []);
-  const { data } = useArtistQuery();
   const [page, setPage] = useState(1);
-  const pagination = usePagination({ total: 20, page, siblings: 2, onChange: setPage });
+  const totalCount = useGetTotalPage("Author_Main") 
+  
+  const totalPage = Math.ceil(totalCount as number / 10)
+  const pagination = usePagination({ total: totalPage, page, siblings: 2, onChange: setPage });
+  const { data } = useArtistQuery(page);
 
   return (
     <>
