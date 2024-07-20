@@ -26,6 +26,12 @@
   flex: 0 1 47%;
 }
 
+.paginationContainer{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 @media (max-width: 800px) {
   .Root {
     flex-direction: column;

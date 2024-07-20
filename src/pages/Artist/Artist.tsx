@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
 import { useLocation } from "react-router";
@@ -15,6 +15,8 @@ import SearchBox from "../../components/SearchBox/SearchBox";
 import { useSearch } from "../../stores/useSearch";
 import Animate from "../../animate/Animate";
 import { useArtistQuery } from "../../hooks/useArtistQuery";
+import { usePagination } from "@mantine/hooks";
+import Pagination from "../../components/Pagination/Pagination";
 
 type Props = {};
 
@@ -28,6 +30,8 @@ const Artist = (props: Props) => {
     resetSearch();
   }, []);
   const { data } = useArtistQuery();
+  const [page, setPage] = useState(1);
+  const pagination = usePagination({ total: 20, page, siblings: 2, onChange: setPage });
 
   return (
     <>
@@ -49,6 +53,9 @@ const Artist = (props: Props) => {
             </ArtistCard>
           ))}
         </div>
+          <div className={sx('paginationContainer')}>
+            <Pagination pagination={pagination }/>
+          </div>
         <NavbarMargin></NavbarMargin>
       </div>
     </>
