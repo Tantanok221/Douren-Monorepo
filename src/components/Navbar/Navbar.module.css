@@ -2,14 +2,15 @@
   background: #1d1d1d;
   display: flex;
   gap: 2rem;
-  width: 100%;
+  width: 100vw;
+  margin: 0px;
   padding: 1rem 0rem;
   align-items: center;
   justify-content: center;
 }
 
 .padding {
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 .Navbar {
@@ -22,6 +23,37 @@
   top: 0;
 }
 
+.navigationMenuTrigger{
+  position: relative;
+  background-color: transparent;
+  border: none
+}
+
+.navigationSubMenu{
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--Panel);
+  border-radius: 0.5rem;
+  border: 2px solid var(--Stroke);
+  flex-direction: column;
+}
+
+.navigationMenuViewport{
+  position: absolute;
+  left: 35%;
+  top: 103%;
+  transform-origin: top center;
+  display: flex;
+  width: 100%;
+}
+
+.navigationMenuContent{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .linkButton {
   color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
@@ -29,6 +61,8 @@
   font-weight: 600;
   padding: 1rem;
   text-decoration: none;
+  display: flex;
+  gap: 1rem;
   border-radius: 0.5rem;
 }
 
