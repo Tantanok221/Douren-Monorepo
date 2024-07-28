@@ -23,7 +23,9 @@ const Navbar = ({}: Props) => {
         <NavigationMenu.List className={sx("linkContainer")}>
           <NavigationMenu.Item className={sx("navigationMenuItem")}>
             <NavigationMenu.Trigger
-              className={sx("linkButton", "navigationMenuTrigger")}
+              className={sx("linkButton", "navigationMenuTrigger",{
+                activeMenuButton: location.pathname === '/' || location.pathname === 'event/ff43'
+              } )}
             >
               場次
               <CaretDown color="var(--Link)" size={16} weight="bold" />
@@ -31,11 +33,10 @@ const Navbar = ({}: Props) => {
             <NavigationMenu.Content className={sx("navigationMenuContent",'navigationSubMenu')}>
               <NavigationMenu.Link
                 asChild
-                className={sx("navigationMenuTrigger")}
               >
                 <Link
                   to={"/"}
-                  className={sx("linkButton", {
+                  className={sx( 'subLinkButton',{
                     activeButton: location.pathname === "/",
                   })}
                 >
@@ -44,12 +45,11 @@ const Navbar = ({}: Props) => {
               </NavigationMenu.Link>
               <NavigationMenu.Link
                 asChild
-                className={sx("navigationMenuTrigger")}
               >
                 <Link
                   to={"/event/ff43"}
-                  className={sx("linkButton", {
-                    activeButton: location.pathname === "/",
+                  className={sx( 'subLinkButton',{
+                    activeButton: location.pathname === "/event/ff43",
                   })}
                 >
                   FF43
@@ -104,9 +104,6 @@ const Navbar = ({}: Props) => {
           </NavigationMenu.Item>
         </NavigationMenu.List>
 
-        <NavigationMenu.Viewport
-          className={sx("navigationMenuViewport")}
-        ></NavigationMenu.Viewport>
       </NavigationMenu.Root>
       <div className={sx("padding")}></div>
     </IconContext.Provider>

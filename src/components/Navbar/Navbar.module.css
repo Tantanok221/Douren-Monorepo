@@ -32,17 +32,31 @@
 .navigationSubMenu{
   display: flex;
   gap: 1rem;
-  padding: 1rem 2rem;
+  padding: 1rem 0px;
   background-color: var(--Panel);
   border-radius: 0.5rem;
   border: 2px solid var(--Stroke);
   flex-direction: column;
 }
 
+.activeMenuButton {
+  background-color: #292929;
+}
+
+.subLinkButton{
+  padding: 12px 36px;
+  color: var(--Dark-TagText, #aaa);
+  font-family: var(--Font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.5rem;
+}
+
 .navigationMenuViewport{
   position: absolute;
-  left: 35%;
-  top: 103%;
   transform-origin: top center;
   display: flex;
   width: 100%;
@@ -50,8 +64,7 @@
 
 .navigationMenuContent{
   position: absolute;
-  top: 0;
-  left: 0;
+  transform: translateX(-15%);
 }
 
 .linkButton {
