@@ -89,10 +89,7 @@
 }
 
 @media (max-width: 800px) {
-  .Navbar {
-    bottom: 0;
-    top: 92%;
-  }
+  
   .padding {
     padding-top: 35px;
   }
