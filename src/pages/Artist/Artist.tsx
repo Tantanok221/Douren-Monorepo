@@ -10,7 +10,6 @@ import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderCont
 import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
 import ArtistButton from "../../components/ArtistCard/subcomponent/ArtistButton";
 import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer";
-import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import { useSearch } from "../../stores/useSearch";
 import Animate from "../../animate/Animate";
@@ -18,6 +17,7 @@ import { useArtistQuery } from "../../hooks/useArtistQuery";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import {  useGetTotalPage } from "../../hooks/useGetTotalPage";
+import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
 
 type Props = {};
 

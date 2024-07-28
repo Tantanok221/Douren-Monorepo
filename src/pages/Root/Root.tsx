@@ -13,10 +13,11 @@ const Root = () => {
   const queryClient = useQueryClient();
   const sx = classNames.bind(style);
   const location = useLocation();
+
   return (
     <AnimatePresence>
       <div className={sx("Root")}>
-        <Navbar />
+        <Navbar/>
         <Outlet key={location.key} />
         <SpeedInsights />
       </div>

@@ -14,7 +14,7 @@ import { ArtistPageTypes, ArtistTypes } from "../../types/Artist";
 import TagContainer from "../../components/TagContainer/TagContainer";
 import ArtistStyle from "../../components/ArtistCard/style.module.css";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import NavbarMargin from "../../components/Navbar/subcomponents/NavbarMargin";
+import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
 import DMButton from "../../components/DMButton/component/DMButton";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import useArtistLoader from "../../hooks/useArtistLoader";
