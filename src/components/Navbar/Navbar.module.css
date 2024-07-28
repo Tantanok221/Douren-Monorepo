@@ -84,9 +84,11 @@
 }
 
 .activeButton,
-.linkButton:hover {
+.linkButton:hover,
+.subLinkButton:hover {
   background-color: var(--Sidebar-Active);
 }
+
 
 .bottomPadding {
   height: 100px;
