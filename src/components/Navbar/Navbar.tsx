@@ -108,49 +108,6 @@ const Navbar = ({}: Props) => {
       <div className={sx("padding")}></div>
     </IconContext.Provider>
   );
-  // return (
-  //   <>
-  //     <motion.div className={sx("Navbar")}>
-  //       <IconContext.Provider value={{ color: "#AAAAAA", size: "1.75rem" }}>
-  //         <div className={sx("linkContainer")}>
-  //           <Link
-  //             to={"/"}
-  //             className={sx("linkButton", {
-  //               activeButton: location.pathname === "/",
-  //             })}
-  //           >
-  //             {matches ? <RiHome2Line /> : "FF42"}
-  //           </Link>
-  //           <Link
-  //             to={"/collection"}
-  //             className={sx("linkButton", {
-  //               activeButton: location.pathname === "/collection",
-  //             })}
-  //           >
-  //             {matches ? <MdOutlineBookmarkBorder /> : "我的收藏"}
-  //           </Link>
-  //           <Link
-  //             to={"/artist"}
-  //             className={sx("linkButton", {
-  //               activeButton: location.pathname === "/artist",
-  //             })}
-  //           >
-  //             {matches ? <IoLibraryOutline /> : "創作者"}
-  //           </Link>
-  //           <Link
-  //             to={"/about"}
-  //             className={sx("linkButton", {
-  //               activeButton: location.pathname === "/about",
-  //             })}
-  //           >
-  //             {matches ? <MdInfoOutline /> : "關於我們"}
-  //           </Link>
-  //         </div>
-  //       </IconContext.Provider>
-  //     </motion.div>
-  //     <div className={sx("padding")}></div>
-  //   </>
-  // );
 };
 
 export default Navbar;
