@@ -2,13 +2,6 @@ import React from "react";
 import { FF } from "../../types/FF";
 import { ArtistEventType } from "../../types/Artist";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer";
-import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer";
-import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer";
-import ArtistTagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer";
-import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer";
-import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer";
-import ArtistDMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton";
 import classNames from "classnames/bind";
 import style from "../../pages/Collection/Collection.module.css";
 import { CollectionContextProvider } from "../../context/CollectionContext/CollectionContext";
@@ -30,15 +23,15 @@ const CollectionLayout = ({ title, keys, legacyData }: Props) => {
           {legacyData?.map((item) => {
             return (
               <ArtistCard key={`${item.uuid}`} legacyData={item}>
-                <ImageContainer />
-                <RightContainer>
-                  <HeaderContainer keys={keys} />
-                  <ArtistTagContainer />
-                  <DayContainer />
-                  <ArtistLinkContainer>
-                    <ArtistDMButton />
-                  </ArtistLinkContainer>
-                </RightContainer>
+                <ArtistCard.ImageContainer />
+                <ArtistCard.RightContainer>
+                  <ArtistCard.HeaderContainer keys={keys} />
+                  <ArtistCard.TagContainer />
+                  <ArtistCard.DayContainer />
+                  <ArtistCard.LinkContainer>
+                    <ArtistCard.DMButton />
+                  </ArtistCard.LinkContainer>
+                </ArtistCard.RightContainer>
               </ArtistCard>
             );
           })}
@@ -74,15 +67,15 @@ const CollectionArtistRenderer = ({
         {collection.map((item) => {
           return (
             <ArtistCard key={`${item.Booth_name}`} eventData={item}>
-              <ImageContainer />
-              <RightContainer>
-                <HeaderContainer keys={keys} />
-                <ArtistTagContainer />
-                <DayContainer />
-                <ArtistLinkContainer>
-                  <ArtistDMButton />
-                </ArtistLinkContainer>
-              </RightContainer>
+              <ArtistCard.ImageContainer />
+              <ArtistCard.RightContainer>
+                <ArtistCard.HeaderContainer keys={keys} />
+                <ArtistCard.TagContainer />
+                <ArtistCard.DayContainer />
+                <ArtistCard.LinkContainer>
+                  <ArtistCard.DMButton />
+                </ArtistCard.LinkContainer>
+              </ArtistCard.RightContainer>
             </ArtistCard>
           );
         })}

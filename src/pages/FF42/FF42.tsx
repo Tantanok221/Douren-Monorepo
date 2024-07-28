@@ -14,13 +14,6 @@ import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import { usePosition } from "../../stores/usePosition.ts";
 import Animate from "../../animate/Animate.tsx";
 import { useNextPageAvailable } from "../../stores/useNextPageAvailable.ts";
-import ImageContainer from "../../components/ArtistCard/subcomponent/ImageContainer.tsx";
-import TagContainer from "../../components/ArtistCard/subcomponent/ArtistTagContainer.tsx";
-import DayContainer from "../../components/ArtistCard/subcomponent/DayContainer.tsx";
-import ArtistLinkContainer from "../../components/ArtistCard/subcomponent/ArtistLinkContainer.tsx";
-import HeaderContainer from "../../components/ArtistCard/subcomponent/HeaderContainer.tsx";
-import RightContainer from "../../components/ArtistCard/subcomponent/RightContainer.tsx";
-import DMButton from "../../components/ArtistCard/subcomponent/ArtistDMButton.tsx";
 import { useFF42Query } from "../../hooks/useFF42Query.ts";
 function FF42() {
   const FETCH_COUNT = 40;
@@ -92,15 +85,15 @@ function FF42() {
         {(data ?? []).map((item, index) => {
           return (
             <ArtistCard key={`${item.uuid}`} legacyData={item}>
-              <ImageContainer />
-              <RightContainer>
-                <HeaderContainer keys="FF42 Collection" />
-                <TagContainer activeButton />
-                <DayContainer />
-                <ArtistLinkContainer>
-                  <DMButton />
-                </ArtistLinkContainer>
-              </RightContainer>
+              <ArtistCard.ImageContainer />
+              <ArtistCard.RightContainer>
+                <ArtistCard.HeaderContainer keys="FF42 Collection" />
+                <ArtistCard.TagContainer activeButton />
+                <ArtistCard.DayContainer />
+                <ArtistCard.LinkContainer>
+                  <ArtistCard.DMButton />
+                </ArtistCard.LinkContainer>
+              </ArtistCard.RightContainer>
             </ArtistCard>
           );
         })}

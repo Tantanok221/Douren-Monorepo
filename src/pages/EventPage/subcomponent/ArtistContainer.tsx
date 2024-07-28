@@ -1,15 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
 import ArtistCard from "../../../components/ArtistCard/ArtistCard";
-import ImageContainer from "../../../components/ArtistCard/subcomponent/ImageContainer";
-import RightContainer from "../../../components/ArtistCard/subcomponent/RightContainer";
-import HeaderContainer from "../../../components/ArtistCard/subcomponent/HeaderContainer";
-import TagContainer from "../../../components/TagContainer/TagContainer";
-import DayContainer from "../../../components/ArtistCard/subcomponent/DayContainer";
-import ArtistLinkContainer from "../../../components/ArtistCard/subcomponent/ArtistLinkContainer";
-import DMButton from "../../../components/DMButton/component/DMButton";
-import ArtistTagContainer from "../../../components/ArtistCard/subcomponent/ArtistTagContainer";
-import ArtistDMButton from "../../../components/ArtistCard/subcomponent/ArtistDMButton";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSearch } from "../../../stores/useSearch";
@@ -57,15 +48,15 @@ const ArtistContainer = (props: Props) => {
           {(data ?? []).map((item, index) => {
             return (
               <ArtistCard key={`${item.Booth_name}`} eventData={item}>
-                <ImageContainer />
-                <RightContainer>
-                  <HeaderContainer keys={location.pathname} />
-                  <ArtistTagContainer activeButton />
-                  <DayContainer />
-                  <ArtistLinkContainer>
-                    <ArtistDMButton />
-                  </ArtistLinkContainer>
-                </RightContainer>
+                <ArtistCard.ImageContainer />
+                <ArtistCard.RightContainer>
+                  <ArtistCard.HeaderContainer keys={location.pathname} />
+                  <ArtistCard.TagContainer activeButton />
+                  <ArtistCard.DayContainer />
+                  <ArtistCard.LinkContainer>
+                    <ArtistCard.DMButton />
+                  </ArtistCard.LinkContainer>
+                </ArtistCard.RightContainer>
               </ArtistCard>
             );
           })}

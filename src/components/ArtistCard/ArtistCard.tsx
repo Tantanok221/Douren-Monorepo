@@ -8,6 +8,17 @@ import { ArtistEventType, ArtistTypes } from "../../types/Artist.ts";
 import ArtistCardContext from "./ArtistCardContext.ts";
 import EventDataContext from "./EventDataContext.ts";
 import FFContext from "./FFContext";
+import ImageContainer from './subcomponent/ImageContainer';
+import ArtistButton from './subcomponent/ArtistButton';
+import ArtistDMButton from './subcomponent/ArtistDMButton';
+import ArtistLinkContainer from './subcomponent/ArtistLinkContainer';
+import ArtistTagContainer from './subcomponent/ArtistTagContainer';
+import DayContainer from './subcomponent/DayContainer';
+import EventBookmarkContainer from './subcomponent/EventBookmarkContainer';
+import HeaderContainer from './subcomponent/HeaderContainer';
+import LegacyBookmarkContainer from './subcomponent/LegacyBookmarkContainer';
+import RightContainer from './subcomponent/RightContainer';
+import TitleContainer from './subcomponent/TitleContainer';
 interface Props {
   index?: number;
   legacyData?: FF;
@@ -15,8 +26,7 @@ interface Props {
   artistData?: ArtistTypes;
   eventData?: ArtistEventType;
 }
-const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
-  ({ index, legacyData, children, artistData, eventData }, ref) => {
+const ArtistCard = ({ index, legacyData, children, artistData, eventData }: Props) => {
     const sx = classNames.bind(styles);
     return (
       <FFContext.Provider value={legacyData}>
@@ -27,7 +37,6 @@ const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              ref={ref}
               className={sx("artistCard")}
               custom={index}
             >
@@ -39,8 +48,19 @@ const ArtistCard = React.forwardRef<HTMLDivElement, Props>(
         </ArtistCardContext.Provider>
       </FFContext.Provider>
     );
-  },
-);
+  }
 
 ArtistCard.displayName = "ArtistCard";
+ArtistCard.ImageContainer = ImageContainer
+ArtistCard.Button = ArtistButton
+ArtistCard.DMButton = ArtistDMButton
+ArtistCard.LinkContainer = ArtistLinkContainer
+ArtistCard.TagContainer = ArtistTagContainer
+ArtistCard.DayContainer = DayContainer
+ArtistCard.EventBookmarkContainer = EventBookmarkContainer
+ArtistCard.HeaderContainer = HeaderContainer
+ArtistCard.LegacyBookmarkContainer = LegacyBookmarkContainer
+ArtistCard.RightContainer = RightContainer
+ArtistCard.TitleContainer = TitleContainer
+
 export default ArtistCard;
