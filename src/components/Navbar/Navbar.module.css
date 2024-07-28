@@ -13,6 +13,10 @@
   padding-top: 60px;
 }
 
+.navigationMenuItem{
+  list-style-type: none;
+}
+
 .Navbar {
   display: flex;
   width: 100vw;
