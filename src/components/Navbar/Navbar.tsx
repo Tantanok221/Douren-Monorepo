@@ -19,7 +19,7 @@ const Navbar = ({}: Props) => {
           <NavigationMenu.Item className={sx("navigationMenuItem")}>
             <NavigationMenu.Trigger
               className={sx("linkButton", "navigationMenuTrigger",{
-                activeMenuButton: location.pathname === '/' || location.pathname === 'event/ff43'
+                activeMenuButton: location.pathname === '/' || location.pathname === '/event/ff43'
               } )}
             >
               場次
