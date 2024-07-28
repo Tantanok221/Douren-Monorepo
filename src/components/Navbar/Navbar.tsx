@@ -4,10 +4,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { IconContext } from "react-icons";
-import { useMediaQuery } from "@mantine/hooks";
-import { MdOutlineBookmarkBorder, MdInfoOutline } from "react-icons/md";
-import { RiHome2Line } from "react-icons/ri";
-import { IoLibraryOutline } from "react-icons/io5";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { CaretDown } from "@phosphor-icons/react";
 
@@ -15,7 +11,6 @@ interface Props {}
 
 const Navbar = ({}: Props) => {
   const sx = classNames.bind(style);
-  const matches = useMediaQuery("(max-width: 800px)");
   const location = useLocation();
   return (
     <IconContext.Provider value={{ color: "#AAAAAA", size: "1.75rem" }}>
@@ -68,7 +63,7 @@ const Navbar = ({}: Props) => {
                   activeButton: location.pathname === "/collection",
                 })}
               >
-                {matches ? <MdOutlineBookmarkBorder /> : "我的收藏"}
+               我的收藏
               </Link>
             </NavigationMenu.Link>
           </NavigationMenu.Item>
@@ -83,7 +78,7 @@ const Navbar = ({}: Props) => {
                   activeButton: location.pathname === "/artist",
                 })}
               >
-                {matches ? <IoLibraryOutline /> : "創作者"}
+                創作者
               </Link>
             </NavigationMenu.Link>
           </NavigationMenu.Item>
@@ -98,7 +93,7 @@ const Navbar = ({}: Props) => {
                   activeButton: location.pathname === "/about",
                 })}
               >
-                {matches ? <MdInfoOutline /> : "關於我們"}
+                關於我們
               </Link>
             </NavigationMenu.Link>
           </NavigationMenu.Item>
