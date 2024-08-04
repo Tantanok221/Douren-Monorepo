@@ -25,7 +25,7 @@ const Artist = (props: Props) => {
     resetSearch();
   }, []);
   const [page, setPage] = useState(1);
-  const totalCount = useGetTotalPage("Author_Main") 
+  const totalCount = useGetTotalPage("Author_Main","Author") 
   
   const totalPage = Math.ceil(totalCount as number / 10)
   const pagination = usePagination({ total: totalPage, page, siblings: 2, onChange: setPage });

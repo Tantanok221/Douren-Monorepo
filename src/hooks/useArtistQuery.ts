@@ -18,7 +18,7 @@ export const useArtistQuery = (currentPage: number) => {
       if (search.length > 0) {
         query = query.filter("Author", "ilike", `%${search}%`);
       }
-      query = query.range((currentPage - 1) * 10, currentPage * 10 - 1);
+      query = query.neq("Author","").range((currentPage - 1) * 10, currentPage * 10 - 1);
       const { data, error } = await query;
       if (error) throw error;
       return data;
