@@ -10,7 +10,7 @@ import Animate from "../../animate/Animate";
 import { useArtistQuery } from "../../hooks/useArtistQuery";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../components/Pagination/Pagination";
-import {  useGetTotalPage } from "../../hooks/useGetTotalPage";
+import { useGetTotalPage } from "../../hooks/useGetTotalPage";
 import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
 
 type Props = {};
@@ -25,10 +25,15 @@ const Artist = (props: Props) => {
     resetSearch();
   }, []);
   const [page, setPage] = useState(1);
-  const totalCount = useGetTotalPage("Author_Main","Author") 
-  
-  const totalPage = Math.ceil(totalCount as number / 10)
-  const pagination = usePagination({ total: totalPage, page, siblings: 2, onChange: setPage });
+  const totalCount = useGetTotalPage("Author_Main", "Author=neq.");
+
+  const totalPage = Math.ceil((totalCount as number) / 10);
+  const pagination = usePagination({
+    total: totalPage,
+    page,
+    siblings: 2,
+    onChange: setPage,
+  });
   const { data } = useArtistQuery(page);
 
   return (
@@ -38,22 +43,22 @@ const Artist = (props: Props) => {
         <div className={sx("mainContainer")}>
           {data?.map((item, index) => (
             <ArtistCard key={index} artistData={item}>
-              <ArtistCard.ImageContainer/>
+              <ArtistCard.ImageContainer />
               <ArtistCard.RightContainer>
                 <div className={sx("rightHeaderContainer")}>
                   <ArtistCard.HeaderContainer></ArtistCard.HeaderContainer>
                   <ArtistCard.TagContainer size="s"></ArtistCard.TagContainer>
                 </div>
                 <ArtistCard.LinkContainer size="s">
-                  <ArtistCard.Button size="s"/>
+                  <ArtistCard.Button size="s" />
                 </ArtistCard.LinkContainer>
               </ArtistCard.RightContainer>
             </ArtistCard>
           ))}
         </div>
-          <div className={sx('paginationContainer')}>
-            <Pagination pagination={pagination }/>
-          </div>
+        <div className={sx("paginationContainer")}>
+          <Pagination pagination={pagination} />
+        </div>
         <NavbarMargin></NavbarMargin>
       </div>
     </>

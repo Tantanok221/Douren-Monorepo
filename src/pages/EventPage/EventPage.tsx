@@ -12,12 +12,14 @@ import ArtistContainer from "./subcomponent/ArtistContainer.tsx";
 import { SortSelectContextProvider } from "./context/SortSelectContext/SortSelectContext.tsx";
 import { SearchColumnContextProvider } from "./context/SearchColumnContext/SearchColumnContext.tsx";
 
+
 function EventPage() {
   usePageInit();
 
   const location = useLocation();
   console.log(location.pathname);
-
+  
+  
   const sx = classNames.bind(styles);
   return (
     <motion.div

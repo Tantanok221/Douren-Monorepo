@@ -12,38 +12,43 @@ import { useEventIDQuery } from "../../../hooks/useEventIDQuery";
 import { useSortSelectContextProvider } from "../context/SortSelectContext/useSortSelectContextProvider";
 import { useSearchColumnContext } from "../context/SearchColumnContext/useSearchColumnContext";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { usePagination } from "@mantine/hooks";
+import { useGetTotalPage } from "../../../hooks/useGetTotalPage";
+import Pagination from "../../../components/Pagination/Pagination";
+import NavbarMargin from "../../../components/NavMenu/subcomponents/NavbarMargin";
 
 interface Props {}
 
 const ArtistContainer = (props: Props) => {
   const FETCH_COUNT = 40;
-  const [page, setPage] = useState(0);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(FETCH_COUNT);
   const sx = classNames.bind(styles);
-  const search = useSearch((state) => state.search);
-  const nextPageAvailable = useNextPageAvailable(
-    (state) => state.nextPageAvailable,
-  );
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
   const id = useLoaderData();
-
+  const [page, setPage] = useState(1);
+  const totalCount = useGetTotalPage("Event_DM", "event_id=eq." + id);
+  const totalPage = Math.ceil((totalCount as number) / FETCH_COUNT);
+  const pagination = usePagination({
+    total: totalPage,
+    page,
+    siblings: 2,
+    onChange: setPage,
+  });
   const { data, status } = useEventIDQuery(
     id,
-    start,
-    end,
     sortSelect,
     searchColumn,
+    page,
+    FETCH_COUNT
   );
   if (status === "error") {
     return <div>error</div>;
   }
   return (
     <div className={sx("ArtistContainer")}>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1 ,700: 2 }}>
+      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
         <Masonry gutter="32px">
           {(data ?? []).map((item, index) => {
             return (
@@ -62,40 +67,9 @@ const ArtistContainer = (props: Props) => {
           })}
         </Masonry>
       </ResponsiveMasonry>
-      {data ? (
-        <div className={sx("fetchContainer")}>
-          {page !== 0 && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setPage(page - 1);
-                setStart(start - FETCH_COUNT);
-                setEnd(end - FETCH_COUNT);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              上一頁
-            </motion.button>
-          ) : null}
-          {nextPageAvailable && search.length === 0 ? (
-            <motion.button
-              className={sx("fetchButton")}
-              onClick={() => {
-                setStart(start + FETCH_COUNT);
-                setEnd(end + FETCH_COUNT);
-                setPage(page + 1);
-              }}
-              whileHover={{
-                backgroundColor: "#4D4D4D",
-              }}
-            >
-              下一頁
-            </motion.button>
-          ) : null}
-        </div>
-      ) : null}
+      <div className={sx("paginationContainer")}>
+        <Pagination pagination={pagination} />
+      </div>
     </div>
   );
 };

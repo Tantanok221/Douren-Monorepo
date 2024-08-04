@@ -6,12 +6,12 @@ interface uuid  {
   count: number
 }
 //TODO: Potential Bug where table without uuid will not work
-export function useGetTotalPage(tableName: TableName,filterColumn?: string) {
+export function useGetTotalPage(tableName: TableName,filterCondition?: string) {
   const {data} =  useQuery({
     queryKey: [tableName],
     queryFn: async (): Promise<uuid[] | null> => {
       const url = supabaseBaseURL
-      const response = await fetch(`${url}/rest/v1/${tableName}?select=uuid.count()${filterColumn ?"&"+filterColumn+"=neq." :""}`,{
+      const response = await fetch(`${url}/rest/v1/${tableName}?select=uuid.count()${filterCondition ?"&"+filterCondition :""}`,{
         headers: {
           "apikey": supabasePublicKey,
           'Authorization': `Bearer ${supabasePublicKey}`

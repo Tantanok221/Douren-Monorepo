@@ -7,11 +7,10 @@ import { useTagFilter } from "../stores/useTagFilter";
 
 export function useEventIDQuery(
   eventId: unknown,
-  start: number,
-  end: number,
   sortSelect: string,
-  searchColumn: string
-  
+  searchColumn: string,
+  currentPage: number,
+  fetchCount: number
 ) {
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
     (item) => item.tag,
@@ -24,7 +23,7 @@ export function useEventIDQuery(
   const ascending = sortSelect.split(' ')[1] === 'asc' ? true : false
   console.log(table,ascending)
   return useQuery({
-    queryKey: [eventId, search, tagFilter, start, end, sortSelect, searchColumn],
+    queryKey: [eventId, search, tagFilter, sortSelect, searchColumn,currentPage],
     queryFn: async (): Promise<ArtistEventType[] | null> => {
       const filterEmpty = tagFilter.length === 0;
 
@@ -51,11 +50,8 @@ export function useEventIDQuery(
       if (search.length > 0) {
         query = query.filter(searchColumn, "ilike", `%${search}%`);
       }
-      query = query.order(table,  {ascending} ).range(start, end + 1);
+      query = query.order(table,  {ascending} ).range(((currentPage - 1) * fetchCount), currentPage * fetchCount - 1);;
       let { data, error } = await query;
-      if ((data?.length ?? 0) < end - start + 1) {
-        setNextPageAvailable(false);
-      }
       data = data.filter((val: ArtistEventType) => val.Author_Main !== null);
       if (error) {
         throw error;

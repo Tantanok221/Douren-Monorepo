@@ -6,6 +6,13 @@
   flex-direction: row;
 }
 
+.paginationContainer{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 32px;
+}
+
 .MainContainer {
   padding: 3rem 6%;
   padding-bottom: 0px;
