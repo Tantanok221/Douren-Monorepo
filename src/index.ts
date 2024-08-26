@@ -1,11 +1,10 @@
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
 import { initDB } from "./db";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
-import { CloudflareImageResponse } from "./types/cloudflareReponse";
-import { authorMain } from "./db/schema";
+import { authorMain, authorProduct, event, eventDm } from "./db/schema";
 import { eq, sql } from "drizzle-orm";
-import { bigint } from "drizzle-orm/pg-core";
+import { postCloudflareImage } from "./utils/cloudflare";
 type Bindings = {
   DATABASE_URL: string;
   CLOUDFLARE_IMAGE_ENDPOINT: string;
@@ -29,30 +28,127 @@ app.get("/test", async (c) => {
   return c.json({ data: data });
 });
 
-app.post("/artist/:id", async (c) => {
+
+
+app.post("/productImage/:artistId/:imageId", async (c) => {
+  const db = initDB(c.env.DATABASE_URL);
+  let returnResponse;
+  const { artistId,imageId } = c.req.param();
+  const formData = await c.req.formData();
+  const image = formData.get("image") as File | null;
+  if (!image) {
+    return c.json({ error: "No image file provided" }, 400);
+  }
+  const data = await postCloudflareImage(c, image);
+  const imageLink = data["result"]["variants"][0];
+  const exist = await db.query.authorProduct.findMany({
+    where: eq(authorProduct.id, Number(imageId)),
+  });
+  console.log(exist)
+  if (exist.length != 0 && exist[0].preview){
+    returnResponse = await db
+      .update(authorProduct)
+      .set({ preview: [imageLink, exist[0].preview].join("\n")  })
+      .returning({insertedId: authorProduct.id});
+  } else {
+    returnResponse = await db
+      .insert(authorProduct)
+      .values({
+        artistId: Number(artistId),
+        preview: imageLink,
+        thumbnail: imageLink
+      })
+      .returning({insertedId: authorProduct.id});
+  }
+  return c.json({ returnResponse }, 200);
+});
+
+app.post("/productThumbnail/:artistId/:title", async (c) => {
+  const db = initDB(c.env.DATABASE_URL);
+  let returnResponse;
+  const { artistId,title } = c.req.param();
+  const formData = await c.req.formData();
+  const image = formData.get("image") as File | null;
+  if (!image) {
+    return c.json({ error: "No image file provided" }, 400);
+  }
+  const data = await postCloudflareImage(c, image);
+  const imageLink = data["result"]["variants"][0];
+  const exist = await db.query.authorProduct.findMany({
+    where: eq(authorProduct.artistId, Number(artistId)),
+  });
+  console.log(exist)
+  if (exist.length != 0) {
+    returnResponse = await db
+      .update(authorProduct)
+      .set({ thumbnail: imageLink })
+      .returning({insertedId: authorProduct.id});
+  } else {
+    returnResponse = await db
+      .insert(authorProduct)
+      .values({
+        artistId: Number(artistId),
+        thumbnail: imageLink,
+        title
+      })
+      .returning({insertedId: authorProduct.id});
+  }
+  return c.json({ returnResponse }, 200);
+});
+
+app.post("/dm/:artistId/:eventName", async (c) => {
+  const db = initDB(c.env.DATABASE_URL);
+  let returnResponse;
+  const { artistId, eventName } = c.req.param();
+  const formData = await c.req.formData();
+  const image = formData.get("image") as File | null;
+  if (!image) {
+    return c.json({ error: "No image file provided" }, 400);
+  }
+  const EventIdObj = await db.query.event.findFirst({
+    where: (event, { ilike }) => ilike(event.name, eventName),
+    columns: {
+      id: true,
+      name: false,
+    },
+  });
+  if (!EventIdObj) return c.json({ error: "Event Name Not Found" }, 414);
+  const { id } = EventIdObj;
+  const data = await postCloudflareImage(c, image);
+  const imageLink = data["result"]["variants"][0];
+  const exist = await db.query.eventDm.findMany({
+    where: eq(eventDm.artistId, Number(artistId)),
+  });
+  console.log(exist)
+  if (exist.length != 0) {
+    returnResponse = await db
+      .update(eventDm)
+      .set({ dm: imageLink, eventId: id })
+      .returning({insertedId: eventDm.uuid});
+  } else {
+    returnResponse = await db
+      .insert(eventDm)
+      .values({
+        eventId: Number(id),
+        artistId: Number(artistId),
+        dm: imageLink,
+      })
+      .returning({insertedId: eventDm.uuid});
+  }
+  return c.json({ returnResponse }, 200);
+});
+
+app.patch("/artist/:id", async (c) => {
   const db = initDB(c.env.DATABASE_URL);
   const { id } = c.req.param();
-  let data: CloudflareImageResponse;
   try {
     const formData = await c.req.formData();
     const image = formData.get("image") as File | null;
-
     if (!image) {
       return c.json({ error: "No image file provided" }, 400);
     }
 
-    const uploadFormData = new FormData();
-    uploadFormData.append("file", image);
-
-    const response = await fetch(c.env.CLOUDFLARE_IMAGE_ENDPOINT, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${c.env.CLOUDFLARE_IMAGE_TOKEN}`,
-      },
-      body: uploadFormData,
-    });
-
-    data = (await response.json()) as CloudflareImageResponse;
+    const data = await postCloudflareImage(c, image);
     const imageLink = data["result"]["variants"][0];
     const updateImageUserID = await db
       .update(authorMain)
@@ -64,7 +160,7 @@ app.post("/artist/:id", async (c) => {
     return c.json({ updateImageUserID: updateImageUserID }, 200);
   } catch (e) {
     return c.json(
-      { error: "Something went wrong on the clouflare process" },
+      { error: "Something went wrong on the cloudflare uploading process" },
       400
     );
   }
