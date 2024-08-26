@@ -9,6 +9,7 @@ type Bindings = {
   DATABASE_URL: string;
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
+  AUTH_TOKEN: string;
 };
 
 const app = new Hono<{
@@ -17,7 +18,13 @@ const app = new Hono<{
 
 app.use("*", cors());
 app.use("*", logger());
-
+app.use("*",async (c,next) => {
+  const token = c.req.header("Authorization")
+  if(token != c.env.AUTH_TOKEN){
+    await next()
+  }
+  return c.json("Invalid Authorization Token",403)
+})
 app.get("/", (c) => {
   return c.text("Pong");
 });
