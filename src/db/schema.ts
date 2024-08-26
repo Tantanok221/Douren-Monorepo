@@ -1,4 +1,4 @@
-import { pgTable, bigint, text, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, bigint, text, uuid, bigserial } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const authorMain = pgTable('Author_Main', {
@@ -27,7 +27,7 @@ export const authorMainRelations = relations(authorMain, ({ many }) => ({
 }));
 
 export const authorProduct = pgTable('Author_Product', {
-  id: bigint('id', { mode: 'number' }).primaryKey(),
+  id: bigserial('id', { mode: 'number' }).primaryKey(),
   tag: text('Tag'),
   preview: text('Preview'),
   thumbnail: text('Thumbnail').notNull(),
@@ -51,8 +51,8 @@ export const eventRelations = relations(event, ({ many }) => ({
   eventDms: many(eventDm),
 }));
 
-export const eventDm = pgTable('Event_Dm', {
-  uuid: bigint('uuid', { mode: 'number' }).primaryKey(),
+export const eventDm = pgTable('Event_DM', {
+  uuid: bigserial('uuid', { mode: 'number' }).primaryKey(),
   locationDay01: text('Location_Day01'),
   locationDay02: text('Location_Day02'),
   locationDay03: text('Location_Day03'),
