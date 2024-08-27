@@ -1,0 +1,47 @@
+.paginationContainer{
+  display: flex;
+  gap: 1.25rem;
+}
+
+.paginationButton{
+  width: 2.8rem;
+  height: 100%;
+  padding: 0.5rem 0rem;
+  font-family: var(--Font);
+  font-size: 1.25rem;
+  background-color: var(--Panel);
+  color: var(--Link);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.paginationActiveButton{
+  background-color: #2D2D2D;
+  color: #fff;
+  cursor: default;
+}
+
+.paginationInactiveButton{
+  cursor: not-allowed;
+  background-color: #151516;
+
+}
+.paginationDot{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 2.8rem;
+  height: 100%;
+  
+}
+
+.dot{
+  background-color: var(--Link);
+  width: 3px;
+  border-radius: 12px;
+  height: 3px;
+}

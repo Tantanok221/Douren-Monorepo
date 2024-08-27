@@ -1,0 +1,101 @@
+.linkContainer {
+  background: #1d1d1d;
+  display: flex;
+  gap: 2rem;
+  width: 100vw;
+  margin: 0px;
+  padding: 1rem 0rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.padding {
+  padding-top: 60px;
+}
+
+.navigationMenuItem{
+  list-style-type: none;
+}
+
+.Navbar {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  position: fixed;
+  top: 0;
+}
+
+.navigationMenuTrigger{
+  position: relative;
+  background-color: transparent;
+  border: none
+}
+
+.navigationSubMenu{
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0px;
+  background-color: var(--Panel);
+  border-radius: 0.5rem;
+  border: 2px solid var(--Stroke);
+  flex-direction: column;
+}
+
+.activeMenuButton {
+  background-color: #292929;
+}
+
+.subLinkButton{
+  padding: 12px 36px;
+  color: var(--Dark-TagText, #aaa);
+  font-family: var(--Font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.5rem;
+}
+
+.navigationMenuViewport{
+  position: absolute;
+  transform-origin: top center;
+  display: flex;
+  width: 100%;
+}
+
+.navigationMenuContent{
+  position: absolute;
+  transform: translateX(-15%);
+}
+
+.linkButton {
+  color: var(--Dark-TagText, #aaa);
+  font-family: var(--Font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 1rem;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.5rem;
+}
+
+.activeButton,
+.linkButton:hover,
+.subLinkButton:hover {
+  background-color: var(--Sidebar-Active);
+}
+
+
+.bottomPadding {
+  height: 100px;
+}
+
+@media (max-width: 800px) {
+  .padding {
+    padding-top: 35px;
+  }
+}

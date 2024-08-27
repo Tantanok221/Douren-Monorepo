@@ -1,0 +1,88 @@
+.selectTrigger {
+  padding: 12px 0px;
+  font-family: var(--Font);
+  background: var(--Panel, #1f1f21);
+  border-radius: 12px;
+  color: var(--TagText, #aaa);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.selectContainer {
+  width: 100%;
+  padding: 0px 1.5rem;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selectText {
+  font-family: var(--Font);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--TagText, #aaa);
+}
+
+.selectIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectViewport {
+  padding: 1.2rem 0px;
+  background-color: var(--Panel);
+  width: 100%;
+  border-radius: 12px;
+  display: flex;
+}
+
+.selectContent {
+  width: var(--radix-select-trigger-width);
+  margin-top: 0.5rem;
+}
+
+.selectItem {
+  width: var(--radix-select-trigger-width);
+  color: var(--TagText);
+  font-family: var(--Font);
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 0.75rem;
+}
+
+.selectItem[data-highlighted] {
+  outline: none;
+  background: #3B3B3D;
+  border-radius: 8px;
+  color: #EAEAEA;
+}
+
+.selectLabel {
+  width: var(--radix-select-trigger-width);
+  color: white;
+  font-family: var(--Font);
+  font-size: 1.1rem;
+  padding: 0.25rem 1.5rem;
+  font-weight: 500;
+}
+
+.selectItemText {
+  font-size: 1rem;
+  font-family: var(--Font);
+  color: var(--TagText);
+  font-weight: 500;
+
+}

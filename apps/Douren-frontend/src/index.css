@@ -1,0 +1,115 @@
+:root {
+  --Background: #111;
+  --Day: #cbc3c3;
+  --Link: #cbc3c3;
+  --LinkPanel: #3c3c3c;
+  --NumberTag: #838181;
+  --NumberTagBackground: #3c3c3c;
+  --Panel: #1f1f21;
+  --TagBackground: #464646;
+  --TagText: #aaaaaa;
+  --White: #ffffff;
+  --Font: Noto Sans TC;
+  --OnHover: #4d4d4d;
+  --Sidebar-BG: #1d1d1d;
+  --Sidebar-Active: #292929;
+  --Stroke: #3c3c3c;
+}
+
+body {
+  background-color: var(--Background);
+  font-size: 16px;
+}
+html {
+  font-size: 13px;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  min-width: 0px;
+  box-sizing: border-box;
+}
+
+.image {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+@media (min-width: 320px) {
+  html {
+    font-size: 10px;
+  }
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+}
+
+@media (min-width: 480px) {
+  html {
+    font-size: 11px;
+  }
+  /* smartphones, Android phones, landscape iPhone */
+}
+@media (min-width: 600px) {
+  html {
+    font-size: 12px;
+  }
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+}
+@media (min-width: 801px) {
+  html {
+    font-size: 13px;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+@media (min-width: 1025px) {
+  html {
+    font-size: 14px;
+  }
+  /* big landscape tablets, laptops, and desktops */
+}
+@media (min-width: 1281px) {
+  html {
+    font-size: 15px;
+  }
+  /* hi-res laptops and desktops */
+}
+
+@media (min-width: 1600px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.slide-in {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: #212224;
+  transform-origin: bottom;
+}
+
+.slide-out {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: #212224;
+  transform-origin: top;
+}

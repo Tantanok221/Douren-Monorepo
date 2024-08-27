@@ -1,0 +1,13 @@
+.Root {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .Root {
+    flex-direction: column;
+  }
+}
