@@ -33,16 +33,17 @@ eventRoute.get("/:eventId/artist", async (c) => {
   const table = processTableName(sort.split(",")[0]);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
-  console.log("search",search)
+  console.log("search",search,searchTable)
   let query = db
     .select()
     .from(s.eventDm)
     .leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
     .$dynamic();
-  const SelectQuery = new SelectDatabaseQuery(query);
-  SelectQuery.withFilterEventId(Number(eventId))
-  SelectQuery.withOrderBy(sortBy, table)
-  SelectQuery.withPagination(Number(page), PAGE_SIZE)
+  let SelectQuery = new SelectDatabaseQueryBuilder(query)
+  .withFilterEventId(Number(eventId))
+  .withOrderBy(sortBy, table)
+  .withPagination(Number(page), PAGE_SIZE)
+  .Build();
   if (search) {
     SelectQuery.withIlikeSearchByTable(search, searchTable);
   }
@@ -52,25 +53,29 @@ eventRoute.get("/:eventId/artist", async (c) => {
   return c.json(data);
 });
 
-class SelectDatabaseQuery<T extends PgSelect> {
+class SelectDatabaseQueryBuilder<T extends PgSelect> {
   query: T;
   constructor(query: T) {
     this.query = query;
   }
   withFilterEventId(eventId: number) {
     this.query = this.query.where(eq(s.eventDm.eventId, eventId));
+    return this
   }
   withOrderBy(sortBy: typeof asc | typeof desc, table: AnyColumn | SQLWrapper) {
     this.query = this.query.orderBy(sortBy(table));
-    
+    return this
   }
   withPagination(page: number, size: number = PAGE_SIZE) {
     this.query = this.query.limit(size).offset((page - 1) * size);
-    
+    return this
   }
   withIlikeSearchByTable(search: string, table: Column) {
     this.query = this.query.where(and(ilike(table, search)));
-    
+    return this
+  }
+  Build(){
+    return new SelectDatabaseQueryBuilder(this.query);
   }
 }
 
