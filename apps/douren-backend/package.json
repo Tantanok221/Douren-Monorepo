@@ -1,15 +1,17 @@
 {
   "name": "douren-backend",
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
+    "dev": "wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
     "hono": "^4.5.9",
-    "@repo/database": "*"
+    "@repo/database": "*",
+    "drizzle-orm": "^0.33.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
-    "wrangler": "^3.57.2"
+    "wrangler": "^3.57.2",
+    "typescript": "^5.4.5"
   }
 }
