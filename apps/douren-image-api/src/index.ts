@@ -1,8 +1,8 @@
 import { Context, Hono } from "hono";
-import { initDB } from "./db";
+import { initDB } from "@repo/database/initdb";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
-import { authorMain, authorProduct, event, eventDm } from "./db/schema";
+import { authorMain, authorProduct, event, eventDm } from "@repo/database/schema";
 import { eq, sql } from "drizzle-orm";
 import { postCloudflareImage } from "./utils/cloudflare";
 type Bindings = {
