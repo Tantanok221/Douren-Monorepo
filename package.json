@@ -9,6 +9,7 @@
     "deploy": "turbo deploy"
   },
   "devDependencies": {
+    "@types/node": "^22.5.1",
     "prettier": "^3.2.5",
     "turbo": "^2.1.0",
     "typescript": "^5.4.5"
