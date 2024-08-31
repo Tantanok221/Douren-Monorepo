@@ -12,9 +12,8 @@ type Bindings = {
 const artistRoute = new Hono<{ Bindings: Bindings }>();
 artistRoute.use(logger());
 
-artistRoute.get("/:eventId/artist", async (c) => {
+artistRoute.get("/", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
-  const { eventId } = c.req.param();
   const db = initDB(c.env.DATABASE_URL!);
   const table = processTableName(sort.split(",")[0]);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
@@ -22,13 +21,12 @@ artistRoute.get("/:eventId/artist", async (c) => {
   console.log("search",search,searchTable)
   let query = db
     .select()
-    .from(s.eventDm)
-    .leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
+    .from(s.authorMain)
     .$dynamic();
   let SelectQuery = BuildQuery(query)
-  .withFilterEventId(Number(eventId))
   .withOrderBy(sortBy, table)
   .withPagination(Number(page), PAGE_SIZE)
+  .withTableIsNot(s.authorMain.author,"")
   .Build();
   if (search) {
     SelectQuery.withIlikeSearchByTable(search, searchTable);

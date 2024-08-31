@@ -1,4 +1,4 @@
-import { and, AnyColumn, asc, Column, desc, eq, ilike, SQLWrapper } from "drizzle-orm";
+import { and, AnyColumn, asc, Column, desc, eq, ilike, isNotNull, not, SQLWrapper } from "drizzle-orm";
 import { PgSelect } from "drizzle-orm/pg-core";
 import { s } from "./db/index.js";
 
@@ -25,6 +25,14 @@ class SelectDatabaseQueryBuilder<T extends PgSelect> {
   }
   withIlikeSearchByTable(search: string, table: Column) {
     this.query = this.query.where(and(ilike(table, search)));
+    return this
+  }
+  withTableIsNotNull(table: Column){
+    this.query = this.query.where(isNotNull(table))
+    return this
+  }
+  withTableIsNot(table:Column, value: number|string){
+    this.query = this.query.where(not(eq(table, value)))
     return this
   }
   Build(){
