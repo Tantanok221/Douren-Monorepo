@@ -1,14 +1,14 @@
-import { sql } from 'drizzle-orm'; // Adjust the import path as needed
-import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { authorMain, authorTag, tag } from './schema.js';
-import { initDB } from './initdb.js';
+import { sql } from "drizzle-orm"; // Adjust the import path as needed
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { authorMain, authorTag, tag } from "./schema.js";
+import { initDB } from "./initdb.js";
 
 export async function up(db: ReturnType<typeof initDB>) {
   // Step 1: Populate the tag table with unique tags
   await db.execute(sql`
     INSERT INTO ${tag} (tag, count, index)
     SELECT DISTINCT
-      unnest(string_to_array(${authorMain.tags}, ',')) AS tag,
+      TRIM(unnest(string_to_array(REPLACE(${authorMain.tags}, ', ', ','), ','))) AS tag,
       0 AS count,
       ROW_NUMBER() OVER () AS index
     FROM ${authorMain}
@@ -21,10 +21,10 @@ export async function up(db: ReturnType<typeof initDB>) {
     UPDATE ${tag}
     SET count = COALESCE(subquery.tag_count, 0)
     FROM (
-      SELECT unnest(string_to_array(${authorMain.tags}, ',')) AS tag, COUNT(*) AS tag_count
+      SELECT TRIM(unnest(string_to_array(REPLACE(${authorMain.tags}, ', ', ','), ','))) AS tag, COUNT(*) AS tag_count
       FROM ${authorMain}
       WHERE ${authorMain.tags} IS NOT NULL AND ${authorMain.tags} != ''
-      GROUP BY tag
+      GROUP BY TRIM(unnest(string_to_array(REPLACE(${authorMain.tags}, ', ', ','), ',')))
     ) AS subquery
     WHERE ${tag.tag} = subquery.tag;
   `);
@@ -32,7 +32,7 @@ export async function up(db: ReturnType<typeof initDB>) {
   // Step 3: Populate the author_tag junction table
   await db.execute(sql`
     INSERT INTO ${authorTag} (author_id, tag_name)
-    SELECT ${authorMain.uuid}, unnest(string_to_array(${authorMain.tags}, ',')) AS tag_name
+    SELECT ${authorMain.uuid}, TRIM(unnest(string_to_array(REPLACE(${authorMain.tags}, ', ', ','), ','))) AS tag_name
     FROM ${authorMain}
     WHERE ${authorMain.tags} IS NOT NULL AND ${authorMain.tags} != ''
     ON CONFLICT DO NOTHING;
@@ -60,6 +60,16 @@ export async function up(db: ReturnType<typeof initDB>) {
   await db.execute(sql`
     DELETE FROM ${authorTag}
     WHERE tag_name NOT IN (SELECT tag FROM ${tag});
+  `);
+
+  // Step 7: Update authorMain.tags to ensure consistent formatting without spaces after commas
+  await db.execute(sql`
+    UPDATE ${authorMain}
+    SET tags = (
+      SELECT string_agg(TRIM(tag), ',')
+      FROM unnest(string_to_array(REPLACE(${authorMain.tags}, ', ', ','), ',')) AS tag
+    )
+    WHERE ${authorMain.tags} IS NOT NULL AND ${authorMain.tags} != '';
   `);
 }
 
