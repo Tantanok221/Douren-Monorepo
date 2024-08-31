@@ -1,4 +1,4 @@
-import { and, AnyColumn, asc, Column, desc, eq, ilike, isNotNull, not, SQLWrapper } from "drizzle-orm";
+import { and, AnyColumn, asc, Column, desc, eq, ilike, isNotNull, not, SQL, SQLWrapper } from "drizzle-orm";
 import { PgSelect } from "drizzle-orm/pg-core";
 import { s } from "./db/index.js";
 
@@ -33,6 +33,14 @@ class SelectDatabaseQueryBuilder<T extends PgSelect> {
   }
   withTableIsNot(table:Column, value: number|string){
     this.query = this.query.where(not(eq(table, value)))
+    return this
+  }
+  withAndFilter( filter: (SQLWrapper|undefined)[] ){
+    this.query = this.query.where(and(... filter))
+    return this
+  }
+  withFilter( filter: SQL ){
+    this.query = this.query.where(filter)
     return this
   }
   Build(){
