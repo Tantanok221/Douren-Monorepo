@@ -7,6 +7,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "deploy": "turbo deploy",
+    "pkg": "turbo build:pkg && npm install",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
     "devbe": "turbo dev:backend"

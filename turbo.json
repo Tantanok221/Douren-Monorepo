@@ -30,6 +30,10 @@
     "db:migrate": {
       "cache": false,
       "persistent": true
+    },
+    "build:pkg": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
