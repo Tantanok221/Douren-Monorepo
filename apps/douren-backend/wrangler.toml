@@ -1,6 +1,11 @@
 name = "douren-backend"
 node_compat = true
 compatibility_date = "2024-08-30"
+[env.dev.triggers]
+crons = ["0 0 * * *"]
+
+[triggers]
+crons = ["0 0 * * *"]
 # compatibility_flags = [ "nodejs_compat" ]
 # [vars]
 # MY_VAR = "my-variable"

@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts --port 2000",
     "dev:backend": "wrangler dev src/index.ts --port 2000",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000"
   },
   "dependencies": {
     "hono": "^4.5.9",

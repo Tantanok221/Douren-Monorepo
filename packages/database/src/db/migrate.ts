@@ -19,7 +19,7 @@ export async function up(db: ReturnType<typeof initDB>) {
   // Step 2: Update the count in the tag table
   await db.execute(sql`
     UPDATE ${tag}
-    SET count = subquery.tag_count
+    SET count = COALESCE(subquery.tag_count, 0)
     FROM (
       SELECT unnest(string_to_array(${authorMain.tags}, ',')) AS tag, COUNT(*) AS tag_count
       FROM ${authorMain}
@@ -37,9 +37,33 @@ export async function up(db: ReturnType<typeof initDB>) {
     WHERE ${authorMain.tags} IS NOT NULL AND ${authorMain.tags} != ''
     ON CONFLICT DO NOTHING;
   `);
+
+  // Step 4: Remove tags with count 0
+  await db.execute(sql`
+    DELETE FROM ${tag}
+    WHERE count = 0;
+  `);
+
+  // Step 5: Reindex the remaining tags
+  await db.execute(sql`
+    WITH indexed_tags AS (
+      SELECT tag, ROW_NUMBER() OVER (ORDER BY count DESC, tag) AS new_index
+      FROM ${tag}
+    )
+    UPDATE ${tag}
+    SET index = indexed_tags.new_index
+    FROM indexed_tags
+    WHERE ${tag.tag} = indexed_tags.tag;
+  `);
+
+  // Step 6: Clean up orphaned entries in author_tag
+  await db.execute(sql`
+    DELETE FROM ${authorTag}
+    WHERE tag_name NOT IN (SELECT tag FROM ${tag});
+  `);
 }
 
-export async function down(db:PostgresJsDatabase) {
+export async function down(db: ReturnType<typeof initDB>) {
   // Clear the author_tag junction table
   await db.execute(sql`TRUNCATE TABLE ${authorTag};`);
 

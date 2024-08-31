@@ -34,6 +34,9 @@
     "build:pkg": {
       "cache": false,
       "persistent": true
+    },
+    "cron-test":{
+      "cache": false
     }
   }
 }
