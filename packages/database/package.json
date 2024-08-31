@@ -8,13 +8,9 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "exports": {
-    "./initdb": {
+    "./db": {
       "types": "./src/db/index.ts",
       "default": "./dist/db/index.js"
-    },
-    "./schema": {
-      "types": "./src/db/schema.ts",
-      "default": "./dist/db/schema.js"
     },
     "./helper": {
       "types": "./src/index.ts",

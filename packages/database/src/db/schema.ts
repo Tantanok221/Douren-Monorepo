@@ -120,3 +120,4 @@ export const tag = pgTable('Tag', {
   count: bigint('count', { mode: 'number' }),
   index: bigint('index', { mode: 'number' }).notNull(),
 });
+

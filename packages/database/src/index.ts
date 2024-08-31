@@ -1,6 +1,6 @@
 import { and, AnyColumn, asc, Column, desc, eq, ilike, SQLWrapper } from "drizzle-orm";
 import { PgSelect } from "drizzle-orm/pg-core";
-import * as s from "@repo/database/schema";
+import { s } from "./db/index.js";
 
 export function BuildQuery<T extends PgSelect>(query: T){
   return new SelectDatabaseQueryBuilder(query);

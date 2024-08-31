@@ -1,4 +1,4 @@
-import * as s from "@repo/database/schema";
+import { s } from "@repo/database/db";
 
 export function processTableName(table: string) {
   // sort = "table_name,asc"

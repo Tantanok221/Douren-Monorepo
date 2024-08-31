@@ -1,10 +1,9 @@
 import { Context, Hono } from "hono";
-import { initDB } from "@repo/database/initdb";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
-import { authorMain, authorProduct, event, eventDm } from "@repo/database/schema";
 import { eq, sql } from "drizzle-orm";
 import { postCloudflareImage } from "./utils/cloudflare";
+import { initDB, s } from "@repo/database/db";
 type Bindings = {
   DATABASE_URL: string;
   CLOUDFLARE_IMAGE_ENDPOINT: string;
@@ -49,23 +48,23 @@ app.post("/productImage/:artistId/:imageId", async (c) => {
   const data = await postCloudflareImage(c, image);
   const imageLink = data["result"]["variants"][0];
   const exist = await db.query.authorProduct.findMany({
-    where: eq(authorProduct.id, Number(imageId)),
+    where: eq(s.authorProduct.id, Number(imageId)),
   });
   console.log(exist)
   if (exist.length != 0 && exist[0].preview){
     returnResponse = await db
-      .update(authorProduct)
+      .update(s.authorProduct)
       .set({ preview: [imageLink, exist[0].preview].join("\n")  })
-      .returning({insertedId: authorProduct.id});
+      .returning({insertedId: s.authorProduct.id});
   } else {
     returnResponse = await db
-      .insert(authorProduct)
+      .insert(s.authorProduct)
       .values({
         artistId: Number(artistId),
         preview: imageLink,
         thumbnail: imageLink
       })
-      .returning({insertedId: authorProduct.id});
+      .returning({insertedId: s.authorProduct.id});
   }
   return c.json({ returnResponse }, 200);
 });
@@ -82,23 +81,23 @@ app.post("/productThumbnail/:artistId/:title", async (c) => {
   const data = await postCloudflareImage(c, image);
   const imageLink = data["result"]["variants"][0];
   const exist = await db.query.authorProduct.findMany({
-    where: eq(authorProduct.artistId, Number(artistId)),
+    where: eq(s.authorProduct.artistId, Number(artistId)),
   });
   console.log(exist)
   if (exist.length != 0) {
     returnResponse = await db
-      .update(authorProduct)
+      .update(s.authorProduct)
       .set({ thumbnail: imageLink })
-      .returning({insertedId: authorProduct.id});
+      .returning({insertedId: s.authorProduct.id});
   } else {
     returnResponse = await db
-      .insert(authorProduct)
+      .insert(s.authorProduct)
       .values({
         artistId: Number(artistId),
         thumbnail: imageLink,
         title
       })
-      .returning({insertedId: authorProduct.id});
+      .returning({insertedId: s.authorProduct.id});
   }
   return c.json({ returnResponse }, 200);
 });
@@ -124,23 +123,23 @@ app.post("/dm/:artistId/:eventName", async (c) => {
   const data = await postCloudflareImage(c, image);
   const imageLink = data["result"]["variants"][0];
   const exist = await db.query.eventDm.findMany({
-    where: eq(eventDm.artistId, Number(artistId)),
+    where: eq(s.eventDm.artistId, Number(artistId)),
   });
   console.log(exist)
   if (exist.length != 0) {
     returnResponse = await db
-      .update(eventDm)
+      .update(s.eventDm)
       .set({ dm: imageLink, eventId: id })
-      .returning({insertedId: eventDm.uuid});
+      .returning({insertedId: s.eventDm.uuid});
   } else {
     returnResponse = await db
-      .insert(eventDm)
+      .insert(s.eventDm)
       .values({
         eventId: Number(id),
         artistId: Number(artistId),
         dm: imageLink,
       })
-      .returning({insertedId: eventDm.uuid});
+      .returning({insertedId: s.eventDm.uuid});
   }
   return c.json({ returnResponse }, 200);
 });
@@ -158,10 +157,10 @@ app.patch("/artist/:id", async (c) => {
     const data = await postCloudflareImage(c, image);
     const imageLink = data["result"]["variants"][0];
     const updateImageUserID = await db
-      .update(authorMain)
+      .update(s.authorMain)
       .set({ photo: imageLink })
-      .where(eq(authorMain.uuid, sql`CAST(${id} AS BIGINT)`))
-      .returning({ data: authorMain });
+      .where(eq(s.authorMain.uuid, sql`CAST(${id} AS BIGINT)`))
+      .returning({ data: s.authorMain });
     if (updateImageUserID.length === 0)
       return c.json({ error: "Artist ID Not Found" }, 414);
     return c.json({ updateImageUserID: updateImageUserID }, 200);
