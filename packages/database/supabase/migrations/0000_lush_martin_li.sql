@@ -27,6 +27,11 @@ CREATE TABLE IF NOT EXISTS "Author_Product" (
 	"artist_id" bigint NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "author_tag" (
+	"author_id" bigint,
+	"tag_name" text
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Event" (
 	"id" bigint PRIMARY KEY NOT NULL,
 	"name" text NOT NULL
@@ -41,36 +46,6 @@ CREATE TABLE IF NOT EXISTS "Event_DM" (
 	"DM" text,
 	"artist_id" bigint NOT NULL,
 	"event_id" bigint
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "Ff42" (
-	"uuid" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"Author" text,
-	"Booth_name" text,
-	"Tag" text,
-	"DM" text,
-	"Photo" text,
-	"Twitter_link" text,
-	"Twitter_name" text,
-	"Facebook_link" text,
-	"Facebook_name" text,
-	"Instagram_link" text,
-	"Instagram_name" text,
-	"Youtube_link" text,
-	"Youtube_name" text,
-	"Twitch_link" text,
-	"Twitch_name" text,
-	"Pixiv_link" text,
-	"Pixiv_name" text,
-	"Plurk_link" text,
-	"Plurk_name" text,
-	"Baha_link" text,
-	"Baha_name" text,
-	"DAY01_location" text,
-	"DAY02_location" text,
-	"DAY03_location" text,
-	"Store_link" text,
-	"Official_link" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Owner" (

@@ -1,6 +1,6 @@
 {
-  "id": "7f6846bf-554c-411b-b150-99959b242412",
-  "prevId": "b8927456-2436-4b25-9232-0ae1dd7c7d64",
+  "id": "ffbb3d3a-f536-438a-a63b-6dcd8e6e74f2",
+  "prevId": "0ffc68fa-293e-4607-be90-0c10b8a410ed",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -162,6 +162,63 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "public.author_tag": {
+      "name": "author_tag",
+      "schema": "",
+      "columns": {
+        "author_id": {
+          "name": "author_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tag_name": {
+          "name": "tag_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "author_tag_author_id_Author_Main_uuid_fk": {
+          "name": "author_tag_author_id_Author_Main_uuid_fk",
+          "tableFrom": "author_tag",
+          "tableTo": "Author_Main",
+          "columnsFrom": [
+            "author_id"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "author_tag_tag_name_Tag_tag_fk": {
+          "name": "author_tag_tag_name_Tag_tag_fk",
+          "tableFrom": "author_tag",
+          "tableTo": "Tag",
+          "columnsFrom": [
+            "tag_name"
+          ],
+          "columnsTo": [
+            "tag"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "author_tag_author_id_tag_name_pk": {
+          "name": "author_tag_author_id_tag_name_pk",
+          "columns": [
+            "author_id",
+            "tag_name"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "public.Event": {
       "name": "Event",
       "schema": "",
@@ -233,179 +290,6 @@
         "event_id": {
           "name": "event_id",
           "type": "bigint",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.FF42": {
-      "name": "FF42",
-      "schema": "",
-      "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "Author": {
-          "name": "Author",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Booth_name": {
-          "name": "Booth_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Tag": {
-          "name": "Tag",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "DM": {
-          "name": "DM",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Photo": {
-          "name": "Photo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Twitter_link": {
-          "name": "Twitter_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Twitter_name": {
-          "name": "Twitter_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Facebook_link": {
-          "name": "Facebook_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Facebook_name": {
-          "name": "Facebook_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Instagram_link": {
-          "name": "Instagram_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Instagram_name": {
-          "name": "Instagram_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Youtube_link": {
-          "name": "Youtube_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Youtube_name": {
-          "name": "Youtube_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Twitch_link": {
-          "name": "Twitch_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Twitch_name": {
-          "name": "Twitch_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Pixiv_link": {
-          "name": "Pixiv_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Pixiv_name": {
-          "name": "Pixiv_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Plurk_link": {
-          "name": "Plurk_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Plurk_name": {
-          "name": "Plurk_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Baha_link": {
-          "name": "Baha_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Baha_name": {
-          "name": "Baha_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "DAY01_location": {
-          "name": "DAY01_location",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "DAY02_location": {
-          "name": "DAY02_location",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "DAY03_location": {
-          "name": "DAY03_location",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Store_link": {
-          "name": "Store_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Official_link": {
-          "name": "Official_link",
-          "type": "text",
           "primaryKey": false,
           "notNull": false
         }

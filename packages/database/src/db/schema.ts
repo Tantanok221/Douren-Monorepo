@@ -1,4 +1,4 @@
-import { pgTable, bigint, text, uuid, bigserial } from 'drizzle-orm/pg-core';
+import { pgTable, bigint, text, uuid, bigserial, primaryKey } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const authorMain = pgTable('Author_Main', {
@@ -73,35 +73,6 @@ export const eventDmRelations = relations(eventDm, ({ one }) => ({
   }),
 }));
 
-export const ff42 = pgTable('FF42', {
-  uuid: uuid('uuid').defaultRandom().primaryKey(),
-  author: text('Author'),
-  boothName: text('Booth_name'),
-  tag: text('Tag'),
-  dm: text('DM'),
-  photo: text('Photo'),
-  twitterLink: text('Twitter_link'),
-  twitterName: text('Twitter_name'),
-  facebookLink: text('Facebook_link'),
-  facebookName: text('Facebook_name'),
-  instagramLink: text('Instagram_link'),
-  instagramName: text('Instagram_name'),
-  youtubeLink: text('Youtube_link'),
-  youtubeName: text('Youtube_name'),
-  twitchLink: text('Twitch_link'),
-  twitchName: text('Twitch_name'),
-  pixivLink: text('Pixiv_link'),
-  pixivName: text('Pixiv_name'),
-  plurkLink: text('Plurk_link'),
-  plurkName: text('Plurk_name'),
-  bahaLink: text('Baha_link'),
-  bahaName: text('Baha_name'),
-  day01Location: text('DAY01_location'),
-  day02Location: text('DAY02_location'),
-  day03Location: text('DAY03_location'),
-  storeLink: text('Store_link'),
-  officialLink: text('Official_link'),
-});
 
 export const owner = pgTable('Owner', {
   id: bigint('id', { mode: 'number' }).primaryKey(),
@@ -121,3 +92,9 @@ export const tag = pgTable('Tag', {
   index: bigint('index', { mode: 'number' }).notNull(),
 });
 
+export const authorTag = pgTable("author_tag", {
+  authorId: bigint("author_id",{mode: "number"}).references(() => authorMain.uuid),
+  tagId: text("tag_name").references(() => tag.tag),
+},(table) =>{return {
+  pk: primaryKey({columns: [table.authorId, table.tagId]})
+}});
