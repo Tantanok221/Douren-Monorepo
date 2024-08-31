@@ -2,6 +2,7 @@
   "name": "douren-backend",
   "scripts": {
     "dev": "wrangler dev src/index.ts --port 2000",
+    "dev:backend": "wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {

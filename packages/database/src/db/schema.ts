@@ -73,7 +73,7 @@ export const eventDmRelations = relations(eventDm, ({ one }) => ({
   }),
 }));
 
-export const ff42 = pgTable('Ff42', {
+export const ff42 = pgTable('FF42', {
   uuid: uuid('uuid').defaultRandom().primaryKey(),
   author: text('Author'),
   boothName: text('Booth_name'),
