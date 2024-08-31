@@ -15,6 +15,10 @@
     "./schema": {
       "types": "./src/db/schema.ts",
       "default": "./dist/db/schema.js"
+    },
+    "./helper": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {
