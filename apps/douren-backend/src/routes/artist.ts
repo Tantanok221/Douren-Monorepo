@@ -5,6 +5,7 @@ import { asc, desc, eq, sql, SQLWrapper, ilike, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
 import {  FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
+import { createPaginationObject } from "../helper/createPaginationObject";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -56,15 +57,7 @@ artistRoute.get("/", async (c) => {
   // TODO: Need to change front end to use, to split
   const data = await SelectQuery.query;
   const [counts] = await CountQuery.query;
-  const totalPage = Math.ceil(counts.totalCount / PAGE_SIZE);
-  const returnObj = {
-    data,
-    totalCount: counts.totalCount,
-    totalPage,
-    nextPageAvailable: Number(page) < totalPage,
-    previousPageAvailable: Number(page) > 1,
-    pageSize: PAGE_SIZE,
-  };
+  const returnObj = createPaginationObject(data, Number(page),PAGE_SIZE,counts.totalCount);
   return c.json(returnObj);
 });
 

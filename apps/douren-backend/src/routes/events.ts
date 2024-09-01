@@ -10,6 +10,7 @@ import {
 import { initDB, s } from "@repo/database/db";
 import { sql, SQLWrapper, ilike } from "drizzle-orm";
 import { authorMain } from "../../../../packages/database/src/db/schema";
+import { createPaginationObject } from "../helper/createPaginationObject";
 type Bindings = {
   DATABASE_URL: string;
 };
@@ -75,15 +76,7 @@ eventRoute.get("/:eventId/artist", async (c) => {
   // TODO: Need to change front end to use(,) to split
   const data = await SelectQuery.query;
   const [counts] = await CountQuery.query;
-  const totalPage = Math.ceil(counts.totalCount / PAGE_SIZE);
-  const returnObj = {
-    data,
-    totalCount: counts.totalCount,
-    totalPage,
-    nextPageAvailable: Number(page) < totalPage,
-    previousPageAvailable: Number(page) > 1,
-    pageSize: PAGE_SIZE,
-  };
+  const returnObj = createPaginationObject(data, Number(page),PAGE_SIZE,counts.totalCount);
   console.log(data.length);
   return c.json(returnObj);
 });
