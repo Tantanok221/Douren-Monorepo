@@ -10,6 +10,8 @@
     "pkg": "turbo build:pkg && npm install",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
+    "db:introspect": "turbo db:introspect",
+    "db:push": "turbo db:push",
     "cron-test": "turbo cron-test",
     "devbe": "turbo dev:backend"
   },

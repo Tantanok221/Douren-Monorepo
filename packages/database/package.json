@@ -6,7 +6,9 @@
     "build": "tsc",
     "build:pkg": "tsc",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
+    "db:push": "drizzle-kit push"
   },
   "exports": {
     "./db": {
@@ -20,12 +22,12 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
-    "typescript": "latest",
-    "drizzle-kit": "*"
+    "drizzle-kit": "*",
+    "typescript": "latest"
   },
   "dependencies": {
     "dotenv": "*",
-    "postgres": "*",
-    "drizzle-orm": "*"
+    "drizzle-orm": "*",
+    "postgres": "*"
   }
 }

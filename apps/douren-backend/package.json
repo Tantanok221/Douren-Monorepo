@@ -7,13 +7,16 @@
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000"
   },
   "dependencies": {
-    "hono": "^4.5.9",
+    "@hono/zod-validator": "^0.2.2",
     "@repo/database": "*",
-    "drizzle-orm": "^0.33.0"
+    "drizzle-orm": "^0.33.0",
+    "drizzle-zod": "^0.5.1",
+    "hono": "^4.5.9",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
-    "wrangler": "^3.57.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "wrangler": "^3.57.2"
   }
 }

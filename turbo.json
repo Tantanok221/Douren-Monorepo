@@ -31,6 +31,14 @@
       "cache": false,
       "persistent": true
     },
+    "db:introspect": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:push": {
+      "cache": false,
+      "persistent": true
+    },
     "build:pkg": {
       "cache": false,
       "persistent": true
