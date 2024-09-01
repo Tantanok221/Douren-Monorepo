@@ -4,14 +4,12 @@ import { processTableName } from "../helper/processTableName";
 import { asc, desc, eq, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
-import {  FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
+import {  ENV_VARIABLE, FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
 import { createPaginationObject } from "../helper/createPaginationObject";
 import { processTagConditions } from "../helper/processTagConditions";
 
-type Bindings = {
-  DATABASE_URL: string;
-};
-const artistRoute = new Hono<{ Bindings: Bindings }>();
+
+const artistRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
 artistRoute.use(logger());
 
 artistRoute.get("/", async (c) => {

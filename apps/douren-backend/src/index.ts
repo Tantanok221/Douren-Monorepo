@@ -3,11 +3,9 @@ import eventRoute from "./routes/events";
 import { logger } from "hono/logger";
 import artistRoute from "./routes/artist";
 import { initDB, up } from "@repo/database/db";
+import { ENV_VARIABLE } from "./helper/constant";
 
-type Bindings = {
-  DATABASE_URL: string;
-};
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<{ Bindings: ENV_VARIABLE }>();
 app.route("/event", eventRoute);
 app.route("/artist", artistRoute);
 export default {

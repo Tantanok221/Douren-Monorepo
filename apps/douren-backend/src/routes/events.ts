@@ -4,6 +4,7 @@ import { asc, count, desc, eq } from "drizzle-orm";
 import { logger } from "hono/logger";
 import { processTableName } from "../helper/processTableName";
 import {
+  ENV_VARIABLE,
   FETCH_EVENT_ARTIST_OBJECT,
   PAGE_SIZE,
 } from "../helper/constant";
@@ -11,10 +12,8 @@ import { initDB, s } from "@repo/database/db";
 import { authorMain } from "../../../../packages/database/src/db/schema";
 import { createPaginationObject } from "../helper/createPaginationObject";
 import { processTagConditions } from "../helper/processTagConditions";
-type Bindings = {
-  DATABASE_URL: string;
-};
-const eventRoute = new Hono<{ Bindings: Bindings }>();
+
+const eventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
 eventRoute.use(logger());
 
 eventRoute.get("/", (c) => {

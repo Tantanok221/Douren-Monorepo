@@ -3,6 +3,10 @@ import { sql } from "drizzle-orm";
 
 export const PAGE_SIZE = 40;
 
+export type ENV_VARIABLE = {
+  DATABASE_URL: string;
+};
+
 export const FETCH_ARTIST_BASE_OBJECT = {
   authorId: s.authorMain.uuid,
   authorName: s.authorMain.author,
