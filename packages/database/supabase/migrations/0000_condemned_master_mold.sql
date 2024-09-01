@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "Author_Main" (
-	"uuid" bigint PRIMARY KEY NOT NULL,
+	"uuid" integer PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"Author" text NOT NULL,
 	"Plurk_link" text,
 	"Baha_link" text,
@@ -19,37 +19,38 @@ CREATE TABLE IF NOT EXISTS "Author_Main" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Author_Product" (
-	"id" bigserial PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"Tag" text,
 	"Preview" text,
 	"Thumbnail" text NOT NULL,
 	"Title" text,
-	"artist_id" bigint NOT NULL
+	"artist_id" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "author_tag" (
 	"author_id" bigint,
-	"tag_name" text
+	"tag_name" text,
+	CONSTRAINT "author_tag_author_id_tag_name_pk" PRIMARY KEY("author_id","tag_name")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Event" (
-	"id" bigint PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Event_DM" (
-	"uuid" bigserial PRIMARY KEY NOT NULL,
+	"uuid" integer PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"Location_Day01" text,
 	"Location_Day02" text,
 	"Location_Day03" text,
 	"Booth_name" text,
 	"DM" text,
-	"artist_id" bigint NOT NULL,
-	"event_id" bigint
+	"artist_id" integer NOT NULL,
+	"event_id" integer
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Owner" (
-	"id" bigint PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"discord_name" text,
 	"twitter_name" text,
@@ -62,6 +63,18 @@ CREATE TABLE IF NOT EXISTS "Owner" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Tag" (
 	"tag" text PRIMARY KEY NOT NULL,
-	"count" bigint,
-	"index" bigint NOT NULL
+	"count" integer,
+	"index" integer NOT NULL
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "author_tag" ADD CONSTRAINT "author_tag_author_id_Author_Main_uuid_fk" FOREIGN KEY ("author_id") REFERENCES "public"."Author_Main"("uuid") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "author_tag" ADD CONSTRAINT "author_tag_tag_name_Tag_tag_fk" FOREIGN KEY ("tag_name") REFERENCES "public"."Tag"("tag") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;

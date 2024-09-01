@@ -1,5 +1,5 @@
 {
-  "id": "0ffc68fa-293e-4607-be90-0c10b8a410ed",
+  "id": "c073c760-9d04-419b-b589-6800dae1547f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,9 +10,10 @@
       "columns": {
         "uuid": {
           "name": "uuid",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Author": {
           "name": "Author",
@@ -122,9 +123,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Tag": {
           "name": "Tag",
@@ -152,7 +154,7 @@
         },
         "artist_id": {
           "name": "artist_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }
@@ -180,8 +182,43 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "foreignKeys": {
+        "author_tag_author_id_Author_Main_uuid_fk": {
+          "name": "author_tag_author_id_Author_Main_uuid_fk",
+          "tableFrom": "author_tag",
+          "tableTo": "Author_Main",
+          "columnsFrom": [
+            "author_id"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "author_tag_tag_name_Tag_tag_fk": {
+          "name": "author_tag_tag_name_Tag_tag_fk",
+          "tableFrom": "author_tag",
+          "tableTo": "Tag",
+          "columnsFrom": [
+            "tag_name"
+          ],
+          "columnsTo": [
+            "tag"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "author_tag_author_id_tag_name_pk": {
+          "name": "author_tag_author_id_tag_name_pk",
+          "columns": [
+            "author_id",
+            "tag_name"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.Event": {
@@ -190,9 +227,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -212,9 +250,10 @@
       "columns": {
         "uuid": {
           "name": "uuid",
-          "type": "bigserial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Location_Day01": {
           "name": "Location_Day01",
@@ -248,13 +287,13 @@
         },
         "artist_id": {
           "name": "artist_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
         "event_id": {
           "name": "event_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         }
@@ -270,7 +309,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true
         },
@@ -340,13 +379,13 @@
         },
         "count": {
           "name": "count",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
         "index": {
           "name": "index",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }

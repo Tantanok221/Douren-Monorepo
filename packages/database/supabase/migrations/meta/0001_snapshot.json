@@ -1,6 +1,6 @@
 {
-  "id": "ffbb3d3a-f536-438a-a63b-6dcd8e6e74f2",
-  "prevId": "0ffc68fa-293e-4607-be90-0c10b8a410ed",
+  "id": "54c554e0-bf67-4d07-89c0-9783eca7e9d2",
+  "prevId": "c073c760-9d04-419b-b589-6800dae1547f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -10,9 +10,10 @@
       "columns": {
         "uuid": {
           "name": "uuid",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Author": {
           "name": "Author",
@@ -68,12 +69,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "Booth_name": {
-          "name": "Booth_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "Tags": {
           "name": "Tags",
           "type": "text",
@@ -122,9 +117,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Tag": {
           "name": "Tag",
@@ -152,7 +148,7 @@
         },
         "artist_id": {
           "name": "artist_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }
@@ -225,9 +221,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -247,9 +244,10 @@
       "columns": {
         "uuid": {
           "name": "uuid",
-          "type": "bigserial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "Location_Day01": {
           "name": "Location_Day01",
@@ -283,13 +281,13 @@
         },
         "artist_id": {
           "name": "artist_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
         "event_id": {
           "name": "event_id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         }
@@ -305,7 +303,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true
         },
@@ -375,13 +373,13 @@
         },
         "count": {
           "name": "count",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
         "index": {
           "name": "index",
-          "type": "bigint",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }
