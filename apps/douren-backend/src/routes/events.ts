@@ -8,9 +8,9 @@ import {
   PAGE_SIZE,
 } from "../helper/constant";
 import { initDB, s } from "@repo/database/db";
-import { sql, SQLWrapper, ilike } from "drizzle-orm";
 import { authorMain } from "../../../../packages/database/src/db/schema";
 import { createPaginationObject } from "../helper/createPaginationObject";
+import { processTagConditions } from "../helper/processTagConditions";
 type Bindings = {
   DATABASE_URL: string;
 };
@@ -29,13 +29,7 @@ eventRoute.get("/:eventId/artist", async (c) => {
   const table = processTableName(sort.split(",")[0]);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
-
-  let tagConditions: SQLWrapper[] = [];
-  if (tag?.length > 0) {
-    tag.split(",").forEach((tag) => {
-      tagConditions.push(ilike(s.authorMain.tags, `%${tag}%`));
-    });
-  }
+  const tagConditions = processTagConditions(tag);
   let query = db
     .select(FETCH_EVENT_ARTIST_OBJECT)
     .from(s.eventDm)

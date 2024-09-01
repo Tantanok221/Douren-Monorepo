@@ -1,11 +1,12 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { processTableName } from "../helper/processTableName";
-import { asc, desc, eq, sql, SQLWrapper, ilike, count } from "drizzle-orm";
+import { asc, desc, eq, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
 import {  FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
 import { createPaginationObject } from "../helper/createPaginationObject";
+import { processTagConditions } from "../helper/processTagConditions";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -19,12 +20,7 @@ artistRoute.get("/", async (c) => {
   const table = processTableName(sort.split(",")[0]);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
-  let conditions: SQLWrapper[] = [];
-  if (tag?.length > 0) {
-    tag.split(",").forEach((tag) => {
-      conditions.push(ilike(s.authorMain.tags, `%${tag}%`));
-    });
-  } 
+  const tagConditions = processTagConditions(tag);
   let query = db
     .select(FETCH_ARTIST_OBJECT)
     .from(s.authorMain)
@@ -46,8 +42,8 @@ artistRoute.get("/", async (c) => {
     .withTableIsNot(s.authorMain.author, "")
     .Build();
   if (tag?.length > 0) {
-    SelectQuery.withAndFilter(conditions);
-    CountQuery.withAndFilter(conditions);
+    SelectQuery.withAndFilter(tagConditions);
+    CountQuery.withAndFilter(tagConditions);
   }
   if (search) {
     SelectQuery.withIlikeSearchByTable(search, searchTable);
