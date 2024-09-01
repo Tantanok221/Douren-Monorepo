@@ -1,14 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { processTableName } from "../helper/processTableName";
-import {
-  asc,
-  desc,
-  eq,
-  sql,
-  SQLWrapper,
-  ilike,
-} from "drizzle-orm";
+import { asc, desc, eq, sql, SQLWrapper, ilike, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
 import { PAGE_SIZE } from "../helper/constant";
@@ -26,10 +19,10 @@ artistRoute.get("/", async (c) => {
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
   let conditions: SQLWrapper[] = [];
-  if(tag?.length > 0){
-    tag.split(",").forEach((tag) =>{
-      conditions.push(ilike(s.authorMain.tags,`%${tag}%`))
-    })
+  if (tag?.length > 0) {
+    tag.split(",").forEach((tag) => {
+      conditions.push(ilike(s.authorMain.tags, `%${tag}%`));
+    });
   }
   let query = db
     .select({
@@ -58,9 +51,16 @@ artistRoute.get("/", async (c) => {
     .from(s.authorMain)
     .leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
     .leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
-
     .groupBy(s.authorMain.uuid)
     .$dynamic();
+  const countQuery = db
+    .select({ totalCount: count(s.authorMain.uuid) })
+    .from(s.authorMain)
+    .$dynamic();
+  const CountQuery = BuildQuery(countQuery).withTableIsNot(
+    s.authorMain.author,
+    ""
+  );
   let SelectQuery = BuildQuery(query)
     .withOrderBy(sortBy, table)
     .withPagination(Number(page), PAGE_SIZE)
@@ -68,14 +68,26 @@ artistRoute.get("/", async (c) => {
     .Build();
   if (tag?.length > 0) {
     SelectQuery.withAndFilter(conditions);
+    CountQuery.withAndFilter(conditions);
   }
   if (search) {
     SelectQuery.withIlikeSearchByTable(search, searchTable);
+    CountQuery.withIlikeSearchByTable(search, searchTable);
   }
 
   // TODO: Need to change front end to use, to split
   const data = await SelectQuery.query;
-  return c.json(data);
+  const [counts] = await CountQuery.query;
+  const totalPage = Math.ceil(counts.totalCount / PAGE_SIZE);
+  const returnObj = {
+    data,
+    totalCount: counts.totalCount,
+    totalPage,
+    nextPageAvailable: Number(page) < totalPage,
+    previousPageAvailable: Number(page) > 1,
+    pageSize: PAGE_SIZE,
+  };
+  return c.json(returnObj);
 });
 
 export default artistRoute;
