@@ -2,26 +2,26 @@ import { Hono } from "hono";
 import { BuildQuery } from "@repo/database/helper";
 import { asc, count, desc, eq } from "drizzle-orm";
 import { logger } from "hono/logger";
-import { processTableName } from "../helper/processTableName";
+import { processTableName } from "../../helper/processTableName";
 import {
   ENV_VARIABLE,
   FETCH_EVENT_ARTIST_OBJECT,
   PAGE_SIZE,
-} from "../helper/constant";
+} from "../../helper/constant";
 import { initDB, s } from "@repo/database/db";
-import { authorMain } from "../../../../packages/database/src/db/schema";
-import { createPaginationObject } from "../helper/createPaginationObject";
-import { processTagConditions } from "../helper/processTagConditions";
+import { authorMain } from "../../../../../packages/database/src/db/schema";
+import { createPaginationObject } from "../../helper/createPaginationObject";
+import { processTagConditions } from "../../helper/processTagConditions";
 
-const eventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-eventRoute.use(logger());
+const GETEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
+GETEventRoute.use(logger());
 
-eventRoute.get("/", (c) => {
+GETEventRoute.get("/", (c) => {
   console.log("GET /");
   return c.text("Hello, World!");
 });
 
-eventRoute.get("/:eventId/artist", async (c) => {
+GETEventRoute.get("/:eventId/artist", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
   const { eventId } = c.req.param();
   const db = initDB(c.env.DATABASE_URL!);
@@ -69,9 +69,14 @@ eventRoute.get("/:eventId/artist", async (c) => {
   // TODO: Need to change front end to use(,) to split
   const data = await SelectQuery.query;
   const [counts] = await CountQuery.query;
-  const returnObj = createPaginationObject(data, Number(page),PAGE_SIZE,counts.totalCount);
+  const returnObj = createPaginationObject(
+    data,
+    Number(page),
+    PAGE_SIZE,
+    counts.totalCount
+  );
   console.log(data.length);
   return c.json(returnObj);
 });
 
-export default eventRoute;
+export default GETEventRoute;

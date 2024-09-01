@@ -1,18 +1,21 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { processTableName } from "../helper/processTableName";
+import { processTableName } from "../../helper/processTableName";
 import { asc, desc, eq, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
-import {  ENV_VARIABLE, FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
-import { createPaginationObject } from "../helper/createPaginationObject";
-import { processTagConditions } from "../helper/processTagConditions";
+import {
+  ENV_VARIABLE,
+  FETCH_ARTIST_OBJECT,
+  PAGE_SIZE,
+} from "../../helper/constant";
+import { createPaginationObject } from "../../helper/createPaginationObject";
+import { processTagConditions } from "../../helper/processTagConditions";
 
+const GETArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
+GETArtistRoutes.use(logger());
 
-const artistRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-artistRoute.use(logger());
-
-artistRoute.get("/", async (c) => {
+GETArtistRoutes.get("/", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
   const db = initDB(c.env.DATABASE_URL!);
   const table = processTableName(sort.split(",")[0]);
@@ -51,8 +54,13 @@ artistRoute.get("/", async (c) => {
   // TODO: Need to change front end to use, to split
   const data = await SelectQuery.query;
   const [counts] = await CountQuery.query;
-  const returnObj = createPaginationObject(data, Number(page),PAGE_SIZE,counts.totalCount);
+  const returnObj = createPaginationObject(
+    data,
+    Number(page),
+    PAGE_SIZE,
+    counts.totalCount
+  );
   return c.json(returnObj);
 });
 
-export default artistRoute;
+export default GETArtistRoutes;
