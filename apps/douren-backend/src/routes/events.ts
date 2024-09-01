@@ -3,7 +3,10 @@ import { BuildQuery } from "@repo/database/helper";
 import { asc, count, desc, eq } from "drizzle-orm";
 import { logger } from "hono/logger";
 import { processTableName } from "../helper/processTableName";
-import { PAGE_SIZE } from "../helper/constant";
+import {
+  FETCH_EVENT_ARTIST_OBJECT,
+  PAGE_SIZE,
+} from "../helper/constant";
 import { initDB, s } from "@repo/database/db";
 import { sql, SQLWrapper, ilike } from "drizzle-orm";
 import { authorMain } from "../../../../packages/database/src/db/schema";
@@ -33,34 +36,7 @@ eventRoute.get("/:eventId/artist", async (c) => {
     });
   }
   let query = db
-    .select({
-      authorId: s.authorMain.uuid,
-      authorName: s.authorMain.author,
-      authorDescription: s.authorMain.introduction,
-      authorTwitter: s.authorMain.twitterLink,
-      authorYoutube: s.authorMain.youtubeLink,
-      authorFacebook: s.authorMain.facebookLink,
-      authorInstagram: s.authorMain.instagramLink,
-      authorPixiv: s.authorMain.pixivLink,
-      authorPlurk: s.authorMain.plurkLink,
-      authorBaha: s.authorMain.bahaLink,
-      authorTwitch: s.authorMain.twitchLink,
-      authorMyacg: s.authorMain.myacgLink,
-      authorStore: s.authorMain.storeLink,
-      authorOfficial: s.authorMain.officialLink,
-      authorPhoto: s.authorMain.photo,
-      authorBoothName: s.eventDm.boothName,
-      authorDay1Location: s.eventDm.locationDay01,
-      authorDay2Location: s.eventDm.locationDay02,
-      authorDay3Location: s.eventDm.locationDay03,
-      authorDM: s.eventDm.dm,
-      tags: sql`jsonb_agg(
-                jsonb_build_object(
-                  'tagName', ${s.tag.tag},
-                  'tagCount', ${s.tag.count}
-                )
-              )`.as("tags"),
-    })
+    .select(FETCH_EVENT_ARTIST_OBJECT)
     .from(s.eventDm)
     .leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
     .leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
@@ -107,7 +83,6 @@ eventRoute.get("/:eventId/artist", async (c) => {
     nextPageAvailable: Number(page) < totalPage,
     previousPageAvailable: Number(page) > 1,
     pageSize: PAGE_SIZE,
-    
   };
   console.log(data.length);
   return c.json(returnObj);

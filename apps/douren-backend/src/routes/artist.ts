@@ -4,7 +4,7 @@ import { processTableName } from "../helper/processTableName";
 import { asc, desc, eq, sql, SQLWrapper, ilike, count } from "drizzle-orm";
 import { initDB, s } from "@repo/database/db";
 import { BuildQuery } from "@repo/database/helper";
-import { PAGE_SIZE } from "../helper/constant";
+import {  FETCH_ARTIST_OBJECT, PAGE_SIZE } from "../helper/constant";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -23,31 +23,9 @@ artistRoute.get("/", async (c) => {
     tag.split(",").forEach((tag) => {
       conditions.push(ilike(s.authorMain.tags, `%${tag}%`));
     });
-  }
+  } 
   let query = db
-    .select({
-      authorId: s.authorMain.uuid,
-      authorName: s.authorMain.author,
-      authorDescription: s.authorMain.introduction,
-      authorTwitter: s.authorMain.twitterLink,
-      authorYoutube: s.authorMain.youtubeLink,
-      authorFacebook: s.authorMain.facebookLink,
-      authorInstagram: s.authorMain.instagramLink,
-      authorPixiv: s.authorMain.pixivLink,
-      authorPlurk: s.authorMain.plurkLink,
-      authorBaha: s.authorMain.bahaLink,
-      authorTwitch: s.authorMain.twitchLink,
-      authorMyacg: s.authorMain.myacgLink,
-      authorStore: s.authorMain.storeLink,
-      authorOfficial: s.authorMain.officialLink,
-      authorPhoto: s.authorMain.photo,
-      tags: sql`jsonb_agg(
-                jsonb_build_object(
-                  'tagName', ${s.tag.tag},
-                  'tagCount', ${s.tag.count}
-                )
-              )`.as("tags"),
-    })
+    .select(FETCH_ARTIST_OBJECT)
     .from(s.authorMain)
     .leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
     .leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
