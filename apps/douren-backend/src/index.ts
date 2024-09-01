@@ -5,11 +5,13 @@ import GetArtistRoutes from "./routes/GET/artist";
 import PostArtistRoutes from "./routes/POST/artist";
 import { initDB, up } from "@repo/database/db";
 import { ENV_VARIABLE } from "./helper/constant";
+import PutArtistRoutes from "./routes/PUT/artist";
 
 const app = new Hono<{ Bindings: ENV_VARIABLE }>();
 app.route("/event", GetEventRoutes);
 app.route("/artist", GetArtistRoutes);
 app.route("/artist", PostArtistRoutes);
+app.route("/artist", PutArtistRoutes);
 export default {
   /** this part manages cronjobs */
   scheduled(

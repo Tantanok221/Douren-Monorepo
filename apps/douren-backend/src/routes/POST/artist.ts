@@ -29,26 +29,9 @@ PostArtistRoutes.post(
       .insert(s.authorMain)
       .values(body)
       .returning();
-    return c.json(returnResponse);
+    return c.json(returnResponse,200);
   }
 );
-PostArtistRoutes.patch(
-  "/:artistId",
-  zValidator("json", CreateArtistSchema),
-  async (c) => {
-    const body: CreateArtistSchemaTypes = await c.req.json();
-    const {artistId} = c.req.param();
-    const db = initDB(c.env.DATABASE_URL!);
-    body.uuid = Number(artistId);
-    const returnResponse = await db
-      .update(s.authorMain)
-      .set(body)
-      .where(eq(s.authorMain.uuid, Number(artistId)))
-      .returning();
-    return c.json(returnResponse);
-  }
-);
-
 
 
 export default PostArtistRoutes;
