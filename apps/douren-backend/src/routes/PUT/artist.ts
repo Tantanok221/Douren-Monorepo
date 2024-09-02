@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { CreateArtistSchema, CreateArtistSchemaTypes } from "../../schema/artist.zod";
+import {  PutArtistSchema, PutArtistSchemaTypes } from "../../schema/artist.zod";
 import { initDB, s } from "@repo/database/db";
 import { eq } from 'drizzle-orm';
 import { zValidator } from "@hono/zod-validator";
@@ -11,9 +11,9 @@ const PutArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
 
 PutArtistRoutes.put(
   "/:artistId",
-  zValidator("json", CreateArtistSchema),
+  zValidator("json", PutArtistSchema),
   async (c) => {
-    const body: CreateArtistSchemaTypes = await c.req.json();
+    const body: PutArtistSchemaTypes = await c.req.json();
     const {artistId} = c.req.param();
     const db = initDB(c.env.DATABASE_URL!);
     body.uuid = Number(artistId);
@@ -22,7 +22,7 @@ PutArtistRoutes.put(
       .set(body)
       .where(eq(s.authorMain.uuid, Number(artistId)))
       .returning();
-    return c.json(returnResponse,201);
+    return c.json(returnResponse,204);
   }
 );
 

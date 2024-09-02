@@ -28,6 +28,7 @@ PostArtistRoutes.post(
     const returnResponse = await db
       .insert(s.authorMain)
       .values(body)
+      .onConflictDoNothing({ target: s.authorMain.uuid })
       .returning();
     return c.json(returnResponse,200);
   }

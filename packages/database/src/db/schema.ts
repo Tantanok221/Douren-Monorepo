@@ -51,7 +51,7 @@ export const eventRelations = relations(event, ({ many }) => ({
 }));
 
 export const eventDm = pgTable('Event_DM', {
-  uuid: integer('uuid').primaryKey().notNull().default(sql`gen_random_uuid()`),
+  uuid: integer('uuid').primaryKey().notNull(),
   locationDay01: text('Location_Day01'),
   locationDay02: text('Location_Day02'),
   locationDay03: text('Location_Day03'),

@@ -5,4 +5,6 @@ import { z } from "zod";
 export const CreateArtistSchema = createInsertSchema(s.authorMain, {
   uuid: (schema) => schema.uuid.optional(),
 })
+export const PutArtistSchema = createInsertSchema(s.authorMain)
 export type CreateArtistSchemaTypes = z.infer<typeof CreateArtistSchema>
+export type PutArtistSchemaTypes = z.infer<typeof PutArtistSchema>
