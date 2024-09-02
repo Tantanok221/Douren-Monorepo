@@ -12,16 +12,14 @@ import { initDB, s } from "@repo/database/db";
 import { authorMain } from "../../../../../packages/database/src/db/schema";
 import { createPaginationObject } from "../../helper/createPaginationObject";
 import { processTagConditions } from "../../helper/processTagConditions";
+import { trimTrailingSlash } from "hono/trailing-slash";
 
-const GETEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-GETEventRoute.use(logger());
+const GetEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
+GetEventRoute.use(logger());
+GetEventRoute.use(trimTrailingSlash())
 
-GETEventRoute.get("/", (c) => {
-  console.log("GET /");
-  return c.text("Hello, World!");
-});
 
-GETEventRoute.get("/:eventId/artist", async (c) => {
+GetEventRoute.get("/:eventId/artist", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
   const { eventId } = c.req.param();
   const db = initDB(c.env.DATABASE_URL!);
@@ -79,4 +77,4 @@ GETEventRoute.get("/:eventId/artist", async (c) => {
   return c.json(returnObj);
 });
 
-export default GETEventRoute;
+export default GetEventRoute;

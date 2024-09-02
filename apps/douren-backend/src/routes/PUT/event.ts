@@ -7,8 +7,13 @@ import {
 } from "../../schema/event.zod";
 import { initDB, s } from "@repo/database/db";
 import {  eq } from "drizzle-orm";
+import { trimTrailingSlash } from "hono/trailing-slash";
+import { logger } from "hono/logger";
 
 const PutEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
+PutEventRoute.use(logger())
+PutEventRoute.use(trimTrailingSlash())
+
 
 PutEventRoute.put(
   "/artist",

@@ -11,11 +11,12 @@ import {
 } from "../../helper/constant";
 import { createPaginationObject } from "../../helper/createPaginationObject";
 import { processTagConditions } from "../../helper/processTagConditions";
+import { trimTrailingSlash } from "hono/trailing-slash";
 
-const GETArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
-GETArtistRoutes.use(logger());
-
-GETArtistRoutes.get("/", async (c) => {
+const GetArtistRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
+GetArtistRoute.use(logger());
+GetArtistRoute.use(trimTrailingSlash());
+GetArtistRoute.get("/", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
   const db = initDB(c.env.DATABASE_URL!);
   const table = processTableName(sort.split(",")[0]);
@@ -63,4 +64,4 @@ GETArtistRoutes.get("/", async (c) => {
   return c.json(returnObj);
 });
 
-export default GETArtistRoutes;
+export default GetArtistRoute;

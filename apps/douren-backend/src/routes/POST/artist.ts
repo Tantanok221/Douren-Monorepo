@@ -8,9 +8,12 @@ import {
 import { zValidator } from "@hono/zod-validator";
 import { initDB, s } from "@repo/database/db";
 import { count, desc, eq } from 'drizzle-orm';
+import { trimTrailingSlash } from "hono/trailing-slash";
+import { logger } from "hono/logger";
 
 const PostArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
-
+PostArtistRoutes.use(logger())
+PostArtistRoutes.use(trimTrailingSlash())
 PostArtistRoutes.post(
   "/",
   zValidator("json", CreateArtistSchema),
