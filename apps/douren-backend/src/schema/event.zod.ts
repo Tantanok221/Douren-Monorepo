@@ -7,6 +7,8 @@ export const CreateEventArtistSchema = createInsertSchema(s.eventDm, {
 })
 
 export const PutEventArtistSchema = createInsertSchema(s.eventDm)
-
+export const CreateEventSchema = createInsertSchema(s.event,{
+  id: (schema) => schema.id.optional(),
+})
 export type CreateEventArtistSchemaTypes = z.infer<typeof CreateEventArtistSchema>
 export type PutEventArtistSchemaTypes = z.infer<typeof PutEventArtistSchema>
