@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS "Author_Main" (
 	"Facebook_link" text,
 	"Instagram_link" text,
 	"Pixiv_link" text,
-	"Booth_name" text,
 	"Tags" text,
 	"Introduction" text,
 	"Photo" text,
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "Event" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Event_DM" (
-	"uuid" integer PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"uuid" integer PRIMARY KEY NOT NULL,
 	"Location_Day01" text,
 	"Location_Day02" text,
 	"Location_Day03" text,

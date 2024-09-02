@@ -1,1 +1,0 @@
-ALTER TABLE "Author_Main" DROP COLUMN IF EXISTS "Booth_name";

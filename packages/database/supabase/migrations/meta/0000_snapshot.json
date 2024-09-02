@@ -1,5 +1,5 @@
 {
-  "id": "c073c760-9d04-419b-b589-6800dae1547f",
+  "id": "1697609d-90ba-4b99-9575-8427e75d6bb5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -65,12 +65,6 @@
         },
         "Pixiv_link": {
           "name": "Pixiv_link",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "Booth_name": {
-          "name": "Booth_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -252,8 +246,7 @@
           "name": "uuid",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "Location_Day01": {
           "name": "Location_Day01",
