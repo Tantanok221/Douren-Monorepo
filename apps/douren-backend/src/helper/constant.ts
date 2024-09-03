@@ -4,7 +4,8 @@ import { sql } from "drizzle-orm";
 export const PAGE_SIZE = 40;
 
 export type ENV_VARIABLE = {
-  DATABASE_URL: string;
+  DATABASE_URL: string
+  REDIS_TOKEN: string
 };
 
 export const FETCH_ARTIST_BASE_OBJECT = {
