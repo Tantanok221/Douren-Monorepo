@@ -13,6 +13,7 @@ import { authorMain } from "../../../../../packages/database/src/db/schema";
 import { createPaginationObject } from "../../helper/createPaginationObject";
 import { processTagConditions } from "../../helper/processTagConditions";
 import { trimTrailingSlash } from "hono/trailing-slash";
+import { cacheJsonResults, initRedis } from "../../db/redis";
 
 const GetEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
 GetEventRoute.use(logger());
@@ -24,9 +25,16 @@ GetEventRoute.get("/:eventId/artist", async (c) => {
   const { eventId } = c.req.param();
   const db = initDB(c.env.DATABASE_URL!);
   const table = processTableName(sort.split(",")[0]);
+  const redis = initRedis(c.env.REDIS_TOKEN);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
   const tagConditions = processTagConditions(tag);
+  const redisKey = `get_eventArtist${eventId}_${page}_${search}_${tag}_${sort}_${searchtable}`;
+  const redisData = await redis.json.get(redisKey,{},"$");
+  if (redisData) {
+    console.log("redis cache hit")
+    return c.json(redisData);
+  }
   let query = db
     .select(FETCH_EVENT_ARTIST_OBJECT)
     .from(s.eventDm)
@@ -73,7 +81,8 @@ GetEventRoute.get("/:eventId/artist", async (c) => {
     PAGE_SIZE,
     counts.totalCount
   );
-  console.log(data.length);
+  console.log("Setting redis cache")
+  await cacheJsonResults(redis, redisKey, returnObj);
   return c.json(returnObj);
 });
 

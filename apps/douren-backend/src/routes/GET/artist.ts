@@ -12,17 +12,26 @@ import {
 import { createPaginationObject } from "../../helper/createPaginationObject";
 import { processTagConditions } from "../../helper/processTagConditions";
 import { trimTrailingSlash } from "hono/trailing-slash";
+import { cacheJsonResults, initRedis } from "../../db/redis";
+import { Redis } from "@upstash/redis";
 
 const GetArtistRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
 GetArtistRoute.use(logger());
 GetArtistRoute.use(trimTrailingSlash());
 GetArtistRoute.get("/", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
-  const db = initDB(c.env.DATABASE_URL!);
+  const redis = initRedis(c.env.REDIS_TOKEN);
   const table = processTableName(sort.split(",")[0]);
   const sortBy = sort.split(",")[1] === "asc" ? asc : desc;
   const searchTable = processTableName(searchtable);
   const tagConditions = processTagConditions(tag);
+  const redisKey = `get_artist_${page}_${search}_${tag}_${sort}_${searchtable}`;
+  const redisData = await redis.json.get(redisKey,{},"$");
+  if (redisData) {
+    console.log("redis cache hit")
+    return c.json(redisData);
+  }
+  const db = initDB(c.env.DATABASE_URL!);
   let query = db
     .select(FETCH_ARTIST_OBJECT)
     .from(s.authorMain)
@@ -53,15 +62,21 @@ GetArtistRoute.get("/", async (c) => {
   }
 
   // TODO: Need to change front end to use, to split
-  const data = await SelectQuery.query;
-  const [counts] = await CountQuery.query;
+  const [data, [counts]] = await Promise.all([
+    SelectQuery.query,
+    CountQuery.query,
+  ]);
   const returnObj = createPaginationObject(
     data,
     Number(page),
     PAGE_SIZE,
     counts.totalCount
   );
-  return c.json(returnObj);
+  console.log("Setting redis cache")
+  await cacheJsonResults(redis, redisKey, returnObj);
+  return  c.json(returnObj);
 });
+
+
 
 export default GetArtistRoute;
