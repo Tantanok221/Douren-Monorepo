@@ -14,3 +14,11 @@ There are currently one package that are in this monorepo
    
 There are a config in this repo   
 [Typescript Config](https://github.com/Tantanok221/Douren-Monorepo/tree/main/packages/typescript-config)   
+
+### Development setup 
+For setting up environment variable
+```
+npx dotenv-vault login
+npx dotenv-vault pull
+make all
+```
