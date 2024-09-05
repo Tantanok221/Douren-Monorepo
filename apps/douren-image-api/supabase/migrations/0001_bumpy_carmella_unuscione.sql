@@ -1,1 +1,0 @@
-ALTER TABLE "Event_Dm" ALTER COLUMN "uuid" SET DATA TYPE bigserial;

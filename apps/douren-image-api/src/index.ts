@@ -1,14 +1,14 @@
 import { Context, Hono } from "hono";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
-import { eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { postCloudflareImage } from "./utils/cloudflare";
 import { initDB, s } from "@repo/database/db";
 type Bindings = {
   DATABASE_URL: string;
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
-  AUTH_TOKEN: string;
+  DOUREN_IMAGE_AUTH_TOKEN: string;
 };
 
 const app = new Hono<{
@@ -19,7 +19,7 @@ app.use("*", cors());
 app.use("*", logger());
 app.use("*",async (c,next) => {
   const token = c.req.header("Authorization")
-  if(token != c.env.AUTH_TOKEN){
+  if(token != c.env.DOUREN_IMAGE_AUTH_TOKEN){
     await next()
   }
   return c.json("Invalid Authorization Token",403)
@@ -132,9 +132,16 @@ app.post("/dm/:artistId/:eventName", async (c) => {
       .set({ dm: imageLink, eventId: id })
       .returning({insertedId: s.eventDm.uuid});
   } else {
+    const [counts] = await db
+      .select({ count: s.eventDm.uuid })
+      .from(s.eventDm)
+      .orderBy(desc(s.eventDm.uuid))
+      .limit(1);
+ 
     returnResponse = await db
       .insert(s.eventDm)
       .values({
+        uuid: counts.count + 1,
         eventId: Number(id),
         artistId: Number(artistId),
         dm: imageLink,
