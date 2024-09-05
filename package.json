@@ -13,7 +13,9 @@
     "db:introspect": "turbo db:introspect",
     "db:push": "turbo db:push",
     "cron-test": "turbo cron-test",
-    "devbe": "turbo dev:backend"
+    "devbe": "turbo dev:backend",
+    "onboard": "npx dotenv-vault login && npx dotenv-vault pull && make all",
+    "env:push": "npx dotenv-vault push"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",

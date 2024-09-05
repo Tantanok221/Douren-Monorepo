@@ -18,7 +18,5 @@ There are a config in this repo
 ### Development setup 
 For setting up environment variable
 ```
-npx dotenv-vault login
-npx dotenv-vault pull
-make all
+npm run onboard
 ```
