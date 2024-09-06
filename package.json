@@ -15,7 +15,7 @@
     "cron-test": "turbo cron-test",
     "devbe": "turbo dev:backend",
     "onboard": "npx dotenv-vault login && npx dotenv-vault pull && make all",
-    "env:push": "npx dotenv-vault push"
+    "env:sync": "npx dotenv-vault push && make all"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",

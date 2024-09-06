@@ -6,6 +6,10 @@ export const PAGE_SIZE = 40;
 export type ENV_VARIABLE = {
   DATABASE_URL: string
   REDIS_TOKEN: string
+  CLERK_PUBLISHABLE_KEY: string
+  CLERK_SECRET_KEY: string
+  ADMIN_USER_ID: string
+  DEV_ENV: "dev" | "production"
 };
 
 export const FETCH_ARTIST_BASE_OBJECT = {

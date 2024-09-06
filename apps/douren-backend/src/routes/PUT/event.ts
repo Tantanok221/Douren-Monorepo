@@ -7,18 +7,18 @@ import {
 } from "../../schema/event.zod";
 import { initDB, s } from "@repo/database/db";
 import {  eq } from "drizzle-orm";
-import { trimTrailingSlash } from "hono/trailing-slash";
-import { logger } from "hono/logger";
+import { getAuth } from "@hono/clerk-auth";
 
 const PutEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-PutEventRoute.use(logger())
-PutEventRoute.use(trimTrailingSlash())
-
 
 PutEventRoute.put(
   "/artist",
   zValidator("json", PutEventArtistSchema),
   async (c) => {
+    const auth = getAuth(c)
+    if(auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production"){
+      return c.json({message:"You are not authorized to create artist"},401)
+    }
     const body: PutEventArtistSchemaTypes = await c.req.json();
     const db = initDB(c.env.DATABASE_URL!);
     const returnResponse = await db

@@ -8,17 +8,18 @@ import {
 } from "../../schema/event.zod";
 import { initDB, s } from "@repo/database/db";
 import { desc } from "drizzle-orm";
-import { trimTrailingSlash } from "hono/trailing-slash";
-import { logger } from "hono/logger";
+import { getAuth } from "@hono/clerk-auth";
 
 const PostEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-PostEventRoute.use(logger())
-PostEventRoute.use(trimTrailingSlash());
 PostEventRoute.post(
   "/artist",
   zValidator("json", CreateEventArtistSchema),
   async (c) => {
     // infer as PutEventArtistSchemaTypes to ignore type error mean while getting automatic type from zod
+    const auth = getAuth(c)
+    if(auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production"){
+      return c.json({message:"You are not authorized to create artist"},401)
+    }
     const body: PutEventArtistSchemaTypes = await c.req.json();
     const db = initDB(c.env.DATABASE_URL!);
     const [counts] = await db
@@ -42,6 +43,10 @@ PostEventRoute.post(
   "/",
   zValidator("json", CreateEventSchema),
   async (c) => {
+    const auth = getAuth(c)
+    if(auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production"){
+      return c.json({message:"You are not authorized to create artist"},401)
+    }
     const body = await c.req.json();
     const db = initDB(c.env.DATABASE_URL!);
     const [counts] = await db

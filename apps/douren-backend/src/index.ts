@@ -10,8 +10,13 @@ import PostEventRoutes from "./routes/POST/event";
 import PutEventRoute from "./routes/PUT/event";
 import DeleteArtistRoute from "./routes/DELETE/artist";
 import DeleteEventRoute from "./routes/DELETE/event";
+import { clerkMiddleware } from "@hono/clerk-auth";
+import { trimTrailingSlash } from "hono/trailing-slash";
 
 const app = new Hono<{ Bindings: ENV_VARIABLE }>();
+app.use("*",clerkMiddleware())
+app.use("*",logger())
+app.use("*",trimTrailingSlash())
 app.route("/event", GetEventRoutes);
 app.route("/event", PostEventRoutes);
 app.route("/event", PutEventRoute);
