@@ -4,7 +4,15 @@
     "dev": "wrangler dev src/index.ts --port 2000",
     "dev:backend": "wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts",
-    "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000"
+    "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
+    "build": "tsc",
+    "build:pkg": "tsc"
+  },
+  "exports": {
+    "./api": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "@clerk/backend": "^1.9.2",

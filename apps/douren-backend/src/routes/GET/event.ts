@@ -9,7 +9,6 @@ import {
   PAGE_SIZE,
 } from "../../helper/constant";
 import { initDB, s } from "@repo/database/db";
-import { authorMain } from "../../../../../packages/database/src/db/schema";
 import { createPaginationObject } from "../../helper/createPaginationObject";
 import { processTagConditions } from "../../helper/processTagConditions";
 import { trimTrailingSlash } from "hono/trailing-slash";
@@ -43,7 +42,7 @@ GetEventRoute.get("/:eventId/artist", async (c) => {
     .leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
     .groupBy(
       s.eventDm.boothName,
-      authorMain.uuid,
+      s.authorMain.uuid,
       s.eventDm.locationDay01,
       s.eventDm.locationDay02,
       s.eventDm.locationDay03,

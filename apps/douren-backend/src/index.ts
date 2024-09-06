@@ -14,17 +14,21 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 import { trimTrailingSlash } from "hono/trailing-slash";
 
 const app = new Hono<{ Bindings: ENV_VARIABLE }>();
-app.use("*",clerkMiddleware())
-app.use("*",logger())
-app.use("*",trimTrailingSlash())
-app.route("/event", GetEventRoutes);
-app.route("/event", PostEventRoutes);
-app.route("/event", PutEventRoute);
-app.route("/event", DeleteEventRoute);
-app.route("/artist", GetArtistRoutes);
-app.route("/artist", PostArtistRoutes);
-app.route("/artist", PutArtistRoutes);
-app.route("/artist", DeleteArtistRoute);
+app.use("*", clerkMiddleware());
+app.use("*", logger());
+app.use("*", trimTrailingSlash());
+const routes = app
+  .route("/event", GetEventRoutes)
+  .route("/event", PostEventRoutes)
+  .route("/event", PutEventRoute)
+  .route("/event", DeleteEventRoute)
+  .route("/artist", GetArtistRoutes)
+  .route("/artist", PostArtistRoutes)
+  .route("/artist", PutArtistRoutes)
+  .route("/artist", DeleteArtistRoute);
+
+export type DourenBackend = typeof routes;
+
 export default {
   /** this part manages cronjobs */
   scheduled(
