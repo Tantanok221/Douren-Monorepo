@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -13,7 +13,7 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
   
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/fe"
     schedule:
       interval: "weekly"
@@ -21,7 +21,7 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/be"
     schedule:
       interval: "weekly"
@@ -29,7 +29,7 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/pkg"
     schedule:
       interval: "weekly"
