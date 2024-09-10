@@ -2,24 +2,21 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
+   "build": {
+      "cache": false,
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", ".dev.vars"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
     },
     "deploy": {
       "dependsOn": ["^build"],
       "persistent": true,
       "cache": false
     },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
     "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "dev:backend": {
       "cache": false,
       "persistent": true
     },
@@ -38,13 +35,6 @@
     "db:push": {
       "cache": false,
       "persistent": true
-    },
-    "build:pkg": {
-      "cache": false,
-      "persistent": true
-    },
-    "cron-test":{
-      "cache": false
     }
   }
 }

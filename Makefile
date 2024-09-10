@@ -1,40 +1,51 @@
-# Makefile to copy .env to subdirectories as .dotenv and .dev.vars
-
+# Detect the operating system
 ifeq ($(OS),Windows_NT)
-    SHELL := cmd.exe
-    COPY_CMD := call copy_env.bat
-    CLEAN_CMD := call clean_env.bat
+    detected_OS := Windows
 else
-    COPY_CMD := for dir in apps/*/; do \
-        cp .env "$$dir.env"; \
-        echo "Copied .env to $$dir.env"; \
-        cp .env "$$dir.dev.vars"; \
-        echo "Copied .env to $$dir.dev.vars"; \
-    done
-    CLEAN_CMD := find apps -name ".env" -type f -delete && find apps -name ".dev.vars" -type f -delete
+    detected_OS := $(shell uname -s)
 endif
 
-# Default target
+# Python executable
+PYTHON := python
 all: copy-env
+.PHONY: copy-env
 
-# Check if .env exists
-check-env:
-ifeq ($(OS),Windows_NT)
-	@if not exist .env (echo Error: .env file not found in the root directory & exit 1)
+create-vault:
+	npx dotenv-vault new
+	npx dotenv-vault login
+	npx dotenv-vault push
+	
+copy-env:
+	@echo "Detected OS: $(detected_OS)"
+ifeq ($(detected_OS),Windows)
+	@echo "Running Windows batch file..."
+	@cmd /c copy_env.bat
 else
-	@if [ ! -f ".env" ]; then echo "Error: .env file not found in the root directory"; exit 1; fi
+	@echo "Merging and copying environment files..."
+	# Merge base .env with .env.be into backend directories, but don't modify .env
+	@for dir in be/*; do \
+		if [ -d "$$dir" ]; then \
+			$(PYTHON) merge_env.py .env .env.be "$$dir/.env"; \
+			$(PYTHON) merge_env.py .env .env.be "$$dir/.dev.vars"; \
+		fi; \
+	done
+	# Merge base .env with .env.fe into frontend directories, but don't modify .env
+	@for dir in fe/*; do \
+		if [ -d "$$dir" ]; then \
+			$(PYTHON) merge_env.py .env .env.fe "$$dir/.env"; \
+		fi; \
+	done
+	# Only copy .env to pkg directories (do not merge or modify it)
+	@for dir in pkg/*; do \
+		if [ -d "$$dir" ]; then \
+			cp .env "$$dir/.env"; \
+		fi; \
+	done
+	# Generate TypeScript interfaces, but don't modify .env
+	@$(PYTHON) merge_env.py .env .env.be .env.temp generate_ts
+	@rm -f .env.temp
+	npx turbo build --filter="./pkg/env"
+	pnpm install
+	@echo "Environment files merged and copied successfully."
+	@echo "TypeScript constants file generated in pkg/env/src/index.ts"
 endif
-
-# Copy .env to subdirectories
-copy-env: check-env
-	@echo Copying files...
-	@$(COPY_CMD)
-	@echo Copying process completed
-
-# Clean up (remove all .dotenv and .dev.vars files)
-clean:
-	@echo Cleaning up...
-	@$(CLEAN_CMD)
-	@echo Cleaned up .dotenv and .dev.vars files
-
-.PHONY: all check-env copy-env clean

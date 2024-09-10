@@ -1,7 +1,38 @@
 @echo off
-for /D %%d in (apps\*) do (
-    copy /Y .env "%%d\.env"
-    echo Copied .env to %%d\.env
-    copy /Y .env "%%d\.dev.vars"
-    echo Copied .env to %%d\.dev.vars
+setlocal enabledelayedexpansion
+
+echo Detected OS: Windows
+echo Running Windows batch file...
+
+:: Merge base .env with .env.be into backend directories
+for /d %%d in (be\*) do (
+    if exist "%%d" (
+        python merge_env.py .env .env.be "%%d\.env"
+        python merge_env.py .env .env.be "%%d\.dev.vars"
+    )
 )
+
+:: Merge base .env with .env.fe into frontend directories
+for /d %%d in (fe\*) do (
+    if exist "%%d" (
+        python merge_env.py .env .env.fe "%%d\.env"
+    )
+)
+
+:: Copy .env to pkg directories
+for /d %%d in (pkg\*) do (
+    if exist "%%d" (
+        copy /Y .env "%%d\.env"
+    )
+)
+
+:: Generate TypeScript interfaces
+python merge_env.py .env .env.be .env.temp generate_ts
+if exist .env.temp del .env.temp
+
+:: Run turbo build and pnpm install
+call npx turbo build --filter="./pkg/env"
+call pnpm install
+
+echo Environment files merged and copied successfully.
+echo TypeScript constants file generated in pkg/env/src/index.ts

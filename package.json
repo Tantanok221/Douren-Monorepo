@@ -2,20 +2,22 @@
   "name": "douren-monorepo",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+   "build": "turbo build",
+    "pkg": "turbo build --filter=./pkg/* && pnpm install",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "deploy": "turbo deploy",
-    "pkg": "turbo build:pkg && npm install",
+    "devbe": "turbo dev --filter=./be/*",
+    "devfe": "turbo dev --filter=./fe/*",
+    "devpkg": "turbo dev --filter=./pkg/*",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
     "db:introspect": "turbo db:introspect",
     "db:push": "turbo db:push",
-    "cron-test": "turbo cron-test",
-    "devbe": "turbo dev:backend",
-    "onboard": "npx dotenv-vault login && npx dotenv-vault pull && make all",
-    "env:sync": "npx dotenv-vault push && make all"
+    "lint": "turbo lint",
+    "env:sync": "npx dotenv-vault pull development .env && npx dotenv-vault pull development .env.fe npx dotenv-vault pull development .env.be && make copy-env",
+    "env:push": "npx dotenv-vault push development .env && npx dotenv-vault push development .env.fe && npx dotenv-vault push development .env.be && make copy-env",
+    "env:new": "npx dotenv-vault new &&  touch .env && touch .env.fe && touch .env.be && npm run env:push",
+    "env:login": "npx dotenv-vault login"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
@@ -26,9 +28,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@9.8.1",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "packageManager": "pnpm@8.15.6"
 }

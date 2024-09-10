@@ -1,0 +1,43 @@
+{
+  "name": "@pkg/database",
+  "type": "module",
+  "packageManager": "pnpm@8.15.6",
+  "scripts": {
+    "build": "pnpm run codegen && rimraf dist && node build.js",
+    "build:pkg": "pnpm run codegen && rimraf dist && node build.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
+    "db:push": "drizzle-kit push",
+    "codegen": "rimraf src/zod && node generateZodSchema.js"
+  },
+  "exports": {
+    "./db": {
+      "types": "./src/db/index.ts",
+      "default": "./dist/db/index.js"
+    },
+    "./helper": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./zod": {
+      "types": "./src/zod/index.ts",
+      "default": "./dist/zod/index.js"
+    }
+  },
+  "devDependencies": {
+    "@pkg/typescript-config": "workspace:*",
+    "drizzle-kit": "^0.24.2",
+    "esbuild": "^0.23.1",
+    "esbuild-plugin-tsc": "^0.4.0",
+    "rimraf": "^6.0.1",
+    "ts-morph": "^23.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
+    "drizzle-zod": "^0.5.1",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.8"
+  }
+}
