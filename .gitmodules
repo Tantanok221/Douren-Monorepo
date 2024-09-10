@@ -1,0 +1,4 @@
+[submodule "thor-template"]
+	path = turbo/generators
+	url = https://github.com/Tantanok221/Thor-Template.git
+	branch = main
