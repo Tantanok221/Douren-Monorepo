@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSearch } from "../../../stores/useSearch";
 import { useNextPageAvailable } from "../../../stores/useNextPageAvailable";
-import { useLoaderData } from "react-router";
+import { useLoaderData } from "react-router-dom";
 import { useTagFilter } from "../../../stores/useTagFilter";
 import { useSort } from "../../../stores/useSort";
 import { useEventIDQuery } from "../../../hooks/useEventIDQuery";
