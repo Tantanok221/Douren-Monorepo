@@ -9,9 +9,8 @@ import { zValidator } from "@hono/zod-validator";
 import { initDB, s } from "@pkg/database/db";
 import { count, desc, eq } from "drizzle-orm";
 import { getAuth } from "@hono/clerk-auth";
-const PostArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
-
-PostArtistRoutes.post(
+const PostArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>()
+.post(
   "/",
   zValidator("json", CreateArtistSchema),
   async (c) => {

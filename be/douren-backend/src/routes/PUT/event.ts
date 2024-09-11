@@ -9,9 +9,7 @@ import { initDB, s } from "@pkg/database/db";
 import { eq } from "drizzle-orm";
 import { getAuth } from "@hono/clerk-auth";
 
-const PutEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-
-PutEventRoute.put(
+const PutEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>().put(
   "/artist",
   zValidator("json", PutEventArtistSchema),
   async (c) => {

@@ -26,7 +26,7 @@ const routes = app
   .route("/artist", PostArtistRoutes)
   .route("/artist", PutArtistRoutes)
   .route("/artist", DeleteArtistRoute);
-
+app.use("/trpc/*", trpcServer)
 export type DourenBackend = typeof routes;
 
 export default {
