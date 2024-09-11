@@ -10,11 +10,8 @@ import { initDB, s } from "@pkg/database/db";
 import { desc } from "drizzle-orm";
 import { getAuth } from "@hono/clerk-auth";
 
-const PostEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-PostEventRoute.post(
-  "/artist",
-  zValidator("json", CreateEventArtistSchema),
-  async (c) => {
+const PostEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>()
+  .post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
     // infer as PutEventArtistSchemaTypes to ignore type error mean while getting automatic type from zod
     const auth = getAuth(c);
     if (auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production") {
@@ -39,30 +36,31 @@ PostEventRoute.post(
       .onConflictDoNothing({ target: s.eventDm.uuid })
       .returning();
     return c.json(returnResponse, 201);
-  }
-);
-
-PostEventRoute.post("/", zValidator("json", CreateEventSchema), async (c) => {
-  const auth = getAuth(c);
-  if (auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production") {
-    return c.json({ message: "You are not authorized to create artist" }, 401);
-  }
-  const body = await c.req.json();
-  const db = initDB();
-  const [counts] = await db
-    .select({ count: s.event.id })
-    .from(s.event)
-    .orderBy(desc(s.event.id))
-    .limit(1);
-  if (!body.id) {
-    body.id = counts.count + 1;
-  }
-  const returnResponse = await db
-    .insert(s.event)
-    .values(body)
-    .onConflictDoNothing({ target: s.event.id })
-    .returning();
-  return c.json(returnResponse, 201);
-});
+  })
+  .post("/", zValidator("json", CreateEventSchema), async (c) => {
+    const auth = getAuth(c);
+    if (auth?.userId != c.env.ADMIN_USER_ID && c.env.DEV_ENV == "production") {
+      return c.json(
+        { message: "You are not authorized to create artist" },
+        401
+      );
+    }
+    const body = await c.req.json();
+    const db = initDB();
+    const [counts] = await db
+      .select({ count: s.event.id })
+      .from(s.event)
+      .orderBy(desc(s.event.id))
+      .limit(1);
+    if (!body.id) {
+      body.id = counts.count + 1;
+    }
+    const returnResponse = await db
+      .insert(s.event)
+      .values(body)
+      .onConflictDoNothing({ target: s.event.id })
+      .returning();
+    return c.json(returnResponse, 201);
+  });
 
 export default PostEventRoute;

@@ -1,11 +1,13 @@
 {
   "name": "@pkg/env",
   "type": "module",
+  
+  "version": "0.0.1",
   "packageManager": "pnpm@8.15.6",
   "scripts": {
     "build": "tsc",
     "build:pkg": "tsc"
-   },
+  },
   "exports": {
     "./constant": {
       "types": "./src/index.ts",
@@ -13,7 +15,6 @@
     }
   },
   "devDependencies": {
-    "@pkg/typescript-config": "workspace:*"
+    "@pkg/typescript-config": "*"
   }
-
 }

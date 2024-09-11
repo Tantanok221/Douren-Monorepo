@@ -6,9 +6,7 @@ import { zValidator } from "@hono/zod-validator";
 import { ENV_VARIABLE } from "../../helper/constant";
 import { getAuth } from "@hono/clerk-auth";
 
-const PutArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>();
-
-PutArtistRoutes.put(
+const PutArtistRoutes = new Hono<{ Bindings: ENV_VARIABLE }>().put(
   "/:artistId",
   zValidator("json", PutArtistSchema),
   async (c) => {

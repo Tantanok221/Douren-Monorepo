@@ -14,11 +14,8 @@ import { processTagConditions } from "../../helper/processTagConditions";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import { cacheJsonResults, initRedis } from "../../db/redis";
 
-const GetEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>();
-GetEventRoute.use(logger());
-GetEventRoute.use(trimTrailingSlash());
-
-GetEventRoute.get("/:eventId/artist", async (c) => {
+const GetEventRoute = new Hono<{ Bindings: ENV_VARIABLE }>()
+.get("/:eventId/artist", async (c) => {
   const { page, search, tag, sort, searchtable } = c.req.query();
   const { eventId } = c.req.param();
   const db = initDB();

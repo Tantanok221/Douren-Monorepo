@@ -49,3 +49,10 @@ else
 	@echo "Environment files merged and copied successfully."
 	@echo "TypeScript constants file generated in pkg/env/src/index.ts"
 endif
+
+# Help target
+.PHONY: help
+help:
+	@echo "Available targets:"
+	@echo "  help  - Show this help message"
+	@echo "  copy-env - Copy environment files to backend, frontend, and package directories"
