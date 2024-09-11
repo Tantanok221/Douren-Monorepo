@@ -1,6 +1,7 @@
 {
   "name": "@pkg/database",
   "type": "module",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.15.6",
   "scripts": {
     "build": "pnpm run codegen && rimraf dist && node build.js",
@@ -26,7 +27,7 @@
     }
   },
   "devDependencies": {
-    "@pkg/typescript-config": "workspace:*",
+    "@pkg/typescript-config": "*",
     "drizzle-kit": "^0.24.2",
     "esbuild": "^0.23.1",
     "esbuild-plugin-tsc": "^0.4.0",
