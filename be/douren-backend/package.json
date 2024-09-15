@@ -28,6 +28,6 @@
     "@pkg/typescript-config": "*",
     "@cloudflare/workers-types": "^4.20240529.0",
     "typescript": "^5.4.5",
-    "wrangler": "^3.57.2"
+    "wrangler": "^3.57.1"
   }
 }
