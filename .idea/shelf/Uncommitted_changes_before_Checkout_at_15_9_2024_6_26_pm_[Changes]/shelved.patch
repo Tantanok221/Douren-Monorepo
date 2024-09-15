@@ -1,0 +1,188 @@
+Index: .env.vault
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#/-------------------.env.vault---------------------/\r\n#/         cloud-agnostic vaulting standard         /\r\n#/   [how it works](https://dotenv.org/env-vault)   /\r\n#/--------------------------------------------------/\r\n\r\n# ci\r\nDOTENV_VAULT_CI=\"eKiadch0qMnMbkxCUFMORk2LoIYUeieQLw8Il+fIVdIebBNDn+RaP3n94hAzqlEuf10iMWMEWP5gNfF8nNeyCUGweG6SezhHarzWmTqicp7jErUqrrdLjZLFLvcl5rHiud3S4ch1glGGE8uSR9UGT7PD+NXn6mBJSWSUfHK1xQDeDvAWfwlSJp4EncrT0yNpGi+DARFSXaSsrIzUhjj2kfEsVQhQOFhxVeLu4e+04cog9AgR10hFkCwx2hKDBUxa9NlD+QnH2lSotZIAzmOUlfXmIctYVDt1iecJ9Pult2xO+PEp2VD3yyB2bmHHHZ0bDdlrRdeotHvaeC8FLt7AH4eJWzfx92IC6VVNHjgTcuTaMJX9YNj96MATj7E2Vg4XbkzTRYcP+o8WQzJNEu95BcwzykGyQV3L6JShsqlKc2wjqhPq9qyBQUx6V/kvwkZ6O+Ac895+wErco6QI0+0chkInIHHTq67lfi0OTlGv/zoCxifOYvZXnSR2pA==\"\r\nDOTENV_VAULT_CI_VERSION=9\r\n\r\n# staging\r\nDOTENV_VAULT_STAGING=\"1w4ZcyjRN/yuXABkSx57YFALTj49Raa5AbAqkK515fPTszjMggmUuZOFPgBlYZ7bQSa7e3OWBCtrymPfGKQK2tF0gtz9O+yZ+Qr0dOAIzaU0nKukaXJMIURmujgmkSo0BNLtSWAl+jOSV2y5L90qQTrZcDpcGYvpajI7V0cG1MLM5Tn/I5q11TKoAAkjMKwBg5NgDQCsGslFeDe2jrUpqWoGK72rfFhWHSqGeGtgYNADqHlLPugmZWW/utork7HhP1xEBKA9t3h20CZDrXvCSs8uJMZqdgZc8N2djye4BslhzX4RO28ayEn+e5tTjvv0iJo6xuxkUdVF8j4/olmSnCgP9m0LB0jn0RNWEWNXWCqOpqYLj1PovFkir+uxvXOo8kqwrOMUXdvaxL2Em9IiZei1k7ByvIPTuNyHUoO/liEPgY6hlN1SQGBmmYUidnVNIRBTtIm8v9c2DkPrfZoyACu+UwkCF/2NafWZdISQghBzDncO87Cu508U1w==\"\r\nDOTENV_VAULT_STAGING_VERSION=9\r\n\r\n# production\r\nDOTENV_VAULT_PRODUCTION=\"B8xSOC7Iw+YrYq7d8OV8lfKNiZOnvg3VhsCO/jV46Z0JZP4T86tdNegJe5gispgGodelREGsDD4HP7kjuzM/CWN0Xgw4Rpj4i6rf36W5ujmw5hKN0doDdo03+Lxw9LKvkCOXuBMREVYqb3w7od08jGHTA54BGi7It+ORRuRHR5CgHNEraajmwGvgWKUFU7IRBrxz2DM2lMjWrbfSNlfuxG0SZ+jw+i9pEiVf1bxBIx3mD7tVwjgVcWyd9aB4qc++ako+OtGqalkqpCShyJ1dznpwLL7e4Q2Zh3X1TOXh+QCVGOnL8fqz+WnLr+qszakFhz45K3vkmyakjxD0p1gcEipQc4JBND/OcDMoulWNxioE6ayuEVnN1E58rfN3ADpKRSe5snEJ4TaeVLalxKWiv2dqb21L1ZrR1ODE6uiFym7i1FBsHLb7q9z9TTBE8tHInHosMYraiTVazn8oa846aBdqx2FHVSwaeZlPZFuusfiBP+2nPKB6vt5XmA==\"\r\nDOTENV_VAULT_PRODUCTION_VERSION=9\r\n\r\n# development\r\nDOTENV_VAULT_DEVELOPMENT=\"4FqQJGVlotUQrEK4EVprqd4rYRlkHJzYa3c8McxkGQzt4umuj33o+wcvpHVarB/fDMOJccMZknIeJOASsTGkkQB8m2i12h33c8fLK6mdDJNymo49ZLsqTTStLlySYeSertFbVWI4God63zXaZyeHG0SQt3i8DIemarTzc/v3D8o8n/R+g5nW93H6ce6KI/Q/lyZzC8Iwb8ALKF1jC1GMVXX+/aGZpVOFdgQ6/Vk3tIidAjbH1CsytRdVmODb4ksDt/o13oZ+ZMjIADk5on2aR5+XvXXpE9vwcNzu2VWWmeibdBNKN/MviRl+7hYfbd6nu3zJt4UzOGwSNY+FNkhsmIPYgbYBWVtHlYYDkDACt0O7xl2Hf1NgVxk2kg689hr6v1hsHyxmhoXNy3Dm3nMgBy987o0YNRpZNGofHc6vo4BLl6ohsMspeGWrcgcAeG5Is47EDcycohMVzYIEO5ihJfSsbUhj7YMvKiEB+dNStfA1XPWEn/w4O13DqYixEjPfuEIyXgs1Aicgzc6oKMAibYgvJHfSOaom8W092Xj13M6qLf5THXw62szHyTry/KM+XmgYaPSlwHEqN6nWSvE48Yc0GSNhp0Q=\"\r\nDOTENV_VAULT_DEVELOPMENT_VERSION=24\r\n\r\n#/----------------settings/metadata-----------------/\r\nDOTENV_VAULT=\"vlt_e28be9bfc1bb9fb8dd4b233c798bded13566c24aa05875ea029eeaaaf09f465f\"\r\nDOTENV_API_URL=\"https://vault.dotenv.org\"\r\nDOTENV_CLI=\"npx dotenv-vault@latest\"\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.env.vault b/.env.vault
+--- a/.env.vault	
++++ b/.env.vault	
+@@ -16,8 +16,8 @@
+ DOTENV_VAULT_PRODUCTION_VERSION=9
+ 
+ # development
+-DOTENV_VAULT_DEVELOPMENT="4FqQJGVlotUQrEK4EVprqd4rYRlkHJzYa3c8McxkGQzt4umuj33o+wcvpHVarB/fDMOJccMZknIeJOASsTGkkQB8m2i12h33c8fLK6mdDJNymo49ZLsqTTStLlySYeSertFbVWI4God63zXaZyeHG0SQt3i8DIemarTzc/v3D8o8n/R+g5nW93H6ce6KI/Q/lyZzC8Iwb8ALKF1jC1GMVXX+/aGZpVOFdgQ6/Vk3tIidAjbH1CsytRdVmODb4ksDt/o13oZ+ZMjIADk5on2aR5+XvXXpE9vwcNzu2VWWmeibdBNKN/MviRl+7hYfbd6nu3zJt4UzOGwSNY+FNkhsmIPYgbYBWVtHlYYDkDACt0O7xl2Hf1NgVxk2kg689hr6v1hsHyxmhoXNy3Dm3nMgBy987o0YNRpZNGofHc6vo4BLl6ohsMspeGWrcgcAeG5Is47EDcycohMVzYIEO5ihJfSsbUhj7YMvKiEB+dNStfA1XPWEn/w4O13DqYixEjPfuEIyXgs1Aicgzc6oKMAibYgvJHfSOaom8W092Xj13M6qLf5THXw62szHyTry/KM+XmgYaPSlwHEqN6nWSvE48Yc0GSNhp0Q="
+-DOTENV_VAULT_DEVELOPMENT_VERSION=24
++DOTENV_VAULT_DEVELOPMENT="FpEys9hnzy33ZOeCuriZIIoDWgJpoQnGnWQb66EwFjv6OMpN5DLGGOITSwPDV0iHrk5x90hYftuel54v5XHOySgR+cCsDzluiqhhMV5iojRMHO2ZkW/3UZbXDvW6fket4/gWUsfbwvQvWDc11+PbT7qQuSnJo6kzY+We8sgmu4PH80t1dh1OW2x2uHmMB0+0YUr3muLLzOYsJ+g3It0zgkmDqd54cVPcqXmpWhFan75SixNWsEgwbtHyK333HJUXiJToKlY1cbAeYx6Eio1VhRCLGYPWw5FDkCuMrdfDroIxewTcLxqnN46kdfq0TuIPpSE9QA9KZ8hkXNeb80XmbktizJap9eSfoDTjpbhjI3LX09Ey5guiPu+lY2c4x+Pn1k5T/3m3EQpNarImIo3wypfWudZI+LwSU7zzRjmihfDb4eD4Z7ZtQKtC1Awi9tEvIOkRKpTF+CqKSEfiw6n/LLnAeo/LZf+gez8/I/Ww3DVB/zfQiBhHrpQ9XmUND7frLCv/OJy3o64X+ajSXB80Y2D8CrdYG4MESKy6unFBJy1qDN1I9ZoUDoiVxGOo0a3VoZoSwKUzDiN8Tkq+s2bDHFgn0Va2L78="
++DOTENV_VAULT_DEVELOPMENT_VERSION=30
+ 
+ #/----------------settings/metadata-----------------/
+ DOTENV_VAULT="vlt_e28be9bfc1bb9fb8dd4b233c798bded13566c24aa05875ea029eeaaaf09f465f"
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"douren-monorepo\",\r\n  \"private\": true,\r\n  \"scripts\": {\r\n   \"build\": \"turbo build\",\r\n    \"pkg\": \"turbo build --filter=./pkg/* && npm install\",\r\n    \"dev\": \"turbo dev\",\r\n    \"deploy\": \"turbo deploy\",\r\n    \"devbe\": \"turbo dev --filter=./be/*\",\r\n    \"devfe\": \"turbo dev --filter=./fe/*\",\r\n    \"devpkg\": \"turbo dev --filter=./pkg/*\",\r\n    \"db:generate\": \"turbo db:generate\",\r\n    \"db:migrate\": \"turbo db:migrate\",\r\n    \"db:introspect\": \"turbo db:introspect\",\r\n    \"db:push\": \"turbo db:push\",\r\n    \"lint\": \"turbo lint\",\r\n    \"env:sync\": \" npx dotenv-vault pull development .env && npx dotenv-vault pull development .env.fe &&  npx dotenv-vault pull development .env.be && make copy-env\",\r\n    \"env:push\": \" npx dotenv-vault push development .env && npx dotenv-vault push development .env.fe &&  npx dotenv-vault push development .env.be && make copy-env\",\r\n    \"env:new\": \"npx dotenv-vault new &&  touch .env && touch .env.fe && touch .env.be && npm run env:push\",\r\n    \"env:login\": \"npx dotenv-vault login\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@types/node\": \"^22.5.1\",\r\n    \"prettier\": \"^3.3.3\",\r\n    \"turbo\": \"^2.1.0\",\r\n    \"typescript\": \"^5.4.5\"\r\n  },\r\n  \"engines\": {\r\n    \"node\": \">=22\"\r\n  },\r\n  \"workspaces\": [\r\n    \"fe/*\",\r\n    \"be/*\",\r\n    \"pkg/*\"\r\n  ],\r\n  \"packageManager\": \"npm@9.8.1\"\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package.json b/package.json
+--- a/package.json	
++++ b/package.json	
+@@ -14,8 +14,8 @@
+     "db:introspect": "turbo db:introspect",
+     "db:push": "turbo db:push",
+     "lint": "turbo lint",
+-    "env:sync": " npx dotenv-vault pull development .env && npx dotenv-vault pull development .env.fe &&  npx dotenv-vault pull development .env.be && make copy-env",
+-    "env:push": " npx dotenv-vault push development .env && npx dotenv-vault push development .env.fe &&  npx dotenv-vault push development .env.be && make copy-env",
++    "env:sync": "npx dotenv-vault pull development .env && npx dotenv-vault pull development .env.fe && npx dotenv-vault pull development .env.be && make copy-env",
++    "env:push": "npx dotenv-vault push development .env && npx dotenv-vault push development .env.fe && npx dotenv-vault push development .env.be && make copy-env",
+     "env:new": "npx dotenv-vault new &&  touch .env && touch .env.fe && touch .env.be && npm run env:push",
+     "env:login": "npx dotenv-vault login"
+   },
+Index: pkg/env/src/index.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// This file is auto-generated. Do not edit it directly.\r\n\r\nexport interface BACKEND_BINDING {\r\n  DATABASE_URL : string;\r\n  REDIS_TOKEN : string;\r\n  DEV_ENV : string;\r\n  REDIS_URL : string;\r\n  CLERK_PUBLISHABLE_KEY: string;\r\n  CLERK_SECRET_KEY: string;\r\n  ADMIN_USER_ID: string;\r\n  CLOUDFLARE_IMAGE_ENDPOINT: string;\r\n  CLOUDFLARE_IMAGE_TOKEN: string;\r\n  CLOUDFLARE_IMAGE_AUTH_TOKEN : string;\r\n}\r\n\r\nexport interface FRONTEND_BINDING {\r\n  DATABASE_URL : string;\r\n  REDIS_TOKEN : string;\r\n  DEV_ENV : string;\r\n  REDIS_URL : string;\r\n  VITE_LINK : string;\r\n  VITE_PUBLIC_KEY : string;\r\n  VITE_PUBLIC_POSTHOG_KEY : string;\r\n  VITE_BACKEND_LINK : string;\r\n}\r\n\r\nexport interface PACKAGE_BINDING {\r\n  DATABASE_URL : string;\r\n  REDIS_TOKEN : string;\r\n  DEV_ENV : string;\r\n  REDIS_URL : string;\r\n}\r\n\r\nexport interface ENV_BINDING {\r\n  DATABASE_URL : string;\r\n  REDIS_TOKEN : string;\r\n  DEV_ENV : string;\r\n  REDIS_URL : string;\r\n  CLERK_PUBLISHABLE_KEY: string;\r\n  CLERK_SECRET_KEY: string;\r\n  ADMIN_USER_ID: string;\r\n  CLOUDFLARE_IMAGE_ENDPOINT: string;\r\n  CLOUDFLARE_IMAGE_TOKEN: string;\r\n  CLOUDFLARE_IMAGE_AUTH_TOKEN : string;\r\n  VITE_LINK : string;\r\n  VITE_PUBLIC_KEY : string;\r\n  VITE_PUBLIC_POSTHOG_KEY : string;\r\n  VITE_BACKEND_LINK : string;\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/env/src/index.ts b/pkg/env/src/index.ts
+--- a/pkg/env/src/index.ts	
++++ b/pkg/env/src/index.ts	
+@@ -1,10 +1,6 @@
+ // This file is auto-generated. Do not edit it directly.
+ 
+ export interface BACKEND_BINDING {
+-  DATABASE_URL : string;
+-  REDIS_TOKEN : string;
+-  DEV_ENV : string;
+-  REDIS_URL : string;
+   CLERK_PUBLISHABLE_KEY: string;
+   CLERK_SECRET_KEY: string;
+   ADMIN_USER_ID: string;
+@@ -14,37 +10,29 @@
+ }
+ 
+ export interface FRONTEND_BINDING {
+-  DATABASE_URL : string;
+-  REDIS_TOKEN : string;
+-  DEV_ENV : string;
+-  REDIS_URL : string;
+-  VITE_LINK : string;
+-  VITE_PUBLIC_KEY : string;
+-  VITE_PUBLIC_POSTHOG_KEY : string;
+-  VITE_BACKEND_LINK : string;
++  CLERK_PUBLISHABLE_KEY: string;
++  CLERK_SECRET_KEY: string;
++  ADMIN_USER_ID: string;
++  CLOUDFLARE_IMAGE_ENDPOINT: string;
++  CLOUDFLARE_IMAGE_TOKEN: string;
++  CLOUDFLARE_IMAGE_AUTH_TOKEN : string;
+ }
+ 
+ export interface PACKAGE_BINDING {
+-  DATABASE_URL : string;
+-  REDIS_TOKEN : string;
+-  DEV_ENV : string;
+-  REDIS_URL : string;
++  CLERK_PUBLISHABLE_KEY: string;
++  CLERK_SECRET_KEY: string;
++  ADMIN_USER_ID: string;
++  CLOUDFLARE_IMAGE_ENDPOINT: string;
++  CLOUDFLARE_IMAGE_TOKEN: string;
++  CLOUDFLARE_IMAGE_AUTH_TOKEN : string;
+ }
+ 
+ export interface ENV_BINDING {
+-  DATABASE_URL : string;
+-  REDIS_TOKEN : string;
+-  DEV_ENV : string;
+-  REDIS_URL : string;
+   CLERK_PUBLISHABLE_KEY: string;
+   CLERK_SECRET_KEY: string;
+   ADMIN_USER_ID: string;
+   CLOUDFLARE_IMAGE_ENDPOINT: string;
+   CLOUDFLARE_IMAGE_TOKEN: string;
+   CLOUDFLARE_IMAGE_AUTH_TOKEN : string;
+-  VITE_LINK : string;
+-  VITE_PUBLIC_KEY : string;
+-  VITE_PUBLIC_POSTHOG_KEY : string;
+-  VITE_BACKEND_LINK : string;
+ }
+ 
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/vcs.xml	
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/discord.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/discord.xml b/.idea/discord.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/discord.xml	
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DiscordProjectSettings">
++    <option name="show" value="ASK" />
++    <option name="description" value="" />
++    <option name="applicationTheme" value="default" />
++    <option name="iconsTheme" value="default" />
++    <option name="button1Title" value="" />
++    <option name="button1Url" value="" />
++    <option name="button2Title" value="" />
++    <option name="button2Url" value="" />
++    <option name="customApplicationId" value="" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/inspectionProfiles/Project_Default.xml	
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
++  </profile>
++</component>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	
++++ b/.idea/.gitignore	
+@@ -0,0 +1,5 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
