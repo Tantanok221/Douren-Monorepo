@@ -1,6 +1,7 @@
-import  fs  from 'fs';
-import path   from "path";
-import { Project, SourceFile, VariableDeclarationKind } from 'ts-morph';
+import fs from 'fs';
+import path from "path";
+import { Project, SourceFile, VariableDeclarationKind, SyntaxKind } from 'ts-morph';
+
 const project = new Project();
 
 // Add your schema file
@@ -22,10 +23,14 @@ const generatedSchemas = [];
 schemaFile.getVariableDeclarations().forEach((declaration) => {
   if (declaration.isExported()) {
     const name = declaration.getName();
+    // Skip if the name ends with "Relations"
+    if (name.endsWith('Relations')) {
+      return;
+    }
     const outputPath = path.join(outputDir, `${name}.ts`);
-    
+
     const outputFile = project.createSourceFile(outputPath, '', { overwrite: true });
-    
+
     // Add imports
     outputFile.addImportDeclaration({
       namedImports: ['createInsertSchema', 'createSelectSchema'],
@@ -39,7 +44,7 @@ schemaFile.getVariableDeclarations().forEach((declaration) => {
       namedImports: ['s'],
       moduleSpecifier: '../db/index.js',
     });
-    
+
     // Add schema declarations
     outputFile.addVariableStatement({
       declarationKind: VariableDeclarationKind.Const,
@@ -57,7 +62,7 @@ schemaFile.getVariableDeclarations().forEach((declaration) => {
         initializer: `createSelectSchema(s.${name})`,
       }],
     });
-    
+
     // Add type declarations
     outputFile.addTypeAlias({
       isExported: true,
@@ -72,7 +77,7 @@ schemaFile.getVariableDeclarations().forEach((declaration) => {
 
     // Save the generated schema file
     outputFile.saveSync();
-    
+
     // Add the name to the list of generated schemas
     generatedSchemas.push(name);
   }

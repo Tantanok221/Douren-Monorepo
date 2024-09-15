@@ -32,7 +32,7 @@ if exist .env.temp del .env.temp
 
 :: Run turbo build and pnpm install
 call npx turbo build --filter="./pkg/env"
-call pnpm install
+call npm install
 
 echo Environment files merged and copied successfully.
 echo TypeScript constants file generated in pkg/env/src/index.ts

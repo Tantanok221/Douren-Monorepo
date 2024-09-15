@@ -2,7 +2,6 @@
   "name": "@pkg/typescript-config",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.15.6",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

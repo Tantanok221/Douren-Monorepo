@@ -2,10 +2,9 @@
   "name": "@pkg/database",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@8.15.6",
   "scripts": {
-    "build": "pnpm run codegen && rimraf dist && node build.js",
-    "build:pkg": "pnpm run codegen && rimraf dist && node build.js",
+    "build": "npm run codegen && rimraf dist && node build.js",
+    "build:pkg": "npm run codegen && rimraf dist && node build.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
    "build": "turbo build",
-    "pkg": "turbo build --filter=./pkg/* && pnpm install",
+    "pkg": "turbo build --filter=./pkg/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",
     "devbe": "turbo dev --filter=./be/*",
