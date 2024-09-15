@@ -2,7 +2,7 @@
   "name": "douren-monorepo",
   "private": true,
   "scripts": {
-   "build": "turbo build",
+    "build": "turbo build",
     "pkg": "turbo build --filter=./pkg/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",
@@ -20,6 +20,7 @@
     "env:login": "npx dotenv-vault login"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.0",
     "@types/node": "^22.5.1",
     "prettier": "^3.3.3",
     "turbo": "^2.1.0",
