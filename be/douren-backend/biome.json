@@ -1,0 +1,18 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "extends": [
+    "../../pkg/typescript-config/biome-be.json"
+  ],
+  "files": {
+    "include": [
+      "src/**"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "style": {
+        "useImportType": "off"
+      }
+    }
+  }
+}
