@@ -66,12 +66,12 @@ schemaFile.getVariableDeclarations().forEach((declaration) => {
     // Add type declarations
     outputFile.addTypeAlias({
       isExported: true,
-      name: `zod${capitalize(name)}InsertSchema`,
+      name: `${name}InsertSchema`,
       type: `z.infer<typeof ${name}InsertSchema>`,
     });
     outputFile.addTypeAlias({
       isExported: true,
-      name: `zod${capitalize(name)}SelectSchema`,
+      name: `${name}SelectSchema`,
       type: `z.infer<typeof ${name}SelectSchema>`,
     });
 
@@ -90,19 +90,40 @@ const indexFile = project.createSourceFile(indexPath, '', { overwrite: true });
 // Add imports for all generated schemas
 generatedSchemas.forEach(name => {
   indexFile.addImportDeclaration({
-    namespaceImport: name,
     moduleSpecifier: `./${name}.js`,
+    namedImports: [
+      `${name}InsertSchema`,
+      `${name}SelectSchema`,
+    ],
   });
 });
 
-// Add export statement
+// Add export statement for zodSchema
 indexFile.addVariableStatement({
   declarationKind: VariableDeclarationKind.Const,
   isExported: true,
   declarations: [{
     name: 'zodSchema',
-    initializer: `{ ${generatedSchemas.join(', ')} }`,
+    initializer: `{ ${generatedSchemas.map(name => `
+      ${name}: {
+        InsertSchema: ${name}InsertSchema,
+        SelectSchema: ${name}SelectSchema
+      }`).join(',')}
+    }`,
   }],
+});
+
+// Add type declaration for zodSchemaType
+indexFile.addTypeAlias({
+  isExported: true,
+  name: 'zodSchemaType',
+  type: `{
+    ${generatedSchemas.map(name => `
+      ${name}: {
+        InsertSchema: ${name}InsertSchema,
+        SelectSchema: ${name}SelectSchema
+      }`).join(',')}
+  }`,
 });
 
 // Save the index file
