@@ -5,5 +5,5 @@ import { s } from "../db/index.js";
 export const eventDmInsertSchema = createInsertSchema(s.eventDm);
 export const eventDmSelectSchema = createSelectSchema(s.eventDm);
 
-export type zodEventDmInsertSchema = z.infer<typeof eventDmInsertSchema>;
-export type zodEventDmSelectSchema = z.infer<typeof eventDmSelectSchema>;
+export type eventDmInsertSchema = z.infer<typeof eventDmInsertSchema>;
+export type eventDmSelectSchema = z.infer<typeof eventDmSelectSchema>;
