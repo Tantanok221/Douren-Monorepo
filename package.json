@@ -9,6 +9,7 @@
     "devbe": "turbo dev --filter=./be/*",
     "devfe": "turbo dev --filter=./fe/*",
     "devpkg": "turbo dev --filter=./pkg/*",
+    "codegen": "turbo codegen && npm run pkg",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
     "db:introspect": "turbo db:introspect",
@@ -18,6 +19,7 @@
     "env:push": "npx dotenv-vault push development .env && npx dotenv-vault push development .env.fe && npx dotenv-vault push development .env.be && make copy-env",
     "env:new": "npx dotenv-vault new &&  touch .env && touch .env.fe && touch .env.be && npm run env:push",
     "env:login": "npx dotenv-vault login"
+
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.0",
