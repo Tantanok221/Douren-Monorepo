@@ -1,9 +1,10 @@
 import {FETCH_EVENT_ARTIST_OBJECT, PAGE_SIZE} from "../helper/constant";
 import {initDB, s} from "@pkg/database/db";
-import {AnyColumn, asc, count, desc, eq, SQLWrapper} from "drizzle-orm";
+import {count, eq} from "drizzle-orm";
 import {BuildQuery} from "@pkg/database/helper";
+import {ArtistEventParams} from "./paramHelper";
 
-export function GetEventArtistQuery(eventId:string,page:string,sortBy: typeof asc|typeof desc,table:AnyColumn | SQLWrapper){
+export function GetEventArtistQuery(eventId: string, search: string, page: string, params: ArtistEventParams) {
     const db = initDB();
     const query = db
         .select(FETCH_EVENT_ARTIST_OBJECT)
@@ -21,7 +22,7 @@ export function GetEventArtistQuery(eventId:string,page:string,sortBy: typeof as
         )
         .$dynamic();
     const countQuery = db
-        .select({ totalCount: count(s.eventDm.artistId) })
+        .select({totalCount: count(s.eventDm.artistId)})
         .from(s.eventDm)
         .leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
         .$dynamic();
@@ -31,7 +32,15 @@ export function GetEventArtistQuery(eventId:string,page:string,sortBy: typeof as
     const SelectQuery = BuildQuery(query)
         .withPagination(Number(page), PAGE_SIZE)
         .withFilterEventId(Number(eventId))
-        .withOrderBy(sortBy, table)
+        .withOrderBy(params.sortBy, params.table)
         .Build();
-    return {SelectQuery,CountQuery}
+    if (params.tag?.length > 0) {
+        SelectQuery.withAndFilter(params.tagConditions);
+        CountQuery.withAndFilter(params.tagConditions);
+    }
+    if (search) {
+        SelectQuery.withIlikeSearchByTable(search, params.searchTable);
+        CountQuery.withIlikeSearchByTable(search, params.searchTable);
+    }
+    return {SelectQuery, CountQuery}
 }
