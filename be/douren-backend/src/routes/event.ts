@@ -2,9 +2,6 @@ import {Hono} from "hono";
 import {and, desc, eq} from "drizzle-orm";
 import {initDB, s} from "@pkg/database/db";
 import {BACKEND_BINDING} from "@pkg/env/constant";
-import {cacheJsonResults, initRedis} from "@pkg/redis/redis";
-import {createPaginationObject} from "../helper/createPaginationObject";
-import {PAGE_SIZE} from "../helper/constant";
 import {zValidator} from "@hono/zod-validator";
 import {
     CreateEventArtistSchema,
@@ -13,8 +10,6 @@ import {
     PutEventArtistSchemaTypes,
 } from "../schema/event.zod";
 import {verifyUser} from "../utlis/authHelper";
-import {GetEventArtistQuery} from "../utlis/queryHelper";
-import {processArtistEventParams} from "../utlis/paramHelper";
 import {publicProcedure, router} from "../trpc";
 import {eventArtistSchema, eventInputParams} from "../model/customObject";
 import {EventArtistFetchFunction} from "../utlis/fetchHelper";

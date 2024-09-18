@@ -25,9 +25,8 @@ app.use(
       router: appRouter,
     })
 )
-const routes = app
-  .route("/event", EventRoute)
-  .route("/artist", ArtistRoute)
+app.route("/event", EventRoute)
+    .route("/artist", ArtistRoute)
 
 export default {
   /** this part manages cronjobs */
