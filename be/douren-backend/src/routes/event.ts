@@ -4,7 +4,7 @@ import {initDB, s} from "@pkg/database/db";
 import {BACKEND_BINDING} from "@pkg/env/constant";
 import {cacheJsonResults, initRedis} from "@pkg/redis/redis";
 import {createPaginationObject} from "../helper/createPaginationObject";
-import {FETCH_EVENT_ARTIST_OBJECT, PAGE_SIZE} from "../helper/constant";
+import {PAGE_SIZE} from "../helper/constant";
 import {zValidator} from "@hono/zod-validator";
 import {
     CreateEventArtistSchema,
@@ -15,31 +15,22 @@ import {
 import {verifyUser} from "../utlis/authHelper";
 import {GetEventArtistQuery} from "../utlis/queryHelper";
 import {processArtistEventParams} from "../utlis/paramHelper";
+import {publicProcedure, router} from "../trpc";
+import {eventArtistSchema, eventInputParams} from "../model/customObject";
+import {EventArtistFetchFunction} from "../utlis/fetchHelper";
+
+export const trpcEventRoute = router({
+    getEvent: publicProcedure.input(eventInputParams).output(eventArtistSchema).query(async (opts) => {
+        const {page,search,sort,searchtable,tag,eventId} = opts.input
+        return await EventArtistFetchFunction(page,search,sort,searchtable,tag,eventId)
+    })
+})
 
 const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
     .get("/:eventId/artist", async (c) => {
         const {page, search, tag, sort, searchtable} = c.req.query();
         const {eventId} = c.req.param();
-        const redis = initRedis();
-        const redisKey = `get_eventArtist${eventId}_${page}_${search}_${tag}_${sort}_${searchtable}`;
-        const redisData = await redis.json.get(redisKey, {}, "$");
-        if (redisData) {
-            console.log("redis cache hit");
-            return c.json(redisData);
-        }
-        const artistEventParams = processArtistEventParams(sort, searchtable, tag)
-        const {SelectQuery, CountQuery} = GetEventArtistQuery(eventId, search, page, artistEventParams)
-        // TODO: Need to change front end to use(,) to split
-        const data = await SelectQuery.query;
-        const [counts] = await CountQuery.query;
-        const returnObj = createPaginationObject(
-            data,
-            Number(page),
-            PAGE_SIZE,
-            counts.totalCount,
-        );
-        console.log("Setting redis cache");
-        await cacheJsonResults(redis, redisKey, returnObj);
+        const returnObj =  await EventArtistFetchFunction(page,search,sort,searchtable,tag,eventId)
         return c.json(returnObj);
     })
     .post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
