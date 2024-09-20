@@ -6,7 +6,8 @@
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
     "build": "tsc",
-    "build:pkg": "tsc"
+    "build:pkg": "tsc",
+    "test": "vitest run"
   },
   "exports": {
     "./api": {
@@ -30,6 +31,7 @@
     "@cloudflare/workers-types": "^4.20240529.0",
     "@pkg/typescript-config": "*",
     "typescript": "^5.4.5",
+    "vitest": "^2.1.1",
     "wrangler": "^3.57.1"
   }
 }
