@@ -4,51 +4,64 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy_env.bat" beforeDir="false" afterPath="$PROJECT_DIR$/copy_env.bat" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#20] fix: image db initialize issue">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/cms/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/fonts/GeistMonoVF.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/fonts/GeistVF.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/cms/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/cms/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/page.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/cms/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/cms/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/database/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/env/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/env/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/env/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/env/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/typescript-config/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/typescript-config/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+        <entry key="$PROJECT_DIR$" value="fix/image" />
         <entry key="$PROJECT_DIR$" value="feat/rpc" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Tantanok221"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Tantanok221&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Tantanok221/Douren-Monorepo.git",
-    "accountId": "4e1109c6-20ca-405e-9ec1-34945a527d72"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Tantanok221/Douren-Monorepo.git&quot;,
+    &quot;accountId&quot;: &quot;4e1109c6-20ca-405e-9ec1-34945a527d72&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2m6SLN1gxW4At1aKv9KmFFFc5w6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,16 +71,29 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "scaffold/dourencms",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/fe/cms",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\fe\cms" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\trpc" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src\helper" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,11 +109,219 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726395477216</updated>
-      <workItem from="1726395479476" duration="1192000" />
+      <workItem from="1726395479476" duration="13936000" />
+      <workItem from="1726449074247" duration="5801000" />
+      <workItem from="1726465425329" duration="1848000" />
+      <workItem from="1726467734743" duration="5767000" />
+      <workItem from="1726473956966" duration="546000" />
+      <workItem from="1726497818251" duration="2481000" />
+      <workItem from="1726500754860" duration="949000" />
+      <workItem from="1726502130287" duration="641000" />
+      <workItem from="1726502791879" duration="314000" />
+      <workItem from="1726580833059" duration="1823000" />
+      <workItem from="1726585698265" duration="1547000" />
+      <workItem from="1726662923706" duration="3041000" />
+      <workItem from="1726836309426" duration="56000" />
+      <workItem from="1726840281917" duration="7595000" />
+      <workItem from="1726848941956" duration="302000" />
+      <workItem from="1726925083400" duration="3191000" />
     </task>
+    <task id="LOCAL-00001" summary="fix: Wrangler issues">
+      <option name="closed" value="true" />
+      <created>1726399881922</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726399881922</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: Remove useless zod schemas">
+      <option name="closed" value="true" />
+      <created>1726399912227</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726399912227</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: Refactor routes that are not split with methods">
+      <option name="closed" value="true" />
+      <created>1726410396835</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726410396835</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: Added Biome">
+      <option name="closed" value="true" />
+      <created>1726410553696</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726410553696</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: Added Biome at backend services">
+      <option name="closed" value="true" />
+      <created>1726449154076</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1726449154076</updated>
+    </task>
+    <task id="LOCAL-00006" summary="refactor: Refactor event routes">
+      <option name="closed" value="true" />
+      <created>1726449208380</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726449208380</updated>
+    </task>
+    <task id="LOCAL-00007" summary="dev: Update env vault">
+      <option name="closed" value="true" />
+      <created>1726449301628</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726449301628</updated>
+    </task>
+    <task id="LOCAL-00008" summary="dev: Update env vault">
+      <option name="closed" value="true" />
+      <created>1726451623059</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1726451623059</updated>
+    </task>
+    <task id="LOCAL-00009" summary="dev: Update env vault">
+      <option name="closed" value="true" />
+      <created>1726453576471</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1726453576471</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: Update redis">
+      <option name="closed" value="true" />
+      <created>1726453602297</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1726453602297</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactor: refactor query param parts">
+      <option name="closed" value="true" />
+      <created>1726453686753</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1726453686753</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: Update zod schema generator">
+      <option name="closed" value="true" />
+      <created>1726472095142</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1726472095142</updated>
+    </task>
+    <task id="LOCAL-00013" summary="dev: Added codegen scripts">
+      <option name="closed" value="true" />
+      <created>1726472364677</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1726472364677</updated>
+    </task>
+    <task id="LOCAL-00014" summary="refactor: Refactor customObject">
+      <option name="closed" value="true" />
+      <created>1726663818925</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1726663818925</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: Added trpc for fetching artist and event route">
+      <option name="closed" value="true" />
+      <created>1726664059094</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1726664059094</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor: Remove unused constant and import">
+      <option name="closed" value="true" />
+      <created>1726664164996</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1726664164996</updated>
+    </task>
+    <task id="LOCAL-00017" summary="git: merge from feat/trpc to main">
+      <option name="closed" value="true" />
+      <created>1726668386463</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1726668386463</updated>
+    </task>
+    <task id="LOCAL-00018" summary="[#16] refactor: Move migrate.ts from database package to backend api">
+      <option name="closed" value="true" />
+      <created>1726843258572</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1726843258572</updated>
+    </task>
+    <task id="LOCAL-00019" summary="[#18] scaffold: init cms with biome">
+      <option name="closed" value="true" />
+      <created>1726845268496</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1726845268496</updated>
+    </task>
+    <task id="LOCAL-00020" summary="[#20] fix: image db initialize issue">
+      <option name="closed" value="true" />
+      <created>1726930779601</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1726930779601</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: Wrangler issues" />
+    <MESSAGE value="fix: Remove useless zod schemas" />
+    <MESSAGE value="feat: Refactor routes that are not split with methods" />
+    <MESSAGE value="feat: Added Biome" />
+    <MESSAGE value="feat: Added Biome at backend services" />
+    <MESSAGE value="refactor: Refactor event routes" />
+    <MESSAGE value="dev: Update env vault" />
+    <MESSAGE value="feat: Update redis" />
+    <MESSAGE value="refactor: refactor query param parts" />
+    <MESSAGE value="feat: Update zod schema generator" />
+    <MESSAGE value="dev: Added codegen scripts" />
+    <MESSAGE value="refactor: Refactor customObject" />
+    <MESSAGE value="feat: Added trpc for fetching artist and event route" />
+    <MESSAGE value="refactor: Remove unused constant and import" />
+    <MESSAGE value="git: merge from feat/trpc to main" />
+    <MESSAGE value="[#16] refactor: Move migrate.ts from database package to backend api" />
+    <MESSAGE value="[#18] scaffold: init cms with biome" />
+    <MESSAGE value="[#20] fix: image db initialize issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#20] fix: image db initialize issue" />
   </component>
 </project>
