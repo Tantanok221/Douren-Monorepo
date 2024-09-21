@@ -1,4 +1,4 @@
-import { Context, Hono } from "hono";
+import {  Hono } from "hono";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
 import { desc, eq, sql } from "drizzle-orm";
@@ -29,13 +29,13 @@ app.get("/", (c) => {
 });
 
 app.get("/test", async (c) => {
-  const db = initDB(c.env.DATABASE_URL);
+  const db = initDB();
   const data = await db.query.authorMain.findMany();
   return c.json({ data: data });
 });
 
 app.post("/productImage/:artistId/:imageId", async (c) => {
-  const db = initDB(c.env.DATABASE_URL);
+  const db = initDB();
   let returnResponse;
   const { artistId, imageId } = c.req.param();
   const formData = await c.req.formData();
@@ -68,7 +68,7 @@ app.post("/productImage/:artistId/:imageId", async (c) => {
 });
 
 app.post("/productThumbnail/:artistId/:title", async (c) => {
-  const db = initDB(c.env.DATABASE_URL);
+  const db = initDB();
   let returnResponse;
   const { artistId, title } = c.req.param();
   const formData = await c.req.formData();
@@ -101,7 +101,7 @@ app.post("/productThumbnail/:artistId/:title", async (c) => {
 });
 
 app.post("/dm/:artistId/:eventName", async (c) => {
-  const db = initDB(c.env.DATABASE_URL);
+  const db = initDB()
   let returnResponse;
   const { artistId, eventName } = c.req.param();
   const formData = await c.req.formData();
@@ -150,7 +150,7 @@ app.post("/dm/:artistId/:eventName", async (c) => {
 });
 
 app.patch("/artist/:id", async (c) => {
-  const db = initDB(c.env.DATABASE_URL);
+  const db = initDB();
   const { id } = c.req.param();
   try {
     const formData = await c.req.formData();
