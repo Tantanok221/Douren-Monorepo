@@ -11,6 +11,8 @@ export interface BACKEND_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   DEV_ENV: string;
+  VITE_PUBLIC_KEY: string;
+  VITE_LINK: string;
 }
 
 export interface FRONTEND_BINDING {
@@ -40,6 +42,8 @@ export interface PACKAGE_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   DEV_ENV: string;
+  VITE_PUBLIC_KEY: string;
+  VITE_LINK: string;
 }
 
 export interface ENV_BINDING {
