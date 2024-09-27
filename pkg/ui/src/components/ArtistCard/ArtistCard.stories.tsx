@@ -1,33 +1,49 @@
-import {Meta, StoryObj} from "@storybook/react";
-import ArtistCard from "./ArtistCard.tsx";
-import {mockArtistEventData} from "../../index.ts";
+import { Meta, StoryObj } from "@storybook/react";
+import Index from "./";
+import { mockArtistEventData } from "../../index.ts";
 
 
-const meta: Meta<typeof ArtistCard> = {
-    component: ArtistCard,
-    args: {
-        eventData: mockArtistEventData
-    },
-    render: ({children,...args} ) => {
-        return <ArtistCard {...args}>{children}</ArtistCard>
-    }
-}
+const meta: Meta<typeof Index> = {
+  component: Index,
+  args: {
+    eventData: mockArtistEventData
+  },
+  render: ({ children, ...args }) => {
+    return <Index {...args}>{children}</Index>;
+  }
+};
 
 export default meta;
-type Story = StoryObj<typeof ArtistCard>
+type Story = StoryObj<typeof Index>
 
-export const Primary: Story = {
-      args: {
-          children: <>
-              <ArtistCard.ImageContainer />
-              <ArtistCard.RightContainer>
-                  <ArtistCard.HeaderContainer  />
-                  <ArtistCard.TagContainer activeButton />
-                  <ArtistCard.DayContainer />
-                  <ArtistCard.LinkContainer>
-                      <ArtistCard.DMButton />
-                  </ArtistCard.LinkContainer>
-              </ArtistCard.RightContainer>
-          </>
-      }
-}
+export const ArtistEventCard: Story = {
+  args: {
+    children: <>
+      <Index.ImageContainer />
+      <Index.RightContainer>
+        <Index.HeaderContainer />
+        <Index.TagContainer activeButton />
+        <Index.DayContainer />
+        <Index.LinkContainer>
+          <Index.DMButton />
+        </Index.LinkContainer>
+      </Index.RightContainer>
+    </>
+  }
+};
+
+export const ArtistCard: Story = {
+  args: {
+    children: <>
+      <Index.ImageContainer />
+      <Index.RightContainer>
+        <Index.HeaderContainer />
+        <Index.TagContainer activeButton />
+        <Index.LinkContainer>
+          <Index.DMButton />
+        </Index.LinkContainer>
+      </Index.RightContainer>
+    </>
+
+  }
+};
