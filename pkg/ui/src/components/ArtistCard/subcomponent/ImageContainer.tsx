@@ -3,9 +3,9 @@ import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useFFContext } from "../FFContext";
 import { useArtistCardContext } from "../ArtistCardContext";
-import LazyImage from "../../LazyImage/LazyImage";
+import LazyImage from "../../LazyImage";
 import { useEventDataContext } from "../EventDataContext";
-import { ArtistTypes } from "../../../types/Artist";
+import { ArtistTypes } from "@/types/Artist.ts";
 
 interface Props {}
 const ImageContainer = ({}: Props) => {

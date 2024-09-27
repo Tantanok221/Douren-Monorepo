@@ -2,14 +2,11 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useFFContext } from "../FFContext";
-import { TagObject, useTagFilter } from "../../../stores/useTagFilter";
-import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import { useArtistCardContext } from "../ArtistCardContext";
-import { processTagData } from "../../../helper/processTagData";
-import TagContainer from "../../TagContainer/TagContainer";
+import { processTagData } from "@/helper/processTagData.ts";
+import TagContainer from "../../TagContainer";
 import { useEventDataContext } from "../EventDataContext";
-import { ArtistTypes } from "../../../types/Artist";
+import { ArtistTypes } from "@/types/Artist.ts";
 
 interface Props {
   size?: "s" | "l";

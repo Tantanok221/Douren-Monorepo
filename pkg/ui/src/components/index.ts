@@ -1,3 +1,3 @@
 export * from "./ArtistCard"
-export * from "./TagContainer/TagContainer"
-export * from "./LazyImage/LazyImage"
+export * from "./TagContainer"
+export * from "./LazyImage"

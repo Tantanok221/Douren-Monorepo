@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
 import { useLocation } from "react-router";
-import { usePageInit } from "../../hooks/usePageInit.ts";
+import { usePageInit } from "@/hooks/usePageInit.ts";
 import { CollectionContextProvider } from "../../context/CollectionContext/CollectionContext.tsx";
 import SearchContainer from "./subcomponent/SearchContainer.tsx";
 import FilterContainer from "./subcomponent/FilterContainer.tsx";
@@ -18,8 +18,8 @@ function EventPage() {
 
   const location = useLocation();
   console.log(location.pathname);
-  
-  
+
+
   const sx = classNames.bind(styles);
   return (
     <motion.div

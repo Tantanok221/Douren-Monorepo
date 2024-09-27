@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ActionType, CollectionContext } from "./CollectionContext";
-import { ArtistEventType } from "../../types/Artist";
+import { ActionType, CollectionContext } from "./index.tsx";
+import { ArtistEventType } from "@/types/Artist.ts";
 
 export function useCollectionProvider(): [ArtistEventType[]|null,React.Dispatch<ActionType>] {
   const data = useContext(CollectionContext);

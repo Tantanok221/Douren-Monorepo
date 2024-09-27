@@ -2,16 +2,14 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { IconContext } from "react-icons";
-import { motion } from "framer-motion";
-import DMButton from "./ArtistDMButton.tsx";
-import { LinkResult, processLink } from "../../../helper/processLink";
-import LinkContainer from "../../LinkContainer/LinkContainer.tsx";
+import { LinkResult, processLink } from "@/helper/processLink.ts";
+import LinkContainer from "../../LinkContainer/";
 import { useFFContext } from "../FFContext.ts";
 import { useArtistCardContext } from "../ArtistCardContext.ts";
-import { processArtistData } from "../../../helper/processArtistData.ts";
+import { processArtistData } from "@/helper/processArtistData.ts";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEventDataContext } from "../EventDataContext.ts";
-import { ArtistTypes } from "../../../types/Artist.ts";
+import { ArtistTypes } from "@/types/Artist.ts";
 
 interface props {
   children?: React.ReactNode;

@@ -11,7 +11,7 @@ import { SiPlurk, SiPixiv } from "react-icons/si";
 import { GrCatalog } from "react-icons/gr";
 import { BiLogoGithub } from "react-icons/bi";
 import { FaDiscord } from "react-icons/fa";
-import { linkObject } from "../LinkContainer/LinkContainer";
+import { linkObject } from "@components/LinkContainer";
 
 interface Props {
   data: linkObject;

@@ -2,7 +2,7 @@ import React from "react";
 import style from "./LinkContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import LinkIcon from "../LinkIcon/LinkIcon.tsx";
+import LinkIcon from "../LinkIcon";
 
 export interface linkObject {
   name?: string;

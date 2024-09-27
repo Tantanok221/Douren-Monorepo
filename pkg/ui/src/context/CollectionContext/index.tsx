@@ -1,6 +1,5 @@
 import { createContext } from "react";
-import { useLocalStorage } from "@mantine/hooks";
-import { ArtistEventType } from "../../types/Artist";
+import { ArtistEventType } from "@/types/Artist.ts";
 import { useImmerReducer } from "use-immer";
 
 

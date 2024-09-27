@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="dev: Update .env">
-      <change afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="feat: Update configs file and exported components">
+      <change afterPath="$PROJECT_DIR$/pkg/type/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/type/src/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/type/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/ui/src/stitches.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/EventPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/EventPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/subcomponent/ArtistContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/component/DMButton.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/DMButton.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/component/DMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/LazyImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LinkContainer/LinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/LinkContainer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LinkIcon/LinkIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/LinkIcon/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/TagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/CollectionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/ui/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +89,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "dev/ui-lib",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/fe/Douren-frontend/src/components",
+    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,18 +102,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\context\CollectionContext" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\fe\Douren-frontend\src\components" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\helper" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\stores" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components\DMButton" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\button" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src\helper" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -124,7 +149,9 @@
       <workItem from="1726925083400" duration="6195000" />
       <workItem from="1727004960219" duration="8584000" />
       <workItem from="1727016016033" duration="2419000" />
-      <workItem from="1727268751724" duration="8376000" />
+      <workItem from="1727268751724" duration="11156000" />
+      <workItem from="1727310328386" duration="2657000" />
+      <workItem from="1727421877894" duration="5423000" />
     </task>
     <task id="LOCAL-00001" summary="fix: Wrangler issues">
       <option name="closed" value="true" />
@@ -318,7 +345,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727276251417</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: Added ArtistCard Stories(no tag support yet)">
+      <option name="closed" value="true" />
+      <created>1727277758516</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1727277758516</updated>
+    </task>
+    <task id="LOCAL-00026" summary="feat: Update configs file and exported components">
+      <option name="closed" value="true" />
+      <created>1727278353669</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1727278353669</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,6 +401,8 @@
     <MESSAGE value="fix: Fix vercel deployment issue" />
     <MESSAGE value="feat: Added ui library, with storybook integration" />
     <MESSAGE value="dev: Update .env" />
-    <option name="LAST_COMMIT_MESSAGE" value="dev: Update .env" />
+    <MESSAGE value="feat: Added ArtistCard Stories(no tag support yet)" />
+    <MESSAGE value="feat: Update configs file and exported components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Update configs file and exported components" />
   </component>
 </project>
