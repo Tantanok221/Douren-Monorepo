@@ -12,7 +12,6 @@
     "format": "prettier . --write"
   },
   "dependencies": {
-    "@pkg/ui": "*",
     "@mantine/hooks": "^7.12.2",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-checkbox": "^1.1.1",
