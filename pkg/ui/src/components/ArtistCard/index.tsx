@@ -16,7 +16,6 @@ import ArtistTagContainer from './subcomponent/ArtistTagContainer';
 import DayContainer from './subcomponent/DayContainer';
 import EventBookmarkContainer from './subcomponent/EventBookmarkContainer';
 import HeaderContainer from './subcomponent/HeaderContainer';
-import LegacyBookmarkContainer from './subcomponent/LegacyBookmarkContainer';
 import RightContainer from './subcomponent/RightContainer';
 import TitleContainer from './subcomponent/TitleContainer';
 interface ArtistCardProps {
@@ -35,7 +34,6 @@ const ArtistCard: React.FC<ArtistCardProps> & {
   DayContainer: typeof DayContainer;
   EventBookmarkContainer: typeof EventBookmarkContainer;
   HeaderContainer: typeof HeaderContainer;
-  LegacyBookmarkContainer: typeof LegacyBookmarkContainer;
   RightContainer: typeof RightContainer;
   TitleContainer: typeof TitleContainer;
 } = ({ index, legacyData, children, artistData, eventData }) => {
@@ -71,7 +69,6 @@ ArtistCard.TagContainer = ArtistTagContainer
 ArtistCard.DayContainer = DayContainer
 ArtistCard.EventBookmarkContainer = EventBookmarkContainer
 ArtistCard.HeaderContainer = HeaderContainer
-ArtistCard.LegacyBookmarkContainer = LegacyBookmarkContainer
 ArtistCard.RightContainer = RightContainer
 ArtistCard.TitleContainer = TitleContainer
 

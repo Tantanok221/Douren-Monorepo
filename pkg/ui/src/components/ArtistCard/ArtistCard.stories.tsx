@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Index from "./";
-import { mockArtistEventData } from "../../index.ts";
+import { mockArtistEventData } from "@/index.ts";
 
 
 const meta: Meta<typeof Index> = {

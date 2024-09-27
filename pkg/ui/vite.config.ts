@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 // @ts-ignore
 import { peerDependencies } from "./package.json";
+// @ts-ignore
 import path from "path";
 
 export default defineConfig({
