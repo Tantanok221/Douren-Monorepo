@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useFFContext } from "../FFContext";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { processTagData } from "@/helper/processTagData.ts";
 import TagContainer from "../../TagContainer";
@@ -15,16 +14,13 @@ interface Props {
 
 const ArtistTagContainer = ({ size, activeButton }: Props) => {
   const sx = classNames.bind(styles);
-  const data = useFFContext();
   let artistData = useArtistCardContext();
   const eventData = useEventDataContext();
-  if (!artistData && !data) {
+  if (!artistData) {
     artistData = eventData?.Author_Main as ArtistTypes;
   }
 
-  const allTag = data
-    ? (data.Tag ?? "").split(",")
-    : artistData?.Tags?.split(",");
+  const allTag = artistData?.Tags?.split(",");
   const renderTag = processTagData(allTag ?? []);
   return (
     <div className={sx("tagContainer")}>

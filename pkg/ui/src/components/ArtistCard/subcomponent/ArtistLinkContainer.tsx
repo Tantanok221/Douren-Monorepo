@@ -4,7 +4,6 @@ import styles from "../style.module.css";
 import { IconContext } from "react-icons";
 import { LinkResult, processLink } from "@/helper/processLink.ts";
 import LinkContainer from "../../LinkContainer/";
-import { useFFContext } from "../FFContext.ts";
 import { useArtistCardContext } from "../ArtistCardContext.ts";
 import { processArtistData } from "@/helper/processArtistData.ts";
 import { useMediaQuery } from "@mantine/hooks";
@@ -18,10 +17,9 @@ interface props {
 
 const ArtistLinkContainer = ({ children, size }: props) => {
   const sx = classNames.bind(styles);
-  const FFData = useFFContext();
   let artistData = useArtistCardContext();
   const eventData = useEventDataContext();
-  if (!artistData && !FFData) {
+  if (!artistData ) {
     artistData = eventData?.Author_Main as ArtistTypes;
   }
   size = size ?? "l";
@@ -29,29 +27,6 @@ const ArtistLinkContainer = ({ children, size }: props) => {
   const matches = useMediaQuery("(max-width: 1000px)");
   fontSize = matches ? "1.5rem" : fontSize;
   let link: LinkResult[] = [];
-  if (FFData) {
-    link = processLink(FFData.Facebook_link, FFData.Facebook_name, "Facebook");
-    link = link.concat(
-      processLink(FFData.Instagram_link, FFData.Instagram_name, "Instagram"),
-    );
-    link = link.concat(
-      processLink(FFData.Pixiv_link, FFData.Pixiv_name, "Pixiv"),
-    );
-    link = link.concat(
-      processLink(FFData.Twitch_link, FFData.Twitch_name, "Twitch"),
-    );
-    link = link.concat(
-      processLink(FFData.Twitter_link, FFData.Twitter_name, "Twitter"),
-    );
-    link = link.concat(
-      processLink(FFData.Youtube_link, FFData.Youtube_name, "Youtube"),
-    );
-    link = link.concat(
-      processLink(FFData.Plurk_link, FFData.Plurk_name, "Plurk"),
-    );
-    link = link.concat(processLink(FFData.Baha_link, FFData.Baha_name, "Baha"));
-    link = link.concat(processLink(FFData.Official_link, "官網", "Other"));
-  }
   if (artistData) {
     link = processArtistData(artistData);
   }

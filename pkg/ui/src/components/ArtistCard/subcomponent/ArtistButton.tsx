@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../style.module.css";
 import classNames from "classnames/bind";
-import { motion } from "framer-motion";
 import { useArtistCardContext } from "../ArtistCardContext";
 import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";

@@ -3,9 +3,8 @@ import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { useLegacyCollection } from "../../../stores/useLegacyCollection.ts";
 import { motion } from "framer-motion";
-import { useCollectionProvider } from "../../../context/CollectionContext/useCollectionContext.ts";
+import { useCollectionProvider } from "@/context/CollectionContext/useCollectionContext.ts";
 import { useEventDataContext } from "../EventDataContext.ts";
 
 interface Props {

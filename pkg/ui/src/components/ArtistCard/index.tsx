@@ -3,11 +3,9 @@ import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import { listVariants } from "@/helper/listAnimation.ts";
-import { FF } from "@/types/FF.ts";
 import { ArtistEventType, ArtistTypes } from "@/types/Artist.ts";
 import ArtistCardContext from "./ArtistCardContext.ts";
 import EventDataContext from "./EventDataContext.ts";
-import FFContext from "./FFContext";
 import ImageContainer from './subcomponent/ImageContainer';
 import ArtistButton from './subcomponent/ArtistButton';
 import ArtistDMButton from './subcomponent/ArtistDMButton';
@@ -20,7 +18,6 @@ import RightContainer from './subcomponent/RightContainer';
 import TitleContainer from './subcomponent/TitleContainer';
 interface ArtistCardProps {
   index?: number;
-  legacyData?: FF;
   children?: React.ReactNode;
   artistData?: ArtistTypes;
   eventData?: ArtistEventType;
@@ -36,10 +33,9 @@ const ArtistCard: React.FC<ArtistCardProps> & {
   HeaderContainer: typeof HeaderContainer;
   RightContainer: typeof RightContainer;
   TitleContainer: typeof TitleContainer;
-} = ({ index, legacyData, children, artistData, eventData }) => {
+} = ({ index,  children, artistData, eventData }) => {
   const sx = classNames.bind(styles);
   return (
-    <FFContext.Provider value={legacyData}>
       <ArtistCardContext.Provider value={artistData}>
         <EventDataContext.Provider value={eventData}>
           <motion.div
@@ -56,7 +52,6 @@ const ArtistCard: React.FC<ArtistCardProps> & {
           </motion.div>
         </EventDataContext.Provider>
       </ArtistCardContext.Provider>
-    </FFContext.Provider>
   );
 };
 
