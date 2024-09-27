@@ -19,36 +19,48 @@ import HeaderContainer from './subcomponent/HeaderContainer';
 import LegacyBookmarkContainer from './subcomponent/LegacyBookmarkContainer';
 import RightContainer from './subcomponent/RightContainer';
 import TitleContainer from './subcomponent/TitleContainer';
-interface Props {
+interface ArtistCardProps {
   index?: number;
   legacyData?: FF;
   children?: React.ReactNode;
   artistData?: ArtistTypes;
   eventData?: ArtistEventType;
 }
-const ArtistCard = ({ index, legacyData, children, artistData, eventData }: Props) => {
-    const sx = classNames.bind(styles);
-    return (
-      <FFContext.Provider value={legacyData}>
-        <ArtistCardContext.Provider value={artistData}>
-          <EventDataContext.Provider value={eventData}>
-            <motion.div
-              variants={listVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className={sx("artistCard")}
-              custom={index}
-            >
-              <motion.div className={sx("mainContainer")}>
-                {children}
-              </motion.div>
+const ArtistCard: React.FC<ArtistCardProps> & {
+  ImageContainer: typeof ImageContainer;
+  Button: typeof ArtistButton;
+  DMButton: typeof ArtistDMButton;
+  LinkContainer: typeof ArtistLinkContainer;
+  TagContainer: typeof ArtistTagContainer;
+  DayContainer: typeof DayContainer;
+  EventBookmarkContainer: typeof EventBookmarkContainer;
+  HeaderContainer: typeof HeaderContainer;
+  LegacyBookmarkContainer: typeof LegacyBookmarkContainer;
+  RightContainer: typeof RightContainer;
+  TitleContainer: typeof TitleContainer;
+} = ({ index, legacyData, children, artistData, eventData }) => {
+  const sx = classNames.bind(styles);
+  return (
+    <FFContext.Provider value={legacyData}>
+      <ArtistCardContext.Provider value={artistData}>
+        <EventDataContext.Provider value={eventData}>
+          <motion.div
+            variants={listVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className={sx("artistCard")}
+            custom={index}
+          >
+            <motion.div className={sx("mainContainer")}>
+              {children}
             </motion.div>
-          </EventDataContext.Provider>
-        </ArtistCardContext.Provider>
-      </FFContext.Provider>
-    );
-  }
+          </motion.div>
+        </EventDataContext.Provider>
+      </ArtistCardContext.Provider>
+    </FFContext.Provider>
+  );
+};
 
 ArtistCard.displayName = "ArtistCard";
 ArtistCard.ImageContainer = ImageContainer
