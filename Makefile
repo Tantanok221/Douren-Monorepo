@@ -14,7 +14,14 @@ create-vault:
 	npx dotenv-vault new
 	npx dotenv-vault login
 	npx dotenv-vault push
-	
+
+db_sync:
+	from-env pg_dump %DATABASE_URL -Fc --schema=public --data-only -f data.dump
+	from-env pg_dump %DATABASE_URL -Fc --schema=public --schema-only -f schema.dump
+	from-env pg_restore -d %LOCAL_DATABASE_URL --schema-only --no-privileges -c schema.dump
+	from-env pg_restore -d %LOCAL_DATABASE_URL --data-only --no-privileges data.dump
+	rimraf schema.dump data.dump
+
 copy-env:
 	@echo "Detected OS: $(detected_OS)"
 ifeq ($(detected_OS),Windows)
