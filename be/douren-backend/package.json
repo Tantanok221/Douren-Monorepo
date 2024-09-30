@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@clerk/backend": "^1.13.1",
+    "@hono-rate-limiter/redis": "^0.1.4",
     "@hono/trpc-server": "^0.3.2",
     "@hono/zod-validator": "^0.2.2",
     "@pkg/database": "*",
