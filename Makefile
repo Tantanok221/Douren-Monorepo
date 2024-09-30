@@ -15,11 +15,28 @@ create-vault:
 	npx dotenv-vault login
 	npx dotenv-vault push
 
-db_sync:
-	from-env pg_dump %DATABASE_URL -Fc --schema=public --data-only -f data.dump
-	from-env pg_dump %DATABASE_URL -Fc --schema=public --schema-only -f schema.dump
+redis:
+	docker run \
+        -it -d -p 8080:80 --name srh \
+        -e SRH_MODE=env \
+        -e SRH_TOKEN=admin \
+        -e SRH_CONNECTION_STRING="redis://localhost:6379" \
+        hiett/serverless-redis-http:latest
+
+test-deployment:
+	act --secret-file .env
+
+db-sync:
+	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --data-only -f data.dump
+	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --schema-only -f schema.dump
 	from-env pg_restore -d %LOCAL_DATABASE_URL --schema-only --no-privileges -c schema.dump
 	from-env pg_restore -d %LOCAL_DATABASE_URL --data-only --no-privileges data.dump
+	rimraf schema.dump data.dump
+stg-db-sync:
+	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --data-only -f data.dump
+	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --schema-only -f schema.dump
+	from-env pg_restore -d %STG_DATABASE_URL --schema-only --no-privileges -c schema.dump
+	from-env pg_restore -d %STG_DATABASE_URL --data-only --no-privileges data.dump
 	rimraf schema.dump data.dump
 
 copy-env:
