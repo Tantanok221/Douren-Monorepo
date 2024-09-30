@@ -23,8 +23,12 @@ redis:
         -e SRH_CONNECTION_STRING="redis://localhost:6379" \
         hiett/serverless-redis-http:latest
 
-test-deployment:
-	act --secret-file .env
+test-stg-deployment:
+	act --secret-file .env -j "stg-deploy"
+
+test-prd-deployment:
+	act --secret-file .env -j "prod-Deploy"
+
 
 db-sync:
 	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --data-only -f data.dump
