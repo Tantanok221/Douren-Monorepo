@@ -1,5 +1,6 @@
 import {Context} from "hono";
 
 export function verifyUser(c: Context):boolean{
-    return true
+    if(c.env.DEV_ENV == "dev") return true
+    return false
 }
