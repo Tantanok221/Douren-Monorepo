@@ -10,7 +10,6 @@ import { trpcServer } from '@hono/trpc-server'
 import {BACKEND_BINDING} from "@pkg/env/constant";
 import {syncAuthorTag} from "./helper/migrate";
 const app = new Hono<{ Bindings: BACKEND_BINDING }>();
-app.use("*", clerkMiddleware());
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 
