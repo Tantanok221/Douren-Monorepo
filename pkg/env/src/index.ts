@@ -6,9 +6,9 @@ export interface BACKEND_BINDING {
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
   CLOUDFLARE_IMAGE_AUTH_TOKEN: string;
+  DEV_ENV: string;
   REDIS_URL: string;
   REDIS_TOKEN: string;
-  DEV_ENV: string;
   STG_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
@@ -27,9 +27,9 @@ export interface FRONTEND_BINDING {
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
   CLOUDFLARE_IMAGE_AUTH_TOKEN: string;
+  DEV_ENV: string;
   REDIS_URL: string;
   REDIS_TOKEN: string;
-  DEV_ENV: string;
   STG_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
@@ -48,9 +48,9 @@ export interface PACKAGE_BINDING {
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
   CLOUDFLARE_IMAGE_AUTH_TOKEN: string;
+  DEV_ENV: string;
   REDIS_URL: string;
   REDIS_TOKEN: string;
-  DEV_ENV: string;
   STG_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
@@ -69,9 +69,9 @@ export interface ENV_BINDING {
   CLOUDFLARE_IMAGE_ENDPOINT: string;
   CLOUDFLARE_IMAGE_TOKEN: string;
   CLOUDFLARE_IMAGE_AUTH_TOKEN: string;
+  DEV_ENV: string;
   REDIS_URL: string;
   REDIS_TOKEN: string;
-  DEV_ENV: string;
   STG_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
