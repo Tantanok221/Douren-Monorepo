@@ -1,9 +1,12 @@
-name: Douren Backend Staging Deploy
+name: Douren Backend Deploy Pipeline
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'be/douren-backend/**'
+      - 'pkg/**'
 
 jobs:
   stg-deploy:
