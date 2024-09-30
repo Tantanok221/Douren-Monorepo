@@ -1,7 +1,6 @@
 import { Env, Hono } from "hono";
 import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
-import { clerkMiddleware } from "@hono/clerk-auth";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, {trpcArtistRoute} from "./routes/artist";
 import EventRoute, {trpcEventRoute} from "./routes/event";
