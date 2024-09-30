@@ -1,6 +1,13 @@
 name = "douren-backend"
 node_compat = true
 compatibility_date = "2024-08-30"
+
+[env.staging.observability]
+enabled = true
+
+[env.production.observability]
+enabled = true
+
 [env.staging]
 vars = { DEV_ENV = "stg" }
 routes = [
@@ -11,5 +18,6 @@ vars = { DEV_ENV = "prod" }
 routes = [
     { pattern = "api.douren.net", custom_domain = true }
 ]
-[triggers]
+
+[env.production.triggers]
 crons = ["0 0 * * *"]
