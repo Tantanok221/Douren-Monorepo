@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { Redis } from "@upstash/redis/cloudflare";
+import { Redis} from "@upstash/redis/cloudflare";
 
 export function initRedis() {
   config();
