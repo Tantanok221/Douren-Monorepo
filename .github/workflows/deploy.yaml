@@ -38,6 +38,9 @@ jobs:
       - name: Build Packages
         run: npm run pkg
 
+      - name: Build Library
+        run: npm run lib
+
       - name: Deploy Backend
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}

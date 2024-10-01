@@ -63,6 +63,12 @@ else
 			$(PYTHON) merge_env.py .env .env.fe "$$dir/.env"; \
 		fi; \
 	done
+	# Only copy .env to lib directories (do not merge or modify it)
+	@for dir in lib/*; do \
+		if [ -d "$$dir" ]; then \
+			cp .env "$$dir/.env"; \
+		fi; \
+	done
 	# Only copy .env to pkg directories (do not merge or modify it)
 	@for dir in pkg/*; do \
 		if [ -d "$$dir" ]; then \

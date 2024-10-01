@@ -4,11 +4,13 @@
   "scripts": {
     "build": "turbo build",
     "pkg": "turbo build --filter=./pkg/* && npm install",
+    "lib": "turbo build --filter=./lib/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",
     "devbe": "turbo dev --filter=./be/*",
     "devfe": "turbo dev --filter=./fe/*",
     "devpkg": "turbo dev --filter=./pkg/*",
+    "devlib": "turbo dev --filter=./lib/*",
     "codegen": "turbo codegen && npm run pkg",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
@@ -40,7 +42,8 @@
   "workspaces": [
     "fe/*",
     "be/*",
-    "pkg/*"
+    "pkg/*",
+    "lib/*"
   ],
   "packageManager": "npm@9.8.1"
 }
