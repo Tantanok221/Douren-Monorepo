@@ -3,7 +3,7 @@ import {processArtistEventParams} from "./paramHelper";
 import {GetArtistQuery, GetEventArtistQuery} from "./queryHelper";
 import {createPaginationObject} from "../helper/createPaginationObject";
 import {PAGE_SIZE} from "../helper/constant";
-import {artistSchemaType, eventArtistSchemaType} from "@pkg/type/model";
+import {artistSchemaType, eventArtistSchemaType} from "@pkg/type";
 
 
 export async function ArtistFetchFunction(page: string, search: string, sort: string, searchtable:string, tag: string){

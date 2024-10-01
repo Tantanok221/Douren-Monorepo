@@ -2,7 +2,7 @@ import {initDB, s} from "@pkg/database/db";
 import {count, eq} from "drizzle-orm";
 import {BuildQuery} from "@pkg/database/helper";
 import {ArtistEventParams} from "./paramHelper";
-import {FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT} from "@pkg/type/model";
+import {FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT} from "@pkg/type";
 import {PAGE_SIZE} from "../helper/constant";
 
 export function GetEventArtistQuery(eventId: string, search: string, page: string, params: ArtistEventParams) {

@@ -7,7 +7,7 @@ import {CreateArtistSchema, CreateArtistSchemaTypes} from "../schema/artist.zod"
 import {verifyUser} from "../utlis/authHelper";
 import {publicProcedure, router} from "../trpc";
 import {zodSchema, zodSchemaType} from "@pkg/database/zod";
-import {artistInputParams, artistSchema} from "@pkg/type/model";
+import {artistInputParams, artistSchema} from "@pkg/type";
 import {ArtistFetchFunction} from "../utlis/fetchHelper";
 
 export const trpcArtistRoute = router({

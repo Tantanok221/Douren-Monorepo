@@ -4,37 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages">
-      <change afterPath="$PROJECT_DIR$/pkg/ui/biome.json" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#33] Merge main into dev/ui-lib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/type/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/type/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/type/src/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/type/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCardContext.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/helper/processArtistData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processTagData.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/types/Artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/types/Artist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +47,7 @@
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -170,31 +143,7 @@
       <workItem from="1727693602649" duration="7286000" />
       <workItem from="1727705921086" duration="6473000" />
       <workItem from="1727745171036" duration="1214000" />
-      <workItem from="1727767776763" duration="10444000" />
-    </task>
-    <task id="LOCAL-00005" summary="feat: Added Biome at backend services">
-      <option name="closed" value="true" />
-      <created>1726449154076</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1726449154076</updated>
-    </task>
-    <task id="LOCAL-00006" summary="refactor: Refactor event routes">
-      <option name="closed" value="true" />
-      <created>1726449208380</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1726449208380</updated>
-    </task>
-    <task id="LOCAL-00007" summary="dev: Update env vault">
-      <option name="closed" value="true" />
-      <created>1726449301628</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1726449301628</updated>
+      <workItem from="1727767776763" duration="11464000" />
     </task>
     <task id="LOCAL-00008" summary="dev: Update env vault">
       <option name="closed" value="true" />
@@ -564,7 +513,31 @@
       <option name="project" value="LOCAL" />
       <updated>1727784005243</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages">
+      <option name="closed" value="true" />
+      <created>1727784462168</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784462168</updated>
+    </task>
+    <task id="LOCAL-00055" summary="[#33] dev: Remove unused code">
+      <option name="closed" value="true" />
+      <created>1727784492604</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784492604</updated>
+    </task>
+    <task id="LOCAL-00056" summary="[#33] Merge main into dev/ui-lib">
+      <option name="closed" value="true" />
+      <created>1727784806166</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784806166</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,8 +558,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: Update exported name and added alias config and also fix some of the weird file structures" />
-    <MESSAGE value="[#25] feat: Added Story Books for ArtistCard" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="[#25] dev: Update path alias" />
     <MESSAGE value="[#31] feat: Move customObject to shared type pkg" />
     <MESSAGE value="[#25] dev: Remove unused legacy code and @ts-ignore config error" />
@@ -610,7 +583,9 @@
     <MESSAGE value="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production" />
     <MESSAGE value="[#31] refactor: Move commonly use utility to type folders" />
     <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
+    <MESSAGE value="[#33] dev: Remove unused code" />
+    <MESSAGE value="[#33] Merge main into dev/ui-lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#33] Merge main into dev/ui-lib" />
   </component>
   <component name="WfRunsListSearchHistory"><![CDATA[{
   "history": [
@@ -676,6 +651,14 @@
     },
     {
       "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
       "currentBranchFilter": true
     },
     {

@@ -11,7 +11,7 @@ import {
 } from "../schema/event.zod";
 import {verifyUser} from "../utlis/authHelper";
 import {publicProcedure, router} from "../trpc";
-import {eventArtistSchema, eventInputParams} from "@pkg/type/model";
+import {eventArtistSchema, eventInputParams} from "@pkg/type";
 import {EventArtistFetchFunction} from "../utlis/fetchHelper";
 
 export const trpcEventRoute = router({
