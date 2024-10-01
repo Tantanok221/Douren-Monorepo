@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="dev: Update package-lock.json">
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="dev: Update package-lock.json and dependency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/env/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/env/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,23 +140,7 @@
       <workItem from="1727693602649" duration="7286000" />
       <workItem from="1727705921086" duration="6473000" />
       <workItem from="1727745171036" duration="1214000" />
-      <workItem from="1727767776763" duration="14411000" />
-    </task>
-    <task id="LOCAL-00009" summary="dev: Update env vault">
-      <option name="closed" value="true" />
-      <created>1726453576471</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1726453576471</updated>
-    </task>
-    <task id="LOCAL-00010" summary="feat: Update redis">
-      <option name="closed" value="true" />
-      <created>1726453602297</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1726453602297</updated>
+      <workItem from="1727767776763" duration="14956000" />
     </task>
     <task id="LOCAL-00011" summary="refactor: refactor query param parts">
       <option name="closed" value="true" />
@@ -540,7 +518,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727786586804</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="dev: Update package-lock.json and dependency">
+      <option name="closed" value="true" />
+      <created>1727788870870</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1727788870870</updated>
+    </task>
+    <task id="LOCAL-00059" summary="dev: Update package-lock.json and dependency">
+      <option name="closed" value="true" />
+      <created>1727788878670</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1727788878670</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +557,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#31] feat: Move customObject to shared type pkg" />
     <MESSAGE value="[#25] dev: Remove unused legacy code and @ts-ignore config error" />
     <MESSAGE value="[#25] dev: Remove pkg/ui for now" />
     <MESSAGE value="[#25] feat: Remove Legacy FF related code from ArtistCard" />
@@ -588,7 +581,8 @@
     <MESSAGE value="[#33] dev: Remove unused code" />
     <MESSAGE value="[#33] Merge main into dev/ui-lib" />
     <MESSAGE value="dev: Update package-lock.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="dev: Update package-lock.json" />
+    <MESSAGE value="dev: Update package-lock.json and dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="dev: Update package-lock.json and dependency" />
   </component>
   <component name="WfRunsListSearchHistory"><![CDATA[{
   "history": [
