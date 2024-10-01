@@ -2,6 +2,7 @@
   "extends": "@pkg/typescript-config/pkg.json",
   "compilerOptions": {
     "outDir": "dist",
+    "declaration": true,
     "rootDir": "src"
   },
   "include": ["src"],

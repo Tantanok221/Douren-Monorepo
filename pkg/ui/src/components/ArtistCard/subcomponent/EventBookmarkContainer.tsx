@@ -16,9 +16,10 @@ const EventBookmarkContainer = ({keys}:Props) => {
   const [click, setClick] = React.useState(1);
   const data = useEventDataContext();
   const sx = classNames.bind(styles);
-  const [collection,actions] = useCollectionProvider();
-  const isAvailable  = collection?.some((item) => item.Booth_name === data?.Booth_name)
-  return (
+  // const [collection,actions] = useCollectionProvider();
+  // const isAvailable  = collection?.some((item) => item.Booth_name === data?.Booth_name)
+  const isAvailable = false
+    return (
     <motion.div whileHover={{ scale: 1.1 }} className={sx("bookmarkContainer")}>
       <IconContext.Provider value={{ color: "#AAAAAA", size: "2rem" }}>
         <motion.button
@@ -27,10 +28,10 @@ const EventBookmarkContainer = ({keys}:Props) => {
           transition={{ duration: 0.5 }}
           onClick={(event) => {
             if (!isAvailable) {
-              actions({action: 'add', keys: keys, data: data})
+              // actions({action: 'add', keys: keys, data: data})
               setClick(click + 1);
             } else {
-              actions({action: 'remove', keys: keys, data: data})
+              // actions({action: /'remove', keys: keys, data: data})
               setClick(click + 1);
             }
           }}

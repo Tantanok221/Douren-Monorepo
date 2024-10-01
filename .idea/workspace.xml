@@ -4,13 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#25] dev: Remove unused legacy code and @ts-ignore config error">
-      <change afterPath="$PROJECT_DIR$/pkg/helper/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/helper/src/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/helper/src/supabase/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/helper/src/vite-env.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/helper/tsconfig.json" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages">
+      <change afterPath="$PROJECT_DIR$/pkg/ui/biome.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/src/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCardContext.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/helper/processArtistData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processTagData.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/src/types/Artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/src/types/Artist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ui/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +68,11 @@
     &quot;accountId&quot;: &quot;4e1109c6-20ca-405e-9ec1-34945a527d72&quot;
   }
 }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/fe/Douren-frontend/package.json" />
+    <dismissed value="$PROJECT_DIR$/fe/cms/package.json" />
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -62,36 +91,36 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "dev/ui-lib",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/helper/src",
+    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/type/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "web-ide.project.structure",
+    "settings.editor.selected.configurable": "CodeWithMe",
     "ts.external.directory.path": "C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\lambda" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\.github\workflows" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\helper\src" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\helper\src\supabase" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\helper\src\hook" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\context\CollectionContext" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\type\src" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\scripts" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components\DMButton" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\button" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -129,39 +158,19 @@
       <workItem from="1727016016033" duration="2419000" />
       <workItem from="1727268751724" duration="11156000" />
       <workItem from="1727310328386" duration="2657000" />
-      <workItem from="1727421877894" duration="9091000" />
-    </task>
-    <task id="LOCAL-00001" summary="fix: Wrangler issues">
-      <option name="closed" value="true" />
-      <created>1726399881922</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1726399881922</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix: Remove useless zod schemas">
-      <option name="closed" value="true" />
-      <created>1726399912227</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1726399912227</updated>
-    </task>
-    <task id="LOCAL-00003" summary="feat: Refactor routes that are not split with methods">
-      <option name="closed" value="true" />
-      <created>1726410396835</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1726410396835</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: Added Biome">
-      <option name="closed" value="true" />
-      <created>1726410553696</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1726410553696</updated>
+      <workItem from="1727421877894" duration="10489000" />
+      <workItem from="1727519832142" duration="987000" />
+      <workItem from="1727525715922" duration="4359000" />
+      <workItem from="1727532236334" duration="7289000" />
+      <workItem from="1727577827707" duration="4370000" />
+      <workItem from="1727582286462" duration="10725000" />
+      <workItem from="1727604384874" duration="12104000" />
+      <workItem from="1727665483250" duration="5396000" />
+      <workItem from="1727681638578" duration="8738000" />
+      <workItem from="1727693602649" duration="7286000" />
+      <workItem from="1727705921086" duration="6473000" />
+      <workItem from="1727745171036" duration="1214000" />
+      <workItem from="1727767776763" duration="10444000" />
     </task>
     <task id="LOCAL-00005" summary="feat: Added Biome at backend services">
       <option name="closed" value="true" />
@@ -379,11 +388,190 @@
       <option name="project" value="LOCAL" />
       <updated>1727449940554</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="[#25] dev: Remove pkg/ui for now">
+      <option name="closed" value="true" />
+      <created>1727451504870</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1727451504870</updated>
+    </task>
+    <task id="LOCAL-00033" summary="[#25] feat: Remove Legacy FF related code from ArtistCard">
+      <option name="closed" value="true" />
+      <created>1727451555032</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1727451555032</updated>
+    </task>
+    <task id="LOCAL-00034" summary="[#25] feat: Added empty Helper package">
+      <option name="closed" value="true" />
+      <created>1727519902461</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1727519902461</updated>
+    </task>
+    <task id="LOCAL-00035" summary="[#33] feat: setup ways to start localdb">
+      <option name="closed" value="true" />
+      <created>1727532458510</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1727532458510</updated>
+    </task>
+    <task id="LOCAL-00036" summary="[#33] dev: Added way to sync production data to local db">
+      <option name="closed" value="true" />
+      <created>1727536188023</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1727536188023</updated>
+    </task>
+    <task id="LOCAL-00037" summary="[#33] dev: Update vault">
+      <option name="closed" value="true" />
+      <created>1727585041842</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1727585041842</updated>
+    </task>
+    <task id="LOCAL-00038" summary="[#33] dev: Update vault">
+      <option name="closed" value="true" />
+      <created>1727673098730</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673098730</updated>
+    </task>
+    <task id="LOCAL-00039" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673351583</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673351583</updated>
+    </task>
+    <task id="LOCAL-00040" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673600583</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673600583</updated>
+    </task>
+    <task id="LOCAL-00041" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673673140</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673673140</updated>
+    </task>
+    <task id="LOCAL-00042" summary="[#33] feat: Added auto deploy workflows">
+      <option name="closed" value="true" />
+      <created>1727680995581</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1727680995581</updated>
+    </task>
+    <task id="LOCAL-00043" summary="[#33] dev: Update env variable">
+      <option name="closed" value="true" />
+      <created>1727681041850</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681041850</updated>
+    </task>
+    <task id="LOCAL-00044" summary="[#33] refactor: Remove unused code">
+      <option name="closed" value="true" />
+      <created>1727681120049</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681120049</updated>
+    </task>
+    <task id="LOCAL-00045" summary="[#33] dev: Update scripts">
+      <option name="closed" value="true" />
+      <created>1727681161236</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681161236</updated>
+    </task>
+    <task id="LOCAL-00046" summary="[#33] refactor: Remove unused imports">
+      <option name="closed" value="true" />
+      <created>1727681203232</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681203232</updated>
+    </task>
+    <task id="LOCAL-00047" summary="[#33] feat: Added staging deployment scripts and change deployment and makefile scripts">
+      <option name="closed" value="true" />
+      <created>1727682683517</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1727682683517</updated>
+    </task>
+    <task id="LOCAL-00048" summary="[#33] dev: Update scripts naming and added conditional deployment">
+      <option name="closed" value="true" />
+      <created>1727683274211</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1727683274211</updated>
+    </task>
+    <task id="LOCAL-00049" summary="[#33] dev: Added turborepo remote caching">
+      <option name="closed" value="true" />
+      <created>1727683839151</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1727683839151</updated>
+    </task>
+    <task id="LOCAL-00050" summary="[#36] feat: Added rate limiting with redis">
+      <option name="closed" value="true" />
+      <created>1727687653466</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1727687653466</updated>
+    </task>
+    <task id="LOCAL-00051" summary="[#35] dev: Update env">
+      <option name="closed" value="true" />
+      <created>1727694069370</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1727694069370</updated>
+    </task>
+    <task id="LOCAL-00052" summary="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production">
+      <option name="closed" value="true" />
+      <created>1727694730938</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1727694730938</updated>
+    </task>
+    <task id="LOCAL-00053" summary="[#31] refactor: Move commonly use utility to type folders">
+      <option name="closed" value="true" />
+      <created>1727784005243</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784005243</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -397,31 +585,111 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: Added Biome at backend services" />
-    <MESSAGE value="refactor: Refactor event routes" />
-    <MESSAGE value="dev: Update env vault" />
-    <MESSAGE value="feat: Update redis" />
-    <MESSAGE value="refactor: refactor query param parts" />
-    <MESSAGE value="feat: Update zod schema generator" />
-    <MESSAGE value="dev: Added codegen scripts" />
-    <MESSAGE value="refactor: Refactor customObject" />
-    <MESSAGE value="feat: Added trpc for fetching artist and event route" />
-    <MESSAGE value="refactor: Remove unused constant and import" />
-    <MESSAGE value="git: merge from feat/trpc to main" />
-    <MESSAGE value="[#16] refactor: Move migrate.ts from database package to backend api" />
-    <MESSAGE value="[#18] scaffold: init cms with biome" />
-    <MESSAGE value="[#20] fix: image db initialize issue" />
-    <MESSAGE value="[#18] dev: Remove useless boilerplate and add dependencies" />
-    <MESSAGE value="fix: Fix vercel deployment issue" />
-    <MESSAGE value="feat: Added ui library, with storybook integration" />
-    <MESSAGE value="dev: Update .env" />
-    <MESSAGE value="feat: Added ArtistCard Stories(no tag support yet)" />
-    <MESSAGE value="feat: Update configs file and exported components" />
     <MESSAGE value="feat: Update exported name and added alias config and also fix some of the weird file structures" />
     <MESSAGE value="[#25] feat: Added Story Books for ArtistCard" />
     <MESSAGE value="[#25] dev: Update path alias" />
     <MESSAGE value="[#31] feat: Move customObject to shared type pkg" />
     <MESSAGE value="[#25] dev: Remove unused legacy code and @ts-ignore config error" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#25] dev: Remove unused legacy code and @ts-ignore config error" />
+    <MESSAGE value="[#25] dev: Remove pkg/ui for now" />
+    <MESSAGE value="[#25] feat: Remove Legacy FF related code from ArtistCard" />
+    <MESSAGE value="[#25] feat: Added empty Helper package" />
+    <MESSAGE value="[#33] feat: setup ways to start localdb" />
+    <MESSAGE value="[#33] dev: Added way to sync production data to local db" />
+    <MESSAGE value="[#33] dev: Update vault" />
+    <MESSAGE value="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process" />
+    <MESSAGE value="[#33] feat: Added auto deploy workflows" />
+    <MESSAGE value="[#33] dev: Update env variable" />
+    <MESSAGE value="[#33] refactor: Remove unused code" />
+    <MESSAGE value="[#33] dev: Update scripts" />
+    <MESSAGE value="[#33] refactor: Remove unused imports" />
+    <MESSAGE value="[#33] feat: Added staging deployment scripts and change deployment and makefile scripts" />
+    <MESSAGE value="[#33] dev: Update scripts naming and added conditional deployment" />
+    <MESSAGE value="[#33] dev: Added turborepo remote caching" />
+    <MESSAGE value="[#36] feat: Added rate limiting with redis" />
+    <MESSAGE value="[#35] dev: Update env" />
+    <MESSAGE value="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production" />
+    <MESSAGE value="[#31] refactor: Move commonly use utility to type folders" />
+    <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
   </component>
+  <component name="WfRunsListSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/ratelimit",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/ratelimit",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "fix/staging",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/lambda",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/lambda",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/node",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "fix/staging",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    }
+  ],
+  "lastFilter": {
+    "branch": "dev/ui-lib",
+    "currentBranchFilter": true
+  }
+}]]></component>
 </project>

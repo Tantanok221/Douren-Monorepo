@@ -2,17 +2,16 @@ import React from "react";
 import style from "../style.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { useArtistCardContext } from "../ArtistCardContext";
+import {useEventDataContext} from "@components/ArtistCard/EventDataContext.ts";
 
-interface Props {}
 
-const IntroductionContainer = ({}: Props) => {
+const IntroductionContainer = () => {
   const sx = classNames.bind(style);
-  const artistData = useArtistCardContext();
+  const artistData = useEventDataContext();
 
   return (
     <motion.div className={sx("introductionContainer")}>
-      {artistData?.Introduction}
+      {artistData?.introduction}
     </motion.div>
   );
 };

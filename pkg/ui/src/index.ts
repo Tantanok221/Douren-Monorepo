@@ -1,33 +1,52 @@
-import { ArtistEventType } from "./types/Artist.ts";
 import { initializeGlobalStyles } from "./stitches.config.js";
+import {eventArtistSchemaType} from "@pkg/type";
 
 initializeGlobalStyles();
 export * from "./components";
 
-export const mockArtistEventData: ArtistEventType = (
-  {
-    "Location_Day01": "A01",
-    "Location_Day02": "A01",
-    "Location_Day03": "A01",
-    "Booth_name": "命由工作室",
-    "DM": "https://imagedelivery.net/-OKLR_GOSRBj5AAtxDWCLw/cf631f59-e65c-4ee4-0483-e7c5b3c54a00/public",
-    "Author_Main": {
-      "Tags": "二創, 東方, 繪師",
-      "uuid": 1,
-      "Photo": "https://imagedelivery.net/-OKLR_GOSRBj5AAtxDWCLw/e04b9000-6278-4da3-3796-9b80cfa1af00/public",
-      "Author": "Touka",
-      "Baha_link": null,
-      "Myacg_link": "https://www.myacg.com.tw/seller_market.php?seller=595530",
-      "Pixiv_link": "https://www.pixiv.net/users/4972747",
-      "Plurk_link": null,
-      "Store_link": null,
-      "Twitch_link": null,
-      "Introduction": "大家好，這裡是命由工作室的Touka\r\n致力於創作東方Project二創與周邊，以每年舉辦一次東方合同誌企劃為目標！\r\n另外東方群像物語不定期連載中！",
-      "Twitter_link": "https://twitter.com/daic5057",
-      "Youtube_link": "https://www.youtube.com/@daic50577",
-      "Facebook_link": "https://www.facebook.com/FreelLve",
-      "Official_link": "https://www.facebook.com/daic5057",
-      "Instagram_link": null
+export const mockArtistEventData: eventArtistSchemaType = (
+    {
+        "uuid": 193,
+        "author": "Jen",
+        "introduction": null,
+        "twitterLink": "https://twitter.com/JEN03426859",
+        "youtubeLink": null,
+        "facebookLink": "https://www.facebook.com/JEN3ru.ore",
+        "instagramLink": "https://www.instagram.com/jenru.ore/",
+        "pixivLink": null,
+        "plurkLink": null,
+        "bahaLink": "https://wall.gamer.com.tw/redir.php?userId=matuya0825",
+        "twitchLink": null,
+        "myacgLink": null,
+        "storeLink": "https://myship.7-11.com.tw/general/detail/GM2403132807292",
+        "officialLink": null,
+        "photo": "https://imagedelivery.net/-OKLR_GOSRBj5AAtxDWCLw/4e652784-3188-4a71-c2d9-777f97508e00/public",
+        "tags": [
+            {
+                "tagName": "米哈游",
+                "tagCount": 6
+            },
+            {
+                "tagName": "Vtuber",
+                "tagCount": 16
+            },
+            {
+                "tagName": "世界計畫",
+                "tagCount": 1
+            },
+            {
+                "tagName": "二創",
+                "tagCount": 44
+            },
+            {
+                "tagName": "原創",
+                "tagCount": 27
+            }
+        ],
+        "boothName": "JENˇ/荏",
+        "locationDay01": "H12",
+        "locationDay02": null,
+        "locationDay03": null,
+        "DM": null
     }
-  }
 );

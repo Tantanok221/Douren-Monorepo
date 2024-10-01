@@ -18,6 +18,7 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.2",
     "@chromatic-com/storybook": "^1.9.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -43,6 +44,7 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {
+    "@pkg/type": "*",
     "@stitches/react": "^1.2.8",
     "classnames": "^2.5.1",
     "framer-motion": "^11.7.0"

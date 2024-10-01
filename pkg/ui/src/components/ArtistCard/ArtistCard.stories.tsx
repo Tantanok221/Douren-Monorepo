@@ -6,7 +6,7 @@ import { mockArtistEventData } from "@/index.ts";
 const meta: Meta<typeof Index> = {
   component: Index,
   args: {
-    eventData: mockArtistEventData
+    data: mockArtistEventData
   },
   render: ({ children, ...args }) => {
     return <Index {...args}>{children}</Index>;
@@ -21,7 +21,7 @@ export const ArtistEventCard: Story = {
     children: <>
       <Index.ImageContainer />
       <Index.RightContainer>
-        <Index.HeaderContainer />
+        <Index.HeaderContainer keys={"/event/ff43"}/>
         <Index.TagContainer activeButton />
         <Index.DayContainer />
         <Index.LinkContainer>
@@ -37,7 +37,7 @@ export const ArtistCard: Story = {
     children: <>
       <Index.ImageContainer />
       <Index.RightContainer>
-        <Index.HeaderContainer />
+        <Index.HeaderContainer  />
         <Index.TagContainer activeButton />
         <Index.LinkContainer>
           <Index.DMButton />

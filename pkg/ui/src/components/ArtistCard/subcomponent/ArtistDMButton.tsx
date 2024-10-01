@@ -6,7 +6,7 @@ const ArtistDMButton = () => {
   const eventData = useEventDataContext();
   const link = ( eventData?.DM ?? "").split("\n");
 
-  return link[0] != "" ? <DMButton link={link}></DMButton> : null;
+  return link[0] !== "" ? <DMButton link={link}/> : null;
 };
 
 export default ArtistDMButton;

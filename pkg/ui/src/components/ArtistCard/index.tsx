@@ -3,8 +3,6 @@ import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import { listVariants } from "@/helper/listAnimation.ts";
-import { ArtistEventType, ArtistTypes } from "@/types/Artist.ts";
-import ArtistCardContext from "./ArtistCardContext.ts";
 import EventDataContext from "./EventDataContext.ts";
 import ImageContainer from './subcomponent/ImageContainer';
 import ArtistButton from './subcomponent/ArtistButton';
@@ -16,11 +14,12 @@ import EventBookmarkContainer from './subcomponent/EventBookmarkContainer';
 import HeaderContainer from './subcomponent/HeaderContainer';
 import RightContainer from './subcomponent/RightContainer';
 import TitleContainer from './subcomponent/TitleContainer';
+import { eventArtistSchemaType} from "@pkg/type";
+
 interface ArtistCardProps {
   index?: number;
   children?: React.ReactNode;
-  artistData?: ArtistTypes;
-  eventData?: ArtistEventType;
+  data?: eventArtistSchemaType;
 }
 const ArtistCard: React.FC<ArtistCardProps> & {
   ImageContainer: typeof ImageContainer;
@@ -33,11 +32,10 @@ const ArtistCard: React.FC<ArtistCardProps> & {
   HeaderContainer: typeof HeaderContainer;
   RightContainer: typeof RightContainer;
   TitleContainer: typeof TitleContainer;
-} = ({ index,  children, artistData, eventData }) => {
+} = ({ index,  children, data }) => {
   const sx = classNames.bind(styles);
   return (
-      <ArtistCardContext.Provider value={artistData}>
-        <EventDataContext.Provider value={eventData}>
+        <EventDataContext.Provider value={data}>
           <motion.div
             variants={listVariants}
             initial="hidden"
@@ -51,7 +49,6 @@ const ArtistCard: React.FC<ArtistCardProps> & {
             </motion.div>
           </motion.div>
         </EventDataContext.Provider>
-      </ArtistCardContext.Provider>
   );
 };
 

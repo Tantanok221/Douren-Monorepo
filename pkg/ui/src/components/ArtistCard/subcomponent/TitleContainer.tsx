@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { useArtistCardContext } from "../ArtistCardContext";
 import { useEventDataContext } from "../EventDataContext";
 
 interface Props {
@@ -10,15 +9,14 @@ interface Props {
 
 const TitleContainer = ({ subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
-  const artistData = useArtistCardContext();
   const eventData = useEventDataContext();
-  let subtitle: string | null = "";
-  let title: string | null = "";
-  if (artistData) {
-    title = artistData?.Author;
-  } else if (eventData) {
-    title = eventData?.Booth_name;
-    subtitle = eventData?.Author_Main?.Author;
+  let subtitle: string | undefined = "";
+  let title: string | undefined = "";
+  if(eventData?.boothName){
+    title = eventData?.boothName;
+    subtitle = eventData?.author;
+  }else {
+    title = eventData?.author
   }
 
   return (
