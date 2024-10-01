@@ -4,11 +4,13 @@
   "scripts": {
     "build": "turbo build",
     "pkg": "turbo build --filter=./pkg/* && npm install",
+    "lib": "turbo build --filter=./lib/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",
     "devbe": "turbo dev --filter=./be/*",
     "devfe": "turbo dev --filter=./fe/*",
     "devpkg": "turbo dev --filter=./pkg/*",
+    "devlib": "turbo dev --filter=./lib/*",
     "codegen": "turbo codegen && npm run pkg",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
@@ -23,10 +25,14 @@
     "db:sync": "make db_sync"
   },
   "devDependencies": {
+    "@babel/types": "^7.25.6",
     "@biomejs/biome": "1.9.0",
+    "@types/babel__core": "^7.20.5",
     "@types/node": "^22.5.5",
+    "dotenv": "^16.4.5",
     "from-env": "^1.1.4",
     "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "turbo": "^2.1.0",
     "typescript": "^5.4.5"
   },
@@ -36,7 +42,8 @@
   "workspaces": [
     "fe/*",
     "be/*",
-    "pkg/*"
+    "pkg/*",
+    "lib/*"
   ],
   "packageManager": "npm@9.8.1"
 }

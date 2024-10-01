@@ -1,0 +1,24 @@
+{
+  "name": "@pkg/type",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "build:pkg": "tsc"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@pkg/database": "*",
+    "@pkg/typescript-config": "*"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.33.0"
+  }
+}
