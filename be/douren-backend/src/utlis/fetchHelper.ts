@@ -10,10 +10,10 @@ export async function ArtistFetchFunction(page: string, search: string, sort: st
     const redis = initRedis();
     const ArtistParam = processArtistEventParams(sort, searchtable, tag)
     const redisKey = `get_artist_${page}_${search}_${tag}_${sort}_${searchtable}`;
-    const redisData = await redis.json.get(redisKey, {}, "$");
-    if (redisData) {
+    const redisData:artistSchemaType[] | null =  await redis.json.get(redisKey, {}, "$");
+    if (redisData && redisData?.length > 0) {
         console.log("redis cache hit");
-        return redisData as artistSchemaType;
+        return redisData[0];
     }
     const { SelectQuery,CountQuery} = GetArtistQuery(search,page,ArtistParam)
     // TODO: Need to change front end to use, to split

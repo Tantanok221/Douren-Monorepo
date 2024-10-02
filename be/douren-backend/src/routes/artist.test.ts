@@ -10,7 +10,7 @@ describe("Test Artist Routes", () => {
     const res = await app.request("/artist?sort=Author_Main(Author),asc&page=1&searchtable=Author_Main.Author");
     expect(res.status).toBe(200);
     let resJson:any = await res.json();
-    const payload = resJson[0].data
+    const payload = resJson.data
     expect(payload.length).toBe(40)
   });
   let createdId: string
