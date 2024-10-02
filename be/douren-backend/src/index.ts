@@ -41,7 +41,7 @@ app.use(
 );
 app.route("/event", EventRoute)
   .route("/artist", ArtistRoute);
-
+export {app}
 export default {
   /** this part manages cronjobs */
   scheduled(

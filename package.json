@@ -11,6 +11,7 @@
     "devfe": "turbo dev --filter=./fe/*",
     "devpkg": "turbo dev --filter=./pkg/*",
     "devlib": "turbo dev --filter=./lib/*",
+    "test": "turbo test",
     "codegen": "turbo codegen && npm run pkg",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",

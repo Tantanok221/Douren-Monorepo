@@ -1,17 +1,16 @@
 import {describe, expect, test} from "vitest";
 import {app} from "../index";
-import {create} from "node:domain";
 
 const MOCK_ENV = {
-  DEV_VARS: "dev"
+  DEV_ENV: "dev"
 };
 
 describe("Test Artist Routes", () => {
   test("GET /artist", async () => {
     const res = await app.request("/artist?sort=Author_Main(Author),asc&page=1&searchtable=Author_Main.Author");
-    let [resJson]: any[] = await res.json();
     expect(res.status).toBe(200);
-    const payload = resJson.data
+    let resJson:any = await res.json();
+    const payload = resJson[0].data
     expect(payload.length).toBe(40)
   });
   let createdId: string
@@ -23,9 +22,9 @@ describe("Test Artist Routes", () => {
         }),
         headers: new Headers({'Content-Type': 'application/json'}),
       }, MOCK_ENV)
-      const [data]: any[] = await res.json()
+      const resJson:any = await res.json()
       expect(res.status).toBe(200)
-      createdId = data?.uuid
+      createdId = resJson[0].uuid
     }
   )
   test.sequential("PUT /artist/:artistId", async () => {
@@ -37,8 +36,8 @@ describe("Test Artist Routes", () => {
       headers: new Headers({'Content-Type': 'application/json'}),
     }, MOCK_ENV)
     expect(res.status).toBe(200)
-    const [resJson]:any[] = await res.json()
-    expect(resJson.author).toBe("dummy3")
+    const resJson:any = await res.json()
+    expect(resJson[0].author).toBe("dummy3")
 
   })
   test.sequential("DELETE /artist/:artistId", async () => {
