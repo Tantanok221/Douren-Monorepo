@@ -14,7 +14,8 @@ export function processTableName(table: string) {
   }
   if (table === "Location_Day02") {
     return s.eventDm.locationDay02;
-  } else {
+  } else if(table === "Location_Day03") {
     return s.eventDm.locationDay03;
   }
+  return s.authorMain.author
 }
