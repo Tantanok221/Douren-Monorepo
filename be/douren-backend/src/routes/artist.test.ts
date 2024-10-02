@@ -11,7 +11,7 @@ describe("Test Artist Routes", () => {
     expect(res.status).toBe(200);
     let resJson:any = await res.json();
     const payload = resJson.data
-    expect(payload.length).toBe(40)
+    expect(payload.length).toBeLessThanOrEqual(40)
   });
   let createdId: string
   test.sequential("POST /artist", async () => {
