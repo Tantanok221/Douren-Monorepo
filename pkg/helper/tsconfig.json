@@ -1,0 +1,36 @@
+{
+  "extends": "@pkg/typescript-config/pkg.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "paths": {
+    "@/*": ["./src/*"]
+  }
+}

@@ -2,20 +2,15 @@ import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
 import ArtistCard from "../../../components/ArtistCard/ArtistCard";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { useSearch } from "../../../stores/useSearch";
-import { useNextPageAvailable } from "../../../stores/useNextPageAvailable";
 import { useLoaderData } from "react-router-dom";
-import { useTagFilter } from "../../../stores/useTagFilter";
-import { useSort } from "../../../stores/useSort";
-import { useEventIDQuery } from "../../../hooks/useEventIDQuery";
+import { useSort } from "@/stores/useSort.ts";
+import { useEventIDQuery } from "@/hooks/useEventIDQuery.ts";
 import { useSortSelectContextProvider } from "../context/SortSelectContext/useSortSelectContextProvider";
 import { useSearchColumnContext } from "../context/SearchColumnContext/useSearchColumnContext";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
-import { useGetTotalPage } from "../../../hooks/useGetTotalPage";
+import { useGetTotalPage } from "@/hooks/useGetTotalPage.ts";
 import Pagination from "../../../components/Pagination/Pagination";
-import NavbarMargin from "../../../components/NavMenu/subcomponents/NavbarMargin";
 
 interface Props {}
 

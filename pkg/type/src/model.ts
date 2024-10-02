@@ -1,7 +1,6 @@
 import {s} from "@pkg/database/db";
-import { z } from "zod";
+import {z} from "zod";
 import {sql} from "drizzle-orm";
-import artist from "../routes/artist";
 
 export const FETCH_ARTIST_BASE_OBJECT = {
     uuid: s.authorMain.uuid,
@@ -52,7 +51,7 @@ export const FETCH_EVENT_ARTIST_OBJECT = {
 
 // Base artist schema
 const artistBaseSchema = z.object({
-    uuid: z.string(),
+    uuid: z.number(),
     author: z.string(),
     introduction: z.string().nullable(),
     twitterLink: z.string().nullable(),
@@ -79,6 +78,11 @@ const tagSchema = z.object({
     ),
 });
 
+const innerTagSchema = z.object({
+  tagName: z.string(),
+  tagCount: z.number()
+})
+
 // Event base schema
 const eventBaseSchema = z.object({
     boothName: z.string(),
@@ -101,6 +105,7 @@ export const eventInputParams = artistInputParams.extend({
 })
 
 // Combined schemas
+export type tagSchemaType =  z.infer<typeof innerTagSchema>
 export const artistSchema = artistBaseSchema.merge(tagSchema);
 export type artistSchemaType = z.infer<typeof artistSchema>
 export const eventArtistSchema = artistBaseSchema.merge(tagSchema).merge(eventBaseSchema);

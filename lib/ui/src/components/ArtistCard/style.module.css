@@ -1,0 +1,190 @@
+.artistCard {
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  background: var(--Panel, #1f1f21);
+  width: 100%;
+  border: none;
+  min-height: 100px;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC";
+}
+
+.mainContainer {
+  height: 100%;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.imageContainer {
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+  .rightContainer {
+    /* justify-content: flex-start; */
+    gap: 1.25rem;
+  }
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  gap: 0.25rem;
+}
+.tagContainer {
+  display: flex;
+  gap: 0.75rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.dayContainer {
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+}
+
+.dayItem {
+  gap: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.dayDescription {
+  width: 4rem;
+  height: 1.5rem;
+  color: var(--Dark-Day, #cbc3c3);
+  font-family: var(--Font);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  text-align: left;
+}
+
+.boothDescription {
+  color: var(--Dark-White, #fff);
+  font-family: var(--Font);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: left;
+}
+
+.header {
+  color: var(--Dark-White, #fff);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--Font);
+  text-align: left;
+}
+
+.subheader {
+  color: var(--Dark-Day, #cbc3c3);
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: left;
+}
+
+.linkContainer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  align-content: center;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.bookmarkButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.artistButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  color: #000;
+  background: #fb6363;
+  border: none;
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.artistButton:hover {
+  background: #f47878;
+}
+
+.smallText {
+  font-size: 0.9rem;
+}
+
+.introductionContainer {
+  font-family: var(--Font);
+  color: #fff;
+  border-radius: 1.25rem;
+  background: #2c2929;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+@media (max-width: 1000px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+  .imageContainer {
+    width: 100%;
+  }
+
+  .image {
+    height: 40%;
+  }
+  .artistButton {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+}
