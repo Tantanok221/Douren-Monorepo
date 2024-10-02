@@ -35,10 +35,10 @@ export async function ArtistFetchFunction(page: string, search: string, sort: st
 export async function EventArtistFetchFunction(page:string,search:string,sort:string,searchtable:string,tag:string,eventId:string){
     const redis = initRedis();
     const redisKey = `get_eventArtist${eventId}_${page}_${search}_${tag}_${sort}_${searchtable}`;
-    const redisData = await redis.json.get(redisKey, {}, "$");
-    if (redisData) {
+    const redisData: eventArtistSchemaType[] |null = await redis.json.get(redisKey, {}, "$");
+    if (redisData && redisData?.length > 0) {
         console.log("redis cache hit");
-        return redisData as eventArtistSchemaType;
+        return redisData[0]
     }
     const artistEventParams = processArtistEventParams(sort, searchtable, tag)
     const {SelectQuery, CountQuery} = GetEventArtistQuery(eventId, search, page, artistEventParams)

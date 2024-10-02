@@ -97,7 +97,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
             .set(body)
             .where(eq(s.eventDm.uuid, Number(body.uuid)))
             .returning();
-        return c.json(returnResponse, 204);
+        return c.json(returnResponse, 200);
     });
 
 export default EventRoute;
