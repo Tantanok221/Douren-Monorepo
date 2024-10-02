@@ -4,105 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="dev: Update github actions">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yaml" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="fix: artist sending wrong response code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Button.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Header.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/Page.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/Button.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/Button.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/Button.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/Button.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/index.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/button/index.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Button.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Header.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.jsx.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.jsx.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.stories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.stories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/src/stories/Page.stories.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.rollup.cache/C/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/ui/tsconfig.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.storybook/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.storybook/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.storybook/preview-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.storybook/preview-head.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/.storybook/preview.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/.storybook/preview.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/biome.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/Configure.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/Configure.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/accessibility.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/accessibility.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/accessibility.svg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/accessibility.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/addon-library.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/addon-library.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/assets.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/assets.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/avif-test-image.avif" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/avif-test-image.avif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/context.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/context.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/discord.svg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/discord.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/docs.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/docs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/figma-plugin.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/figma-plugin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/github.svg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/github.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/share.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/share.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/styling.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/styling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/testing.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/testing.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/theming.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/theming.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/tutorials.svg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/tutorials.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/assets/youtube.svg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/assets/youtube.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/ArtistCard.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/DataTypeContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/DataTypeContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/style.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/DayContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/HeaderContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/HeaderContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ImageContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/RightContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/RightContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/TitleContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/DMButton.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/DMButton/DMButton.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/DMButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/DMButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LazyImage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/LazyImage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LinkContainer/LinkContainer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/LinkContainer/LinkContainer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LinkContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/LinkContainer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/LinkIcon/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/LinkIcon/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/TagContainer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/TagContainer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/TagContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/components/vite-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/vite-env.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/listAnimation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/listAnimation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/processArtistData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/processLink.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/processLink.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/helper/supabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/supabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/stitches.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/stitches.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/stores/useTagFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/stores/useTagFilter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/types/Artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/types/Artist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/types/Owner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/types/Owner.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/src/typing.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/typing.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/ui/vite.config.ts.timestamp-1727788212243-3a0bfc2066217.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/vite.config.ts.timestamp-1727788212243-3a0bfc2066217.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +44,6 @@
 }</component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/fe/Douren-frontend/package.json" />
-    <dismissed value="$PROJECT_DIR$/fe/cms/package.json" />
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
@@ -161,7 +66,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#40 on dev/ui-lib",
+    "git-widget-placeholder": "#24 on feat/test-backend",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/type/src",
     "node.js.detected.package.eslint": "true",
@@ -183,11 +88,11 @@
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\helper\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\lib" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\type\src" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\scripts" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components\DMButton" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -238,47 +143,9 @@
       <workItem from="1727705921086" duration="6473000" />
       <workItem from="1727745171036" duration="1214000" />
       <workItem from="1727767776763" duration="14956000" />
-      <workItem from="1727789138680" duration="2560000" />
-    </task>
-    <task id="LOCAL-00013" summary="dev: Added codegen scripts">
-      <option name="closed" value="true" />
-      <created>1726472364677</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1726472364677</updated>
-    </task>
-    <task id="LOCAL-00014" summary="refactor: Refactor customObject">
-      <option name="closed" value="true" />
-      <created>1726663818925</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1726663818925</updated>
-    </task>
-    <task id="LOCAL-00015" summary="feat: Added trpc for fetching artist and event route">
-      <option name="closed" value="true" />
-      <created>1726664059094</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1726664059094</updated>
-    </task>
-    <task id="LOCAL-00016" summary="refactor: Remove unused constant and import">
-      <option name="closed" value="true" />
-      <created>1726664164996</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1726664164996</updated>
-    </task>
-    <task id="LOCAL-00017" summary="git: merge from feat/trpc to main">
-      <option name="closed" value="true" />
-      <created>1726668386463</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1726668386463</updated>
+      <workItem from="1727789138680" duration="8168000" />
+      <workItem from="1727878197099" duration="276000" />
+      <workItem from="1727878490472" duration="4605000" />
     </task>
     <task id="LOCAL-00018" summary="[#16] refactor: Move migrate.ts from database package to backend api">
       <option name="closed" value="true" />
@@ -632,7 +499,47 @@
       <option name="project" value="LOCAL" />
       <updated>1727789498171</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="feat: Move ui from pkg/ to lib/">
+      <option name="closed" value="true" />
+      <created>1727793088669</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793088669</updated>
+    </task>
+    <task id="LOCAL-00063" summary="dev: Update package-lock.json">
+      <option name="closed" value="true" />
+      <created>1727793465863</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793465863</updated>
+    </task>
+    <task id="LOCAL-00064" summary="[#19] feat: Added test case for artistRoutes">
+      <option name="closed" value="true" />
+      <created>1727881614598</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1727881614599</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Merge main into feat/test-backend">
+      <option name="closed" value="true" />
+      <created>1727881900557</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1727881900557</updated>
+    </task>
+    <task id="LOCAL-00066" summary="fix: artist sending wrong response code">
+      <option name="closed" value="true" />
+      <created>1727882915592</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1727882915592</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -646,7 +553,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feat/test-backend" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -655,10 +574,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#25] dev: Remove pkg/ui for now" />
-    <MESSAGE value="[#25] feat: Remove Legacy FF related code from ArtistCard" />
-    <MESSAGE value="[#25] feat: Added empty Helper package" />
-    <MESSAGE value="[#33] feat: setup ways to start localdb" />
     <MESSAGE value="[#33] dev: Added way to sync production data to local db" />
     <MESSAGE value="[#33] dev: Update vault" />
     <MESSAGE value="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process" />
@@ -677,10 +592,14 @@
     <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
     <MESSAGE value="[#33] dev: Remove unused code" />
     <MESSAGE value="[#33] Merge main into dev/ui-lib" />
-    <MESSAGE value="dev: Update package-lock.json" />
     <MESSAGE value="dev: Update package-lock.json and dependency" />
     <MESSAGE value="dev: Update github actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="dev: Update github actions" />
+    <MESSAGE value="feat: Move ui from pkg/ to lib/" />
+    <MESSAGE value="dev: Update package-lock.json" />
+    <MESSAGE value="[#19] feat: Added test case for artistRoutes" />
+    <MESSAGE value="Merge main into feat/test-backend" />
+    <MESSAGE value="fix: artist sending wrong response code" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: artist sending wrong response code" />
   </component>
   <component name="WfRunsListSearchHistory"><![CDATA[{
   "history": [
@@ -767,10 +686,26 @@
     {
       "branch": "dev/ui-lib",
       "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
     }
   ],
   "lastFilter": {
-    "branch": "dev/ui-lib",
+    "branch": "feat/test-backend",
     "currentBranchFilter": true
   }
 }]]></component>

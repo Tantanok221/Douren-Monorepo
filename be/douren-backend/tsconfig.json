@@ -1,9 +1,14 @@
 {
   "extends": "@pkg/typescript-config/be.json",
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
