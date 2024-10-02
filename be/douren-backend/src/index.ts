@@ -1,7 +1,6 @@
 import { Env, Hono } from "hono";
 import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
-import { clerkMiddleware } from "@hono/clerk-auth";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, {trpcArtistRoute} from "./routes/artist";
 import EventRoute, {trpcEventRoute} from "./routes/event";
@@ -10,7 +9,6 @@ import { trpcServer } from '@hono/trpc-server'
 import {BACKEND_BINDING} from "@pkg/env/constant";
 import {syncAuthorTag} from "./helper/migrate";
 const app = new Hono<{ Bindings: BACKEND_BINDING }>();
-app.use("*", clerkMiddleware());
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 
@@ -28,6 +26,7 @@ app.use(
 )
 app.route("/event", EventRoute)
     .route("/artist", ArtistRoute)
+export { app }
 
 export default {
   /** this part manages cronjobs */

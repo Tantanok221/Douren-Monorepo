@@ -4,25 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy_env.bat" beforeDir="false" afterPath="$PROJECT_DIR$/copy_env.bat" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="dev: Update package-lock.json">
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/vitest.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_9_2024_6_24_pm_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_9_2024_6_24_pm__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/database/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/env/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/env/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/env/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/env/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/typescript-config/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/typescript-config/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -32,42 +35,71 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Tantanok221"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Tantanok221&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Tantanok221/Douren-Monorepo.git",
-    "accountId": "4e1109c6-20ca-405e-9ec1-34945a527d72"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Tantanok221/Douren-Monorepo.git&quot;,
+    &quot;accountId&quot;: &quot;4e1109c6-20ca-405e-9ec1-34945a527d72&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/fe/Douren-frontend/package.json" />
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2m6SLN1gxW4At1aKv9KmFFFc5w6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#24 on feat/test-backend&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/pkg/type/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeWithMe&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\lambda" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\.github\workflows" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\helper\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\lib" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\type\src" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\scripts" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components\DMButton" />
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,11 +115,603 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726395477216</updated>
-      <workItem from="1726395479476" duration="1192000" />
+      <workItem from="1726395479476" duration="13936000" />
+      <workItem from="1726449074247" duration="5801000" />
+      <workItem from="1726465425329" duration="1848000" />
+      <workItem from="1726467734743" duration="5767000" />
+      <workItem from="1726473956966" duration="546000" />
+      <workItem from="1726497818251" duration="2481000" />
+      <workItem from="1726500754860" duration="949000" />
+      <workItem from="1726502130287" duration="641000" />
+      <workItem from="1726502791879" duration="314000" />
+      <workItem from="1726580833059" duration="1823000" />
+      <workItem from="1726585698265" duration="1547000" />
+      <workItem from="1726662923706" duration="3041000" />
+      <workItem from="1726836309426" duration="56000" />
+      <workItem from="1726840281917" duration="7595000" />
+      <workItem from="1726848941956" duration="302000" />
+      <workItem from="1726925083400" duration="6195000" />
+      <workItem from="1727004960219" duration="8584000" />
+      <workItem from="1727016016033" duration="2419000" />
+      <workItem from="1727268751724" duration="11156000" />
+      <workItem from="1727310328386" duration="2657000" />
+      <workItem from="1727421877894" duration="10489000" />
+      <workItem from="1727519832142" duration="987000" />
+      <workItem from="1727525715922" duration="4359000" />
+      <workItem from="1727532236334" duration="7289000" />
+      <workItem from="1727577827707" duration="4370000" />
+      <workItem from="1727582286462" duration="10725000" />
+      <workItem from="1727604384874" duration="12104000" />
+      <workItem from="1727665483250" duration="5396000" />
+      <workItem from="1727681638578" duration="8738000" />
+      <workItem from="1727693602649" duration="7286000" />
+      <workItem from="1727705921086" duration="6473000" />
+      <workItem from="1727745171036" duration="1214000" />
+      <workItem from="1727767776763" duration="14956000" />
+      <workItem from="1727789138680" duration="8168000" />
+      <workItem from="1727878197099" duration="276000" />
+      <workItem from="1727878490472" duration="2768000" />
     </task>
+    <task id="LOCAL-00015" summary="feat: Added trpc for fetching artist and event route">
+      <option name="closed" value="true" />
+      <created>1726664059094</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1726664059094</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor: Remove unused constant and import">
+      <option name="closed" value="true" />
+      <created>1726664164996</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1726664164996</updated>
+    </task>
+    <task id="LOCAL-00017" summary="git: merge from feat/trpc to main">
+      <option name="closed" value="true" />
+      <created>1726668386463</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1726668386463</updated>
+    </task>
+    <task id="LOCAL-00018" summary="[#16] refactor: Move migrate.ts from database package to backend api">
+      <option name="closed" value="true" />
+      <created>1726843258572</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1726843258572</updated>
+    </task>
+    <task id="LOCAL-00019" summary="[#18] scaffold: init cms with biome">
+      <option name="closed" value="true" />
+      <created>1726845268496</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1726845268496</updated>
+    </task>
+    <task id="LOCAL-00020" summary="[#20] fix: image db initialize issue">
+      <option name="closed" value="true" />
+      <created>1726930779601</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1726930779601</updated>
+    </task>
+    <task id="LOCAL-00021" summary="[#18] dev: Remove useless boilerplate and add dependencies">
+      <option name="closed" value="true" />
+      <created>1726931946078</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1726931946078</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix: Fix vercel deployment issue">
+      <option name="closed" value="true" />
+      <created>1726933963238</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1726933963238</updated>
+    </task>
+    <task id="LOCAL-00023" summary="feat: Added ui library, with storybook integration">
+      <option name="closed" value="true" />
+      <created>1727272546027</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1727272546027</updated>
+    </task>
+    <task id="LOCAL-00024" summary="dev: Update .env">
+      <option name="closed" value="true" />
+      <created>1727276251417</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1727276251417</updated>
+    </task>
+    <task id="LOCAL-00025" summary="feat: Added ArtistCard Stories(no tag support yet)">
+      <option name="closed" value="true" />
+      <created>1727277758516</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1727277758516</updated>
+    </task>
+    <task id="LOCAL-00026" summary="feat: Update configs file and exported components">
+      <option name="closed" value="true" />
+      <created>1727278353669</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1727278353669</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: Update exported name and added alias config and also fix some of the weird file structures">
+      <option name="closed" value="true" />
+      <created>1727447450893</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1727447450893</updated>
+    </task>
+    <task id="LOCAL-00028" summary="[#25] feat: Added Story Books for ArtistCard">
+      <option name="closed" value="true" />
+      <created>1727447478547</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1727447478547</updated>
+    </task>
+    <task id="LOCAL-00029" summary="[#25] dev: Update path alias">
+      <option name="closed" value="true" />
+      <created>1727448886293</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1727448886293</updated>
+    </task>
+    <task id="LOCAL-00030" summary="[#31] feat: Move customObject to shared type pkg">
+      <option name="closed" value="true" />
+      <created>1727448931120</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1727448931120</updated>
+    </task>
+    <task id="LOCAL-00031" summary="[#25] dev: Remove unused legacy code and @ts-ignore config error">
+      <option name="closed" value="true" />
+      <created>1727449940554</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1727449940554</updated>
+    </task>
+    <task id="LOCAL-00032" summary="[#25] dev: Remove pkg/ui for now">
+      <option name="closed" value="true" />
+      <created>1727451504870</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1727451504870</updated>
+    </task>
+    <task id="LOCAL-00033" summary="[#25] feat: Remove Legacy FF related code from ArtistCard">
+      <option name="closed" value="true" />
+      <created>1727451555032</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1727451555032</updated>
+    </task>
+    <task id="LOCAL-00034" summary="[#25] feat: Added empty Helper package">
+      <option name="closed" value="true" />
+      <created>1727519902461</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1727519902461</updated>
+    </task>
+    <task id="LOCAL-00035" summary="[#33] feat: setup ways to start localdb">
+      <option name="closed" value="true" />
+      <created>1727532458510</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1727532458510</updated>
+    </task>
+    <task id="LOCAL-00036" summary="[#33] dev: Added way to sync production data to local db">
+      <option name="closed" value="true" />
+      <created>1727536188023</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1727536188023</updated>
+    </task>
+    <task id="LOCAL-00037" summary="[#33] dev: Update vault">
+      <option name="closed" value="true" />
+      <created>1727585041842</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1727585041842</updated>
+    </task>
+    <task id="LOCAL-00038" summary="[#33] dev: Update vault">
+      <option name="closed" value="true" />
+      <created>1727673098730</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673098730</updated>
+    </task>
+    <task id="LOCAL-00039" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673351583</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673351583</updated>
+    </task>
+    <task id="LOCAL-00040" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673600583</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673600583</updated>
+    </task>
+    <task id="LOCAL-00041" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
+      <option name="closed" value="true" />
+      <created>1727673673140</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1727673673140</updated>
+    </task>
+    <task id="LOCAL-00042" summary="[#33] feat: Added auto deploy workflows">
+      <option name="closed" value="true" />
+      <created>1727680995581</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1727680995581</updated>
+    </task>
+    <task id="LOCAL-00043" summary="[#33] dev: Update env variable">
+      <option name="closed" value="true" />
+      <created>1727681041850</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681041850</updated>
+    </task>
+    <task id="LOCAL-00044" summary="[#33] refactor: Remove unused code">
+      <option name="closed" value="true" />
+      <created>1727681120049</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681120049</updated>
+    </task>
+    <task id="LOCAL-00045" summary="[#33] dev: Update scripts">
+      <option name="closed" value="true" />
+      <created>1727681161236</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681161236</updated>
+    </task>
+    <task id="LOCAL-00046" summary="[#33] refactor: Remove unused imports">
+      <option name="closed" value="true" />
+      <created>1727681203232</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1727681203232</updated>
+    </task>
+    <task id="LOCAL-00047" summary="[#33] feat: Added staging deployment scripts and change deployment and makefile scripts">
+      <option name="closed" value="true" />
+      <created>1727682683517</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1727682683517</updated>
+    </task>
+    <task id="LOCAL-00048" summary="[#33] dev: Update scripts naming and added conditional deployment">
+      <option name="closed" value="true" />
+      <created>1727683274211</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1727683274211</updated>
+    </task>
+    <task id="LOCAL-00049" summary="[#33] dev: Added turborepo remote caching">
+      <option name="closed" value="true" />
+      <created>1727683839151</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1727683839151</updated>
+    </task>
+    <task id="LOCAL-00050" summary="[#36] feat: Added rate limiting with redis">
+      <option name="closed" value="true" />
+      <created>1727687653466</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1727687653466</updated>
+    </task>
+    <task id="LOCAL-00051" summary="[#35] dev: Update env">
+      <option name="closed" value="true" />
+      <created>1727694069370</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1727694069370</updated>
+    </task>
+    <task id="LOCAL-00052" summary="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production">
+      <option name="closed" value="true" />
+      <created>1727694730938</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1727694730938</updated>
+    </task>
+    <task id="LOCAL-00053" summary="[#31] refactor: Move commonly use utility to type folders">
+      <option name="closed" value="true" />
+      <created>1727784005243</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784005243</updated>
+    </task>
+    <task id="LOCAL-00054" summary="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages">
+      <option name="closed" value="true" />
+      <created>1727784462168</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784462168</updated>
+    </task>
+    <task id="LOCAL-00055" summary="[#33] dev: Remove unused code">
+      <option name="closed" value="true" />
+      <created>1727784492604</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784492604</updated>
+    </task>
+    <task id="LOCAL-00056" summary="[#33] Merge main into dev/ui-lib">
+      <option name="closed" value="true" />
+      <created>1727784806166</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1727784806166</updated>
+    </task>
+    <task id="LOCAL-00057" summary="dev: Update package-lock.json">
+      <option name="closed" value="true" />
+      <created>1727786586804</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1727786586804</updated>
+    </task>
+    <task id="LOCAL-00058" summary="dev: Update package-lock.json and dependency">
+      <option name="closed" value="true" />
+      <created>1727788870870</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1727788870870</updated>
+    </task>
+    <task id="LOCAL-00059" summary="dev: Update package-lock.json and dependency">
+      <option name="closed" value="true" />
+      <created>1727788878670</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1727788878670</updated>
+    </task>
+    <task id="LOCAL-00060" summary="dev: Update github actions">
+      <option name="closed" value="true" />
+      <created>1727789206038</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1727789206039</updated>
+    </task>
+    <task id="LOCAL-00061" summary="dev: Update github actions">
+      <option name="closed" value="true" />
+      <created>1727789498171</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1727789498171</updated>
+    </task>
+    <task id="LOCAL-00062" summary="feat: Move ui from pkg/ to lib/">
+      <option name="closed" value="true" />
+      <created>1727793088669</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793088669</updated>
+    </task>
+    <task id="LOCAL-00063" summary="dev: Update package-lock.json">
+      <option name="closed" value="true" />
+      <created>1727793465863</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793465863</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feat/test-backend" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="[#25] feat: Remove Legacy FF related code from ArtistCard" />
+    <MESSAGE value="[#25] feat: Added empty Helper package" />
+    <MESSAGE value="[#33] feat: setup ways to start localdb" />
+    <MESSAGE value="[#33] dev: Added way to sync production data to local db" />
+    <MESSAGE value="[#33] dev: Update vault" />
+    <MESSAGE value="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process" />
+    <MESSAGE value="[#33] feat: Added auto deploy workflows" />
+    <MESSAGE value="[#33] dev: Update env variable" />
+    <MESSAGE value="[#33] refactor: Remove unused code" />
+    <MESSAGE value="[#33] dev: Update scripts" />
+    <MESSAGE value="[#33] refactor: Remove unused imports" />
+    <MESSAGE value="[#33] feat: Added staging deployment scripts and change deployment and makefile scripts" />
+    <MESSAGE value="[#33] dev: Update scripts naming and added conditional deployment" />
+    <MESSAGE value="[#33] dev: Added turborepo remote caching" />
+    <MESSAGE value="[#36] feat: Added rate limiting with redis" />
+    <MESSAGE value="[#35] dev: Update env" />
+    <MESSAGE value="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production" />
+    <MESSAGE value="[#31] refactor: Move commonly use utility to type folders" />
+    <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
+    <MESSAGE value="[#33] dev: Remove unused code" />
+    <MESSAGE value="[#33] Merge main into dev/ui-lib" />
+    <MESSAGE value="dev: Update package-lock.json and dependency" />
+    <MESSAGE value="dev: Update github actions" />
+    <MESSAGE value="feat: Move ui from pkg/ to lib/" />
+    <MESSAGE value="dev: Update package-lock.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="dev: Update package-lock.json" />
+  </component>
+  <component name="WfRunsListSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/isolation",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/ratelimit",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/ratelimit",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "fix/staging",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/lambda",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/lambda",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/node",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "fix/staging",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "dev/ui-lib",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/test-backend",
+      "currentBranchFilter": true
+    }
+  ],
+  "lastFilter": {
+    "branch": "feat/test-backend",
+    "currentBranchFilter": true
+  }
+}]]></component>
 </project>
