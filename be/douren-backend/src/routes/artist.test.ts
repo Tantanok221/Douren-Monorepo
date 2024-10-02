@@ -46,7 +46,6 @@ describe("Test Artist Routes", () => {
     }, MOCK_ENV)
     expect(res.status).toBe(200)
     const data = await res.json()
-    console.log(data)
     return
   })
 })
