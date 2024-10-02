@@ -76,7 +76,7 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>().get(
             .set(body)
             .where(eq(s.authorMain.uuid, Number(artistId)))
             .returning();
-        return c.json(returnResponse, 204);
+        return c.json(returnResponse, 200);
     }
 );
 
