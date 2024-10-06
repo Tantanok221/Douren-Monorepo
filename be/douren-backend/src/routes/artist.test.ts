@@ -7,7 +7,7 @@ const MOCK_ENV = {
 
 describe("Test Artist Routes", () => {
   test("GET /artist", async () => {
-    const res = await app.request("/artist?sort=Author_Main(Author),asc&page=1&searchtable=Author_Main.Author");
+    const res = await app.request("/artist?sort=Author_Main(Author),asc&page=1&searchTable=Author_Main.Author");
     expect(res.status).toBe(200);
     let resJson:any = await res.json();
     const payload = resJson.data

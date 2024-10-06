@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe("Test Event Routes", () => {
   test("GET /event/:eventId/artist", async () => {
-    const res = await app.request("/event/2/artist?sort=Author_Main(Author),asc&page=1&searchtable=Author_Main.Author&tag=原創");
+    const res = await app.request("/event/2/artist?sort=Author_Main(Author),asc&page=1&searchTable=Author_Main.Author&tag=原創");
     expect(res.status).toBe(200);
     let resJson: any = await res.json();
     const payload = resJson.data
