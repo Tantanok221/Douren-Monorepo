@@ -9,6 +9,7 @@
     "lib": "turbo build --filter=./lib/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",
+    "format": "turbo format",
     "devbe": "turbo dev --filter=./be/*",
     "devfe": "turbo dev --filter=./fe/*",
     "devpkg": "turbo dev --filter=./pkg/*",

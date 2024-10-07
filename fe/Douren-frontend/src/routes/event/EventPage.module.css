@@ -5,6 +5,13 @@
   flex-direction: row;
 }
 
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 32px;
+}
+
 .MainContainer {
   padding: 3rem 6%;
   padding-bottom: 0px;
@@ -14,7 +21,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-  max-width: 1300px;
+  max-width: 1800px;
   width: 100%;
 }
 
@@ -27,19 +34,31 @@
 }
 .searchContainer {
   width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.searchBox {
+  width: 100%;
+}
+
+.searchFilter {
+  width: 30%;
+}
+
+.filterContainer {
+  display: flex;
+  gap: 1.5rem;
+  height: 50px;
+  width: 100%;
 }
 
 .sortSelect {
   width: 100%;
 }
-.tagFilter  {
-  width: 100%;
-}
 
-.filterContainer {
-  display: flex;
+.tagFilter {
   width: 100%;
-  gap: 1.5rem;
 }
 
 .fetchContainer {
@@ -70,9 +89,7 @@
     margin: 1.25rem 5%;
     box-sizing: border-box;
   }
-  .ArtistContainer {
-    align-items: flex-start;
-  }
+
   .fetchContainer {
     width: 100%;
   }
@@ -81,5 +98,8 @@
 @media (max-width: 500px) {
   .MainContainer {
     margin: 1rem 10%;
+  }
+  .searchFilter {
+    width: 40%;
   }
 }

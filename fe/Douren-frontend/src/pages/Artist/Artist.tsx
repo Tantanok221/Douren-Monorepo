@@ -12,6 +12,7 @@ import { usePagination } from "@mantine/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import { useGetTotalPage } from "../../hooks/useGetTotalPage";
 import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
+import { trpc } from "@/helper/trpc.ts";
 
 type Props = {};
 
@@ -34,7 +35,11 @@ const Artist = (props: Props) => {
     siblings: 2,
     onChange: setPage,
   });
-  const { data } = useArtistQuery(page);
+  // const { data } = useArtistQuery(page);
+
+  const data = trpc.artist.getArtist.useQuery({
+    search: "",
+  });
 
   return (
     <>

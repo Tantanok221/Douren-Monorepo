@@ -1,53 +1,52 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
-import ArtistCard from "../../../components/ArtistCard/ArtistCard";
+import ArtistCard from "@lib/ui/src/components/ArtistCard";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import { useSort } from "@/stores/useSort.ts";
-import { useEventIDQuery } from "@/hooks/useEventIDQuery.ts";
-import { useSortSelectContextProvider } from "../context/SortSelectContext/useSortSelectContextProvider";
-import { useSearchColumnContext } from "../context/SearchColumnContext/useSearchColumnContext";
+import { useSortSelectContextProvider } from "../-context/SortSelectContext/useSortSelectContextProvider";
+import { useSearchColumnContext } from "../-context/SearchColumnContext/useSearchColumnContext";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
 import { useGetTotalPage } from "@/hooks/useGetTotalPage.ts";
 import Pagination from "../../../components/Pagination/Pagination";
+import { trpc } from "@/helper/trpc.ts";
+import { Route } from "@/routes/event/$eventName.tsx";
 
-interface Props {}
-
-const ArtistContainer = (props: Props) => {
+const ArtistContainer = () => {
   const FETCH_COUNT = 40;
   const sx = classNames.bind(styles);
   const table = useSort((state) => state.table);
   const ascending = useSort((state) => state.ascending);
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
-  const id = useLoaderData();
+  // const id = useLoaderData();
+  const eventId = Route.useParams().eventName;
   const [page, setPage] = useState(1);
-  const totalCount = useGetTotalPage("Event_DM", "event_id=eq." + id);
+  const totalCount = useGetTotalPage("Event_DM", "event_id=eq." + eventId);
   const totalPage = Math.ceil((totalCount as number) / FETCH_COUNT);
+  const res = trpc.eventArtist.getEvent.useQuery({
+    eventId,
+    sort: sortSelect,
+    page: String(page),
+    tag: "",
+    search: table + " " + ascending,
+    searchTable: searchColumn,
+  });
   const pagination = usePagination({
     total: totalPage,
     page,
     siblings: 2,
     onChange: setPage,
   });
-  const { data, status } = useEventIDQuery(
-    id,
-    sortSelect,
-    searchColumn,
-    page,
-    FETCH_COUNT
-  );
-  if (status === "error") {
-    return <div>error</div>;
-  }
+
+  if (!res.data) return null;
   return (
     <div className={sx("ArtistContainer")}>
       <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
         <Masonry gutter="32px">
-          {(data ?? []).map((item, index) => {
+          {res.data.data.map((item, index) => {
             return (
-              <ArtistCard key={`${item.Booth_name}`} eventData={item}>
+              <ArtistCard key={`${item.boothName}`} data={item}>
                 <ArtistCard.ImageContainer />
                 <ArtistCard.RightContainer>
                   <ArtistCard.HeaderContainer keys={location.pathname} />

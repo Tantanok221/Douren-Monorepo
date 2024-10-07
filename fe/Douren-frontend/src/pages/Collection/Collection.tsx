@@ -6,7 +6,7 @@ import { useLegacyCollection } from "../../stores/useLegacyCollection.ts";
 import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
-import { ArtistEventType } from "../../types/Artist.ts";
+import { eventArtistBaseSchemaType } from "../../types/Artist.ts";
 import { FF } from "../../types/FF.ts";
 import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
 
@@ -35,9 +35,12 @@ export const Collection = () => {
           </div>
           <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
         </div>
-        <CollectionLayout title='FF43 收藏' keys="/event/ff43" />
-        <CollectionLayout title="FF42 收藏" legacyData={collection} keys="FF42 Collection" />
-        
+        <CollectionLayout title="FF43 收藏" keys="/event/ff43" />
+        <CollectionLayout
+          title="FF42 收藏"
+          legacyData={collection}
+          keys="FF42 Collection"
+        />
       </motion.div>
       <ScrollToTop />
     </motion.div>

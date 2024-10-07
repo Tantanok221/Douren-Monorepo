@@ -6,8 +6,8 @@ interface Collection {
   collection: FF[];
   addCollection: (data: FF | undefined) => void;
   removeCollection: (data: FF | undefined) => void;
-  initCollection: (key:string) => void;
-  updateLocalStorage: (key:string) => void;
+  initCollection: (key: string) => void;
+  updateLocalStorage: (key: string) => void;
   checkAvailable: (data: FF | undefined) => boolean;
 }
 

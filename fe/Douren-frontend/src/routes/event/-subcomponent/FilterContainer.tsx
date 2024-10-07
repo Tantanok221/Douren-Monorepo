@@ -1,14 +1,13 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
 import SortSelect from "../../../components/SortSelect/SortSelect";
-import { TagFilter } from "../../../components/TagFilter/TagFilter";
+import { TagFilter } from "@/components/TagFilter/TagFilter.tsx";
 import SelectComponent from "../../../components/SelectComponent/SelectComponent";
 import { useState } from "react";
-import { useSortSelectContextProvider } from "../context/SortSelectContext/useSortSelectContextProvider";
+import { useSortSelectContextProvider } from "../-context/SortSelectContext/useSortSelectContextProvider";
 
-interface Props {}
 
-const FilterContainer = (props: Props) => {
+const FilterContainer = () => {
   const sx = classNames.bind(styles);
   const [sortValue, setSortValue] = useSortSelectContextProvider();
   return (

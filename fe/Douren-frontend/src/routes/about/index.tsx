@@ -2,16 +2,17 @@ import classNames from "classnames/bind";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../../helper/supabase.ts";
+import { supabase } from "@/helper/supabase.ts";
 import AboutCard from "../../components/AboutCard/AboutCard.tsx";
 import Animate from "../../animate/Animate.tsx";
-import { Owner } from "../../types/Owner.ts";
+import { Owner } from "@/types/Owner.ts";
+import { createFileRoute } from "@tanstack/react-router";
 async function fetchOwner(): Promise<Owner[] | null> {
   const query = supabase.from("Owner").select(`*`);
   const { data } = await query;
   return data;
 }
-const ownerQuery = () => {
+const OwnerQuery = () => {
   return useQuery({
     queryKey: ["Owner"],
     queryFn: fetchOwner,
@@ -20,7 +21,7 @@ const ownerQuery = () => {
 
 function AboutUs() {
   const sx = classNames.bind(styles);
-  const { data } = ownerQuery();
+  const { data } = OwnerQuery();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -59,3 +60,6 @@ function AboutUs() {
 }
 const AnimateAboutUs = Animate(AboutUs);
 export default AnimateAboutUs;
+export const Route = createFileRoute("/about/")({
+  component: AnimateAboutUs,
+});

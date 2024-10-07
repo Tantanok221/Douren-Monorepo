@@ -1,4 +1,4 @@
-interface ArtistPrimitiveTypes{
+interface ArtistPrimitiveTypes {
   Author: string;
   Baha_link: string | null;
   Facebook_link: string | null;
@@ -44,11 +44,11 @@ export interface ArtistPageTypes extends ArtistTypes {
     | null;
 }
 
-export interface ArtistEventType {
+export interface eventArtistBaseSchemaType {
   Booth_name: string | null;
   DM: string | null;
   Location_Day01: string | null;
   Location_Day02: string | null;
   Location_Day03: string | null;
-  Author_Main: ArtistPrimitiveTypes
+  Author_Main: ArtistPrimitiveTypes;
 }
