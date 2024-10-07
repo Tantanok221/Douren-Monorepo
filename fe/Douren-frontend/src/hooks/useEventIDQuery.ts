@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../helper/supabase";
 import { useNextPageAvailable } from "../stores/useNextPageAvailable";
 import { useSearch } from "../stores/useSearch";
-import { ArtistEventType } from "../types/Artist";
+import { eventArtistBaseSchemaType } from "../types/Artist";
 import { useTagFilter } from "../stores/useTagFilter";
 
 export function useEventIDQuery(
@@ -10,7 +10,7 @@ export function useEventIDQuery(
   sortSelect: string,
   searchColumn: string,
   currentPage: number,
-  fetchCount: number
+  fetchCount: number,
 ) {
   const tagFilter = useTagFilter((state) => state.tagFilter).flatMap(
     (item) => item.tag,
@@ -19,12 +19,19 @@ export function useEventIDQuery(
   const setNextPageAvailable = useNextPageAvailable(
     (state) => state.setNextPageAvailable,
   );
-  const table = sortSelect.split(' ')[0]  
-  const ascending = sortSelect.split(' ')[1] === 'asc' ? true : false
-  console.log(table,ascending)
+  const table = sortSelect.split(" ")[0];
+  const ascending = sortSelect.split(" ")[1] === "asc" ? true : false;
+  console.log(table, ascending);
   return useQuery({
-    queryKey: [eventId, search, tagFilter, sortSelect, searchColumn,currentPage],
-    queryFn: async (): Promise<ArtistEventType[] | null> => {
+    queryKey: [
+      eventId,
+      search,
+      tagFilter,
+      sortSelect,
+      searchColumn,
+      currentPage,
+    ],
+    queryFn: async (): Promise<eventArtistBaseSchemaType[] | null> => {
       const filterEmpty = tagFilter.length === 0;
 
       let query = supabase
@@ -50,13 +57,17 @@ export function useEventIDQuery(
       if (search.length > 0) {
         query = query.filter(searchColumn, "ilike", `%${search}%`);
       }
-      query = query.order(table,  {ascending} ).range(((currentPage - 1) * fetchCount), currentPage * fetchCount - 1);;
+      query = query
+        .order(table, { ascending })
+        .range((currentPage - 1) * fetchCount, currentPage * fetchCount - 1);
       let { data, error } = await query;
-      data = data.filter((val: ArtistEventType) => val.Author_Main !== null);
+      data = data.filter(
+        (val: eventArtistBaseSchemaType) => val.Author_Main !== null,
+      );
       if (error) {
         throw error;
       }
-      return data as ArtistEventType[] | null;
+      return data as eventArtistBaseSchemaType[] | null;
     },
     enabled: true,
     refetchOnWindowFocus: false,

@@ -19,11 +19,7 @@ const ImageContainer = ({}: Props) => {
   const photo = data ? data.Photo : artistData?.Photo;
   return (
     <div className={sx("imageContainer")}>
-      <LazyImage
-        alt={artistData?.Author}
-        photo={photo}
-        
-      ></LazyImage>
+      <LazyImage alt={artistData?.Author} photo={photo}></LazyImage>
     </div>
   );
 };

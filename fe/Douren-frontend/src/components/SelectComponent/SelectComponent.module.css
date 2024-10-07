@@ -65,9 +65,9 @@
 
 .selectItem[data-highlighted] {
   outline: none;
-  background: #3B3B3D;
+  background: #3b3b3d;
   border-radius: 8px;
-  color: #EAEAEA;
+  color: #eaeaea;
 }
 
 .selectLabel {
@@ -84,5 +84,4 @@
   font-family: var(--Font);
   color: var(--TagText);
   font-weight: 500;
-
 }

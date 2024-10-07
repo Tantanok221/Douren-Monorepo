@@ -9,7 +9,7 @@ type Props = {
 };
 
 const LazyImage = ({ width, alt, photo }: Props) => {
-  width = width ?? '100%';
+  width = width ?? "100%";
   return (
     <>
       <LazyLoadImage

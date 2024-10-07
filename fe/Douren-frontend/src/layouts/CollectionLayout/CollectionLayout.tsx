@@ -1,6 +1,6 @@
 import React from "react";
 import { FF } from "../../types/FF";
-import { ArtistEventType } from "../../types/Artist";
+import { eventArtistBaseSchemaType } from "../../types/Artist";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import classNames from "classnames/bind";
 import style from "../../pages/Collection/Collection.module.css";

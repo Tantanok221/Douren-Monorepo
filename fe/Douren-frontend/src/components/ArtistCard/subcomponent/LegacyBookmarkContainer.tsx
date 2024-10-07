@@ -9,16 +9,19 @@ import { useFFContext } from "../FFContext.ts";
 
 interface Props {
   keys: string;
-
 }
 
-const LegacyBookmarkContainer = ({keys}:Props) => {
+const LegacyBookmarkContainer = ({ keys }: Props) => {
   const [click, setClick] = React.useState(1);
   const sx = classNames.bind(styles);
   const data = useFFContext();
   const addCollection = useLegacyCollection((state) => state.addCollection);
-  const removeCollection = useLegacyCollection((state) => state.removeCollection);
-  const updateLocalStorage = useLegacyCollection((state) => state.updateLocalStorage);
+  const removeCollection = useLegacyCollection(
+    (state) => state.removeCollection,
+  );
+  const updateLocalStorage = useLegacyCollection(
+    (state) => state.updateLocalStorage,
+  );
   const checkAvailable = useLegacyCollection((state) => state.checkAvailable);
   const isAvailable = checkAvailable(data);
   return (

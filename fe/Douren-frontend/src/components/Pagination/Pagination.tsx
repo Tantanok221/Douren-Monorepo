@@ -11,7 +11,7 @@ interface Props {
 
 const Pagination = ({ pagination }: Props) => {
   const sx = classNames.bind(style);
-  const {range,active,next,setPage,previous} = pagination
+  const { range, active, next, setPage, previous } = pagination;
   return (
     <div className={sx("paginationContainer")}>
       <div
@@ -21,11 +21,7 @@ const Pagination = ({ pagination }: Props) => {
         })}
       >
         <CaretLeft
-          color={
-            active === range[0]
-              ? "#8D8787"
-              : "var(--Link)"
-          }
+          color={active === range[0] ? "#8D8787" : "var(--Link)"}
           size={20}
         />
       </div>
@@ -53,15 +49,11 @@ const Pagination = ({ pagination }: Props) => {
       <div
         onClick={() => next()}
         className={sx("paginationButton", {
-          paginationInactiveButton: range[range.length-1] === active,
+          paginationInactiveButton: range[range.length - 1] === active,
         })}
       >
         <CaretRight
-          color={
-            active === range[range.length-1]
-              ? "#8D8787"
-              : "var(--Link)"
-          }
+          color={active === range[range.length - 1] ? "#8D8787" : "var(--Link)"}
           size={20}
         />
       </div>

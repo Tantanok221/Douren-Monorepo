@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode;
   path: string;
 };
-const NavMenuLink = ({ children,path }: Props) => {
+const NavMenuLink = ({ children, path }: Props) => {
   const sx = classNames.bind(style);
   const location = useLocation();
   return (

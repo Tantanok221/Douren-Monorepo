@@ -15,7 +15,7 @@ import { useEventDataContext } from "../EventDataContext.ts";
 const ArtistDMButton = () => {
   const data = useFFContext();
   const eventData = useEventDataContext();
-  const link = ((data ? data?.DM : eventData?.DM )?? "").split("\n");
+  const link = ((data ? data?.DM : eventData?.DM) ?? "").split("\n");
 
   return link[0] != "" ? <DMButton link={link}></DMButton> : null;
 };
