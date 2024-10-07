@@ -4,7 +4,6 @@ import styles from "../style.module.css";
 import { MdOutlineBookmarkBorder, MdBookmark } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
-import { useCollectionProvider } from "@/context/CollectionContext/useCollectionContext.ts";
 import { useEventDataContext } from "../EventDataContext.ts";
 
 interface Props {

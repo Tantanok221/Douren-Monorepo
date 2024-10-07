@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { useEventDataContext } from "@components/ArtistCard/EventDataContext.ts";
+import { useEventDataContext } from "../../ArtistCard/EventDataContext.ts";
 
 interface Props {
 	size?: "s" | "l";

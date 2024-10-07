@@ -2,9 +2,9 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { IconContext } from "react-icons";
-import { LinkResult } from "@/helper/processLink.ts";
+import { LinkResult } from "../../../helper/processLink.ts";
 import LinkContainer from "../../LinkContainer/";
-import { processArtistData } from "@/helper/processArtistData.ts";
+import { processArtistData } from "../../../helper/processArtistData.ts";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEventDataContext } from "../EventDataContext.ts";
 

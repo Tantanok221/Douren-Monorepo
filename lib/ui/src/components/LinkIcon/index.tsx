@@ -11,7 +11,7 @@ import { SiPlurk, SiPixiv } from "react-icons/si";
 import { GrCatalog } from "react-icons/gr";
 import { BiLogoGithub } from "react-icons/bi";
 import { FaDiscord } from "react-icons/fa";
-import { linkObject } from "@components/LinkContainer";
+import { linkObject } from "../../components/LinkContainer";
 
 interface Props {
   data: linkObject;
@@ -19,36 +19,36 @@ interface Props {
 
 export const LinkIcon = ({ data }: Props) => {
   if (data.category === "DM") {
-    return <GrCatalog></GrCatalog>;
+    return <GrCatalog/>;
   }
   if (data.category === "Facebook") {
-    return <IoLogoFacebook></IoLogoFacebook>;
+    return <IoLogoFacebook/>;
   }
   if (data.category === "Twitter") {
-    return <IoLogoTwitter></IoLogoTwitter>;
+    return <IoLogoTwitter/>;
   }
   if (data.category === "Youtube") {
-    return <IoLogoYoutube></IoLogoYoutube>;
+    return <IoLogoYoutube/>;
   }
   if (data.category === "Instagram") {
-    return <IoLogoInstagram></IoLogoInstagram>;
+    return <IoLogoInstagram/>;
   }
   if (data.category === "Twitch") {
-    return <IoLogoTwitch></IoLogoTwitch>;
+    return <IoLogoTwitch/>;
   }
   if (data.category === "Plurk") {
-    return <SiPlurk></SiPlurk>;
+    return <SiPlurk/>;
   }
   if (data.category === "Pixiv") {
-    return <SiPixiv></SiPixiv>;
+    return <SiPixiv/>;
   }
   if (data.category === "Github") {
-    return <BiLogoGithub></BiLogoGithub>;
+    return <BiLogoGithub/>;
   }
   if (data.category === "Discord") {
-    return <FaDiscord></FaDiscord>;
+    return <FaDiscord/>;
   }
-  return <IoLinkOutline></IoLinkOutline>;
+  return <IoLinkOutline/>;
 };
 
 export default LinkIcon;

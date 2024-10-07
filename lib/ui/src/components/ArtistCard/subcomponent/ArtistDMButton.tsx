@@ -1,5 +1,5 @@
 import React from "react";
-import DMButton from "@components/DMButton";
+import DMButton from "../../DMButton";
 import { useEventDataContext } from "../EventDataContext.ts";
 
 const ArtistDMButton = () => {

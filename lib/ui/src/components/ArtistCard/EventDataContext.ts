@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-import {eventArtistSchemaType} from "@pkg/type";
+import {eventArtistBaseSchemaType } from "@pkg/type";
 
-const EventDataContext = createContext<undefined | eventArtistSchemaType>(undefined);
+const EventDataContext = createContext<undefined | eventArtistBaseSchemaType>(undefined);
 
 export function useEventDataContext() {
   const context = useContext(EventDataContext);

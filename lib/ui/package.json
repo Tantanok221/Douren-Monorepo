@@ -6,24 +6,8 @@
   "type": "module",
   "license": "ISC",
   "description": "",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
-  "exports":{
-    ".": {
-      "types": "./src/components/index.ts",
-      "default": "./dist/components/index.js"
-    },
-    "./context": {
-      "types": "./src/context/index.ts",
-      "default": "./dist/context/index.js"
-    }
-  } ,
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsup",
     "dev": "storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -47,6 +31,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-lazy-load-image-component": "^1.6.4",
     "storybook": "^8.3.2",
+    "tsup": "^8.3.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.7",
     "vite-plugin-dts": "^4.2.3"
