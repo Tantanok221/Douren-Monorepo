@@ -13,13 +13,12 @@ import {verifyUser} from "../utlis/authHelper";
 import {publicProcedure, router} from "../trpc";
 import {eventArtistSchema, eventInputParams, eventNameInputParams} from "@pkg/type";
 import {EventArtistFetchFunction} from "../utlis/fetchHelper";
-import {z} from "zod";
 import {zodSchema} from "@pkg/database/zod";
 
 export const trpcEventRoute = router({
   getEvent: publicProcedure.input(eventInputParams).output(eventArtistSchema).query(async (opts) => {
     const {page, search, sort, searchTable, tag, eventId} = opts.input
-    return await EventArtistFetchFunction(page, search, sort, searchTable, tag, eventId)
+    return await EventArtistFetchFunction({page, search , sort, searchTable, tag , eventId})
   }),
   getEventId: publicProcedure.input(eventNameInputParams).output(zodSchema.event.SelectSchema).query(async (opts) => {
     const {eventName} = opts.input
@@ -33,7 +32,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
   .get("/:eventId/artist", async (c) => {
     const {page, search, tag, sort, searchTable} = c.req.query();
     const {eventId} = c.req.param();
-    const returnObj = await EventArtistFetchFunction(page, search, sort, searchTable, tag, eventId)
+    const returnObj = await EventArtistFetchFunction({page, search, sort, searchTable, tag, eventId})
     return c.json(returnObj);
   })
   .get("/:eventName", async (c) => {

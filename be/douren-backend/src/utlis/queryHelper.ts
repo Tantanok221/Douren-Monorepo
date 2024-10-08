@@ -5,7 +5,7 @@ import {ArtistEventParams} from "./paramHelper";
 import {FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT} from "@pkg/type";
 import {PAGE_SIZE} from "../helper/constant";
 
-export function GetEventArtistQuery(eventId: string, search: string, page: string, params: ArtistEventParams) {
+export function GetEventArtistQuery(eventId: string, search: string | undefined, page: string, params: ArtistEventParams) {
     const db = initDB();
     const query = db
         .select(FETCH_EVENT_ARTIST_OBJECT)
@@ -35,7 +35,7 @@ export function GetEventArtistQuery(eventId: string, search: string, page: strin
         .withFilterEventId(Number(eventId))
         .withOrderBy(params.sortBy, params.table)
         .Build();
-    if (params.tag?.length > 0) {
+    if (params.tag) {
         SelectQuery.withAndFilter(params.tagConditions);
         CountQuery.withAndFilter(params.tagConditions);
     }
@@ -46,7 +46,7 @@ export function GetEventArtistQuery(eventId: string, search: string, page: strin
     return {SelectQuery, CountQuery}
 }
 
-export function GetArtistQuery(search: string, page: string, params: ArtistEventParams) {
+export function GetArtistQuery(search: string | undefined, page: string, params: ArtistEventParams) {
     const db = initDB()
     let query = db
         .select(FETCH_ARTIST_OBJECT)
@@ -68,7 +68,7 @@ export function GetArtistQuery(search: string, page: string, params: ArtistEvent
         .withPagination(Number(page), PAGE_SIZE)
         .withTableIsNot(s.authorMain.author, "")
         .Build();
-    if (params.tag?.length > -1) {
+    if (params.tag) {
         SelectQuery.withAndFilter(params.tagConditions);
         CountQuery.withAndFilter(params.tagConditions);
     }

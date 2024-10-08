@@ -52,7 +52,7 @@ export const FETCH_EVENT_ARTIST_OBJECT = {
 // Base artist schema
 const artistBaseSchema = z.object({
   uuid: z.number(),
-  author: z.string(),
+  author: z.string().nullable(),
   introduction: z.string().nullable(),
   twitterLink: z.string().nullable(),
   youtubeLink: z.string().nullable(),
@@ -69,20 +69,15 @@ const artistBaseSchema = z.object({
 });
 
 // Tag schema
-const tagSchema = z.object({
-  tags: z.array(
-    z.object({
-      tagName: z.string(),
-      tagCount: z.number(),
-    })
-  ),
-});
 
 const innerTagSchema = z.object({
-  tagName: z.string(),
-  tagCount: z.number()
+  tagName: z.string().nullable(),
+  tagCount: z.number().nullable()
 })
 
+const tagSchema = z.object({
+  tags: z.array(innerTagSchema)
+});
 // Event base schema
 const eventBaseSchema = z.object({
   boothName: z.string(),
@@ -94,8 +89,8 @@ const eventBaseSchema = z.object({
 
 export const artistInputParams = z.object({
   page: z.string(),
-  search: z.string(),
-  tag: z.string(),
+  search: z.string().optional(),
+  tag: z.string().optional(),
   sort: z.string(),
   searchTable: z.string()
 })
@@ -104,7 +99,7 @@ export const paginationObject = z.object({
   totalCount: z.number(),
   totalPage: z.number(),
   nextPageAvailable: z.boolean(),
-  previousPageAvailabe: z.boolean(),
+  previousPageAvailable: z.boolean(),
   pageSize: z.number()
 })
 

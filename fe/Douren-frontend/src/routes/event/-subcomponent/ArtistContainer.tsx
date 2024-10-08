@@ -19,16 +19,11 @@ const ArtistContainer = () => {
   const ascending = useSort((state) => state.ascending);
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
-  // const id = useLoaderData();
-  const eventId = useFetchEventId(Route.useParams().eventName).data;
-  console.log(eventId)
   const [page, setPage] = useState(1);
   const res = trpc.eventArtist.getEvent.useQuery({
-    eventId,
-    sort: sortSelect,
+    eventId: "2",
     page: String(page),
-    tag: "",
-    search: table + " " + ascending,
+    sort:  table + ","+ (ascending ? "asc" : "desc") ,
     searchTable: searchColumn,
   });
   console.log(res)

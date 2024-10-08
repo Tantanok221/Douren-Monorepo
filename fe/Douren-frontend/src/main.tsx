@@ -5,10 +5,8 @@ import "./index.css";
 import "normalize.css";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
-import { useEventIDQuery } from "./hooks/useEventIDQuery.ts";
-import { supabase } from "./helper/supabase.ts";
 import { trpc } from "@/helper/trpc.ts";
-import { httpLink } from "@trpc/client";
+import {httpBatchLink, httpLink, loggerLink} from "@trpc/client";
 import { routeTree } from "@/routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 
@@ -63,8 +61,9 @@ const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
   links: [
     httpLink({
-      url: import.meta.env.VITE_BACKEND_URL + "trpc",
+      url: import.meta.env.VITE_BACKEND_URL,
     }),
+    loggerLink()
   ],
 });
 
