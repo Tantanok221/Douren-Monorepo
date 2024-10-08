@@ -5,7 +5,8 @@
   ],
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "composite": true
   },
   "exclude": [
     "node_modules",

@@ -18,8 +18,14 @@
     "allowImportingTsExtensions": true,
     "paths": {
       "@/*": ["./src/*", "../api/src/*"]
-    }
+    },
+    "composite": true
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    {
+      "path": "../../be/douren-backend/tsconfig.json"
+    }
+  ]
 }

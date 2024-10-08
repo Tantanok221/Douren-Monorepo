@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] Fix: migration issue from react-router-dom to tanstack router">
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: TRPC Integration For events/FF43">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/fetchHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/utlis/fetchHelper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/paramHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/utlis/paramHelper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/queryHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/utlis/queryHelper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/type/src/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +59,7 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
@@ -165,15 +160,8 @@
       <workItem from="1728307365006" duration="3903000" />
       <workItem from="1728315345508" duration="1761000" />
       <workItem from="1728350764094" duration="592000" />
-      <workItem from="1728365111122" duration="12575000" />
-    </task>
-    <task id="LOCAL-00031" summary="[#25] dev: Remove unused legacy code and @ts-ignore config error">
-      <option name="closed" value="true" />
-      <created>1727449940554</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1727449940554</updated>
+      <workItem from="1728365111122" duration="13732000" />
+      <workItem from="1728380011532" duration="174000" />
     </task>
     <task id="LOCAL-00032" summary="[#25] dev: Remove pkg/ui for now">
       <option name="closed" value="true" />
@@ -559,7 +547,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728369187607</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="[#41] feat: TRPC Integration For events/FF43">
+      <option name="closed" value="true" />
+      <created>1728378679050</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1728378679050</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,7 +590,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production" />
     <MESSAGE value="[#31] refactor: Move commonly use utility to type folders" />
     <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
     <MESSAGE value="[#33] dev: Remove unused code" />
@@ -619,7 +614,8 @@
     <MESSAGE value="[#41] feat: Added trpc integration" />
     <MESSAGE value="[#41] dev: Update env vault" />
     <MESSAGE value="[#41] Fix: migration issue from react-router-dom to tanstack router" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] Fix: migration issue from react-router-dom to tanstack router" />
+    <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] feat: TRPC Integration For events/FF43" />
   </component>
   <component name="WfRunsListSearchHistory"><![CDATA[{
   "history": [
@@ -729,6 +725,10 @@
     },
     {
       "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/fetrpc",
       "currentBranchFilter": true
     },
     {

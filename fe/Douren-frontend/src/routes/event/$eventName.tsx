@@ -14,10 +14,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { trpc } from "@/helper/trpc.ts";
 import {CollectionContextProvider} from "@lib/ui/src/context/CollectionContext/index.tsx";
 
-export const useFetchEventId =  (eventName: string) => {
-  return trpc.eventArtist.getEventId.useQuery({eventName})
-}
-
 export const Route = createFileRoute("/event/$eventName")({
   component: EventName,
 });
