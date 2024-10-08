@@ -10,7 +10,7 @@ import { usePagination } from "@mantine/hooks";
 import { useGetTotalPage } from "@/hooks/useGetTotalPage.ts";
 import Pagination from "../../../components/Pagination/Pagination";
 import { trpc } from "@/helper/trpc.ts";
-import { Route } from "@/routes/event/$eventName.tsx";
+import {Route, useFetchEventId} from "@/routes/event/$eventName.tsx";
 
 const ArtistContainer = () => {
   const FETCH_COUNT = 40;
@@ -20,10 +20,9 @@ const ArtistContainer = () => {
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
   // const id = useLoaderData();
-  const eventId = Route.useParams().eventName;
+  const eventId = useFetchEventId(Route.useParams().eventName).data;
+  console.log(eventId)
   const [page, setPage] = useState(1);
-  const totalCount = useGetTotalPage("Event_DM", "event_id=eq." + eventId);
-  const totalPage = Math.ceil((totalCount as number) / FETCH_COUNT);
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId,
     sort: sortSelect,
@@ -32,8 +31,9 @@ const ArtistContainer = () => {
     search: table + " " + ascending,
     searchTable: searchColumn,
   });
+  console.log(res)
   const pagination = usePagination({
-    total: totalPage,
+    total: res?.data?.totalPage ?? 20,
     page,
     siblings: 2,
     onChange: setPage,

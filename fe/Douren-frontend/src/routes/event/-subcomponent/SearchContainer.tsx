@@ -5,9 +5,8 @@ import { useState } from "react";
 import SearchBox from "../../../components/SearchBox/SearchBox";
 import { useSearchColumnContext } from "../-context/SearchColumnContext/useSearchColumnContext";
 
-interface Props {}
 
-const SearchContainer = (props: Props) => {
+const SearchContainer = () => {
   const sx = classNames.bind(styles);
   const [searchColumn, setSearchColumn] = useSearchColumnContext();
   return (

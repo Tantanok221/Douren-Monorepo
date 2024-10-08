@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import style from "../Navbar.module.css";
 import classNames from "classnames/bind";
 import NavMenu from "../NavMenu";

@@ -5,156 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update env vault">
-      <change afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/__root.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ui/src/context/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ui/tsup.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/.eslintrc.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/.prettierrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/generate-react-cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/generate-react-cli.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/animate/Animate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/animate/Animate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/AboutCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/AboutCard.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/AboutCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/AboutCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/subcomponent/DiscordButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/AboutCard/subcomponent/DiscordButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/ArtistCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/ArtistCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/ArtistCardContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/ArtistCardContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/DataTypeContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/DataTypeContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/FFContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/FFContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/style.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ArtistTagContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/DayContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/DayContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/HeaderContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/HeaderContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ImageContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/ImageContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/LegacyBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/LegacyBookmarkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/RightContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/RightContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/TitleContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ArtistCard/subcomponent/TitleContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/DMButton/component/DMButton.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/DMButton/component/DMButton.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/DMButton/component/DMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/DMButton/component/DMButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LazyImage/LazyImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LazyImage/LazyImage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkContainer/LinkContainer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkContainer/LinkContainer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkContainer/LinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkContainer/LinkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkIcon/LinkIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/LinkIcon/LinkIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/NavMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/NavMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/Navbar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuItemWithLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuItemWithLink.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuLink.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuSubLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuSubLink.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuTrigger.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavMenuTrigger.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavbarMargin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavbarMargin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Pagination/Pagination.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Pagination/Pagination.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Pagination/Pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Pagination/Pagination.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ScrollToTop/ScrollToTop.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ScrollToTop/ScrollToTop.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ScrollToTop/ScrollToTop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/ScrollToTop/ScrollToTop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/SearchBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/SearchBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/style.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/SelectComponent.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/SelectComponent.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/SelectComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/SelectComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectGroup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectLabel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SelectComponent/subcomponents/SelectLabel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Sidebar/Sidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Sidebar/Sidebar.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Sidebar/Sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/SortSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/SortSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/style.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/subcomponent/SelectItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/subcomponent/SelectItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/subcomponent/SelectSeperator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SortSelect/subcomponent/SelectSeperator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/TagFilter.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/TagFilter.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/TagFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/TagFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/subcomponent/TagItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagFilter/subcomponent/TagItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/context/CollectionContext/CollectionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/context/CollectionContext/CollectionContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/determineArtistDataType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/determineArtistDataType.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/listAnimation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/listAnimation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processArtistData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processLink.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processLink.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processTagData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processTagData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/supabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/supabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/trpc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/trpc.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useArtistLoader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useArtistLoader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useArtistQuery.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useArtistQuery.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useEventIDQuery.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useEventIDQuery.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useFF42Query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useFF42Query.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useGetTotalPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useGetTotalPage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/layouts/CollectionLayout/CollectionLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/layouts/CollectionLayout/CollectionLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/AboutUs/AboutUs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/about/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/AboutUs/style.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/about/style.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/ArtistPage/ArtistPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/ArtistPage/ArtistPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/ArtistPage/ArtistPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/ArtistPage/ArtistPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Collection/Collection.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Collection/Collection.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Collection/Collection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Collection/Collection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/EventPage.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/EventPage.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/context/SearchColumnContext/SearchColumnContext.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/context/SearchColumnContext/useSearchColumnContext.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/context/SortSelectContext/SortSelectContext.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/context/SortSelectContext/useSortSelectContextProvider.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/subcomponent/ArtistContainer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/subcomponent/FilterContainer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/EventPage/subcomponent/SearchContainer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/FF42/FF42.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/FF42/style.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Root/Root.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Root/root.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/root.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useLegacyCollection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useLegacyCollection.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useNextPageAvailable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useNextPageAvailable.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/usePosition.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/usePosition.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useSearch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useSearch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useSort.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useSort.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useTagFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useTagFilter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/template/component/TemplateName.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/template/component/TemplateName.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/template/component/TemplateName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/template/component/TemplateName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Artist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/types/FF.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/types/FF.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Owner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Owner.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Utility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/types/Utility.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/vite-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/vite-env.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/vercel.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/vercel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/__root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/__root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/SearchContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/SearchContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/vite.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/biome.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/biome.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/ArtistCard.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/ArtistCard.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistLinkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/EventBookmarkContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/IntroductionContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/LinkIcon/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/LinkIcon/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/useCollectionContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/context/CollectionContext/useCollectionContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/processArtistData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/vite.config.ts.timestamp-1727788212243-3a0bfc2066217.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,6 +168,9 @@
       <workItem from="1728298074846" duration="628000" />
       <workItem from="1728299187002" duration="4033000" />
       <workItem from="1728307365006" duration="3903000" />
+      <workItem from="1728315345508" duration="1761000" />
+      <workItem from="1728350764094" duration="592000" />
+      <workItem from="1728365111122" duration="3870000" />
     </task>
     <task id="LOCAL-00030" summary="[#31] feat: Move customObject to shared type pkg">
       <option name="closed" value="true" />
@@ -866,6 +734,18 @@
     },
     {
       "branch": "main",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/fetrpc",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/fetrpc",
+      "currentBranchFilter": true
+    },
+    {
+      "branch": "feat/fetrpc",
       "currentBranchFilter": true
     },
     {

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
-import { useLocation } from "react-router";
 import { useTagFilter } from "../../stores/useTagFilter";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import { useSearch } from "../../stores/useSearch";
 import Animate from "../../animate/Animate";
-import { useArtistQuery } from "../../hooks/useArtistQuery";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import { useGetTotalPage } from "../../hooks/useGetTotalPage";
 import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
 import { trpc } from "@/helper/trpc.ts";
 
-type Props = {};
 
-const Artist = (props: Props) => {
+const Artist = () => {
   const sx = classNames.bind(style);
-  const location = useLocation();
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
   const resetSearch = useSearch((state) => state.resetSearch);
   useEffect(() => {
@@ -39,6 +35,11 @@ const Artist = (props: Props) => {
 
   const data = trpc.artist.getArtist.useQuery({
     search: "",
+    searchTable: "",
+    page: String(page),
+    sort: "asc Author.Main()",
+    tag: "",
+
   });
 
   return (

@@ -11,6 +11,7 @@ import { syncAuthorTag } from "./helper/migrate";
 import { initRedis } from "@pkg/redis/redis";
 import { RedisStore } from "@hono-rate-limiter/redis";
 import { rateLimiter } from "hono-rate-limiter";
+import {cors} from "hono/cors";
 
 const redis = initRedis();
 const store = new RedisStore({ client: redis });
@@ -27,6 +28,7 @@ const app = new Hono<{ Bindings: BACKEND_BINDING}>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*",limiter)
+app.use(cors())
 
 const appRouter = router({
   artist: trpcArtistRoute,

@@ -44,7 +44,6 @@
     "react-icons": "^5.3.0",
     "react-lazy-load-image-component": "^1.6.2",
     "react-responsive-masonry": "^2.3.0",
-    "react-router-dom": "^6.26.2",
     "use-immer": "^0.10.0",
     "zustand": "^4.5.5"
   },

@@ -8,7 +8,6 @@ export function usePageInit() {
   const initNextPageAvailable = useNextPageAvailable(
     (state) => state.initNextPageAvailable,
   );
-  const location = useLocation();
   useEffect(() => {
     setAllFilter();
     initNextPageAvailable();

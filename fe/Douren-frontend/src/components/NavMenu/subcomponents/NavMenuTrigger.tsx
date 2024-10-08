@@ -10,7 +10,6 @@ type Props = {
 };
 const NavMenuTrigger = ({ children, activePath }: Props) => {
   const sx = classNames.bind(style);
-  const location = useLocation();
   const activeMenuBoolean = activePath.includes(location.pathname);
   return (
     <NavigationMenu.Trigger
