@@ -18,6 +18,7 @@ export interface BACKEND_BINDING {
   ADMIN_USER_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -39,6 +40,7 @@ export interface FRONTEND_BINDING {
   ADMIN_USER_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -60,6 +62,7 @@ export interface PACKAGE_BINDING {
   ADMIN_USER_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -81,6 +84,7 @@ export interface ENV_BINDING {
   ADMIN_USER_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
