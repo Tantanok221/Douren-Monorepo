@@ -3,25 +3,26 @@ import styles from "./EventPage.module.css";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
-import { useLocation } from "react-router";
-import { usePageInit } from "@/hooks/usePageInit.ts";
 import SearchContainer from "@/routes/event/-subcomponent/SearchContainer.tsx";
 import FilterContainer from "@/routes/event/-subcomponent/FilterContainer.tsx";
 import ArtistContainer from "@/routes/event/-subcomponent/ArtistContainer.tsx";
 import { SortSelectContextProvider } from "./-context/SortSelectContext/SortSelectContext.tsx";
 import { SearchColumnContextProvider } from "./-context/SearchColumnContext/SearchColumnContext.tsx";
 import { createFileRoute } from "@tanstack/react-router";
-import { trpc } from "@/helper/trpc.ts";
 import {CollectionContextProvider} from "@lib/ui/src/context/CollectionContext/index.tsx";
+import {trpc} from "@/helper/trpc.ts";
 
+import { useTagFilter } from "@/stores/useTagFilter.ts";
 export const Route = createFileRoute("/event/$eventName")({
   component: EventName,
 });
 
 function EventName() {
-  // usePageInit();
-
-
+  const tag = trpc.tag.getTag.useQuery()
+  const setAllTag = useTagFilter((state)=> state.setAllFilter)
+  if(tag.data){
+    setAllTag(tag.data)
+  }
   const sx = classNames.bind(styles);
   return (
     <motion.div

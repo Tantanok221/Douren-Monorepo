@@ -7,21 +7,13 @@ import { useSortSelectContextProvider } from "../-context/SortSelectContext/useS
 import { useSearchColumnContext } from "../-context/SearchColumnContext/useSearchColumnContext";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
-import { useGetTotalPage } from "@/hooks/useGetTotalPage.ts";
 import Pagination from "../../../components/Pagination/Pagination";
 import { trpc } from "@/helper/trpc.ts";
 import {Route } from "@/routes/event/$eventName.tsx";
-import { useArtistQuery } from "@/hooks/useArtistQuery";
 
-const useFetchEventId =  (eventName: string) => {
-  return trpc.eventArtist.getEventId.useQuery({eventName})
-}
 
 const ArtistContainer = () => {
-  const FETCH_COUNT = 40;
   const sx = classNames.bind(styles);
-  const table = useSort((state) => state.table);
-  const ascending = useSort((state) => state.ascending);
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
   const [page, setPage] = useState(1);
@@ -31,7 +23,7 @@ const ArtistContainer = () => {
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId: String(id?.data?.id),
     page: String(page),
-    sort:  table + ","+ (ascending ? "asc" : "desc") ,
+    sort:  sortSelect,
     searchTable: searchColumn,
   });
   const pagination = usePagination({
@@ -48,7 +40,7 @@ const ArtistContainer = () => {
         <Masonry gutter="32px">
           {res.data.data.map((item, index) => {
             return (
-              <ArtistCard key={`${item.boothName}`} data={item}>
+              <ArtistCard key={`${item.boothName} ${item.author}`} data={item}>
                 <ArtistCard.ImageContainer />
                 <ArtistCard.RightContainer>
                   <ArtistCard.HeaderContainer keys={location.pathname} />
