@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: TRPC Integration For events/FF43">
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/Dao/Artist.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/Dao/EventArtist.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/Dao/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/QueryBuilder/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/fetchHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/utlis/fetchHelper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/paramHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/utlis/paramHelper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/utlis/queryHelper.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/src/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,37 +79,37 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feat/fetrpc&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/be/douren-backend/src/routes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/be/douren-backend/src&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeWithMe&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src\routes" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\lambda" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\.github\workflows" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src\QueryBuilder" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\fe\Douren-frontend\src\routes" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\lib" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\type\src" />
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\scripts" />
-      <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\pkg\ui\src\components\DMButton" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.19072.23" />
       </set>
     </attachedChunks>
   </component>
@@ -162,6 +172,11 @@
       <workItem from="1728350764094" duration="592000" />
       <workItem from="1728365111122" duration="13732000" />
       <workItem from="1728380011532" duration="174000" />
+      <workItem from="1728385624254" duration="276000" />
+      <workItem from="1728386005122" duration="166000" />
+      <workItem from="1728386174928" duration="6574000" />
+      <workItem from="1728396229655" duration="6408000" />
+      <workItem from="1728481835024" duration="677000" />
     </task>
     <task id="LOCAL-00032" summary="[#25] dev: Remove pkg/ui for now">
       <option name="closed" value="true" />
@@ -617,188 +632,192 @@
     <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
     <option name="LAST_COMMIT_MESSAGE" value="[#41] feat: TRPC Integration For events/FF43" />
   </component>
-  <component name="WfRunsListSearchHistory"><![CDATA[{
-  "history": [
+  <component name="WfRunsListSearchHistory">{
+  &quot;history&quot;: [
     {
-      "branch": "feat/isolation",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/isolation&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/isolation",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/isolation&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/isolation",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/isolation&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/isolation",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/isolation&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/ratelimit",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/ratelimit&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/ratelimit",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/ratelimit&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "fix/staging",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;fix/staging&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/lambda",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/lambda&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/lambda",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/lambda&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/node",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/node&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "fix/staging",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;fix/staging&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "dev/ui-lib",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;dev/ui-lib&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "dev/ui-lib",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;dev/ui-lib&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "dev/ui-lib",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;dev/ui-lib&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "dev/ui-lib",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;dev/ui-lib&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/test-backend",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/test-backend&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/test-backend",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/test-backend&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/test-backend",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/test-backend&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/test-backend",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/test-backend&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "main",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;main&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     },
     {
-      "branch": "feat/fetrpc",
-      "currentBranchFilter": true
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
+    },
+    {
+      &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+      &quot;currentBranchFilter&quot;: true
     }
   ],
-  "lastFilter": {
-    "branch": "feat/fetrpc",
-    "currentBranchFilter": true
+  &quot;lastFilter&quot;: {
+    &quot;branch&quot;: &quot;feat/fetrpc&quot;,
+    &quot;currentBranchFilter&quot;: true
   }
-}]]></component>
+}</component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/be/douren-backend/src/routes/event.ts</url>
-          <line>86</line>
+          <line>87</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

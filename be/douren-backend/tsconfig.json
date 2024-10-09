@@ -6,7 +6,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "composite": true
+    "composite": true,
+    "strict": true,
+    "strictPropertyInitialization": false
   },
   "exclude": [
     "node_modules",

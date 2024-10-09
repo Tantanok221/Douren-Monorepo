@@ -111,6 +111,7 @@ export const eventNameInputParams = z.object(
   {eventName: z.string()}
 )
 
+export type eventInputParamsType = z.infer<typeof eventInputParams>
 // Combined schemas
 export type tagSchemaType = z.infer<typeof innerTagSchema>
 export const artistSchema = z.object({

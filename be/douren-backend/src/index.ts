@@ -34,6 +34,7 @@ const appRouter = router({
   artist: trpcArtistRoute,
   eventArtist: trpcEventRoute
 });
+
 export type AppRouter = typeof appRouter;
 app.use(
   "/trpc/*",

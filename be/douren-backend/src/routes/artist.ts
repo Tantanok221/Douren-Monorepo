@@ -8,20 +8,22 @@ import {verifyUser} from "../utlis/authHelper";
 import {publicProcedure, router} from "../trpc";
 import {zodSchema, zodSchemaType} from "@pkg/database/zod";
 import {artistInputParams, artistSchema} from "@pkg/type";
-import {ArtistFetchFunction} from "../utlis/fetchHelper";
+import {NewArtistDao} from "../Dao/Artist";
+
+const ArtistDao = NewArtistDao()
 
 export const trpcArtistRoute = router({
         getArtist: publicProcedure.input(artistInputParams).output(artistSchema).query( async (opts) => {
-                const {page,search,sort,searchTable,tag} = opts.input
-                return await ArtistFetchFunction({page, search, sort, searchTable, tag})
+                return await ArtistDao.Fetch(opts.input)
         })
 })
 
 const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>().get(
     "/",
+    zValidator("query", artistInputParams),
     async (c) => {
         const {page, search, tag, sort, searchTable} = c.req.query();
-       const returnObj = await ArtistFetchFunction({page,search,sort,searchTable,tag})
+        const returnObj = await ArtistDao.Fetch({page,search,tag,sort,searchTable})
         return c.json(returnObj);
     }
 ).post(
