@@ -6,6 +6,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
+    "declaration": true,
     "composite": true,
     "strict": true,
     "strictPropertyInitialization": false

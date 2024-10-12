@@ -3,7 +3,6 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import style from "../Navbar.module.css";
 import classNames from "classnames/bind";
 import { CaretDown } from "@phosphor-icons/react";
-import { useLocation } from "react-router-dom";
 type Props = {
   children: ReactNode;
   activePath: string[];

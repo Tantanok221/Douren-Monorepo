@@ -57,11 +57,9 @@ jobs:
               # Split the line on the first '=' to handle complex values correctly
               key=$(echo "$line" | cut -d '=' -f 1 | xargs)
               value=$(echo "$line" | cut -d '=' -f 2- | xargs)
-            echo "Processing: $line"
 
             # Properly escape any special characters in the value
               quoted_value=$(printf '%q' "$value")
-            echo "Key: $key, Value: $quoted_value"
 
             # Append the key-value pair to WRANGLER_VARS
               WRANGLER_VARS+="--var ${key}=${quoted_value} "

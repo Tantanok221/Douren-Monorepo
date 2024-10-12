@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { MdOutlineBookmarkBorder, MdInfoOutline } from "react-icons/md";
 import { RiHome2Line } from "react-icons/ri";
 import { IconContext } from "react-icons";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { useMediaQuery } from "@mantine/hooks";
 
 export const Sidebar = () => {

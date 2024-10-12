@@ -18,6 +18,7 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   const setChecked = useTagFilter((state) => state.setChecked);
   size = size ?? "l";
   function handleClick(val: TagObject) {
+    if(!val.index) return null
     if (!checked[val.index] && activeButton) {
       addTagFilter(val);
       setChecked(val.index, true);
@@ -30,7 +31,8 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   return (
     <>
       {renderTag.map((val,index) => {
-        if(val.tag === "") return null
+        if(!val.tag ) return null
+        if(!val.index) return null
         const active = checked[val.index]
         return (
           <motion.button

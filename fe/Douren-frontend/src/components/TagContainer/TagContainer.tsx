@@ -20,10 +20,10 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   function handleClick(val: TagObject) {
     if (tagFilter.filter((item) => item === val).length === 0 && activeButton) {
       addTagFilter(val);
-      setChecked(val.index, true);
+      // setChecked(val.index, true);
     } else {
       removeTagFilter(val);
-      setChecked(val.index, false);
+      // setChecked(val.index, false);
     }
   }
 
@@ -34,7 +34,7 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
         const active = tagFilter.filter((item) => item === val).length !== 0;
         return (
           <motion.button
-            key={index + val.tag}
+            key={index}
             onClick={() => handleClick(val)}
             className={sx("tagItem")}
             whileHover={{ scale: 1.1 }}

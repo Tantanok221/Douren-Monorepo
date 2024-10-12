@@ -29,6 +29,8 @@ test-stg-deployment:
 test-prd-deployment:
 	act --secret-file .env -j "prod-Deploy"
 
+test-fe-stg-deployment:
+	act --secret-file .env -j "fe-stg-deploy"
 
 db-sync:
 	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --data-only -f data.dump
@@ -36,6 +38,7 @@ db-sync:
 	from-env pg_restore -d %LOCAL_DATABASE_URL --schema-only --no-privileges -c schema.dump
 	from-env pg_restore -d %LOCAL_DATABASE_URL --data-only --no-privileges data.dump
 	rimraf schema.dump data.dump
+
 stg-db-sync:
 	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --data-only -f data.dump
 	from-env pg_dump %PRD_DATABASE_URL -Fc --schema=public --schema-only -f schema.dump
