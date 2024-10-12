@@ -14,12 +14,15 @@ import EventBookmarkContainer from "./subcomponent/EventBookmarkContainer";
 import HeaderContainer from "./subcomponent/HeaderContainer";
 import RightContainer from "./subcomponent/RightContainer";
 import TitleContainer from "./subcomponent/TitleContainer";
-import { eventArtistBaseSchemaType } from "@pkg/type";
+import {
+	artistBaseSchemaWithTagType,
+	eventArtistBaseSchemaType
+} from "@pkg/type";
 
 interface ArtistCardProps {
 	index?: number;
 	children?: React.ReactNode;
-	data?: eventArtistBaseSchemaType;
+	data?: eventArtistBaseSchemaType | artistBaseSchemaWithTagType;
 }
 const ArtistCard: React.FC<ArtistCardProps> & {
 	ImageContainer: typeof ImageContainer;

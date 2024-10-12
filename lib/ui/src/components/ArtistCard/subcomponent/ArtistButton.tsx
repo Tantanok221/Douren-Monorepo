@@ -3,9 +3,9 @@ import styles from "../style.module.css";
 import classNames from "classnames/bind";
 import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { useEventDataContext } from "../../ArtistCard/EventDataContext.ts";
+import { useEventDataContext } from "../EventDataContext.ts";
 
 interface Props {
 	size?: "s" | "l";

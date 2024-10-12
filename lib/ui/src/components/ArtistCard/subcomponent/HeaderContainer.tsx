@@ -11,7 +11,6 @@ interface Props {
 
 const HeaderContainer = ({ keys, subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
-  console.log(keys?.split("/"))
   return (
     <div className={sx("headerContainer")}>
       <TitleContainer subtitleDisabled={subtitleDisabled} />

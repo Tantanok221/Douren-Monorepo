@@ -4,9 +4,9 @@ import { produce } from "immer";
 //     { tag: '原創', count: 149, index: 0 },
 
 export interface TagObject {
-  tag: string;
+  tag: string | null;
   count: number | null;
-  index: number;
+  index: number | null;
 }
 
 interface TagFilter {

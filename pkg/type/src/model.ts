@@ -116,10 +116,16 @@ export const eventNameInputParams = z.object(
 export type eventInputParamsType = z.infer<typeof eventInputParams>
 // Combined schemas
 export type tagSchemaType = z.infer<typeof innerTagSchema>
+
+export const artistSchemaWithTag = artistBaseSchema.merge(tagSchema)
+
 export const artistSchema = z.object({
-  data: artistBaseSchema.merge(tagSchema).array()
+  data: artistSchemaWithTag.array()
 }).merge(paginationObject)
+
 export type artistSchemaType = z.infer<typeof artistSchema>
+export type artistBaseSchemaWithTagType = z.infer<typeof artistSchemaWithTag>
+
 export const eventArtistBaseSchema = artistBaseSchema.merge(tagSchema).merge(eventBaseSchema)
 export const eventArtistSchema = z.object({
   data: eventArtistBaseSchema.array()

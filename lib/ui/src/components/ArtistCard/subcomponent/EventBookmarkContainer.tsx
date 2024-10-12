@@ -6,6 +6,7 @@ import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import { useEventDataContext } from "../EventDataContext.ts";
 import {useCollectionProvider} from "../../../context/CollectionContext/useCollectionContext.ts";
+import {isEventArtistBaseSchema} from "../../../helper/isEventAristBaseSchema.ts";
 
 interface Props {
   keys: string;
@@ -17,6 +18,7 @@ const EventBookmarkContainer = ({keys}:Props) => {
   const data = useEventDataContext();
   const sx = classNames.bind(styles);
   const [collection,actions] = useCollectionProvider();
+  if(!isEventArtistBaseSchema(data)) return null
   const isAvailable  = collection?.some((item) => item.boothName === data?.boothName)
     return (
     <motion.div whileHover={{ scale: 1.1 }} className={sx("bookmarkContainer")}>

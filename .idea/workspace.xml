@@ -6,10 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: integrate useTagFilter with trpc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/src/stores/useTagFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/stores/useTagFilter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/artist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/artist/Artist.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/pages/Artist/Artist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/artist/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routeTree.gen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routeTree.gen.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/EventDataContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/EventDataContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/ArtistCard/subcomponent/ArtistDMButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/helper/processArtistData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/helper/processArtistData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/src/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/src/model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,24 +70,30 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/fetrpc&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo/be/douren-backend/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feat/fetrpc",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "ts.external.directory.path": "C:\\Users\\6572w\\Desktop\\CodeProject\\Douren-Monorepo\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\6572w\Desktop\CodeProject\Douren-Monorepo\be\douren-backend\src" />
@@ -815,15 +828,4 @@
     &quot;currentBranchFilter&quot;: true
   }
 }</component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/be/douren-backend/src/routes/event.ts</url>
-          <line>87</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>

@@ -1,7 +1,10 @@
 import { LinkResult, processLink } from "./processLink";
-import { eventArtistBaseSchemaType} from "@pkg/type";
+import {
+	artistBaseSchemaWithTagType,
+	eventArtistBaseSchemaType
+} from "@pkg/type";
 
-export function processArtistData(ArtistData: eventArtistBaseSchemaType) {
+export function processArtistData(ArtistData: eventArtistBaseSchemaType| artistBaseSchemaWithTagType ) {
 	let link: LinkResult[]
 	link = processLink(ArtistData.facebookLink, "Facebook", "Facebook");
 	link = link.concat(processLink(ArtistData.instagramLink, "Instagram", "Instagram"))
