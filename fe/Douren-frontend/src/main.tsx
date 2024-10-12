@@ -6,56 +6,9 @@ import "normalize.css";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
 import { trpc } from "@/helper/trpc.ts";
-import {httpBatchLink, httpLink, loggerLink} from "@trpc/client";
+import { httpLink, loggerLink} from "@trpc/client";
 import { routeTree } from "@/routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <__root />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <FF42Animate />,
-//       },
-//       {
-//         path: "collection",
-//         element: <AnimateCollection />,
-//       },
-//       {
-//         path: "about",
-//         element: <about />,
-//       },
-//       {
-//         path: "artist",
-//         element: <Artist />,
-//       },
-//       {
-//         path: "artist/:id",
-//         element: <ArtistPage />,
-//       },
-//       {
-//         path: "event/:eventName",
-//         element: <EventPageAnimate />,
-//         loader: async ({ params }):Promise<number> => {
-//           if (!params.eventName) {
-//             return 0;
-//           }
-//           const query = supabase
-//             .from("Event")
-//             .select("id")
-//             .eq("name", params?.eventName.toUpperCase());
-//           const { data, error } = await query;
-//           if (error || !data || data.length === 0) {
-//             return 0;
-//           }
-//           return data[0].id;
-//         },
-//       },
-//     ],
-//   },
-// ]);
 
 const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
