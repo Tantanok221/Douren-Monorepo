@@ -22,24 +22,29 @@ export const mockArtistEventData: eventArtistBaseSchemaType = (
         "photo": "https://imagedelivery.net/-OKLR_GOSRBj5AAtxDWCLw/4e652784-3188-4a71-c2d9-777f97508e00/public",
         "tags": [
             {
-                "tagName": "米哈游",
-                "tagCount": 6
+                "tag": "米哈游",
+                "count": 6,
+              "index": 1
             },
             {
-                "tagName": "Vtuber",
-                "tagCount": 16
+                "tag": "Vtuber",
+                "count": 16,
+              "index": 1
             },
             {
-                "tagName": "世界計畫",
-                "tagCount": 1
+                "tag": "世界計畫",
+                "count": 1,
+              "index": 2
             },
             {
-                "tagName": "二創",
-                "tagCount": 44
+                "tag": "二創",
+                "count": 44,
+              "index": 3
             },
             {
-                "tagName": "原創",
-                "tagCount": 27
+                "tag": "原創",
+                "count": 27,
+              "index": 4
             }
         ],
         "boothName": "JENˇ/荏",
