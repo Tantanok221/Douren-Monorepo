@@ -3,8 +3,6 @@ import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import TagContainer from "../../TagContainer";
 import { useEventDataContext } from "../EventDataContext";
-import { artistSchemaType } from "@pkg/type";
-import { useTagFilter } from "../../../stores/useTagFilter.ts";
 
 interface Props {
 	size?: "s" | "l";

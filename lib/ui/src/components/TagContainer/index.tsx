@@ -18,7 +18,6 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   const setChecked = useTagFilter((state) => state.setChecked);
   size = size ?? "l";
   function handleClick(val: TagObject) {
-  console.log(checked[val.index])
     if (!checked[val.index] && activeButton) {
       addTagFilter(val);
       setChecked(val.index, true);
@@ -35,7 +34,8 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
         const active = checked[val.index]
         return (
           <motion.button
-            key={val.index + val.tag + val.count +  index}
+            // TODO: Fix this Math.random() in the future
+            key={ val.tag + Math.random()}
             onClick={() => handleClick(val)}
             className={sx("tagItem")}
             whileHover={{ scale: 1.1 }}

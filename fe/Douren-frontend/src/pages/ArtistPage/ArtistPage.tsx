@@ -27,7 +27,6 @@ const ArtistPage = ({}: Props) => {
   const uuid = parseInt(id, 10);
   const { data } = useArtistLoader(uuid);
   const setAllFilter = useTagFilter((state) => state.setAllFilter);
-  setAllFilter();
 
   const sx = classNames.bind(style);
   const ax = classNames.bind(ArtistStyle);

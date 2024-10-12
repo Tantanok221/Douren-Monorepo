@@ -1,25 +1,15 @@
-import { useEffect, useState } from "react";
-import style from "./Collection.module.css";
+import style from "./collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { useLegacyCollection } from "../../stores/useLegacyCollection.ts";
-import ArtistCard from "../../components/ArtistCard/ArtistCard.tsx";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
-import { eventArtistBaseSchemaType } from "../../types/Artist.ts";
-import { FF } from "../../types/FF.ts";
 import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
+import {createFileRoute} from "@tanstack/react-router";
 
 export const Collection = () => {
-  const [posts, setPosts] = useState(false);
   const sx = classNames.bind(style);
   const keyCollection = ["/event/ff43"];
-  const collection = useLegacyCollection((state) => state.collection);
-  const initCollection = useLegacyCollection((state) => state.initCollection);
 
-  useEffect(() => {
-    initCollection("FF42 Collection");
-  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,12 +25,7 @@ export const Collection = () => {
           </div>
           <div className={sx("subtitle")}>透過標簽功能來加入我的收藏</div>
         </div>
-        <CollectionLayout title="FF43 收藏" keys="/event/ff43" />
-        <CollectionLayout
-          title="FF42 收藏"
-          legacyData={collection}
-          keys="FF42 Collection"
-        />
+        <CollectionLayout title="FF43 收藏" keys="/event/FF43" />
       </motion.div>
       <ScrollToTop />
     </motion.div>
@@ -48,4 +33,6 @@ export const Collection = () => {
 };
 
 const AnimateCollection = Animate(Collection);
-export default AnimateCollection;
+export const Route = createFileRoute("/collection/")({
+  component: AnimateCollection,
+})

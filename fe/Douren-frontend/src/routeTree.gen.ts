@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as CollectionIndexImport } from './routes/collection/index'
 import { Route as AboutIndexImport } from './routes/about/index'
 import { Route as EventEventNameImport } from './routes/event/$eventName'
 
@@ -19,6 +20,11 @@ import { Route as EventEventNameImport } from './routes/event/$eventName'
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CollectionIndexRoute = CollectionIndexImport.update({
+  path: '/collection/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,6 +63,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexImport
       parentRoute: typeof rootRoute
     }
+    '/collection/': {
+      id: '/collection/'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -66,12 +79,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about': typeof AboutIndexRoute
+  '/collection': typeof CollectionIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about': typeof AboutIndexRoute
+  '/collection': typeof CollectionIndexRoute
 }
 
 export interface FileRoutesById {
@@ -79,14 +94,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about/': typeof AboutIndexRoute
+  '/collection/': typeof CollectionIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/event/$eventName' | '/about'
+  fullPaths: '/' | '/event/$eventName' | '/about' | '/collection'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/event/$eventName' | '/about'
-  id: '__root__' | '/' | '/event/$eventName' | '/about/'
+  to: '/' | '/event/$eventName' | '/about' | '/collection'
+  id: '__root__' | '/' | '/event/$eventName' | '/about/' | '/collection/'
   fileRoutesById: FileRoutesById
 }
 
@@ -94,12 +110,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EventEventNameRoute: typeof EventEventNameRoute
   AboutIndexRoute: typeof AboutIndexRoute
+  CollectionIndexRoute: typeof CollectionIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EventEventNameRoute: EventEventNameRoute,
   AboutIndexRoute: AboutIndexRoute,
+  CollectionIndexRoute: CollectionIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,7 +134,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/event/$eventName",
-        "/about/"
+        "/about/",
+        "/collection/"
       ]
     },
     "/": {
@@ -127,6 +146,9 @@ export const routeTree = rootRoute
     },
     "/about/": {
       "filePath": "about/index.tsx"
+    },
+    "/collection/": {
+      "filePath": "collection/index.tsx"
     }
   }
 }

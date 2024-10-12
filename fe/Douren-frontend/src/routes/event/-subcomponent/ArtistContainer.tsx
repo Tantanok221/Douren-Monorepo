@@ -47,7 +47,7 @@ const ArtistContainer = () => {
               <ArtistCard key={`${item.boothName} ${item.author}`} data={item}>
                 <ArtistCard.ImageContainer />
                 <ArtistCard.RightContainer>
-                  <ArtistCard.HeaderContainer keys={location.pathname} />
+                  <ArtistCard.HeaderContainer keys={Route.fullPath} />
                   <ArtistCard.TagContainer activeButton />
                   <ArtistCard.DayContainer />
                   <ArtistCard.LinkContainer>
