@@ -5,9 +5,8 @@
     "dev": "wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
-    "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
-    "build:pkg": "npm run clean && tsc",
+    "build": "tsc",
+    "build:pkg": "tsc",
     "test": "vitest run"
   },
   "exports": {
