@@ -30,6 +30,7 @@ export const useTagFilter = create<TagFilter>()((set, get) => ({
       set(() => ({allFilter: data}));
   },
   addTagFilter: (data: TagObject) => {
+    console.log(data)
     set((state) => ({tagFilter: [...state.tagFilter, data]}));
   },
   removeTagFilter: (data: TagObject) => {

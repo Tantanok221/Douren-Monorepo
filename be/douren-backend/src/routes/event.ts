@@ -18,7 +18,7 @@ import {NewEventArtistDao} from "../Dao/EventArtist";
 const EventArtistDao = NewEventArtistDao()
 
 export const trpcEventRoute = router({
-  getEvent: publicProcedure.input(eventInputParams).output(eventArtistSchema).query(async (opts) => {
+  getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
     return await EventArtistDao.Fetch(opts.input)
   }),
   getEventId: publicProcedure.input(eventNameInputParams).output(zodSchema.event.SelectSchema).query(async (opts) => {

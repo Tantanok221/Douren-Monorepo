@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao">
-      <change afterPath="$PROJECT_DIR$/be/douren-backend/src/routes/tag.ts" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: integrate useTagFilter with trpc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/usePageInit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/TagContainer/TagContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/$eventName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useTagFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/stores/useTagFilter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/components/TagContainer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/src/stores/useTagFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/src/stores/useTagFilter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,23 +167,9 @@
       <workItem from="1728386005122" duration="166000" />
       <workItem from="1728386174928" duration="6574000" />
       <workItem from="1728396229655" duration="6408000" />
-      <workItem from="1728481835024" duration="4465000" />
-    </task>
-    <task id="LOCAL-00033" summary="[#25] feat: Remove Legacy FF related code from ArtistCard">
-      <option name="closed" value="true" />
-      <created>1727451555032</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1727451555032</updated>
-    </task>
-    <task id="LOCAL-00034" summary="[#25] feat: Added empty Helper package">
-      <option name="closed" value="true" />
-      <created>1727519902461</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1727519902461</updated>
+      <workItem from="1728481835024" duration="5943000" />
+      <workItem from="1728570282633" duration="2765000" />
+      <workItem from="1728653192254" duration="1941000" />
     </task>
     <task id="LOCAL-00035" summary="[#33] feat: setup ways to start localdb">
       <option name="closed" value="true" />
@@ -563,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728482766830</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="[#41] feat: Added tag endpoint with trpc">
+      <option name="closed" value="true" />
+      <created>1728486560107</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1728486560107</updated>
+    </task>
+    <task id="LOCAL-00083" summary="[#41] feat: integrate useTagFilter with trpc">
+      <option name="closed" value="true" />
+      <created>1728486583564</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1728486583565</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,8 +608,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#33] feat: Migrate ArtistCard to new schema and added linter and formatter for ui packages" />
-    <MESSAGE value="[#33] dev: Remove unused code" />
     <MESSAGE value="[#33] Merge main into dev/ui-lib" />
     <MESSAGE value="dev: Update package-lock.json and dependency" />
     <MESSAGE value="dev: Update github actions" />
@@ -633,7 +631,9 @@
     <MESSAGE value="[#41] Fix: migration issue from react-router-dom to tanstack router" />
     <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
     <MESSAGE value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
+    <MESSAGE value="[#41] feat: Added tag endpoint with trpc" />
+    <MESSAGE value="[#41] feat: integrate useTagFilter with trpc" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] feat: integrate useTagFilter with trpc" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

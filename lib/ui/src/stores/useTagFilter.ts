@@ -13,7 +13,7 @@ interface TagFilter {
   allFilter: TagObject[];
   tagFilter: TagObject[];
   checked: boolean[];
-  setAllFilter: () => void;
+  setAllFilter: (data: TagObject[]) => void;
   addTagFilter: (data: TagObject) => void;
   removeTagFilter: (data: TagObject) => void;
   removeAllTagFilter: () => void;
@@ -24,22 +24,16 @@ interface TagFilter {
 export const useTagFilter = create<TagFilter>()((set, get) => ({
   allFilter: [],
   tagFilter: [],
-  checked: Array(30).fill(""),
-  setAllFilter: async () => {
-    const { data, error } = await supabase
-      .from("Tag")
-      .select("*")
-      .order("index", { ascending: true });
-    if (data) {
+  checked: Array(30).fill(false),
+  setAllFilter: async (data : TagObject[]) => {
       set(() => ({ allFilter: data }));
-    }
   },
   addTagFilter: (data: TagObject) => {
     set((state) => ({ tagFilter: [...state.tagFilter, data] }));
   },
   removeTagFilter: (data: TagObject) => {
     set((state) => ({
-      tagFilter: state.tagFilter.filter((val) => val !== data),
+      tagFilter: state.tagFilter.filter((val) => val.tag !== data.tag),
     }));
   },
   removeAllTagFilter: () => {

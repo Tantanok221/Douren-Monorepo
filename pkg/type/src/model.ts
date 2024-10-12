@@ -23,8 +23,9 @@ export const FETCH_ARTIST_BASE_OBJECT = {
 export const FETCH_TAG_OBJECT = {
   tags: sql`jsonb_agg(
     jsonb_build_object(
-      'tagName', ${s.tag.tag},
-      'tagCount', ${s.tag.count}
+      'tag', ${s.tag.tag},
+      'count', ${s.tag.count},
+      'index', ${s.tag.index}
     )
   )`.as("tags"),
 };
@@ -71,12 +72,13 @@ const artistBaseSchema = z.object({
 // Tag schema
 
 const innerTagSchema = z.object({
-  tagName: z.string().nullable(),
-  tagCount: z.number().nullable()
+  tag: z.string(),
+  count: z.number(),
+  index: z.number()
 })
 
 const tagSchema = z.object({
-  tags: z.array(innerTagSchema)
+  tags: z.array(innerTagSchema).nullable()
 });
 // Event base schema
 const eventBaseSchema = z.object({

@@ -11,8 +11,8 @@ import { SearchColumnContextProvider } from "./-context/SearchColumnContext/Sear
 import { createFileRoute } from "@tanstack/react-router";
 import {CollectionContextProvider} from "@lib/ui/src/context/CollectionContext/index.tsx";
 import {trpc} from "@/helper/trpc.ts";
+import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 
-import { useTagFilter } from "@/stores/useTagFilter.ts";
 export const Route = createFileRoute("/event/$eventName")({
   component: EventName,
 });

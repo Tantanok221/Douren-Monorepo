@@ -4,6 +4,7 @@ import styles from "../style.module.css";
 import TagContainer from "../../TagContainer";
 import { useEventDataContext } from "../EventDataContext";
 import { artistSchemaType } from "@pkg/type";
+import { useTagFilter } from "../../../stores/useTagFilter.ts";
 
 interface Props {
 	size?: "s" | "l";
@@ -13,17 +14,16 @@ interface Props {
 const ArtistTagContainer = ({ size, activeButton }: Props) => {
 	const sx = classNames.bind(styles);
 	const eventData = useEventDataContext();
-	const allTag = eventData?.tags;
+	if (!eventData?.tags) return null;
 	return (
 		<div className={sx("tagContainer")}>
-			{allTag ? (
+			{
 				<TagContainer
-					renderTag={allTag}
-					id={eventData?.author}
+					renderTag={eventData.tags}
 					size={size}
 					activeButton={activeButton}
 				/>
-			) : null}
+			}
 		</div>
 	);
 };
