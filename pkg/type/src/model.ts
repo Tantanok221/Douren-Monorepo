@@ -38,10 +38,25 @@ export const FETCH_EVENT_BASE_OBJECT = {
   DM: s.eventDm.dm,
 };
 
+const FETCH_PRODUCT_BASE_OBJECT = {
+  id : s.authorProduct.id,
+  artistId: s.authorProduct.artistId,
+  thumbnail : s.authorProduct.thumbnail,
+  preview: s.authorProduct.preview,
+  title : s.authorProduct.title,
+  tag: s.authorProduct.tag,
+}
+
 export const FETCH_ARTIST_OBJECT = {
   ...FETCH_ARTIST_BASE_OBJECT,
   ...FETCH_TAG_OBJECT,
 };
+
+export const FETCH_PRODUCT_ARTIST_OBJECT = {
+  ...FETCH_ARTIST_BASE_OBJECT,
+  ...FETCH_TAG_OBJECT,
+  ...FETCH_PRODUCT_BASE_OBJECT,
+}
 
 export const FETCH_EVENT_ARTIST_OBJECT = {
   ...FETCH_ARTIST_BASE_OBJECT,
