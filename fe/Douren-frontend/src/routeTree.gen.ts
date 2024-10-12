@@ -16,6 +16,7 @@ import { Route as CollectionIndexImport } from './routes/collection/index'
 import { Route as ArtistIndexImport } from './routes/artist/index'
 import { Route as AboutIndexImport } from './routes/about/index'
 import { Route as EventEventNameImport } from './routes/event/$eventName'
+import { Route as ArtistArtistIdImport } from './routes/artist/$artistId'
 
 // Create/Update Routes
 
@@ -44,6 +45,11 @@ const EventEventNameRoute = EventEventNameImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ArtistArtistIdRoute = ArtistArtistIdImport.update({
+  path: '/artist/$artistId',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -53,6 +59,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/artist/$artistId': {
+      id: '/artist/$artistId'
+      path: '/artist/$artistId'
+      fullPath: '/artist/$artistId'
+      preLoaderRoute: typeof ArtistArtistIdImport
       parentRoute: typeof rootRoute
     }
     '/event/$eventName': {
@@ -90,6 +103,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/artist/$artistId': typeof ArtistArtistIdRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about': typeof AboutIndexRoute
   '/artist': typeof ArtistIndexRoute
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/artist/$artistId': typeof ArtistArtistIdRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about': typeof AboutIndexRoute
   '/artist': typeof ArtistIndexRoute
@@ -107,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/artist/$artistId': typeof ArtistArtistIdRoute
   '/event/$eventName': typeof EventEventNameRoute
   '/about/': typeof AboutIndexRoute
   '/artist/': typeof ArtistIndexRoute
@@ -115,12 +131,25 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/event/$eventName' | '/about' | '/artist' | '/collection'
+  fullPaths:
+    | '/'
+    | '/artist/$artistId'
+    | '/event/$eventName'
+    | '/about'
+    | '/artist'
+    | '/collection'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/event/$eventName' | '/about' | '/artist' | '/collection'
+  to:
+    | '/'
+    | '/artist/$artistId'
+    | '/event/$eventName'
+    | '/about'
+    | '/artist'
+    | '/collection'
   id:
     | '__root__'
     | '/'
+    | '/artist/$artistId'
     | '/event/$eventName'
     | '/about/'
     | '/artist/'
@@ -130,6 +159,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArtistArtistIdRoute: typeof ArtistArtistIdRoute
   EventEventNameRoute: typeof EventEventNameRoute
   AboutIndexRoute: typeof AboutIndexRoute
   ArtistIndexRoute: typeof ArtistIndexRoute
@@ -138,6 +168,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArtistArtistIdRoute: ArtistArtistIdRoute,
   EventEventNameRoute: EventEventNameRoute,
   AboutIndexRoute: AboutIndexRoute,
   ArtistIndexRoute: ArtistIndexRoute,
@@ -157,6 +188,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/artist/$artistId",
         "/event/$eventName",
         "/about/",
         "/artist/",
@@ -165,6 +197,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/artist/$artistId": {
+      "filePath": "artist/$artistId.tsx"
     },
     "/event/$eventName": {
       "filePath": "event/$eventName.tsx"
