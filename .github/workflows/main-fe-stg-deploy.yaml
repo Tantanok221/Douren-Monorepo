@@ -1,24 +1,20 @@
-name: Douren Frontend Staging Deployment
+name: Staging Deployment
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'fe/douren-frontend/**'
+      - 'be/douren-backend/**'
+      - 'fe/Douren-frontend'
       - 'pkg/type'
       - "lib/ui/**"
-      - "be/douren-backend/**"
-
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_FE_PROJECT_ID }}
 
 jobs:
   fe-stg-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Staging Deploy
+    name: Douren Frontend
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -33,39 +29,36 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
       - name: Install dependencies
         run: npm install
 
       - name: Get Env Variable
         env:
           dotenv: ${{secrets.DOTENV_ME}}
-        run: npx dotenv-vault pull staging --dotenvMe=$dotenv -y && mv .env.staging .env && make copy-env
+        run: npx dotenv-vault pull staging --dotenvMe=$dotenv -y && mv .env.staging .env &&make copy-env
 
-      - name: Build and link packages
-        run: |
-          npm run pkg
-          npm run lib
-          npm run be
+      - name: Build Packages
+        run: npm run pkg
 
-      - name: Deploy Frontend on staging
+      - name: Build Library
+        run: npm run lib
+
+      - name: Build Backend
+        run: npm run be
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Deploy Frontend
         env:
-          token: ${{secrets.TURBO_TOKEN}}
+          CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
         run: |
           cd fe/Douren-frontend
-          WRANGLER_VARS=""
-          while IFS= read -r line || [[ -n "$line" ]]; do
-            if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
-              key=$(echo "$line" | cut -d '=' -f 1 | xargs)
-              value=$(echo "$line" | cut -d '=' -f 2- | xargs)
-              quoted_value=$(printf '%q' "$value")
-              WRANGLER_VARS+="--env ${key}=${quoted_value} "
-            fi
-          done < .env
-          
-          vercel pull --yes --token=$token
-          vercel link --repo --yes --token=$token
-          vercel build --yes --token=$token
-          vercel deploy $WRANGLER_VARS --prebuild --token=$token
+          npm run build
+          wrangler pages deploy dist --branch ${{ steps.extract_branch.outputs.branch }} 

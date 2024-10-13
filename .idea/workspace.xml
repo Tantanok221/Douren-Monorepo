@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update tsconfig.json">
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update turbo.json">
       <change beforePath="$PROJECT_DIR$/.github/workflows/main-fe-stg-deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main-fe-stg-deploy.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,39 +177,7 @@
       <workItem from="1728481835024" duration="5943000" />
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
-      <workItem from="1728785060683" duration="6138000" />
-    </task>
-    <task id="LOCAL-00048" summary="[#33] dev: Update scripts naming and added conditional deployment">
-      <option name="closed" value="true" />
-      <created>1727683274211</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1727683274211</updated>
-    </task>
-    <task id="LOCAL-00049" summary="[#33] dev: Added turborepo remote caching">
-      <option name="closed" value="true" />
-      <created>1727683839151</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1727683839151</updated>
-    </task>
-    <task id="LOCAL-00050" summary="[#36] feat: Added rate limiting with redis">
-      <option name="closed" value="true" />
-      <created>1727687653466</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1727687653466</updated>
-    </task>
-    <task id="LOCAL-00051" summary="[#35] dev: Update env">
-      <option name="closed" value="true" />
-      <created>1727694069370</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1727694069370</updated>
+      <workItem from="1728785060683" duration="12131000" />
     </task>
     <task id="LOCAL-00052" summary="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production">
       <option name="closed" value="true" />
@@ -567,7 +539,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728795367411</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="[#41] dev: Update env vault">
+      <option name="closed" value="true" />
+      <created>1728795982437</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1728795982437</updated>
+    </task>
+    <task id="LOCAL-00098" summary="[#41] dev: Update tsconfig.json">
+      <option name="closed" value="true" />
+      <created>1728796182392</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1728796182392</updated>
+    </task>
+    <task id="LOCAL-00099" summary="[#41] dev: Update tsconfig.json">
+      <option name="closed" value="true" />
+      <created>1728796435397</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1728796435397</updated>
+    </task>
+    <task id="LOCAL-00100" summary="[#41] dev: Update turbo.json">
+      <option name="closed" value="true" />
+      <created>1728797199991</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1728797199991</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +616,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#19] feat: Added test case for artistRoutes" />
     <MESSAGE value="Merge main into feat/test-backend" />
     <MESSAGE value="fix: artist sending wrong response code" />
     <MESSAGE value="[#19] test: Completed test case for /artist routes and added retry" />
@@ -626,7 +629,6 @@
     <MESSAGE value="[#19] feat: Added fetch eventId by name" />
     <MESSAGE value="[#41] feat: Added fetch eventId by name" />
     <MESSAGE value="[#41] feat: Added trpc integration" />
-    <MESSAGE value="[#41] dev: Update env vault" />
     <MESSAGE value="[#41] Fix: migration issue from react-router-dom to tanstack router" />
     <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
     <MESSAGE value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
@@ -636,8 +638,10 @@
     <MESSAGE value="[#41] dev: Update fe-stg-deploy.yaml" />
     <MESSAGE value="[#41] dev: Added tsconfig.tsbuildinfo" />
     <MESSAGE value="[#41] dev: Update package.json" />
+    <MESSAGE value="[#41] dev: Update env vault" />
     <MESSAGE value="[#41] dev: Update tsconfig.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update tsconfig.json" />
+    <MESSAGE value="[#41] dev: Update turbo.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update turbo.json" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

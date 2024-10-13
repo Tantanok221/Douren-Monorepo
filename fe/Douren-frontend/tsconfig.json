@@ -16,16 +16,14 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*", "../api/src/*"]
+      "@/*": ["./src/*", "../api/src/*"],
     },
     "composite": true
   },
-  "include": ["src"],
   "references": [
     { "path": "./tsconfig.node.json" },
-    {
-      "path": "../../be/douren-backend/tsconfig.json"
-    }
+    { "path": "../../be/douren-backend/tsconfig.json" }
   ]
 }
