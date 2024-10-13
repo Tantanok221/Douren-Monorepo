@@ -2,9 +2,8 @@ name: Douren Backend Deploy Pipeline
 
 on:
   push:
-    paths:
-      - 'be/douren-backend/**'
-      - 'pkg/**'
+    branches:
+      - "main"
 
 jobs:
   prod-deploy:

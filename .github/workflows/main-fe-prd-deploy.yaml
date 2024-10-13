@@ -2,11 +2,8 @@ name: Production Deployment
 
 on:
   push:
-    paths:
-      - 'be/douren-backend/**'
-      - 'fe/Douren-frontend'
-      - 'pkg/type'
-      - "lib/ui/**"
+    branches:
+      - "main"
 
 jobs:
   fe-stg-deploy:
