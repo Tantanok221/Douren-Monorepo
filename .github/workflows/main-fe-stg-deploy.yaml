@@ -65,7 +65,6 @@ jobs:
             fi
           done < .env
           
-          echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"  
           vercel pull --yes --token=$token
           vercel link --repo --yes --token=$token
           vercel build --yes --token=$token
