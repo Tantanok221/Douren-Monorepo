@@ -1,0 +1,59 @@
+name: Production Deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'be/douren-backend/**'
+      - 'fe/Douren-frontend'
+      - 'pkg/type'
+      - "lib/ui/**"
+
+jobs:
+  fe-stg-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    name: Douren Frontend
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_REMOTE_ONLY: true
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get Env Variable
+        env:
+          dotenv: ${{secrets.DOTENV_ME}}
+        run: npx dotenv-vault pull production --dotenvMe=$dotenv -y && mv .env.production .env &&make copy-env
+
+      - name: Build Packages
+        run: npm run pkg
+
+      - name: Build Library
+        run: npm run lib
+
+      - name: Build Backend
+        run: npm run be
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Deploy Frontend
+        env:
+          CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
+        run: |
+          cd fe/Douren-frontend
+          npm run build
+          wrangler pages deploy dist --branch production 
