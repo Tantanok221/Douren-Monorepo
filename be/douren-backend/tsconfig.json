@@ -3,6 +3,7 @@
   "include": [
     "src"
   ],
+  "main": "dist/index.js",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
