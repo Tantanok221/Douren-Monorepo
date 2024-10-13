@@ -1,9 +1,9 @@
-.paginationContainer{
+.paginationContainer {
   display: flex;
   gap: 1.25rem;
 }
 
-.paginationButton{
+.paginationButton {
   width: 2.8rem;
   height: 100%;
   padding: 0.5rem 0rem;
@@ -18,28 +18,26 @@
   cursor: pointer;
 }
 
-.paginationActiveButton{
-  background-color: #2D2D2D;
+.paginationActiveButton {
+  background-color: #2d2d2d;
   color: #fff;
   cursor: default;
 }
 
-.paginationInactiveButton{
+.paginationInactiveButton {
   cursor: not-allowed;
   background-color: #151516;
-
 }
-.paginationDot{
+.paginationDot {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   width: 2.8rem;
   height: 100%;
-  
 }
 
-.dot{
+.dot {
   background-color: var(--Link);
   width: 3px;
   border-radius: 12px;

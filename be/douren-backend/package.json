@@ -1,5 +1,5 @@
 {
-  "name": "douren-backend",
+  "name": "@be/douren-backend",
   "version": "0.0.1",
   "scripts": {
     "dev": "wrangler dev src/index.ts --port 2000",
@@ -7,6 +7,8 @@
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
     "build": "tsc",
     "build:pkg": "tsc",
+    "format": "npx @biomejs/biome format --write ./src",
+    "lint": "npx @biomejs/biome lint --write ./src ",
     "test": "vitest run"
   },
   "exports": {
@@ -22,7 +24,7 @@
     "@hono/zod-validator": "^0.2.2",
     "@pkg/database": "*",
     "@pkg/type": "*",
-    "@trpc/server": "^10.45.2",
+    "@trpc/server": "11.0.0-rc.553",
     "@upstash/redis": "^1.34.0",
     "drizzle-orm": "^0.33.0",
     "drizzle-zod": "^0.5.1",

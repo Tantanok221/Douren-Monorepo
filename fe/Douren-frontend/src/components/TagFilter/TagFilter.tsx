@@ -6,7 +6,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { TagItem } from "./subcomponent/TagItem";
-import { useTagFilter } from "../../stores/useTagFilter";
+import { useTagFilter } from "@lib/ui/src/stores/useTagFilter";
 export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);

@@ -25,7 +25,7 @@ const LinkContainer = ({ link, size }: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={sx("linkButton", { smallText: size === "s" })}
-          key={`${item.link}`}
+          key={`${item.link} ${item.category} ${index}`}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -34,7 +34,7 @@ const LinkContainer = ({ link, size }: Props) => {
           }}
         >
           <div className={sx("linkIcon")}>
-            <LinkIcon key={index} data={item} />
+            <LinkIcon data={item} />
           </div>
           {item.name}
         </motion.a>

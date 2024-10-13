@@ -16,8 +16,12 @@ export interface BACKEND_BINDING {
   CLOUDFLARE_API_KEY: string;
   CLOUDFLARE_ACCOUNT_ID: string;
   ADMIN_USER_ID: string;
+  VERCEL_ORG_ID: string;
+  TURBO_TOKEN: string;
+  VERCEL_FE_PROJECT_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -37,8 +41,12 @@ export interface FRONTEND_BINDING {
   CLOUDFLARE_API_KEY: string;
   CLOUDFLARE_ACCOUNT_ID: string;
   ADMIN_USER_ID: string;
+  VERCEL_ORG_ID: string;
+  TURBO_TOKEN: string;
+  VERCEL_FE_PROJECT_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -58,8 +66,12 @@ export interface PACKAGE_BINDING {
   CLOUDFLARE_API_KEY: string;
   CLOUDFLARE_ACCOUNT_ID: string;
   ADMIN_USER_ID: string;
+  VERCEL_ORG_ID: string;
+  TURBO_TOKEN: string;
+  VERCEL_FE_PROJECT_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 
@@ -79,8 +91,12 @@ export interface ENV_BINDING {
   CLOUDFLARE_API_KEY: string;
   CLOUDFLARE_ACCOUNT_ID: string;
   ADMIN_USER_ID: string;
+  VERCEL_ORG_ID: string;
+  TURBO_TOKEN: string;
+  VERCEL_FE_PROJECT_ID: string;
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
+  VITE_BACKEND_URL: string;
   DOTENV_ME: string;
 }
 

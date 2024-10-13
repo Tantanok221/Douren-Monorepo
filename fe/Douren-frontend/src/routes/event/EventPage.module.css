@@ -1,0 +1,105 @@
+.Root {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 32px;
+}
+
+.MainContainer {
+  padding: 3rem 6%;
+  padding-bottom: 0px;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  max-width: 1800px;
+  width: 100%;
+}
+
+.ArtistContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: stretch;
+  width: 100%;
+}
+.searchContainer {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.searchBox {
+  width: 100%;
+}
+
+.searchFilter {
+  width: 30%;
+}
+
+.filterContainer {
+  display: flex;
+  gap: 1.5rem;
+  height: 50px;
+  width: 100%;
+}
+
+.sortSelect {
+  width: 100%;
+}
+
+.tagFilter {
+  width: 100%;
+}
+
+.fetchContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 8rem;
+}
+
+.fetchButton {
+  cursor: pointer;
+  font-family: var(--Font);
+  padding: 1rem 1.75rem;
+  border: none;
+  background: var(--LinkPanel);
+  color: var(--Link);
+  font-size: 1.25rem;
+  border-radius: 0.75rem;
+}
+
+@media (max-width: 800px) {
+  .Root {
+    flex-direction: column;
+  }
+  .MainContainer {
+    margin: 1.25rem 5%;
+    box-sizing: border-box;
+  }
+
+  .fetchContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .MainContainer {
+    margin: 1rem 10%;
+  }
+  .searchFilter {
+    width: 40%;
+  }
+}

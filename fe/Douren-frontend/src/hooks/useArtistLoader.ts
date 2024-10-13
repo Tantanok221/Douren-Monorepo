@@ -30,4 +30,4 @@ const useArtistLoader = (id?: number) => {
   });
 };
 
-export default useArtistLoader
+export default useArtistLoader;

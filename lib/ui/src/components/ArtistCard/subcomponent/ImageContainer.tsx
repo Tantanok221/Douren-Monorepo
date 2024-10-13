@@ -10,7 +10,7 @@ const ImageContainer = () => {
 	const eventData = useEventDataContext();
 	return (
 		<div className={sx("imageContainer")}>
-			{eventData?.photo ? <LazyImage alt={eventData?.author} photo={eventData?.photo} />: null}
+			{eventData?.photo ? <LazyImage alt={eventData?.author as string} photo={eventData?.photo} />: null}
 		</div>
 	);
 };

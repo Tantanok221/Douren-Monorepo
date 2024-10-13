@@ -1,4 +1,4 @@
-import { ArtistEventType, ArtistTypes } from "../types/Artist";
+import { eventArtistBaseSchemaType, ArtistTypes } from "../types/Artist";
 import { FF } from "../types/FF";
 import { Undefined } from "../types/Utility";
 
@@ -7,7 +7,7 @@ export type ArtistDataTypes = "legacy" | "artist" | "event";
 export function determineArtistDataType(
   legacyData: Undefined<FF>,
   artistData: Undefined<ArtistTypes>,
-  eventData: Undefined<ArtistEventType>,
+  eventData: Undefined<eventArtistBaseSchemaType>,
 ): ArtistDataTypes {
   if (legacyData) {
     return "legacy";

@@ -1,11 +1,11 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "extends": [
-    "../../pkg/typescript-config/biome-be.json"
-  ],
   "files": {
     "include": [
       "src/**"
+    ],
+    "ignore": [
+      "src/*.test.ts"
     ]
   },
   "linter": {

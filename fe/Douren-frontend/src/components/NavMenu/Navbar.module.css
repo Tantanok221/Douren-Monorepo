@@ -13,7 +13,7 @@
   padding-top: 60px;
 }
 
-.navigationMenuItem{
+.navigationMenuItem {
   list-style-type: none;
 }
 
@@ -27,13 +27,13 @@
   top: 0;
 }
 
-.navigationMenuTrigger{
+.navigationMenuTrigger {
   position: relative;
   background-color: transparent;
-  border: none
+  border: none;
 }
 
-.navigationSubMenu{
+.navigationSubMenu {
   display: flex;
   gap: 1rem;
   padding: 1rem 0px;
@@ -47,7 +47,7 @@
   background-color: #292929;
 }
 
-.subLinkButton{
+.subLinkButton {
   padding: 12px 36px;
   color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
@@ -59,14 +59,14 @@
   border-radius: 0.5rem;
 }
 
-.navigationMenuViewport{
+.navigationMenuViewport {
   position: absolute;
   transform-origin: top center;
   display: flex;
   width: 100%;
 }
 
-.navigationMenuContent{
+.navigationMenuContent {
   position: absolute;
   transform: translateX(-15%);
 }
@@ -88,7 +88,6 @@
 .subLinkButton:hover {
   background-color: var(--Sidebar-Active);
 }
-
 
 .bottomPadding {
   height: 100px;

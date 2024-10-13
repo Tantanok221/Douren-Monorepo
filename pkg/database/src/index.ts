@@ -2,11 +2,15 @@ import { and, AnyColumn, asc, Column, desc, eq, ilike, isNotNull, not, SQL, SQLW
 import { PgSelect } from "drizzle-orm/pg-core";
 import { s } from "./db/index.js";
 
+export interface ISelectDatabaseQueryBuilder<T>  {
+  query: T
+}
+
 export function BuildQuery<T extends PgSelect>(query: T){
   return new SelectDatabaseQueryBuilder(query);
 }
 
-class SelectDatabaseQueryBuilder<T extends PgSelect> {
+export class SelectDatabaseQueryBuilder<T extends PgSelect> implements ISelectDatabaseQueryBuilder<T>{
   query: T;
   constructor(query: T) {
     this.query = query;
@@ -24,7 +28,7 @@ class SelectDatabaseQueryBuilder<T extends PgSelect> {
     return this
   }
   withIlikeSearchByTable(search: string, table: Column) {
-    this.query = this.query.where(and(ilike(table, search)));
+    this.query = this.query.where(ilike(table, "%"+search+"%"));
     return this
   }
   withTableIsNotNull(table: Column){

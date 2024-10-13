@@ -3,12 +3,17 @@
   "include": [
     "src"
   ],
+  "main": "dist/index.js",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "declaration": true,
+    "composite": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
   },
   "exclude": [
-    "node_modules",
     "dist"
   ]
 }

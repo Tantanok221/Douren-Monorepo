@@ -2,9 +2,11 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
 import { useEventDataContext } from "../EventDataContext";
+import {isEventArtistBaseSchema} from "../../../helper/isEventAristBaseSchema.ts";
 const DayContainer = () => {
   const sx = classNames.bind(styles);
   const eventData = useEventDataContext();
+  if(!isEventArtistBaseSchema(eventData)) return null
   let boothLocation: (string | null | undefined)[] = [];
   boothLocation = [
       eventData?.locationDay01,

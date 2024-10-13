@@ -11,10 +11,10 @@ import { useState } from "react";
 interface Props {
   defaultValue: string;
   children: React.ReactNode;
-  onValueChange: React.Dispatch<React.SetStateAction<string>>
+  onValueChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SelectComponent = ({ defaultValue, children,onValueChange }: Props) => {
+const SelectComponent = ({ defaultValue, children, onValueChange }: Props) => {
   const sx = classNames.bind(style);
   return (
     <IconContext.Provider
