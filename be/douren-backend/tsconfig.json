@@ -12,9 +12,6 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "baseUrl": ".",
-    "paths": {
-      "@pkg/*": ["../../pkg/*"]
-    }
   },
   "exclude": [
     "dist"
