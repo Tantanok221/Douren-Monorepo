@@ -2,8 +2,6 @@ name: Douren Backend Deploy Pipeline
 
 on:
   pull_request:
-    branches:
-      - main
     paths:
       - 'be/douren-backend/**'
       - 'pkg/**'
