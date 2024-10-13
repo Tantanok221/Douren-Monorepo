@@ -6,7 +6,7 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$",  "tsconfig.json"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "test": {
       "persistent": true
