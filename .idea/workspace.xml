@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Added commitlint">
-      <change afterPath="$PROJECT_DIR$/.husky/commit-msg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Added format scripts at backend">
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,23 +173,7 @@
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
       <workItem from="1728785060683" duration="14275000" />
-      <workItem from="1728811347791" duration="4193000" />
-    </task>
-    <task id="LOCAL-00067" summary="[#19] test: Completed test case for /artist routes and added retry">
-      <option name="closed" value="true" />
-      <created>1727883348158</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1727883348158</updated>
-    </task>
-    <task id="LOCAL-00068" summary="[#19] fix: Redis return as array bugs">
-      <option name="closed" value="true" />
-      <created>1727884293127</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1727884293127</updated>
+      <workItem from="1728811347791" duration="4494000" />
     </task>
     <task id="LOCAL-00069" summary="[#19] test: Added event test case and fix event redis bug">
       <option name="closed" value="true" />
@@ -570,7 +551,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728814076167</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="[#41] dev: Update commit-msg formatting">
+      <option name="closed" value="true" />
+      <created>1728815791060</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1728815791060</updated>
+    </task>
+    <task id="LOCAL-00117" summary="[#41] dev: Added format scripts at backend">
+      <option name="closed" value="true" />
+      <created>1728815877566</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1728815877566</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,8 +612,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#41] feat: Added fetch eventId by name" />
-    <MESSAGE value="[#41] feat: Added trpc integration" />
     <MESSAGE value="[#41] Fix: migration issue from react-router-dom to tanstack router" />
     <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
     <MESSAGE value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
@@ -640,7 +635,9 @@
     <MESSAGE value="[#41] feat: format and added descending sort options" />
     <MESSAGE value="[#41] chore: formatted" />
     <MESSAGE value="[#41] dev: Added commitlint" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Added commitlint" />
+    <MESSAGE value="[#41] dev: Update commit-msg formatting" />
+    <MESSAGE value="[#41] dev: Added format scripts at backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Added format scripts at backend" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

@@ -1,20 +1,19 @@
-import {cacheJsonResults, initRedis} from "@pkg/redis/redis";
-import {createPaginationObject} from "../helper/createPaginationObject";
-import {PAGE_SIZE} from "../helper/constant";
-import {artistSchemaType, eventArtistSchemaType} from "@pkg/type";
+import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
+import { createPaginationObject } from "../helper/createPaginationObject";
+import { PAGE_SIZE } from "../helper/constant";
+import { artistSchemaType, eventArtistSchemaType } from "@pkg/type";
 
 export interface ArtistFetchParams {
-    searchTable: string
-    page: string
-    search ?: string
-    sort : string
-    tag ?: string
+	searchTable: string;
+	page: string;
+	search?: string;
+	sort: string;
+	tag?: string;
 }
 
 export interface EventArtistFetchParams extends ArtistFetchParams {
-    eventId: string
+	eventId: string;
 }
-
 
 // export async function EventArtistFetchFunction({page,search,searchTable,sort,tag,eventId}: EventArtistFetchParams){
 //     const redis = initRedis();
