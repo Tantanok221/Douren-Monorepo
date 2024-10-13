@@ -23,6 +23,7 @@ const ArtistContainer = () => {
   const id = trpc.eventArtist.getEventId.useQuery({
     eventName: Route.useParams().eventName
   })
+  console.log(sortSelect)
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId: String(id?.data?.id),
     page: String(page),

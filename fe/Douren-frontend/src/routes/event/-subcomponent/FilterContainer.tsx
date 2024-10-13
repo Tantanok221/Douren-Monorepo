@@ -18,23 +18,23 @@ const FilterContainer = () => {
             <SelectComponent.Label text="排序方式"></SelectComponent.Label>
             <SelectComponent.Item
               text="排序: 作者名稱(順序)"
-              value="Author_Main(Author) asc"
+              value="Author_Main(Author),asc"
             />
             <SelectComponent.Item
               text="排序: 攤位名稱(順序)"
-              value="Booth_name asc"
+              value="Booth_name,asc"
             />
             <SelectComponent.Item
               text="排序: 攤位位置 Day 01(順序)"
-              value="Location_Day01 asc"
+              value="Location_Day01,asc"
             />
             <SelectComponent.Item
               text="排序: 攤位位置 Day 02(順序)"
-              value="Location_Day02 asc"
+              value="Location_Day02,asc"
             />
             <SelectComponent.Item
               text="排序: 攤位位置 Day 03(順序)"
-              value="Location_Day03 asc"
+              value="Location_Day03,asc"
             />
           </SelectComponent.Group>
         </SelectComponent>

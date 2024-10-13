@@ -37,7 +37,7 @@ function EventName() {
       className={sx("MainContainer")}
     >
       <CollectionContextProvider keys={Route.fullPath}>
-        <SortSelectContextProvider defaultValue="Author_Main(Author) asc">
+        <SortSelectContextProvider defaultValue="Author_Main(Author),asc">
           <SearchColumnContextProvider defaultValue="Booth_name">
             <SearchContainer/>
             <FilterContainer/>
