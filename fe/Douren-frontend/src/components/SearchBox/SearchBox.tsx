@@ -5,14 +5,14 @@ import { IconContext } from "react-icons";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import { useSearch } from "../../stores/useSearch.ts";
-import { useDebouncedValue} from "@mantine/hooks";
+import { useDebouncedValue } from "@mantine/hooks";
 
 const SearchBox = () => {
   const sx = classNames.bind(styles);
   const setSearch = useSearch((state) => state.setSearch);
   const [isFocused, setIsFocused] = React.useState(false);
   const [bufferSearch, setBufferSearch] = React.useState("");
-  const [ debounceSearch ]= useDebouncedValue(bufferSearch, 500);
+  const [debounceSearch] = useDebouncedValue(bufferSearch, 500);
 
   useEffect(() => {
     setSearch(debounceSearch);

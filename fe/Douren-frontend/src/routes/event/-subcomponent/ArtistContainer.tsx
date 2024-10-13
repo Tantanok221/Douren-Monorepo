@@ -9,25 +9,24 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../../components/Pagination/Pagination";
 import { trpc } from "@/helper/trpc.ts";
-import {Route } from "@/routes/event/$eventName.tsx";
-import {useTagFilter} from "@lib/ui/src/stores/useTagFilter.ts";
-
+import { Route } from "@/routes/event/$eventName.tsx";
+import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 
 const ArtistContainer = () => {
   const sx = classNames.bind(styles);
   const [sortSelect] = useSortSelectContextProvider();
   const [searchColumn] = useSearchColumnContext();
-  const tagFilter = useTagFilter(state => state.tagFilter)
-  const allTag = tagFilter.map((val) => val.tag).join(",")
+  const tagFilter = useTagFilter((state) => state.tagFilter);
+  const allTag = tagFilter.map((val) => val.tag).join(",");
   const [page, setPage] = useState(1);
   const id = trpc.eventArtist.getEventId.useQuery({
-    eventName: Route.useParams().eventName
-  })
-  console.log(sortSelect)
+    eventName: Route.useParams().eventName,
+  });
+  console.log(sortSelect);
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId: String(id?.data?.id),
     page: String(page),
-    sort:  sortSelect,
+    sort: sortSelect,
     tag: allTag,
     searchTable: searchColumn,
   });

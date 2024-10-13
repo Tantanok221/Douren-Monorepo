@@ -6,7 +6,7 @@ import "normalize.css";
 import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
 import { trpc } from "@/helper/trpc.ts";
-import { httpLink, loggerLink} from "@trpc/client";
+import { httpLink, loggerLink } from "@trpc/client";
 import { routeTree } from "@/routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 
@@ -16,7 +16,7 @@ const trpcClient = trpc.createClient({
     httpLink({
       url: import.meta.env.VITE_BACKEND_URL,
     }),
-    loggerLink()
+    loggerLink(),
   ],
 });
 

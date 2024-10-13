@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
 import Animate from "../../animate/Animate.tsx";
 import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
-import {createFileRoute} from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Collection = () => {
   const sx = classNames.bind(style);
@@ -35,4 +35,4 @@ export const Collection = () => {
 const AnimateCollection = Animate(Collection);
 export const Route = createFileRoute("/collection/")({
   component: AnimateCollection,
-})
+});

@@ -9,7 +9,7 @@
     "lint": "eslint .  --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "generate": "npx generate-react-cli component %npm_config_name%",
-    "format": "prettier . --write"
+    "format": "prettier ./src --write"
   },
   "dependencies": {
     "@lib/ui": "*",
