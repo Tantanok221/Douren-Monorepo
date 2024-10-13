@@ -1,4 +1,5 @@
 npm run pkg
 npm run lib
 npm run be
+npm run lint
 npm run test
