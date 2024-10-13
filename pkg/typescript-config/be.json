@@ -5,15 +5,17 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "outDir": "dist",
-		"strictNullChecks": true,
+    "strictNullChecks": true,
     "rootDir": "src",
     "skipLibCheck": true,
     "lib": ["ESNext"],
     "types": ["@cloudflare/workers-types/2023-07-01"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@pkg/*": ["../../pkg/*"]
     }
   },
   "include": ["src"],

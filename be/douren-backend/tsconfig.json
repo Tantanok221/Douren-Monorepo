@@ -9,7 +9,11 @@
     "declaration": true,
     "composite": true,
     "strict": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@pkg/*": ["../../pkg/*"]
+    }
   },
   "exclude": [
     "dist"
