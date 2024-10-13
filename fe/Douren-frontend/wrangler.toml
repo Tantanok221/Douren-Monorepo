@@ -1,0 +1,11 @@
+name="douren-frontend"
+
+[env.preview]
+routes = [
+    { pattern = "stg.douren.net", custom_domain = true }
+]
+
+[env.production]
+routes = [
+    { pattern = "douren.net", custom_domain = true }
+]

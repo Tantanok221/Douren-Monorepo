@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update turbo.json">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/main-fe-stg-deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main-fe-stg-deploy.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.node.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/tsconfig.tsbuildinfo" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update stg-deploy.yaml">
+      <change afterPath="$PROJECT_DIR$/fe/Douren-frontend/wrangler.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,15 +172,7 @@
       <workItem from="1728481835024" duration="5943000" />
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
-      <workItem from="1728785060683" duration="12131000" />
-    </task>
-    <task id="LOCAL-00052" summary="[#38] feat: Bump wrangler version and added new log features and fix cron job not running on production">
-      <option name="closed" value="true" />
-      <created>1727694730938</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1727694730938</updated>
+      <workItem from="1728785060683" duration="12474000" />
     </task>
     <task id="LOCAL-00053" summary="[#31] refactor: Move commonly use utility to type folders">
       <option name="closed" value="true" />
@@ -571,7 +558,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728797199991</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="[#41] dev: Update stg-deploy.yaml">
+      <option name="closed" value="true" />
+      <created>1728803784786</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1728803784786</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -616,7 +611,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Merge main into feat/test-backend" />
     <MESSAGE value="fix: artist sending wrong response code" />
     <MESSAGE value="[#19] test: Completed test case for /artist routes and added retry" />
     <MESSAGE value="[#19] fix: Redis return as array bugs" />
@@ -641,7 +635,8 @@
     <MESSAGE value="[#41] dev: Update env vault" />
     <MESSAGE value="[#41] dev: Update tsconfig.json" />
     <MESSAGE value="[#41] dev: Update turbo.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update turbo.json" />
+    <MESSAGE value="[#41] dev: Update stg-deploy.yaml" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update stg-deploy.yaml" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [
