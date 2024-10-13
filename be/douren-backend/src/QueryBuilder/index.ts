@@ -33,13 +33,9 @@ abstract class IQueryBuilder<T extends ArtistFetchParams> {
 }
 
 class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
-	constructor(params: ArtistFetchParams) {
-		super(params); // Calls the constructor of the abstract class and initializes fetchParams and derivedFetchParams
-	}
-
 	BuildQuery() {
 		const db = initDB();
-		let query = db
+		const query = db
 			.select(FETCH_ARTIST_OBJECT)
 			.from(s.authorMain)
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
@@ -54,7 +50,7 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 			s.authorMain.author,
 			"",
 		);
-		let SelectQuery = BuildQuery(query)
+		const SelectQuery = BuildQuery(query)
 			.withOrderBy(
 				this.derivedFetchParams.sortBy,
 				this.derivedFetchParams.table,
@@ -84,10 +80,6 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 }
 
 class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
-	constructor(params: EventArtistFetchParams) {
-		super(params); // Calls the constructor of the abstract class and initializes fetchParams and derivedFetchParams
-	}
-
 	BuildQuery() {
 		const db = initDB();
 		const query = db
@@ -126,6 +118,8 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			CountQuery.withAndFilter(this.derivedFetchParams.tagConditions);
 		}
 		if (this.fetchParams.search) {
+			console.log(this.fetchParams.search);
+			console.log(this.derivedFetchParams.searchTable);
 			SelectQuery.withIlikeSearchByTable(
 				this.fetchParams.search,
 				this.derivedFetchParams.searchTable,

@@ -8,6 +8,7 @@
     "build": "tsc",
     "build:pkg": "tsc",
     "format": "npx @biomejs/biome format --write ./src",
+    "lint": "npx @biomejs/biome lint --write ./src ",
     "test": "vitest run"
   },
   "exports": {

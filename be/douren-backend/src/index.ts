@@ -53,9 +53,7 @@ export default {
 	/** this part manages cronjobs */
 	scheduled(
 		event: ScheduledEvent,
-		env: {
-			DATABASE_URL?: any;
-		},
+		env: BACKEND_BINDING,
 		ctx: ExecutionContext,
 	) {
 		const delayedProcessing = async () => {

@@ -11,7 +11,7 @@ describe("Test Artist Routes", () => {
 			"/artist?sort=Author_Main(Author),asc&page=1&searchTable=Author_Main.Author",
 		);
 		expect(res.status).toBe(200);
-		let resJson: any = await res.json();
+		const resJson: any = await res.json();
 		const payload = resJson.data;
 		expect(payload.length).toBeLessThanOrEqual(40);
 	});
