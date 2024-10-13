@@ -2,10 +2,8 @@
   "extends": "@pkg/typescript-config/pkg.json",
   "compilerOptions": {
     "outDir": "dist",
-    "declaration": true,
-    "rootDir": "src"
+    "rootDir": "src",
   },
-  "main": "dist/index.js",
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
