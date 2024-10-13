@@ -26,9 +26,6 @@ const SearchBox = () => {
         onChange={(event) => setBufferSearch(event.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onKeyPress={(e) => {
-          e.key === "Enter" && e.preventDefault();
-        }}
         className={sx("inputBox")}
         placeholder="搜尋社團/作者名字"
       ></motion.input>

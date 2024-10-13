@@ -6,7 +6,7 @@ import { processArtistData } from "../../helper/processArtistData";
 import { useTagFilter } from "../../stores/useTagFilter";
 import LazyImage from "../../components/LazyImage/LazyImage";
 import LinkContainer from "../../components/LinkContainer/LinkContainer";
-import { processTagData } from "../../helper/processTagData";
+import { useProcessTagData } from "../../helper/useProcessTagData.ts";
 import { ArtistPageTypes, ArtistTypes } from "../../types/Artist";
 import TagContainer from "../../components/TagContainer/TagContainer";
 import ArtistStyle from "@lib/ui/src/components/ArtistCard/style.module.css";
@@ -27,7 +27,7 @@ const ArtistPage = () => {
   const ax = classNames.bind(ArtistStyle);
 
   const artistData: ArtistPageTypes | null = data ? data[0] : null;
-  const artistTagData = processTagData(artistData?.Tags?.split(",") ?? []);
+  const artistTagData = useProcessTagData(artistData?.Tags?.split(",") ?? []);
   if (!artistData) return null;
 
   console.log(artistData);

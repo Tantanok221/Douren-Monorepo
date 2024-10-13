@@ -1,8 +1,6 @@
 import NavMenu from "../NavMenu/NavMenu";
 
-interface Props {}
-
-const Navbar = ({}: Props) => {
+const Navbar = () => {
   return (
     <NavMenu>
       <NavMenu.List>

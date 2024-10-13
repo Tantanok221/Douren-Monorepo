@@ -1,6 +1,6 @@
 import { TagObject, useTagFilter } from "../stores/useTagFilter";
 
-export function processTagData(allTag: string[]) {
+export function useProcessTagData(allTag: string[]) {
   const getTag = useTagFilter((state) => state.getTag);
   allTag?.filter((item) => item !== "");
   allTag = allTag?.map((item, index) => {
