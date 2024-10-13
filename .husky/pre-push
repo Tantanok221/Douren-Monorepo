@@ -1,4 +1,4 @@
-npm run test
 npm run pkg
 npm run lib
 npm run be
+npm run test
