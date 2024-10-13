@@ -1,12 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalDependencies": [".env",".env.be",".env.fe"],
   "tasks": {
    "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "tsconfig.json"],
+      "inputs": ["$TURBO_DEFAULT$",  "tsconfig.json"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "test": {
