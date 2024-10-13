@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: () => <Navigate/>
+  component: () => <Navigate />,
 });
 
 const Navigate = () => {
@@ -14,4 +14,4 @@ const Navigate = () => {
     },
   });
   return <div />;
-}
+};
