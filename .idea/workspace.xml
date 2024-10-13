@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: update&#10;trigger condition" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Remove vercel related code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,15 +171,7 @@
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
       <workItem from="1728785060683" duration="14275000" />
-      <workItem from="1728811347791" duration="298000" />
-    </task>
-    <task id="LOCAL-00061" summary="dev: Update github actions">
-      <option name="closed" value="true" />
-      <created>1727789498171</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1727789498171</updated>
+      <workItem from="1728811347791" duration="649000" />
     </task>
     <task id="LOCAL-00062" summary="feat: Move ui from pkg/ to lib/">
       <option name="closed" value="true" />
@@ -565,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728811561616</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="[#41] dev: Remove vercel related code">
+      <option name="closed" value="true" />
+      <created>1728811998596</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1728811998596</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,7 +610,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#19] test: Remove redundant logging" />
     <MESSAGE value="[#19] test: Added mocking data process" />
     <MESSAGE value="[#19] feat: Added fallback options" />
     <MESSAGE value="[#19] dev: Added test case runner on pipeline" />
@@ -635,7 +634,8 @@
     <MESSAGE value="[#41] dev: Update dotenv vault" />
     <MESSAGE value="[#41] feat: Added douren-frontend production deployment pipeline" />
     <MESSAGE value="[#41] feat: update&#10;trigger condition" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] feat: update&#10;trigger condition" />
+    <MESSAGE value="[#41] dev: Remove vercel related code" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Remove vercel related code" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [
