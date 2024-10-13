@@ -49,11 +49,6 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-
       - name: Deploy Frontend
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
@@ -61,4 +56,4 @@ jobs:
         run: |
           cd fe/Douren-frontend
           npm run build
-          wrangler pages deploy dist --branch ${{ steps.extract_branch.outputs.branch }} 
+          wrangler pages deploy dist --branch stg 
