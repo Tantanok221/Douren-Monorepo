@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update format scripts and formatted code">
-      <change beforePath="$PROJECT_DIR$/.husky/post-commit" beforeDir="false" afterPath="$PROJECT_DIR$/.husky/post-commit" afterDir="false" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] fix: linting issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/.eslintrc.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavbarMargin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/NavMenu/subcomponents/NavbarMargin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/SearchBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/components/SearchBox/SearchBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/processTagData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/helper/useProcessTagData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/hooks/useEventIDQuery.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/artist/$artistId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/artist/$artistId.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/cms/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/cms/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/QueryBuilder/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/QueryBuilder/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/src/helper/processTableName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/src/helper/processTableName.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/fe/Douren-frontend/src/routes/event/-subcomponent/ArtistContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/database/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/database/src/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,23 +178,7 @@
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
       <workItem from="1728785060683" duration="14275000" />
-      <workItem from="1728811347791" duration="5227000" />
-    </task>
-    <task id="LOCAL-00070" summary="[#19] test: Change for edge case">
-      <option name="closed" value="true" />
-      <created>1727886384856</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1727886384856</updated>
-    </task>
-    <task id="LOCAL-00071" summary="[#19] test: Remove redundant logging">
-      <option name="closed" value="true" />
-      <created>1727887195976</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1727887195976</updated>
+      <workItem from="1728811347791" duration="6598000" />
     </task>
     <task id="LOCAL-00072" summary="[#19] test: Added mocking data process">
       <option name="closed" value="true" />
@@ -577,7 +556,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728816010760</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="[#41] dev: Added linting to pre-push hooks">
+      <option name="closed" value="true" />
+      <created>1728816832305</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1728816832305</updated>
+    </task>
+    <task id="LOCAL-00120" summary="[#41] fix: linting issue">
+      <option name="closed" value="true" />
+      <created>1728816857004</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1728816857004</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -622,8 +617,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#41] feat: TRPC Integration For events/FF43" />
-    <MESSAGE value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
     <MESSAGE value="[#41] feat: Added tag endpoint with trpc" />
     <MESSAGE value="[#41] feat: integrate useTagFilter with trpc" />
     <MESSAGE value="[#41] dev: Update vercel.json and pre-push hooks" />
@@ -647,7 +640,9 @@
     <MESSAGE value="[#41] dev: Update commit-msg formatting" />
     <MESSAGE value="[#41] dev: Added format scripts at backend" />
     <MESSAGE value="[#41] dev: Update format scripts and formatted code" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update format scripts and formatted code" />
+    <MESSAGE value="[#41] dev: Added linting to pre-push hooks" />
+    <MESSAGE value="[#41] fix: linting issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] fix: linting issue" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

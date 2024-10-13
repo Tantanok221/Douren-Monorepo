@@ -28,7 +28,7 @@ export class SelectDatabaseQueryBuilder<T extends PgSelect> implements ISelectDa
     return this
   }
   withIlikeSearchByTable(search: string, table: Column) {
-    this.query = this.query.where(and(ilike(table, search)));
+    this.query = this.query.where(ilike(table, "%"+search+"%"));
     return this
   }
   withTableIsNotNull(table: Column){
