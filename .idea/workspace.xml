@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] feat: integrate useTagFilter with trpc" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update vercel.json and pre-push hooks" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +63,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenDatabaseViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feat/fetrpc",
+    "git-widget-placeholder": "#47 on feat/fetrpc",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/6572w/Desktop/CodeProject/Douren-Monorepo",
     "node.js.detected.package.eslint": "true",
@@ -170,14 +170,7 @@
       <workItem from="1728481835024" duration="5943000" />
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
-    </task>
-    <task id="LOCAL-00035" summary="[#33] feat: setup ways to start localdb">
-      <option name="closed" value="true" />
-      <created>1727532458510</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1727532458510</updated>
+      <workItem from="1728785060683" duration="302000" />
     </task>
     <task id="LOCAL-00036" summary="[#33] dev: Added way to sync production data to local db">
       <option name="closed" value="true" />
@@ -563,7 +556,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728486583565</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="[#41] dev: Update vercel.json and pre-push hooks">
+      <option name="closed" value="true" />
+      <created>1728785240195</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1728785240195</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +609,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="[#33] Merge main into dev/ui-lib" />
     <MESSAGE value="dev: Update package-lock.json and dependency" />
     <MESSAGE value="dev: Update github actions" />
     <MESSAGE value="feat: Move ui from pkg/ to lib/" />
@@ -633,7 +633,8 @@
     <MESSAGE value="[#41] refactor: backend code bjy by adding ArtistDao and seventArtistDao" />
     <MESSAGE value="[#41] feat: Added tag endpoint with trpc" />
     <MESSAGE value="[#41] feat: integrate useTagFilter with trpc" />
-    <option name="LAST_COMMIT_MESSAGE" value="[#41] feat: integrate useTagFilter with trpc" />
+    <MESSAGE value="[#41] dev: Update vercel.json and pre-push hooks" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update vercel.json and pre-push hooks" />
   </component>
   <component name="WfRunsListSearchHistory">{
   &quot;history&quot;: [

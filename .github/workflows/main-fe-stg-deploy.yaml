@@ -8,6 +8,8 @@ on:
       - 'fe/douren-frontend/**'
       - 'pkg/type'
       - "lib/ui/**"
+      - "be/douren-backend/**"
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_FE_PROJECT_ID }}
@@ -40,16 +42,13 @@ jobs:
       - name: Get Env Variable
         env:
           dotenv: ${{secrets.DOTENV_ME}}
-        run: npx dotenv-vault pull staging --dotenvMe=$dotenv -y && mv .env.staging .env &&make copy-env
+        run: npx dotenv-vault pull staging --dotenvMe=$dotenv -y && mv .env.staging .env && make copy-env
 
-      - name: Build Packages
-        run: npm run pkg
-
-      - name: Build Library
-        run: npm run lib
-
-      - name: Build Douren Backend
-        run: npm run be
+      - name: Build and link packages
+        run: |
+          npm run pkg
+          npm run lib
+          npm run be
 
       - name: Deploy Frontend on staging
         env:
@@ -57,20 +56,14 @@ jobs:
         run: |
           cd fe/Douren-frontend
           WRANGLER_VARS=""
-             while IFS= read -r line || [[ -n "$line" ]]; do
-             # Ignore comments, empty lines, and the DEV_ENV variable
-             if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
-             # Split the line on the first '=' to handle complex values correctly
-             key=$(echo "$line" | cut -d '=' -f 1 | xargs)
-             value=$(echo "$line" | cut -d '=' -f 2- | xargs)
-
-            # Properly escape any special characters in the value
+          while IFS= read -r line || [[ -n "$line" ]]; do
+            if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
+              key=$(echo "$line" | cut -d '=' -f 1 | xargs)
+              value=$(echo "$line" | cut -d '=' -f 2- | xargs)
               quoted_value=$(printf '%q' "$value")
-
-            # Append the key-value pair to WRANGLER_VARS
               WRANGLER_VARS+="--env ${key}=${quoted_value} "
-              fi
-              done < .env
+            fi
+          done < .env
           
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"  
           vercel pull --yes --token=$token
