@@ -1,4 +1,4 @@
-name="douren-frontend"
+name = "douren-frontend"
 
 [env.preview]
 routes = [
