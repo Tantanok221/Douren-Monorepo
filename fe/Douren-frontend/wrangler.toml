@@ -1,5 +1,5 @@
 name = "douren-frontend"
-
+pages_build_output_dir = "./dist"
 [env.preview]
 routes = [
     { pattern = "stg.douren.net", custom_domain = true }
