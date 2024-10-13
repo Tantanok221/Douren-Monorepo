@@ -3,9 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "rootDir": "src",
-    "emitDeclarationOnly": true,
-    "composite": true
+    "rootDir": "src"
   },
   "main": "dist/index.js",
   "include": ["src"],
