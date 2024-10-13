@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update tsconfig.json" />
+    <list default="true" id="b62d5a67-cb8e-4f18-80bd-783c60f12964" name="Changes" comment="[#41] dev: Update tsconfig.json">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/douren-backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/be/douren-backend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/type/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/type/tsconfig.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,39 +174,7 @@
       <workItem from="1728481835024" duration="5943000" />
       <workItem from="1728570282633" duration="2765000" />
       <workItem from="1728653192254" duration="1941000" />
-      <workItem from="1728785060683" duration="779000" />
-    </task>
-    <task id="LOCAL-00038" summary="[#33] dev: Update vault">
-      <option name="closed" value="true" />
-      <created>1727673098730</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1727673098730</updated>
-    </task>
-    <task id="LOCAL-00039" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
-      <option name="closed" value="true" />
-      <created>1727673351583</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1727673351583</updated>
-    </task>
-    <task id="LOCAL-00040" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
-      <option name="closed" value="true" />
-      <created>1727673600583</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1727673600583</updated>
-    </task>
-    <task id="LOCAL-00041" summary="[#33] Remove clerk auth for now due to clerk middleware does not play well with deploy process">
-      <option name="closed" value="true" />
-      <created>1727673673140</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1727673673140</updated>
+      <workItem from="1728785060683" duration="3332000" />
     </task>
     <task id="LOCAL-00042" summary="[#33] feat: Added auto deploy workflows">
       <option name="closed" value="true" />
@@ -564,7 +536,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728785849024</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="[#41] dev: Update tsconfig.json">
+      <option name="closed" value="true" />
+      <created>1728786150139</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1728786150139</updated>
+    </task>
+    <task id="LOCAL-00088" summary="[#41] dev: Added tsconfig.tsbuildinfo">
+      <option name="closed" value="true" />
+      <created>1728786297217</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1728786297217</updated>
+    </task>
+    <task id="LOCAL-00089" summary="[#41] dev: Update tsconfig.json">
+      <option name="closed" value="true" />
+      <created>1728790599332</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1728790599332</updated>
+    </task>
+    <task id="LOCAL-00090" summary="[#41] dev: Update tsconfig.json">
+      <option name="closed" value="true" />
+      <created>1728790863022</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1728790863022</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +613,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="feat: Move ui from pkg/ to lib/" />
     <MESSAGE value="dev: Update package-lock.json" />
     <MESSAGE value="[#19] feat: Added test case for artistRoutes" />
     <MESSAGE value="Merge main into feat/test-backend" />
@@ -633,6 +636,7 @@
     <MESSAGE value="[#41] feat: integrate useTagFilter with trpc" />
     <MESSAGE value="[#41] dev: Update vercel.json and pre-push hooks" />
     <MESSAGE value="[#41] dev: Update fe-stg-deploy.yaml" />
+    <MESSAGE value="[#41] dev: Added tsconfig.tsbuildinfo" />
     <MESSAGE value="[#41] dev: Update tsconfig.json" />
     <option name="LAST_COMMIT_MESSAGE" value="[#41] dev: Update tsconfig.json" />
   </component>
