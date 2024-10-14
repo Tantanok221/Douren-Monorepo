@@ -1,17 +1,17 @@
-﻿
-export default {parserPreset: {
+﻿export default {
+    parserPreset: {
         parserOpts: {
-            headerPattern: /^\[#(\d+)\]\s(\w+)(?:\(([^\)]+)\))?: (.+)$/,
-            headerCorrespondence: ['ticket', 'type', 'scope', 'subject']
+            headerPattern: /^\[DR-(\d+)\]\s(\w+):\s(.+)$/,
+            headerCorrespondence: ['ticket', 'type', 'subject']
         }
     },
     plugins: [
         {
             rules: {
                 'header-match-team-pattern': (parsed) => {
-                    const { ticket, type, subject } = parsed;
+                    const {ticket, type, subject} = parsed;
                     if (ticket === null) {
-                        return [false, 'header must start with [#<ticket-number>]'];
+                        return [false, 'header must start with [DR-<number>]'];
                     }
                     if (!/^\d+$/.test(ticket)) {
                         return [false, 'ticket must be a number'];
@@ -32,7 +32,7 @@ export default {parserPreset: {
         'subject-case': [
             2,
             'never',
-            ['start-case', 'pascal-case' ]
+            ['start-case', 'pascal-case']
         ],
         'subject-empty': [2, 'never'],
         'subject-full-stop': [2, 'never', '.'],
@@ -51,4 +51,5 @@ export default {parserPreset: {
             'revert'
         ]],
         'header-match-team-pattern': [2, 'always']
-    }};
+    }
+};
