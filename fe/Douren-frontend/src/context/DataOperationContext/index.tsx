@@ -12,14 +12,15 @@ interface Prop {
   children: React.ReactNode;
 }
 
-
-
-export function useUpdatePageSideEffect<T extends React.SetStateAction<any>>(func :T, dependency: unknown ) {
+export function useUpdatePageSideEffect<T extends React.SetStateAction<any>>(
+  func: T,
+  dependency: unknown,
+) {
   const [page, setPage] = usePaginationContext();
   useEffect(() => {
-      setPage(1);
+    setPage(1);
   }, [dependency]);
-  return func
+  return func;
 }
 
 export const DataOperationProvider = ({ children }: Prop) => {

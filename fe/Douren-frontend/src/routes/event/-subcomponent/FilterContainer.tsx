@@ -20,7 +20,10 @@ const FilterContainer = () => {
   return (
     <div className={sx("filterContainer")}>
       <div className={sx("sortSelect")}>
-        <SelectComponent onValueChange={useUpdatePageSideEffect(setSortValue,sortValue)} defaultValue={sortValue}>
+        <SelectComponent
+          onValueChange={useUpdatePageSideEffect(setSortValue, sortValue)}
+          defaultValue={sortValue}
+        >
           <SelectComponent.Group>
             <SelectComponent.Label text="排序方式"></SelectComponent.Label>
             {key.map((item, index) => (

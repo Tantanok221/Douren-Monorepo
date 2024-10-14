@@ -14,9 +14,9 @@ const SearchBox = () => {
   const [bufferSearch, setBufferSearch] = React.useState("");
   const [debounceSearch] = useDebouncedValue(bufferSearch, 500);
   const [, setSearch] = useSearchContext();
-  const [, setPage] = usePaginationContext()
+  const [, setPage] = usePaginationContext();
   useEffect(() => {
-    setPage(1)
+    setPage(1);
     setSearch(debounceSearch);
   }, [debounceSearch]);
 

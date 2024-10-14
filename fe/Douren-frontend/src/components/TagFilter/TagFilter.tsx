@@ -12,10 +12,10 @@ export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter);
-  const [,setPage] = usePaginationContext()
+  const [, setPage] = usePaginationContext();
   useEffect(() => {
-    setPage(1)
-  },[setPage,tagFilter])
+    setPage(1);
+  }, [setPage, tagFilter]);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root>
@@ -48,8 +48,8 @@ export const TagFilter = () => {
         <Popover.Content align={"start"} className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
             {allFilter.map((item, index) => {
-              if(!item.index) return null
-              return <TagItem key={item.tag} data={item} index={item.index} />
+              if (!item.index) return null;
+              return <TagItem key={item.tag} data={item} index={item.index} />;
             })}
           </IconContext.Provider>
         </Popover.Content>
