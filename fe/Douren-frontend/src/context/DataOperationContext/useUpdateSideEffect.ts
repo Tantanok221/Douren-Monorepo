@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export function useUpdatePageSideEffect<T extends React.SetStateAction<any>>(
   func: T,
-  dependency: unknown
+  dependency: unknown,
 ) {
   const [page, setPage] = usePaginationContext();
   useEffect(() => {
