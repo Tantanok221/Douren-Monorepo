@@ -4,17 +4,19 @@ import { IoMdSearch } from "react-icons/io";
 import { IconContext } from "react-icons";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-import { useSearch } from "../../stores/useSearch.ts";
 import { useDebouncedValue } from "@mantine/hooks";
+import { useSearchContext } from "@/context/SearchContext/useSearchContextProvider.ts";
+import { usePaginationContext } from "@/context/PaginationContext/usePaginationContext.ts";
 
 const SearchBox = () => {
   const sx = classNames.bind(styles);
-  const setSearch = useSearch((state) => state.setSearch);
   const [isFocused, setIsFocused] = React.useState(false);
   const [bufferSearch, setBufferSearch] = React.useState("");
   const [debounceSearch] = useDebouncedValue(bufferSearch, 500);
-
+  const [, setSearch] = useSearchContext();
+  const [, setPage] = usePaginationContext();
   useEffect(() => {
+    setPage(1);
     setSearch(debounceSearch);
   }, [debounceSearch]);
 

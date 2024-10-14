@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./TagFilter.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
@@ -7,10 +7,15 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { TagItem } from "./subcomponent/TagItem";
 import { useTagFilter } from "@lib/ui/src/stores/useTagFilter";
+import { usePaginationContext } from "@/context/PaginationContext/usePaginationContext.ts";
 export const TagFilter = () => {
   const sx = classNames.bind(style);
   const allFilter = useTagFilter((state) => state.allFilter);
   const tagFilter = useTagFilter((state) => state.tagFilter);
+  const [, setPage] = usePaginationContext();
+  useEffect(() => {
+    setPage(1);
+  }, [setPage, tagFilter]);
   return (
     <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
       <Popover.Root>
@@ -42,9 +47,10 @@ export const TagFilter = () => {
 
         <Popover.Content align={"start"} className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
-            {allFilter.map((item, index) => (
-              <TagItem key={item.tag} data={item} index={index} />
-            ))}
+            {allFilter.map((item, index) => {
+              if (!item.index) return null;
+              return <TagItem key={item.tag} data={item} index={item.index} />;
+            })}
           </IconContext.Provider>
         </Popover.Content>
       </Popover.Root>

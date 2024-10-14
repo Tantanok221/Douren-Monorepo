@@ -1,30 +1,28 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
 import ArtistCard from "@lib/ui/src/components/ArtistCard";
-import { useState } from "react";
-import { useSort } from "@/stores/useSort.ts";
-import { useSortSelectContextProvider } from "../-context/SortSelectContext/useSortSelectContextProvider";
-import { useSearchColumnContext } from "../-context/SearchColumnContext/useSearchColumnContext";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
 import Pagination from "../../../components/Pagination/Pagination";
 import { trpc } from "@/helper/trpc.ts";
 import { Route } from "@/routes/event/$eventName.tsx";
 import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
-import { useSearch } from "@/stores/useSearch.ts";
+import { usePaginationContext } from "@/context/PaginationContext/usePaginationContext.ts";
+import { useSortSelectContext } from "@/context/SortSelectContext/useSortSelectContext.ts";
+import { useSearchColumnContext } from "@/context/SearchColumnContext/useSearchColumnContext.ts";
+import { useSearchContext } from "@/context/SearchContext/useSearchContextProvider.ts";
 
 const ArtistContainer = () => {
   const sx = classNames.bind(styles);
-  const [sortSelect] = useSortSelectContextProvider();
+  const [sortSelect] = useSortSelectContext();
   const [searchColumn] = useSearchColumnContext();
-  const search = useSearch((state) => state.search);
+  const [search] = useSearchContext();
   const tagFilter = useTagFilter((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = usePaginationContext();
   const id = trpc.eventArtist.getEventId.useQuery({
     eventName: Route.useParams().eventName,
   });
-  console.log(search);
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId: String(id?.data?.id),
     page: String(page),

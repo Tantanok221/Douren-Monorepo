@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { ReactUseState } from "../../../../types/Utility";
+import { ReactUseState } from "@pkg/type";
 
 interface Props {
   children: React.ReactNode;

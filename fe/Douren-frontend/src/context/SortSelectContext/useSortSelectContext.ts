@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { SortSelectContext } from "./SortSelectContext";
 
-export function useSortSelectContextProvider() {
+export function useSortSelectContext() {
   const data = useContext(SortSelectContext);
   if (!data)
     throw new Error(
