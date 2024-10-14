@@ -4,11 +4,12 @@ import SortSelect from "../../../components/SortSelect/SortSelect";
 import { TagFilter } from "@/components/TagFilter/TagFilter.tsx";
 import SelectComponent from "../../../components/SelectComponent/SelectComponent";
 import { useState } from "react";
-import { useSortSelectContextProvider } from "../-context/SortSelectContext/useSortSelectContextProvider";
+import { useSortSelectContext } from "@/context/SortSelectContext/useSortSelectContext.ts";
+import { useUpdatePageSideEffect } from "@/context/DataOperationContext";
 
 const FilterContainer = () => {
   const sx = classNames.bind(styles);
-  const [sortValue, setSortValue] = useSortSelectContextProvider();
+  const [sortValue, setSortValue] = useSortSelectContext();
   const key = [
     { text: "排序: 作者名稱", value: "Author_Main(Author)" },
     { text: "排序: 攤位名稱", value: "Booth_name" },
@@ -19,7 +20,7 @@ const FilterContainer = () => {
   return (
     <div className={sx("filterContainer")}>
       <div className={sx("sortSelect")}>
-        <SelectComponent onValueChange={setSortValue} defaultValue={sortValue}>
+        <SelectComponent onValueChange={useUpdatePageSideEffect(setSortValue,sortValue)} defaultValue={sortValue}>
           <SelectComponent.Group>
             <SelectComponent.Label text="排序方式"></SelectComponent.Label>
             {key.map((item, index) => (

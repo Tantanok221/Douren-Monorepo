@@ -1,9 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
 import SelectComponent from "../../../components/SelectComponent/SelectComponent";
-import { useState } from "react";
 import SearchBox from "../../../components/SearchBox/SearchBox";
-import { useSearchColumnContext } from "../-context/SearchColumnContext/useSearchColumnContext";
+import { useSearchColumnContext } from "@/context/SearchColumnContext/useSearchColumnContext.ts";
 
 const SearchContainer = () => {
   const sx = classNames.bind(styles);
