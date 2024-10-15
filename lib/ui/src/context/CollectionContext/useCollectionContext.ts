@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ActionType, CollectionContext } from "./index.tsx";
+import { ActionType, CollectionContext } from "./CollectionContext.tsx";
 import { eventArtistBaseSchemaType } from "@pkg/type";
 
 export function useCollectionProvider(): [

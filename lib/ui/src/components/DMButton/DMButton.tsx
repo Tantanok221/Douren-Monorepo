@@ -3,7 +3,7 @@ import style from "./DMButton.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
-import LinkIcon from "../LinkIcon";
+import { LinkIcon } from "../LinkIcon";
 import linkStyle from "../LinkContainer/LinkContainer.module.css";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -21,7 +21,7 @@ const DMButton = ({ link, text }: Props) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <motion.a
+        <motion.div
           whileHover={{
             backgroundColor: "#4D4D4D",
           }}
@@ -31,12 +31,12 @@ const DMButton = ({ link, text }: Props) => {
           className={ax("linkButton")}
         >
           <LinkIcon data={{ category: "DM" }} />
-          {text ? text : `商品項目`}
-        </motion.a>
+          {text ? text : "商品項目"}
+        </motion.div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay>
-          <div className={sx("dialogOverlay")}></div>
+          <div className={sx("dialogOverlay")}/>
         </Dialog.Overlay>
         <Dialog.Content aria-describedby={undefined}>
           <div className={sx("dialogContent")}>
@@ -58,7 +58,7 @@ const DMButton = ({ link, text }: Props) => {
                   <LazyLoadImage
                     className={sx("image")}
                     effect="blur"
-                    key={index + "DMImage"}
+                    key={`${item} DMImage`}
                     src={item}
                   />
                 );

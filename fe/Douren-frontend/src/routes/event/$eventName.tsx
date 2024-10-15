@@ -7,14 +7,10 @@ import SearchContainer from "@/routes/event/-subcomponent/SearchContainer.tsx";
 import FilterContainer from "@/routes/event/-subcomponent/FilterContainer.tsx";
 import ArtistContainer from "@/routes/event/-subcomponent/ArtistContainer.tsx";
 import { createFileRoute } from "@tanstack/react-router";
-import { CollectionContextProvider } from "@lib/ui/src/context/CollectionContext/index.tsx";
+import { CollectionContextProvider, DataOperationProvider } from "@lib/ui";
 import { trpc } from "@/helper/trpc.ts";
 import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 import { useEffect } from "react";
-import { PaginationContextProvider } from "@/context/PaginationContext/PaginationContext.tsx";
-import { SearchColumnContextProvider } from "@/context/SearchColumnContext/SearchColumnContext.tsx";
-import { SortSelectContextProvider } from "@/context/SortSelectContext/SortSelectContext.tsx";
-import { DataOperationProvider } from "@/context/DataOperationContext";
 
 export const Route = createFileRoute("/event/$eventName")({
   component: EventName,

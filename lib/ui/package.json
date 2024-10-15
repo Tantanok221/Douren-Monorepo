@@ -10,6 +10,7 @@
     "build": "tsup",
     "dev": "storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
+    "codegen": "barrelsby -l all --delete --exclude .d.ts",
     "build-storybook": "storybook build"
   },
   "devDependencies": {

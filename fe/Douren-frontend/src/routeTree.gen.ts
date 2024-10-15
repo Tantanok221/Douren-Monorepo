@@ -196,7 +196,7 @@ export const routeTree = rootRoute
       ]
     },
     "/": {
-      "filePath": "index.tsx"
+      "filePath": "ArtistCard.tsx"
     },
     "/artist/$artistId": {
       "filePath": "artist/$artistId.tsx"
@@ -205,13 +205,13 @@ export const routeTree = rootRoute
       "filePath": "event/$eventName.tsx"
     },
     "/about/": {
-      "filePath": "about/index.tsx"
+      "filePath": "about/ArtistCard.tsx"
     },
     "/artist/": {
-      "filePath": "artist/index.tsx"
+      "filePath": "artist/ArtistCard.tsx"
     },
     "/collection/": {
-      "filePath": "collection/index.tsx"
+      "filePath": "collection/ArtistCard.tsx"
     }
   }
 }
