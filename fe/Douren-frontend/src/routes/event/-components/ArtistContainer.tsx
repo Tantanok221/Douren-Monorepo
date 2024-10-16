@@ -11,7 +11,7 @@ import {
   useSearchColumnContext,
   useSearchContext,
   useSortSelectContext,
-  ArtistCard
+  ArtistCard,
 } from "@lib/ui";
 
 const ArtistContainer = () => {
