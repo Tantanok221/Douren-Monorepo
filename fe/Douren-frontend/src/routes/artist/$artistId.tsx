@@ -9,7 +9,13 @@ import ArtistStyle from "@lib/ui/src/components/ArtistCard/style.module.css";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import useArtistLoader from "../../hooks/useArtistLoader";
 import { createFileRoute } from "@tanstack/react-router";
-import { DMButton, LazyImage, LinkContainer, NavbarMargin, TagContainer } from "@lib/ui";
+import {
+  DMButton,
+  LazyImage,
+  LinkContainer,
+  NavbarMargin,
+  TagContainer,
+} from "@lib/ui";
 import { Animate } from "@/components/Animate/Animate.tsx";
 
 const ArtistPage = () => {
@@ -32,11 +38,13 @@ const ArtistPage = () => {
         <div className={sx("topContainer")}>
           <div className={sx("leftContainer")}>
             <div className={sx("imageContainer")}>
-              {artistData.Photo ? <LazyImage alt={artistData.Author} photo={artistData.Photo} /> : null}
+              {artistData.Photo ? (
+                <LazyImage alt={artistData.Author} photo={artistData.Photo} />
+              ) : null}
             </div>
 
             <div className={sx("linkContainer")}>
-              <LinkContainer link={artistLinkData}/>
+              <LinkContainer link={artistLinkData} />
             </div>
           </div>
           <div className={sx("rightContainer")}>
@@ -44,7 +52,7 @@ const ArtistPage = () => {
               <div className={ax("header")}>{artistData.Author}</div>
             </div>
             <div className={ax("tagContainer")}>
-              <TagContainer renderTag={artistTagData}/>
+              <TagContainer renderTag={artistTagData} />
             </div>
             <div className={sx("introductionContainer")}>
               {artistData.Introduction
@@ -85,14 +93,14 @@ const ArtistPage = () => {
                     alt={item.Thumbnail}
                   />
                   <div className={sx("productText")}>{item.Title}</div>
-                  <DMButton link={link} text="查看產品試閱"/>
+                  <DMButton link={link} text="查看產品試閱" />
                 </div>
               );
             })}
           </Masonry>
         </ResponsiveMasonry>
       </div>
-      <NavbarMargin/>
+      <NavbarMargin />
     </motion.div>
   );
 };

@@ -23,4 +23,3 @@ export const Animate = (OgComponent: React.FC) => {
   AnimatedComponent.displayName = `Animate(${OgComponent.displayName})`;
   return AnimatedComponent;
 };
-

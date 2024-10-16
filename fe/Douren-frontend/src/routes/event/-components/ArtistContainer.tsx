@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
-import { ArtistCard } from "@lib/ui/src/components/ArtistCard";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
 import { trpc } from "@/helper/trpc.ts";
@@ -11,7 +10,8 @@ import {
   usePaginationContext,
   useSearchColumnContext,
   useSearchContext,
-  useSortSelectContext
+  useSortSelectContext,
+  ArtistCard
 } from "@lib/ui";
 
 const ArtistContainer = () => {

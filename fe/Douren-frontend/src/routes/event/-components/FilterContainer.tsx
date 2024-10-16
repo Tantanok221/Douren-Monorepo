@@ -1,6 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "../EventPage.module.css";
-import { SelectComponent, TagFilter, useSortSelectContext, useUpdatePageSideEffect } from "@lib/ui";
+import {
+  SelectComponent,
+  TagFilter,
+  useSortSelectContext,
+  useUpdatePageSideEffect,
+} from "@lib/ui";
 
 const FilterContainer = () => {
   const sx = classNames.bind(styles);

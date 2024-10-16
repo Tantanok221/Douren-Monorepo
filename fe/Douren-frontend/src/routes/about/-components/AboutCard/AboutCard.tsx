@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { IconContext } from "react-icons";
 import DiscordButton from "./subcomponent/DiscordButton";
-import { LinkContainer,  processLink } from "@lib/ui";
+import { LinkContainer, processLink } from "@lib/ui";
 import { Owner } from "@/types/Owner.ts";
 
 interface Props {
@@ -45,4 +45,3 @@ export const AboutCard = ({ author_data }: Props) => {
     </motion.div>
   );
 };
-

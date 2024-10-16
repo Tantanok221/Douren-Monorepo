@@ -38,7 +38,7 @@ const DiscordButton = ({ discord_name, size }: Props) => {
           }, 100);
         }}
       >
-        <LinkIcon data={{ category: "Discord" }}/>
+        <LinkIcon data={{ category: "Discord" }} />
         {discord_name}
       </motion.button>
       <Toast.Root

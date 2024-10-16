@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import React from "react";
 import style from "./root.module.css";
 import { AnimatePresence } from "framer-motion";
-import { createRootRoute,  Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "@/routes/-components/Navbar.tsx";
 
 const root = () => {

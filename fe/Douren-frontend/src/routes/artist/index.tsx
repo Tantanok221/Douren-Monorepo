@@ -38,7 +38,7 @@ const Artist = () => {
   return (
     <>
       <div className={sx("artistPage")}>
-        <SearchBox/>
+        <SearchBox />
         <div className={sx("mainContainer")}>
           {res.data.data?.map((item, index) => (
             <ArtistCard key={index} data={item}>
@@ -58,7 +58,7 @@ const Artist = () => {
         <div className={sx("paginationContainer")}>
           <Pagination pagination={pagination} />
         </div>
-        <NavbarMargin/>
+        <NavbarMargin />
       </div>
     </>
   );

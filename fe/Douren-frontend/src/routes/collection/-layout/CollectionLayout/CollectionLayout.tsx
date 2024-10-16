@@ -1,7 +1,11 @@
 import React from "react";
 import classNames from "classnames/bind";
 import style from "../../collection.module.css";
-import { ArtistCard, CollectionContextProvider, useCollectionProvider } from "@lib/ui";
+import {
+  ArtistCard,
+  CollectionContextProvider,
+  useCollectionProvider,
+} from "@lib/ui";
 type Props = {
   keys: string;
   title: string;
@@ -55,4 +59,3 @@ const CollectionArtistRenderer = ({
     </>
   );
 };
-
