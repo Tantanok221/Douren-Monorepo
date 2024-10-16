@@ -7,10 +7,10 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "build": "vite build",
+    "build": "tsup",
     "dev": "storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
-    "codegen": "barrelsby -l all --delete --exclude .d.ts --exclude .stories.tsx",
+    "codegen": "barrelsby -l all --delete --exclude .d.ts --exclude .stories.tsx --exclude config.ts",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
@@ -31,7 +31,6 @@
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
     "@types/react-lazy-load-image-component": "^1.6.4",
-    "lightningcss": "^1.27.0",
     "storybook": "^8.3.2",
     "tsup": "^8.3.0",
     "typescript": "^5.6.2",
