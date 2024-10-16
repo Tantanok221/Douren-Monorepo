@@ -14,7 +14,7 @@ interface Props {
   text?: string;
 }
 
-const DMButton = ({ link, text }: Props) => {
+export const DMButton = ({ link, text }: Props) => {
   const sx = classNames.bind(style);
   const ax = classNames.bind(linkStyle);
 
@@ -71,4 +71,3 @@ const DMButton = ({ link, text }: Props) => {
   );
 };
 
-export default DMButton;

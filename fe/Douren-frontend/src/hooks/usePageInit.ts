@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useTagFilter } from "../stores/useTagFilter";
+import { useTagFilter } from "@lib/ui";
 import { trpc } from "@/helper/trpc.ts";
 
 export function usePageInit() {

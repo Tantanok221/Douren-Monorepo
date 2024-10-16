@@ -7,7 +7,7 @@ type Props = {
     alt: string | undefined;
 };
 
-const LazyImage = ({width, alt, photo}: Props) => {
+export const LazyImage = ({width, alt, photo}: Props) => {
     width = width ?? '100%';
     return (
         <>
@@ -22,4 +22,3 @@ const LazyImage = ({width, alt, photo}: Props) => {
     );
 };
 
-export default LazyImage;

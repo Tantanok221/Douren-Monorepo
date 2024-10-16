@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { TableName } from "../types/Utility";
+import { TableName } from "@pkg/type";
 import {
   supabase,
   supabaseBaseURL,

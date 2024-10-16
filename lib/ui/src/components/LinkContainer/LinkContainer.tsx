@@ -14,7 +14,7 @@ interface Props {
   size?: "s" | "l";
 }
 
-const LinkContainer = ({ link, size }: Props) => {
+export const LinkContainer = ({ link, size }: Props) => {
   const sx = classNames.bind(style);
   return (
     <>
@@ -42,4 +42,3 @@ const LinkContainer = ({ link, size }: Props) => {
   );
 };
 
-export default LinkContainer;

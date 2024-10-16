@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
-import { listVariants } from "../../helper/listAnimation.ts";
+import { listVariants } from "../../helper";
 import EventDataContext from "./EventDataContext.ts";
 import ImageContainer from "./subcomponent/ImageContainer";
 import ArtistButton from "./subcomponent/ArtistButton";
@@ -24,7 +24,8 @@ interface ArtistCardProps {
 	children?: React.ReactNode;
 	data?: eventArtistBaseSchemaType | artistBaseSchemaWithTagType;
 }
-const ArtistCard: React.FC<ArtistCardProps> & {
+
+export const ArtistCard: React.FC<ArtistCardProps> & {
 	ImageContainer: typeof ImageContainer;
 	Button: typeof ArtistButton;
 	DMButton: typeof ArtistDMButton;
@@ -64,5 +65,3 @@ ArtistCard.EventBookmarkContainer = EventBookmarkContainer;
 ArtistCard.HeaderContainer = HeaderContainer;
 ArtistCard.RightContainer = RightContainer;
 ArtistCard.TitleContainer = TitleContainer;
-
-export default ArtistCard;

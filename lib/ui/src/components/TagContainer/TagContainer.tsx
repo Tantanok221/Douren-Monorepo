@@ -10,7 +10,7 @@ interface Props {
   size?: "s" | "l";
 }
 
-const TagContainer = ({ renderTag, activeButton, size }: Props) => {
+export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   const tagFilter = useTagFilter((state) => state.tagFilter);
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
@@ -67,4 +67,3 @@ const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   );
 };
 
-export default TagContainer;

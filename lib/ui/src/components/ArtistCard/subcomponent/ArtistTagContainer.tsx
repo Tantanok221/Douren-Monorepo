@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import TagContainer from "../../TagContainer";
+import {TagContainer }from "../../TagContainer";
 import { useEventDataContext } from "../EventDataContext";
 
 interface Props {
