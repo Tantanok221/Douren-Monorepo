@@ -15,43 +15,43 @@ import HeaderContainer from "./subcomponent/HeaderContainer";
 import RightContainer from "./subcomponent/RightContainer";
 import TitleContainer from "./subcomponent/TitleContainer";
 import {
-	artistBaseSchemaWithTagType,
-	eventArtistBaseSchemaType
+  artistBaseSchemaWithTagType,
+  eventArtistBaseSchemaType,
 } from "@pkg/type";
 
 interface ArtistCardProps {
-	index?: number;
-	children?: React.ReactNode;
-	data?: eventArtistBaseSchemaType | artistBaseSchemaWithTagType;
+  index?: number;
+  children?: React.ReactNode;
+  data?: eventArtistBaseSchemaType | artistBaseSchemaWithTagType;
 }
 
 export const ArtistCard: React.FC<ArtistCardProps> & {
-	ImageContainer: typeof ImageContainer;
-	Button: typeof ArtistButton;
-	DMButton: typeof ArtistDMButton;
-	LinkContainer: typeof ArtistLinkContainer;
-	TagContainer: typeof ArtistTagContainer;
-	DayContainer: typeof DayContainer;
-	EventBookmarkContainer: typeof EventBookmarkContainer;
-	HeaderContainer: typeof HeaderContainer;
-	RightContainer: typeof RightContainer;
-	TitleContainer: typeof TitleContainer;
-} = ({ index, children, data }) => {
-	const sx = classNames.bind(styles);
-	return (
-		<EventDataContext.Provider value={data}>
-			<motion.div
-				variants={listVariants}
-				initial="hidden"
-				whileInView="visible"
-				viewport={{ once: true }}
-				className={sx("artistCard")}
-				custom={index}
-			>
-				<motion.div className={sx("mainContainer")}>{children}</motion.div>
-			</motion.div>
-		</EventDataContext.Provider>
-	);
+  ImageContainer: typeof ImageContainer;
+  Button: typeof ArtistButton;
+  DMButton: typeof ArtistDMButton;
+  LinkContainer: typeof ArtistLinkContainer;
+  TagContainer: typeof ArtistTagContainer;
+  DayContainer: typeof DayContainer;
+  EventBookmarkContainer: typeof EventBookmarkContainer;
+  HeaderContainer: typeof HeaderContainer;
+  RightContainer: typeof RightContainer;
+  TitleContainer: typeof TitleContainer;
+} = ({ index, children, data }: ArtistCardProps) => {
+  const sx = classNames.bind(styles);
+  return (
+    <EventDataContext.Provider value={data}>
+      <motion.div
+        variants={listVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className={sx("artistCard")}
+        custom={index}
+      >
+        <motion.div className={sx("mainContainer")}>{children}</motion.div>
+      </motion.div>
+    </EventDataContext.Provider>
+  );
 };
 
 ArtistCard.displayName = "ArtistCard";

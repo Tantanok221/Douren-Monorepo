@@ -15,7 +15,7 @@ export const TagItem = ({ data, index }: Props) => {
   const { tag } = data;
   const addTagFilter = useTagFilter((state) => state.addTagFilter);
   const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
-  const checked  = useTagFilter((state) => state.checked); // any to avoid type error cause by third party
+  const checked = useTagFilter((state) => state.checked); // any to avoid type error cause by third party
   const setChecked = useTagFilter((state) => state.setChecked);
   return (
     <Checkbox.Root

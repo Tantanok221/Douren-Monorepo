@@ -1,2 +1,2 @@
 declare module "*.module.css";
-declare module "*.config.js"
+declare module "*.config.js";

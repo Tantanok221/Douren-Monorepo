@@ -26,10 +26,13 @@ export const Pagination = ({ pagination }: Props) => {
       {range.map((value, index) => {
         if (value === "dots")
           return (
-            <div key={`paginationDot ${index}"`} className={sx("paginationDot")}>
-              <div className={sx("dot")}/>
-              <div className={sx("dot")}/>
-              <div className={sx("dot")}/>
+            <div
+              key={`paginationDot ${index}"`}
+              className={sx("paginationDot")}
+            >
+              <div className={sx("dot")} />
+              <div className={sx("dot")} />
+              <div className={sx("dot")} />
             </div>
           );
         return (
@@ -58,4 +61,3 @@ export const Pagination = ({ pagination }: Props) => {
     </div>
   );
 };
-

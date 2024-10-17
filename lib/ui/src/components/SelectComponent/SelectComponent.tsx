@@ -13,7 +13,11 @@ interface Props {
   onValueChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SelectComponent = ({ defaultValue, children, onValueChange }: Props) => {
+export const SelectComponent = ({
+  defaultValue,
+  children,
+  onValueChange,
+}: Props) => {
   const sx = classNames.bind(style);
   return (
     <IconContext.Provider
