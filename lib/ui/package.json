@@ -13,7 +13,7 @@
     "test": "vitest run",
     "codegen": "barrelsby -d ./src -l all  --delete --exclude setup.ts --exclude .d.ts --exclude .stories.tsx --exclude config.ts --exclude test.ts --exclude test.tsx ",
     "format": "prettier ./src --write",
-    "lint": "eslint ./src --fix --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint ./src --fix --report-unused-disable-directives --max-warnings 0 && npx stylelint src/**/*.css --fix",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
@@ -47,6 +47,8 @@
     "jsdom": "^25.0.1",
     "prettier": "3.3.3",
     "storybook": "^8.3.2",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1",
     "tsup": "^8.3.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.9.0",

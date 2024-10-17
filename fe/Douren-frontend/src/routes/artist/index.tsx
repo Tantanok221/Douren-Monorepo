@@ -6,7 +6,14 @@ import { useGetTotalPage } from "@/hooks";
 import { trpc } from "@/helper/trpc.ts";
 import { usePageInit } from "@/hooks/usePageInit.ts";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArtistCard, DataOperationProvider, NavbarMargin, Pagination, SearchBox, SearchContextProvider } from "@lib/ui";
+import {
+  ArtistCard,
+  DataOperationProvider,
+  NavbarMargin,
+  Pagination,
+  SearchBox,
+  SearchContextProvider,
+} from "@lib/ui";
 import { Animate } from "@/components";
 
 const Artist = () => {
