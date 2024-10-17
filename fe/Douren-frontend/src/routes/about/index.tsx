@@ -3,10 +3,10 @@ import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/helper/supabase.ts";
-import AboutCard from "../../components/AboutCard/AboutCard.tsx";
-import Animate from "../../animate/Animate.tsx";
 import { Owner } from "@/types/Owner.ts";
 import { createFileRoute } from "@tanstack/react-router";
+import { Animate } from "@/components/Animate/Animate.tsx";
+import { AboutCard } from "@/routes/about/-components/AboutCard/AboutCard.tsx";
 async function fetchOwner(): Promise<Owner[] | null> {
   const query = supabase.from("Owner").select(`*`);
   const { data } = await query;
@@ -59,7 +59,6 @@ function AboutUs() {
   );
 }
 const AnimateAboutUs = Animate(AboutUs);
-export default AnimateAboutUs;
 export const Route = createFileRoute("/about/")({
   component: AnimateAboutUs,
 });

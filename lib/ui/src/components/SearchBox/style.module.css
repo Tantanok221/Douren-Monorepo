@@ -1,0 +1,30 @@
+.searchBox.focused {
+  outline: 1px solid #fff;
+}
+
+.searchBox {
+  display: flex;
+  padding: 1rem 1.5rem;
+  gap: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--Dark-Panel, #1f1f21);
+}
+.inputBox {
+  border: none;
+  background: var(--Dark-Panel, #1f1f21);
+
+  color: var(--Dark-TagText, #aaa);
+  font-family: var(--Font);
+  font-size: 1.5rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.inputBox:focus-visible {
+  outline: none;
+}
+
+.inputBox:focus-visible::placeholder {
+  color: #cbc3c3;
+  font-weight: 500;
+}

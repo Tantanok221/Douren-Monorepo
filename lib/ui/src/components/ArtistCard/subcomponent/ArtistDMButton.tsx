@@ -1,7 +1,7 @@
 import React from "react";
-import DMButton from "../../DMButton";
 import { useEventDataContext } from "../EventDataContext.ts";
-import {isEventArtistBaseSchema} from "../../../helper/isEventAristBaseSchema.ts";
+import {isEventArtistBaseSchema} from "../../../helper";
+import { DMButton } from "../../DMButton";
 
 
 
@@ -16,5 +16,4 @@ const ArtistDMButton = () => {
 
 	return link[0] !== "" ? <DMButton link={link} /> : null;
 };
-
-export default ArtistDMButton;
+export default ArtistDMButton

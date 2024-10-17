@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "reset": "rimraf --glob node_modules",
     "all": "npm run pkg && npm run lib && npm run be",
     "be": "turbo build --filter=./be/* && npm install",
     "pkg": "turbo build --filter=./pkg/* && npm install",
@@ -40,6 +41,7 @@
     "from-env": "^1.1.4",
     "husky": "^9.1.6",
     "prettier": "^3.3.3",
+    "barrelsby": "^2.8.1",
     "rimraf": "^6.0.1",
     "turbo": "^2.1.0",
     "typescript": "^5.4.5"

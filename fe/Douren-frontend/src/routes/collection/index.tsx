@@ -2,9 +2,9 @@ import style from "./collection.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import Animate from "../../animate/Animate.tsx";
-import CollectionLayout from "../../layouts/CollectionLayout/CollectionLayout.tsx";
 import { createFileRoute } from "@tanstack/react-router";
+import { Animate } from "@/components/Animate/Animate.tsx";
+import { CollectionLayout } from "@/routes/collection/-layout/CollectionLayout/CollectionLayout.tsx";
 
 export const Collection = () => {
   const sx = classNames.bind(style);

@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";
 import { Link } from "@tanstack/react-router";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useMediaQuery } from "@mantine/hooks";
 import { useEventDataContext } from "../EventDataContext.ts";
 
 interface Props {

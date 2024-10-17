@@ -2,23 +2,15 @@ import classNames from "classnames/bind";
 import styles from "./EventPage.module.css";
 import { motion } from "framer-motion";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import Animate from "../../animate/Animate.tsx";
-import SearchContainer from "@/routes/event/-subcomponent/SearchContainer.tsx";
-import FilterContainer from "@/routes/event/-subcomponent/FilterContainer.tsx";
-import ArtistContainer from "@/routes/event/-subcomponent/ArtistContainer.tsx";
+import SearchContainer from "@/routes/event/-components/SearchContainer.tsx";
+import FilterContainer from "@/routes/event/-components/FilterContainer.tsx";
+import ArtistContainer from "@/routes/event/-components/ArtistContainer.tsx";
 import { createFileRoute } from "@tanstack/react-router";
-import { CollectionContextProvider } from "@lib/ui/src/context/CollectionContext/index.tsx";
+import { CollectionContextProvider, DataOperationProvider } from "@lib/ui";
 import { trpc } from "@/helper/trpc.ts";
 import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 import { useEffect } from "react";
-import { PaginationContextProvider } from "@/context/PaginationContext/PaginationContext.tsx";
-import { SearchColumnContextProvider } from "@/context/SearchColumnContext/SearchColumnContext.tsx";
-import { SortSelectContextProvider } from "@/context/SortSelectContext/SortSelectContext.tsx";
-import { DataOperationProvider } from "@/context/DataOperationContext";
-
-export const Route = createFileRoute("/event/$eventName")({
-  component: EventName,
-});
+import { Animate } from "@/components/Animate/Animate.tsx";
 
 function EventName() {
   const tag = trpc.tag.getTag.useQuery();
@@ -50,3 +42,6 @@ function EventName() {
 }
 
 const EventPageAnimate = Animate(EventName);
+export const Route = createFileRoute("/event/$eventName")({
+  component: EventPageAnimate,
+});

@@ -10,6 +10,7 @@
     "build": "tsup",
     "dev": "storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
+    "codegen": "barrelsby -d ./src -l all  --delete --exclude .d.ts --exclude .stories.tsx --exclude config.ts --exclude ",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
@@ -41,13 +42,20 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {
-    "@mantine/hooks": "^7.13.1",
+    "@mantine/hooks": "^7.12.2",
+    "@phosphor-icons/react": "^2.1.7",
     "@pkg/type": "*",
+    "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-toggle": "^1.1.0",
+    "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-visually-hidden": "^1.1.0",
     "@stitches/react": "^1.2.8",
     "@supabase/supabase-js": "^2.45.4",
-    "@uidotdev/usehooks": "^2.4.1",
     "classnames": "^2.5.1",
     "framer-motion": "^11.7.0",
     "immer": "^10.1.1",

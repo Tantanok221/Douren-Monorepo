@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
-import { useTagFilter } from "../../stores/useTagFilter";
-import ArtistCard from "@lib/ui/src/components/ArtistCard";
-import SearchBox from "../../components/SearchBox/SearchBox";
-import { useSearch } from "../../stores/useSearch";
-import Animate from "../../animate/Animate";
 import { usePagination } from "@mantine/hooks";
-import Pagination from "../../components/Pagination/Pagination";
-import { useGetTotalPage } from "../../hooks/useGetTotalPage";
-import NavbarMargin from "../../components/NavMenu/subcomponents/NavbarMargin";
+import { useGetTotalPage } from "@/hooks";
 import { trpc } from "@/helper/trpc.ts";
 import { usePageInit } from "@/hooks/usePageInit.ts";
 import { createFileRoute } from "@tanstack/react-router";
+import { ArtistCard, DataOperationProvider, NavbarMargin, Pagination, SearchBox, SearchContextProvider } from "@lib/ui";
+import { Animate } from "@/components";
 
 const Artist = () => {
   usePageInit();
   const sx = classNames.bind(style);
-  const setAllFilter = useTagFilter((state) => state.setAllFilter);
-  const resetSearch = useSearch((state) => state.resetSearch);
 
   const [page, setPage] = useState(1);
   const totalCount = useGetTotalPage("Author_Main", "Author=neq.");
@@ -43,9 +36,9 @@ const Artist = () => {
   if (!res.data) return null;
 
   return (
-    <>
+    <DataOperationProvider>
       <div className={sx("artistPage")}>
-        <SearchBox></SearchBox>
+        <SearchBox />
         <div className={sx("mainContainer")}>
           {res.data.data?.map((item, index) => (
             <ArtistCard key={index} data={item}>
@@ -65,9 +58,9 @@ const Artist = () => {
         <div className={sx("paginationContainer")}>
           <Pagination pagination={pagination} />
         </div>
-        <NavbarMargin></NavbarMargin>
+        <NavbarMargin />
       </div>
-    </>
+    </DataOperationProvider>
   );
 };
 

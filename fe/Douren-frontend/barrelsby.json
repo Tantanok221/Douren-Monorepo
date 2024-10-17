@@ -1,0 +1,3 @@
+{
+  "directory": ["./src/helper", "./src/components", "./src/hooks", "./src/types"]
+}
