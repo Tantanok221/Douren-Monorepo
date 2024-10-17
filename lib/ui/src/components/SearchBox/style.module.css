@@ -9,10 +9,10 @@
   border-radius: 0.75rem;
   background: var(--Dark-Panel, #1f1f21);
 }
+
 .inputBox {
   border: none;
   background: var(--Dark-Panel, #1f1f21);
-
   color: var(--Dark-TagText, #aaa);
   font-family: var(--Font);
   font-size: 1.5rem;

@@ -2,8 +2,7 @@ import React from "react";
 import style from "../style.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import {useEventDataContext} from "../../ArtistCard/EventDataContext.ts";
-
+import { useEventDataContext } from "../../ArtistCard/EventDataContext.ts";
 
 const IntroductionContainer = () => {
   const sx = classNames.bind(style);

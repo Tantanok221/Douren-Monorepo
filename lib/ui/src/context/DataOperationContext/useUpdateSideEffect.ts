@@ -8,6 +8,6 @@ export function useUpdatePageSideEffect<T extends React.SetStateAction<any>>(
   const [page, setPage] = usePaginationContext();
   useEffect(() => {
     setPage(1);
-  }, [dependency,setPage]);
+  }, [dependency, setPage]);
   return func;
 }

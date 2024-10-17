@@ -1,5 +1,5 @@
 .selectTrigger {
-  padding: 12px 0px;
+  padding: 12px 0;
   font-family: var(--Font);
   background: var(--Panel, #1f1f21);
   border-radius: 12px;
@@ -9,8 +9,7 @@
   font-weight: 600;
   line-height: normal;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  place-content: center center;
   height: 100%;
   width: 100%;
   cursor: pointer;
@@ -18,7 +17,7 @@
 
 .selectContainer {
   width: 100%;
-  padding: 0px 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -41,7 +40,7 @@
 }
 
 .selectViewport {
-  padding: 1.2rem 0px;
+  padding: 1.2rem 0;
   background-color: var(--Panel);
   width: 100%;
   border-radius: 12px;

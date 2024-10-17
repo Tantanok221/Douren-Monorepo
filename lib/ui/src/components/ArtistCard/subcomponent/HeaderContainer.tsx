@@ -14,7 +14,9 @@ const HeaderContainer = ({ keys, subtitleDisabled }: Props) => {
   return (
     <div className={sx("headerContainer")}>
       <TitleContainer subtitleDisabled={subtitleDisabled} />
-      {keys?.split('/')[1] === 'event' ? <EventBookmarkContainer keys={keys}/>: null}
+      {keys?.split("/")[1] === "event" ? (
+        <EventBookmarkContainer keys={keys} />
+      ) : null}
     </div>
   );
 };

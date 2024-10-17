@@ -19,36 +19,36 @@ interface Props {
 
 export const LinkIcon = ({ data }: Props) => {
   if (data.category === "DM") {
-    return <GrCatalog/>;
+    return <GrCatalog />;
   }
   if (data.category === "Facebook") {
-    return <IoLogoFacebook/>;
+    return <IoLogoFacebook />;
   }
   if (data.category === "Twitter") {
-    return <IoLogoTwitter/>;
+    return <IoLogoTwitter />;
   }
   if (data.category === "Youtube") {
-    return <IoLogoYoutube/>;
+    return <IoLogoYoutube />;
   }
   if (data.category === "Instagram") {
-    return <IoLogoInstagram/>;
+    return <IoLogoInstagram />;
   }
   if (data.category === "Twitch") {
-    return <IoLogoTwitch/>;
+    return <IoLogoTwitch />;
   }
   if (data.category === "Plurk") {
-    return <SiPlurk/>;
+    return <SiPlurk />;
   }
   if (data.category === "Pixiv") {
-    return <SiPixiv/>;
+    return <SiPixiv />;
   }
   if (data.category === "Github") {
-    return <BiLogoGithub/>;
+    return <BiLogoGithub />;
   }
   if (data.category === "Discord") {
-    return <FaDiscord/>;
+    return <FaDiscord />;
   }
-  return <IoLinkOutline/>;
+  return <IoLinkOutline />;
 };
 
 export default LinkIcon;

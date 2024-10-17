@@ -17,11 +17,11 @@ export const SearchBox = () => {
   useEffect(() => {
     setPage(1);
     setSearch(debounceSearch);
-  }, [debounceSearch,setPage,setSearch]);
+  }, [debounceSearch, setPage, setSearch]);
 
   return (
     <motion.div className={sx("searchBox", { focused: isFocused })}>
-      <Icon isFocused={isFocused}/>
+      <Icon isFocused={isFocused} />
 
       <motion.input
         onChange={(event) => setBufferSearch(event.target.value)}
@@ -29,7 +29,7 @@ export const SearchBox = () => {
         onBlur={() => setIsFocused(false)}
         className={sx("inputBox")}
         placeholder="搜尋社團/作者名字"
-     />
+      />
     </motion.div>
   );
 };

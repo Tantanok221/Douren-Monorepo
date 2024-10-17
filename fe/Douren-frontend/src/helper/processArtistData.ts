@@ -1,5 +1,5 @@
 import { ArtistTypes } from "../types/Artist";
-import { LinkResult, processLink } from "./processLink";
+import { LinkResult, processLink } from "@lib/ui";
 
 export function processArtistData(ArtistData: ArtistTypes) {
   let link: LinkResult[] = [];

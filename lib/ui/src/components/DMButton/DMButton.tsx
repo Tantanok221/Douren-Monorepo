@@ -36,7 +36,7 @@ export const DMButton = ({ link, text }: Props) => {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay>
-          <div className={sx("dialogOverlay")}/>
+          <div className={sx("dialogOverlay")} />
         </Dialog.Overlay>
         <Dialog.Content aria-describedby={undefined}>
           <div className={sx("dialogContent")}>
@@ -70,4 +70,3 @@ export const DMButton = ({ link, text }: Props) => {
     </Dialog.Root>
   );
 };
-

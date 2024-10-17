@@ -20,7 +20,7 @@ export const NavMenu = ({ children }: Props) => {
       <NavigationMenu.Root className={sx("Navbar")}>
         {children}
       </NavigationMenu.Root>
-      <div className={sx("padding")}/>
+      <div className={sx("padding")} />
     </IconContext.Provider>
   );
 };

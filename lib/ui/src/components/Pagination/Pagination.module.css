@@ -6,7 +6,7 @@
 .paginationButton {
   width: 2.8rem;
   height: 100%;
-  padding: 0.5rem 0rem;
+  padding: 0.5rem 0;
   font-family: var(--Font);
   font-size: 1.25rem;
   background-color: var(--Panel);
@@ -28,6 +28,7 @@
   cursor: not-allowed;
   background-color: #151516;
 }
+
 .paginationDot {
   display: flex;
   align-items: center;

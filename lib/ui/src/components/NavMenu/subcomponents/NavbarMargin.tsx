@@ -6,8 +6,5 @@ import { useMediaQuery } from "@mantine/hooks";
 export const NavbarMargin = () => {
   const sx = classNames.bind(style);
   const smallPhoneSize = useMediaQuery("(max-width: 800px)");
-  return (
-    <>{smallPhoneSize ? <div className={sx("bottomPadding")}/> : null}</>
-  );
+  return <>{smallPhoneSize ? <div className={sx("bottomPadding")} /> : null}</>;
 };
-
