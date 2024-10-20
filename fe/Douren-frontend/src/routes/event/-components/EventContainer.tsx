@@ -11,7 +11,7 @@ import {
   useSearchColumnContext,
   useSearchContext,
   useSortSelectContext,
-  ArtistCard,
+  ArtistCard
 } from "@lib/ui";
 
 const EventContainer = () => {
@@ -23,7 +23,7 @@ const EventContainer = () => {
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [page, setPage] = usePaginationContext();
   const id = trpc.eventArtist.getEventId.useQuery({
-    eventName: Route.useParams().eventName,
+    eventName: Route.useParams().eventName
   });
   const res = trpc.eventArtist.getEvent.useQuery({
     eventId: String(id?.data?.id),
@@ -31,41 +31,43 @@ const EventContainer = () => {
     sort: sortSelect,
     search,
     tag: allTag,
-    searchTable: searchColumn,
+    searchTable: searchColumn
   });
   const pagination = usePagination({
     total: res?.data?.totalPage ?? 20,
     page,
     siblings: 2,
-    onChange: setPage,
+    onChange: setPage
   });
 
   if (!res.data) return null;
   return (
-    <div className={sx("EventContainer")}>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
-        <Masonry gutter="32px">
-          {res.data.data.map((item, index) => {
-            return (
-              <ArtistCard key={`${item.boothName} ${item.author}`} data={item}>
-                <ArtistCard.ImageContainer />
-                <ArtistCard.RightContainer>
-                  <ArtistCard.HeaderContainer keys={Route.fullPath} />
-                  <ArtistCard.TagContainer activeButton />
-                  <ArtistCard.DayContainer />
-                  <ArtistCard.LinkContainer>
-                    <ArtistCard.DMButton />
-                  </ArtistCard.LinkContainer>
-                </ArtistCard.RightContainer>
-              </ArtistCard>
-            );
-          })}
-        </Masonry>
-      </ResponsiveMasonry>
-      <div className={sx("paginationContainer")}>
-        <Pagination pagination={pagination} />
+    <>
+      <div className={sx("ArtistContainer")}>
+        <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
+          <Masonry gutter="32px">
+            {res.data.data.map((item, index) => {
+              return (
+                <ArtistCard key={`${item.boothName} ${item.author}`} data={item}>
+                  <ArtistCard.ImageContainer />
+                  <ArtistCard.RightContainer>
+                    <ArtistCard.HeaderContainer keys={Route.fullPath} />
+                    <ArtistCard.TagContainer activeButton />
+                    <ArtistCard.DayContainer />
+                    <ArtistCard.LinkContainer>
+                      <ArtistCard.DMButton />
+                    </ArtistCard.LinkContainer>
+                  </ArtistCard.RightContainer>
+                </ArtistCard>
+              );
+            })}
+          </Masonry>
+        </ResponsiveMasonry>
+        <div className={sx("paginationContainer")}>
+          <Pagination pagination={pagination} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
