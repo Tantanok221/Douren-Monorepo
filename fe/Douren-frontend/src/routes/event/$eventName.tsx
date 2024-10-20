@@ -49,5 +49,5 @@ function EventName() {
 }
 const EventPageAnimate = Animate(EventName);
 export const Route = createFileRoute("/event/$eventName")({
-  component: EventPageAnimate
+  component: EventPageAnimate,
 });

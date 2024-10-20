@@ -3,9 +3,7 @@ import style from "./ArtistPage.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  NavbarMargin
-} from "@lib/ui";
+import { NavbarMargin } from "@lib/ui";
 import { Animate } from "@/components/Animate/Animate.tsx";
 import { ShowcaseLayout } from "@/routes/artist/$artistId/-layout/ShowcaseLayout.tsx";
 import useArtistLoader from "@/hooks/useArtistLoader.ts";
@@ -23,7 +21,6 @@ const ArtistPage = () => {
 
   const sx = classNames.bind(style);
 
-
   return (
     <motion.div className={sx("artistPage")}>
       <ArtistPageProvider data={artistData}>
@@ -36,5 +33,5 @@ const ArtistPage = () => {
 };
 const AnimateArtistPage = Animate(ArtistPage);
 export const Route = createFileRoute("/artist/$artistId/")({
-  component: AnimateArtistPage
+  component: AnimateArtistPage,
 });
