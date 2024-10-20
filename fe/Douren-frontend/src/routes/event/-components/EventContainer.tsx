@@ -42,30 +42,35 @@ const EventContainer = () => {
 
   if (!res.data) return null;
   return (
-    <div className={sx("EventContainer")}>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
-        <Masonry gutter="32px">
-          {res.data.data.map((item, index) => {
-            return (
-              <ArtistCard key={`${item.boothName} ${item.author}`} data={item}>
-                <ArtistCard.ImageContainer />
-                <ArtistCard.RightContainer>
-                  <ArtistCard.HeaderContainer keys={Route.fullPath} />
-                  <ArtistCard.TagContainer activeButton />
-                  <ArtistCard.DayContainer />
-                  <ArtistCard.LinkContainer>
-                    <ArtistCard.DMButton />
-                  </ArtistCard.LinkContainer>
-                </ArtistCard.RightContainer>
-              </ArtistCard>
-            );
-          })}
-        </Masonry>
-      </ResponsiveMasonry>
-      <div className={sx("paginationContainer")}>
-        <Pagination pagination={pagination} />
+    <>
+      <div className={sx("ArtistContainer")}>
+        <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
+          <Masonry gutter="32px">
+            {res.data.data.map((item, index) => {
+              return (
+                <ArtistCard
+                  key={`${item.boothName} ${item.author}`}
+                  data={item}
+                >
+                  <ArtistCard.ImageContainer />
+                  <ArtistCard.RightContainer>
+                    <ArtistCard.HeaderContainer keys={Route.fullPath} />
+                    <ArtistCard.TagContainer activeButton />
+                    <ArtistCard.DayContainer />
+                    <ArtistCard.LinkContainer>
+                      <ArtistCard.DMButton />
+                    </ArtistCard.LinkContainer>
+                  </ArtistCard.RightContainer>
+                </ArtistCard>
+              );
+            })}
+          </Masonry>
+        </ResponsiveMasonry>
+        <div className={sx("paginationContainer")}>
+          <Pagination pagination={pagination} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
