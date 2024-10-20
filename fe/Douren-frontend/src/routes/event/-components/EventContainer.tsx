@@ -14,7 +14,7 @@ import {
   ArtistCard,
 } from "@lib/ui";
 
-const ArtistContainer = () => {
+const EventContainer = () => {
   const sx = classNames.bind(styles);
   const [sortSelect] = useSortSelectContext();
   const [searchColumn] = useSearchColumnContext();
@@ -42,7 +42,7 @@ const ArtistContainer = () => {
 
   if (!res.data) return null;
   return (
-    <div className={sx("ArtistContainer")}>
+    <div className={sx("EventContainer")}>
       <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
         <Masonry gutter="32px">
           {res.data.data.map((item, index) => {
@@ -69,4 +69,4 @@ const ArtistContainer = () => {
   );
 };
 
-export default ArtistContainer;
+export default EventContainer;

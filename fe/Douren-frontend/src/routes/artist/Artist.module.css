@@ -13,7 +13,8 @@
   gap: 1.5rem;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1rem 2rem;
+  padding: 3rem 2rem 2rem;
+  width: 100%;
 }
 
 .rightHeaderContainer {
@@ -37,10 +38,7 @@
     flex-direction: column;
   }
   .mainContainer {
-    margin: 1.25rem 5%;
     box-sizing: border-box;
-    padding-left: 6%;
-    padding-top: 0;
   }
   .ArtistContainer {
     align-items: flex-start;
