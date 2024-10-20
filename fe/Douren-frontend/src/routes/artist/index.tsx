@@ -12,15 +12,14 @@ import {
   NavbarMargin,
   Pagination,
   SearchBox,
-  SearchContextProvider, useSearchContext
+  SearchContextProvider,
+  useSearchContext,
 } from "@lib/ui";
 import { Animate } from "@/components";
 import { ArtistContainer } from "@/routes/artist/-components/ArtistContainer.tsx";
 import { FilterContainer } from "@/components/FilterContainer/FilterContainer.tsx";
 
-const sortItem = [
-  { text: "排序: 作者名稱", value: "Author_Main(Author)" },
-];
+const sortItem = [{ text: "排序: 作者名稱", value: "Author_Main(Author)" }];
 
 const Artist = () => {
   usePageInit();
@@ -33,8 +32,8 @@ const Artist = () => {
     <DataOperationProvider>
       <div className={sx("artistPage")}>
         <SearchBox />
-        <FilterContainer sortItem={sortItem}/>
-        <ArtistContainer/>
+        <FilterContainer sortItem={sortItem} />
+        <ArtistContainer />
       </div>
     </DataOperationProvider>
   );

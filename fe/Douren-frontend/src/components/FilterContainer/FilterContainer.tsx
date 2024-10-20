@@ -1,17 +1,22 @@
 import classNames from "classnames/bind";
 import styles from "@/routes/event/EventPage.module.css";
-import { SelectComponent, TagFilter, useSortSelectContext, useUpdatePageSideEffect } from "@lib/ui";
+import {
+  SelectComponent,
+  TagFilter,
+  useSortSelectContext,
+  useUpdatePageSideEffect,
+} from "@lib/ui";
 
 interface Key {
-  text: string
-  value: string
+  text: string;
+  value: string;
 }
 
 interface Props {
-  sortItem: Key[]
+  sortItem: Key[];
 }
 
-export const FilterContainer = ({sortItem}:Props ) => {
+export const FilterContainer = ({ sortItem }: Props) => {
   const sx = classNames.bind(styles);
   const [sortValue, setSortValue] = useSortSelectContext();
 
