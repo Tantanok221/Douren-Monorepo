@@ -18,34 +18,34 @@ export const ShowcaseLayout = () => {
   const artistLinkData = processArtistData(artistData);
   const artistTagData = useProcessTagData(artistData?.Tags?.split(",") ?? []);
 
+  return (
+    <motion.div className={sx("mainContainer")}>
+      <div className={sx("topContainer")}>
+        <div className={sx("leftContainer")}>
+          <div className={sx("imageContainer")}>
+            {artistData.Photo ? (
+              <LazyImage alt={artistData.Author} photo={artistData.Photo} />
+            ) : null}
+          </div>
 
-  return <motion.div className={sx("mainContainer")}>
-    <div className={sx("topContainer")}>
-      <div className={sx("leftContainer")}>
-        <div className={sx("imageContainer")}>
-          {artistData.Photo ? (
-            <LazyImage alt={artistData.Author} photo={artistData.Photo} />
-          ) : null}
+          <div className={sx("linkContainer")}>
+            <LinkContainer link={artistLinkData} />
+          </div>
         </div>
-
-        <div className={sx("linkContainer")}>
-          <LinkContainer link={artistLinkData} />
+        <div className={sx("rightContainer")}>
+          <div className={sx("headerContainer")}>
+            <div className={ax("header")}>{artistData.Author}</div>
+          </div>
+          <div className={ax("tagContainer")}>
+            <TagContainer renderTag={artistTagData} />
+          </div>
+          <div className={sx("introductionContainer")}>
+            {artistData.Introduction
+              ? artistData.Introduction
+              : "大大没有留下任何自我介绍"}
+          </div>
         </div>
       </div>
-      <div className={sx("rightContainer")}>
-        <div className={sx("headerContainer")}>
-          <div className={ax("header")}>{artistData.Author}</div>
-        </div>
-        <div className={ax("tagContainer")}>
-          <TagContainer renderTag={artistTagData} />
-        </div>
-        <div className={sx("introductionContainer")}>
-          {artistData.Introduction
-            ? artistData.Introduction
-            : "大大没有留下任何自我介绍"}
-        </div>
-      </div>
-    </div>
-  </motion.div>;
-
+    </motion.div>
+  );
 };

@@ -10,14 +10,14 @@ import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 import { useEffect } from "react";
 import { Animate } from "@/components/Animate/Animate.tsx";
 import { FilterContainer } from "@/components/FilterContainer/FilterContainer.tsx";
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
 const sortItem = [
   { text: "排序: 作者名稱", value: "Author_Main(Author)" },
   { text: "排序: 攤位名稱", value: "Booth_name" },
   { text: "排序: 攤位位置 Day 01", value: "Location_Day01" },
   { text: "排序: 攤位位置 Day 02", value: "Location_Day02" },
-  { text: "排序: 攤位位置 Day 03", value: "Location_Day03" }
+  { text: "排序: 攤位位置 Day 03", value: "Location_Day03" },
 ];
 function EventName() {
   const tag = trpc.tag.getTag.useQuery();
