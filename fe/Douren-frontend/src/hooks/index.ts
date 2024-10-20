@@ -3,5 +3,4 @@
  */
 
 export * from "./useArtistLoader";
-export * from "./useGetTotalPage";
 export * from "./usePageInit";
