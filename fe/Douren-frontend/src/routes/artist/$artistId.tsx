@@ -30,7 +30,6 @@ const ArtistPage = () => {
   const artistTagData = useProcessTagData(artistData?.Tags?.split(",") ?? []);
   if (!artistData) return null;
 
-  console.log(artistData);
   const artistLinkData = processArtistData(artistData);
   return (
     <motion.div className={sx("artistPage")}>

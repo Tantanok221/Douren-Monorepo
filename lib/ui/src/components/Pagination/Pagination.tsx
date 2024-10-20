@@ -13,7 +13,7 @@ export const Pagination = ({ pagination }: Props) => {
   return (
     <div className={sx("paginationContainer")}>
       <div
-        onKeyPress={() => previous()}
+        onClick={() => previous()}
         className={sx("paginationButton", {
           paginationInactiveButton: range[0] === active,
         })}
@@ -37,7 +37,7 @@ export const Pagination = ({ pagination }: Props) => {
           );
         return (
           <div
-            onKeyPress={() => setPage(value)}
+            onClick={() => setPage(value)}
             key={index}
             className={sx("paginationButton", {
               paginationActiveButton: value === active,
@@ -48,7 +48,7 @@ export const Pagination = ({ pagination }: Props) => {
         );
       })}
       <div
-        onKeyPress={() => next()}
+        onClick={() => next()}
         className={sx("paginationButton", {
           paginationInactiveButton: range[range.length - 1] === active,
         })}
