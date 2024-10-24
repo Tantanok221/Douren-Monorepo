@@ -10,160 +10,166 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as CollectionIndexImport } from "./routes/collection/index";
-import { Route as ArtistIndexImport } from "./routes/artist/index";
-import { Route as AboutIndexImport } from "./routes/about/index";
-import { Route as EventEventNameImport } from "./routes/event/$eventName";
-import { Route as ArtistArtistIdIndexImport } from "./routes/artist/$artistId/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as CollectionIndexImport } from './routes/collection/index'
+import { Route as ArtistIndexImport } from './routes/artist/index'
+import { Route as AboutIndexImport } from './routes/about/index'
+import { Route as EventEventNameImport } from './routes/event/$eventName'
+import { Route as ArtistArtistIdIndexImport } from './routes/artist/$artistId/index'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const CollectionIndexRoute = CollectionIndexImport.update({
-  path: "/collection/",
+  id: '/collection/',
+  path: '/collection/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ArtistIndexRoute = ArtistIndexImport.update({
-  path: "/artist/",
+  id: '/artist/',
+  path: '/artist/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AboutIndexRoute = AboutIndexImport.update({
-  path: "/about/",
+  id: '/about/',
+  path: '/about/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const EventEventNameRoute = EventEventNameImport.update({
-  path: "/event/$eventName",
+  id: '/event/$eventName',
+  path: '/event/$eventName',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ArtistArtistIdIndexRoute = ArtistArtistIdIndexImport.update({
-  path: "/artist/$artistId/",
+  id: '/artist/$artistId/',
+  path: '/artist/$artistId/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/event/$eventName": {
-      id: "/event/$eventName";
-      path: "/event/$eventName";
-      fullPath: "/event/$eventName";
-      preLoaderRoute: typeof EventEventNameImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/about/": {
-      id: "/about/";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof AboutIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/artist/": {
-      id: "/artist/";
-      path: "/artist";
-      fullPath: "/artist";
-      preLoaderRoute: typeof ArtistIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/collection/": {
-      id: "/collection/";
-      path: "/collection";
-      fullPath: "/collection";
-      preLoaderRoute: typeof CollectionIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/artist/$artistId/": {
-      id: "/artist/$artistId/";
-      path: "/artist/$artistId";
-      fullPath: "/artist/$artistId";
-      preLoaderRoute: typeof ArtistArtistIdIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/event/$eventName': {
+      id: '/event/$eventName'
+      path: '/event/$eventName'
+      fullPath: '/event/$eventName'
+      preLoaderRoute: typeof EventEventNameImport
+      parentRoute: typeof rootRoute
+    }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/artist/': {
+      id: '/artist/'
+      path: '/artist'
+      fullPath: '/artist'
+      preLoaderRoute: typeof ArtistIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/collection/': {
+      id: '/collection/'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/artist/$artistId/': {
+      id: '/artist/$artistId/'
+      path: '/artist/$artistId'
+      fullPath: '/artist/$artistId'
+      preLoaderRoute: typeof ArtistArtistIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/event/$eventName": typeof EventEventNameRoute;
-  "/about": typeof AboutIndexRoute;
-  "/artist": typeof ArtistIndexRoute;
-  "/collection": typeof CollectionIndexRoute;
-  "/artist/$artistId": typeof ArtistArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/event/$eventName': typeof EventEventNameRoute
+  '/about': typeof AboutIndexRoute
+  '/artist': typeof ArtistIndexRoute
+  '/collection': typeof CollectionIndexRoute
+  '/artist/$artistId': typeof ArtistArtistIdIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/event/$eventName": typeof EventEventNameRoute;
-  "/about": typeof AboutIndexRoute;
-  "/artist": typeof ArtistIndexRoute;
-  "/collection": typeof CollectionIndexRoute;
-  "/artist/$artistId": typeof ArtistArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/event/$eventName': typeof EventEventNameRoute
+  '/about': typeof AboutIndexRoute
+  '/artist': typeof ArtistIndexRoute
+  '/collection': typeof CollectionIndexRoute
+  '/artist/$artistId': typeof ArtistArtistIdIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/event/$eventName": typeof EventEventNameRoute;
-  "/about/": typeof AboutIndexRoute;
-  "/artist/": typeof ArtistIndexRoute;
-  "/collection/": typeof CollectionIndexRoute;
-  "/artist/$artistId/": typeof ArtistArtistIdIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/event/$eventName': typeof EventEventNameRoute
+  '/about/': typeof AboutIndexRoute
+  '/artist/': typeof ArtistIndexRoute
+  '/collection/': typeof CollectionIndexRoute
+  '/artist/$artistId/': typeof ArtistArtistIdIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/event/$eventName"
-    | "/about"
-    | "/artist"
-    | "/collection"
-    | "/artist/$artistId";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/event/$eventName'
+    | '/about'
+    | '/artist'
+    | '/collection'
+    | '/artist/$artistId'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/event/$eventName"
-    | "/about"
-    | "/artist"
-    | "/collection"
-    | "/artist/$artistId";
+    | '/'
+    | '/event/$eventName'
+    | '/about'
+    | '/artist'
+    | '/collection'
+    | '/artist/$artistId'
   id:
-    | "__root__"
-    | "/"
-    | "/event/$eventName"
-    | "/about/"
-    | "/artist/"
-    | "/collection/"
-    | "/artist/$artistId/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/event/$eventName'
+    | '/about/'
+    | '/artist/'
+    | '/collection/'
+    | '/artist/$artistId/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  EventEventNameRoute: typeof EventEventNameRoute;
-  AboutIndexRoute: typeof AboutIndexRoute;
-  ArtistIndexRoute: typeof ArtistIndexRoute;
-  CollectionIndexRoute: typeof CollectionIndexRoute;
-  ArtistArtistIdIndexRoute: typeof ArtistArtistIdIndexRoute;
+  IndexRoute: typeof IndexRoute
+  EventEventNameRoute: typeof EventEventNameRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+  ArtistIndexRoute: typeof ArtistIndexRoute
+  CollectionIndexRoute: typeof CollectionIndexRoute
+  ArtistArtistIdIndexRoute: typeof ArtistArtistIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -173,11 +179,11 @@ const rootRouteChildren: RootRouteChildren = {
   ArtistIndexRoute: ArtistIndexRoute,
   CollectionIndexRoute: CollectionIndexRoute,
   ArtistArtistIdIndexRoute: ArtistArtistIdIndexRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 

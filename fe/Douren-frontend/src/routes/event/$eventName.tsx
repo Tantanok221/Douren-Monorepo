@@ -1,16 +1,19 @@
 import classNames from "classnames/bind";
 import styles from "./EventPage.module.css";
 import { motion } from "framer-motion";
-import ScrollToTop from "../../components/ScrollToTop/ScrollToTop.tsx";
-import SearchContainer from "@/routes/event/-components/SearchContainer.tsx";
-import EventContainer from "@/routes/event/-components/EventContainer.tsx";
-import { CollectionContextProvider, DataOperationProvider } from "@lib/ui";
-import { trpc } from "@/helper/trpc.ts";
-import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
+import {
+  CollectionContextProvider,
+  DataOperationProvider,
+  FilterContainer,
+  SearchContainer,
+  useTagFilter
+} from "@lib/ui";
 import { useEffect } from "react";
-import { Animate } from "@/components/Animate/Animate.tsx";
-import { FilterContainer } from "@/components/FilterContainer/FilterContainer.tsx";
 import { createFileRoute } from "@tanstack/react-router";
+import { trpc } from "@/helper";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop.tsx";
+import { Animate } from "@/components";
+import EventContainer from "@/routes/event/-components/EventContainer.tsx";
 
 const sortItem = [
   { text: "排序: 作者名稱", value: "Author_Main(Author)" },

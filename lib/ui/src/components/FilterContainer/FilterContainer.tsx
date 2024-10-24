@@ -1,12 +1,11 @@
 import classNames from "classnames/bind";
-import styles from "@/routes/event/EventPage.module.css";
 import {
   SelectComponent,
   TagFilter,
   useSortSelectContext,
   useUpdatePageSideEffect,
 } from "@lib/ui";
-
+import styles from "./FilterContainer.module.css"
 interface Key {
   text: string;
   value: string;

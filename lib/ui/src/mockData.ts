@@ -1,4 +1,4 @@
-import { initializeGlobalStyles } from "./stitches.config.js";
+import { initializeGlobalStyles } from "./stitches.js";
 import { eventArtistBaseSchemaType } from "@pkg/type";
 
 initializeGlobalStyles();
