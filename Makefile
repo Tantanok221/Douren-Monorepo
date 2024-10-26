@@ -78,8 +78,6 @@ else
 			cp .env "$$dir/.env"; \
 		fi; \
 	done
-	# Generate TypeScript interfaces, but don't modify .env
-	@$(PYTHON) merge_env.py .env .env.be .env.temp generate_ts
 	@rm -f .env.temp
 	npx turbo build --filter="./pkg/env"
 	npm install
