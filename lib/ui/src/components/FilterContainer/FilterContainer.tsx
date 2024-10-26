@@ -5,7 +5,7 @@ import {
   useSortSelectContext,
   useUpdatePageSideEffect,
 } from "@lib/ui";
-import styles from "./FilterContainer.module.css"
+import styles from "./FilterContainer.module.css";
 interface Key {
   text: string;
   value: string;
