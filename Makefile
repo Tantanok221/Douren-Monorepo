@@ -1,15 +1,8 @@
-# Detect OS
+# Detect the operating system
 ifeq ($(OS),Windows_NT)
-    COPY_ENV_CMD = copy_env.bat
+    detected_OS := Windows
 else
-    # Copy to immediate subdirectories only
-    COPY_ENV_CMD = \
-        for dir in pkg/* fe/* be/* lib/*; do \
-            if [ -d "$$dir" ]; then \
-                cp .env "$$dir/.env"; \
-                echo "Copied to $$dir/.env"; \
-            fi \
-        done
+    detected_OS := $(shell uname -s)
 endif
 
 # Python executable
@@ -54,14 +47,45 @@ stg-db-sync:
 	rimraf schema.dump data.dump
 
 copy-env:
-	@echo "Copying .env files to immediate subdirectories..."
-ifeq ($(OS),Windows_NT)
-	@cmd /C $(COPY_ENV_CMD)
+	@echo "Detected OS: $(detected_OS)"
+ifeq ($(detected_OS),Windows)
+	@echo "Running Windows batch file..."
+	@cmd /c copy_env.bat
 else
-	@mkdir -p ./pkg ./fe ./be ./lib
-	@$(COPY_ENV_CMD)
+	@echo "Merging and copying environment files..."
+	# Merge base .env with .env.be into backend directories, but don't modify .env
+	@for dir in be/*; do \
+		if [ -d "$$dir" ]; then \
+	        cp .env "$$dir/.env"; \
+	        cp .env "$$dir/.dev.vars"; \
+		fi; \
+	done
+	# Merge base .env with .env.fe into frontend directories, but don't modify .env
+	@for dir in fe/*; do \
+		if [ -d "$$dir" ]; then \
+	        cp .env "$$dir/.env"; \
+		fi; \
+	done
+	# Only copy .env to lib directories (do not merge or modify it)
+	@for dir in lib/*; do \
+		if [ -d "$$dir" ]; then \
+			cp .env "$$dir/.env"; \
+		fi; \
+	done
+	# Only copy .env to pkg directories (do not merge or modify it)
+	@for dir in pkg/*; do \
+		if [ -d "$$dir" ]; then \
+			cp .env "$$dir/.env"; \
+		fi; \
+	done
+	# Generate TypeScript interfaces, but don't modify .env
+	@$(PYTHON) merge_env.py .env .env.be .env.temp generate_ts
+	@rm -f .env.temp
+	npx turbo build --filter="./pkg/env"
+	npm install
+	@echo "Environment files merged and copied successfully."
+	@echo "TypeScript constants file generated in pkg/env/src/index.ts"
 endif
-	@echo "Environment files copied successfully!"
 
 # Help target
 .PHONY: help
