@@ -5,6 +5,7 @@
 export * from "./ArtistButton";
 export * from "./ArtistDMButton";
 export * from "./ArtistLinkContainer";
+export * from "./ArtistLinkContainerStyle";
 export * from "./ArtistTagContainer";
 export * from "./DayContainer";
 export * from "./EventBookmarkContainer";

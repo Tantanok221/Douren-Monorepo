@@ -44,9 +44,10 @@ export const ArtistContainer = () => {
                 <ArtistCard.HeaderContainer />
                 <ArtistCard.TagContainer size="s" activeButton />
               </div>
-              <ArtistCard.LinkContainer size="s">
+              <ArtistCard.LinkContainerWrapper size="s">
                 <ArtistCard.Button size="s" />
-              </ArtistCard.LinkContainer>
+                <ArtistCard.LinkContainer size={"s"}/>
+              </ArtistCard.LinkContainerWrapper>
             </ArtistCard.RightContainer>
           </ArtistCard>
         ))}

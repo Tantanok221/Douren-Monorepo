@@ -57,9 +57,10 @@ const EventContainer = () => {
                     <ArtistCard.HeaderContainer keys={Route.fullPath} />
                     <ArtistCard.TagContainer activeButton />
                     <ArtistCard.DayContainer />
-                    <ArtistCard.LinkContainer>
+                    <ArtistCard.LinkContainerWrapper>
                       <ArtistCard.DMButton />
-                    </ArtistCard.LinkContainer>
+                      <ArtistCard.LinkContainer />
+                    </ArtistCard.LinkContainerWrapper>
                   </ArtistCard.RightContainer>
                 </ArtistCard>
               );
