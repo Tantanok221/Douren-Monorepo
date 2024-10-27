@@ -10,6 +10,7 @@ import classNames from "classnames/bind";
 import style from "@/routes/artist/Artist.module.css";
 import { usePagination } from "@mantine/hooks";
 import { trpc } from "@/helper";
+import ArtistButton from "@/routes/artist/-components/ArtistButton.tsx";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
@@ -45,7 +46,7 @@ export const ArtistContainer = () => {
                 <ArtistCard.TagContainer size="s" activeButton />
               </div>
               <ArtistCard.LinkContainerWrapper size="s">
-                <ArtistCard.Button size="s" />
+                <ArtistButton size="s" />
                 <ArtistCard.LinkContainer size={"s"}/>
               </ArtistCard.LinkContainerWrapper>
             </ArtistCard.RightContainer>

@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";
 import { Link } from "@tanstack/react-router";
 import { useMediaQuery } from "@mantine/hooks";
-import { useEventDataContext } from "../EventDataContext.ts";
+import {useEventDataContext} from "@lib/ui";
 
 interface Props {
   size?: "s" | "l";
