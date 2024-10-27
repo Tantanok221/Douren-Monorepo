@@ -1,7 +1,5 @@
-import { initializeGlobalStyles } from "./stitches.js";
 import { eventArtistBaseSchemaType } from "@pkg/type";
 
-initializeGlobalStyles();
 
 export const mockArtistEventData: eventArtistBaseSchemaType = {
   uuid: 193,

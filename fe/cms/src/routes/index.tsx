@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DataOperationProvider, FilterContainer, SearchContainer, styled } from "@lib/ui";
+import { DataOperationProvider, FilterContainer, SearchContainer  } from "@lib/ui";
 import { InsertContainer } from "./-components/InsertContainer.tsx";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 

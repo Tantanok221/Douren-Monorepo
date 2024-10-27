@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
-  const [page, setPage] = useState(1);
+  const [page, ] = useState(1);
   const tagFilter = useTagFilter((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
