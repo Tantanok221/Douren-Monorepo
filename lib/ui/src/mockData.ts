@@ -1,6 +1,5 @@
 import { eventArtistBaseSchemaType } from "@pkg/type";
 
-
 export const mockArtistEventData: eventArtistBaseSchemaType = {
   uuid: 193,
   author: "Jen",

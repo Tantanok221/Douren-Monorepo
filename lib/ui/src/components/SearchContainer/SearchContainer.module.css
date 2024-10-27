@@ -12,7 +12,7 @@
   width: 30%;
 }
 
-@media (max-width: 500px) {
+@media (width <= 500px) {
   .searchFilter {
     width: 40%;
   }
