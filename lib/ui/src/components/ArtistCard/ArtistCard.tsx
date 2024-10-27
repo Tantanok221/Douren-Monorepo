@@ -18,7 +18,7 @@ import {
   artistBaseSchemaWithTagType,
   eventArtistBaseSchemaType,
 } from "@pkg/type";
-import {ArtistLinkContainer} from "./subcomponent/ArtistLinkContainer.tsx";
+import { ArtistLinkContainer } from "./subcomponent/ArtistLinkContainer.tsx";
 
 interface ArtistCardProps {
   index?: number;
@@ -61,7 +61,7 @@ ArtistCard.ImageContainer = ImageContainer;
 ArtistCard.Button = ArtistButton;
 ArtistCard.DMButton = ArtistDMButton;
 ArtistCard.LinkContainerWrapper = ArtistLinkContainerStyle;
-ArtistCard.LinkContainer = ArtistLinkContainer
+ArtistCard.LinkContainer = ArtistLinkContainer;
 ArtistCard.TagContainer = ArtistTagContainer;
 ArtistCard.DayContainer = DayContainer;
 ArtistCard.EventBookmarkContainer = EventBookmarkContainer;
