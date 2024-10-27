@@ -1,31 +1,14 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "./-components/Navbar.tsx";
-import { globalStyles, initializeGlobalStyles, styled } from "@lib/ui";
-import { useEffect } from "react";
-
-const RootComponent = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  height: "100vh",
-  alignItems: "center",
-  width: "100%"
-});
-const OutletMargin = styled("div", {
-  padding: "2rem 10.5rem",
-  width: "100%"
-});
 
 const Root = () => {
-  useEffect(() => {
-    initializeGlobalStyles();
-  }, []);
   return (
-    <RootComponent>
+    <div className={"flex flex-col items-center w-full h-screen"}>
       <Navbar />
-      <OutletMargin>
+      <div className={"w-full py-4 px-40"}>
         <Outlet />
-      </OutletMargin>
-    </RootComponent>);
+      </div>
+    </div>);
 };
 
 export const Route = createRootRoute({

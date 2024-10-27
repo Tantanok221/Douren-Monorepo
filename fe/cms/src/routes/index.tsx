@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DataOperationProvider, FilterContainer, SearchContainer, styled } from "@lib/ui";
 import { InsertContainer } from "./-components/InsertContainer.tsx";
+import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 
 export const Route = createFileRoute("/")({
   component: Index
@@ -16,27 +17,16 @@ const sortItem = [
 
 function Index() {
   console.log("Hello From Index");
-  return <IndexWrapper>
+  return <div className={"flex flex-col w-full gap-8"}>
     <DataOperationProvider>
-      <ContainerWrapper>
+      <div className={"flex flex-col w-full gap-6"}>
         <SearchContainer />
         <FilterContainer sortItem={sortItem} />
         <InsertContainer/>
-      </ContainerWrapper>
+      </div>
+      <div>
+        <ArtistContainer/>
+      </div>
     </DataOperationProvider>
-  </IndexWrapper>;
+  </div>;
 }
-
-const ContainerWrapper = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  gap: "1.5rem"
-});
-
-const IndexWrapper = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  gap: "2rem",
-});
