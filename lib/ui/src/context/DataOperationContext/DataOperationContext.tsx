@@ -7,10 +7,10 @@ import { TagObject } from "../../stores";
 
 interface Prop {
   children: React.ReactNode;
-  tag: TagObject[] | undefined
+  tag: TagObject[] | undefined;
 }
 
-export const DataOperationProvider = ({ tag,children }: Prop) => {
+export const DataOperationProvider = ({ tag, children }: Prop) => {
   if (!tag) return null;
   return (
     <SortSelectContextProvider defaultValue="Author_Main(Author),asc">
