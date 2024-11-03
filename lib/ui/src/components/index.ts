@@ -3,6 +3,7 @@
  */
 
 export * from "./ArtistCard/index";
+export * from "./Button/index";
 export * from "./DMButton/index";
 export * from "./FilterContainer/index";
 export * from "./LazyImage/index";

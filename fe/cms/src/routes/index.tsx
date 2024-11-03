@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DataOperationProvider, FilterContainer, SearchContainer  } from "@lib/ui";
+import { DataOperationProvider, FilterContainer, SearchContainer, TagFilterContextProvider } from "@lib/ui";
 import { InsertContainer } from "./-components/InsertContainer.tsx";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 
@@ -19,14 +19,14 @@ function Index() {
   console.log("Hello From Index");
   return <div className={"flex flex-col w-full gap-8"}>
     <DataOperationProvider>
-      <div className={"flex flex-col w-full gap-6"}>
-        <SearchContainer />
-        <FilterContainer sortItem={sortItem} />
-        <InsertContainer/>
-      </div>
-      <div>
-        <ArtistContainer/>
-      </div>
+        <div className={"flex flex-col w-full gap-6"}>
+          <SearchContainer />
+          <FilterContainer sortItem={sortItem} />
+          <InsertContainer />
+        </div>
+        <div>
+          <ArtistContainer />
+        </div>
     </DataOperationProvider>
   </div>;
 }
