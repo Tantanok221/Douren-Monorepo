@@ -3,14 +3,14 @@ import { SearchColumnContextProvider } from "../SearchColumnContext";
 import { PaginationContextProvider } from "../PaginationContext";
 import { SearchContextProvider } from "../SearchContext";
 import { TagFilterContextProvider } from "../TagFilterContext";
-import { useFetchTagData } from "doujinbooth/src/hooks";
+import { TagObject } from "../../stores";
 
 interface Prop {
   children: React.ReactNode;
+  tag: TagObject[] | undefined
 }
 
-export const DataOperationProvider = ({ children }: Prop) => {
-  const tag = useFetchTagData();
+export const DataOperationProvider = ({ tag,children }: Prop) => {
   if (!tag) return null;
   return (
     <SortSelectContextProvider defaultValue="Author_Main(Author),asc">
