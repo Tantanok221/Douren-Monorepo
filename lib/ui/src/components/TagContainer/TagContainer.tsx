@@ -2,7 +2,7 @@ import React from "react";
 import style from "./TagContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { TagObject } from "../../stores/useTagFilter";
+import { TagObject } from "../../stores";
 import { useTagFilterContext } from "../../context";
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
 }
 
 export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
-  const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const addTagFilter = useTagFilterContext((state) => state.addTagFilter);
   const removeTagFilter = useTagFilterContext((state) => state.removeTagFilter);
   const checked = useTagFilterContext((state) => state.checked);
@@ -33,7 +32,7 @@ export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
   const sx = classNames.bind(style);
   return (
     <>
-      {renderTag.map((val, index) => {
+      {renderTag.map((val) => {
         if (!val.tag) return null;
         if (!val.index) return null;
         const active = checked[val.index];
@@ -49,7 +48,7 @@ export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
               className={sx(
                 "tagDescription",
                 { activeTagCount: active },
-                { smallText: size === "s" }
+                { smallText: size === "s" },
               )}
             >
               {val.tag}
@@ -58,7 +57,7 @@ export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
               className={sx(
                 "tagCount",
                 { activeTagDescription: active },
-                { smallText: size === "s" }
+                { smallText: size === "s" },
               )}
             >
               {val.count}

@@ -46,7 +46,7 @@ export const TagFilter = () => {
 
         <Popover.Content align={"start"} className={sx("tagContainer")}>
           <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
-            {allFilter.map((item, index) => {
+            {allFilter.map((item) => {
               if (!item.index) return null;
               return <TagItem key={item.tag} data={item} index={item.index} />;
             })}

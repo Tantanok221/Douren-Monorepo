@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
 import { createFileRoute } from "@tanstack/react-router";
-import { DataOperationProvider, FilterContainer, SearchBox, TagFilterContextProvider } from "@lib/ui";
+import { DataOperationProvider, FilterContainer, SearchBox } from "@lib/ui";
 import { Animate } from "@/components";
 import { ArtistContainer } from "@/routes/artist/-components/ArtistContainer.tsx";
 

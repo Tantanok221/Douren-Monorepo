@@ -45,7 +45,7 @@ const EventContainer = () => {
       <div className={sx("ArtistContainer")}>
         <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
           <Masonry gutter="32px">
-            {res.data.data.map((item, index) => {
+            {res.data.data.map((item) => {
               return (
                 <ArtistCard
                   key={`${item.boothName} ${item.author}`}
