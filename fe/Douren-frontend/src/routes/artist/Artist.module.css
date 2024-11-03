@@ -5,7 +5,36 @@
   align-content: stretch;
   gap: 3.5rem;
   flex-wrap: wrap;
-  max-width: 1300px;
+  width: 100%;
+}
+
+
+.artistButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  color: #000;
+  background: #fb6363;
+  border: none;
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.artistButton:hover {
+  background: #f47878;
+}
+
+.smallText {
+  font-size: 0.9rem;
 }
 
 .artistPage {

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../style.module.css";
+import styles from "../Artist.module.css";
 import classNames from "classnames/bind";
 import { IconContext } from "react-icons";
 import { IoLibraryOutline } from "react-icons/io5";
