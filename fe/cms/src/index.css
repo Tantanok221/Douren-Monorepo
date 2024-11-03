@@ -41,3 +41,9 @@ html {
     object-fit: contain;
     border-radius: 8px;
 }
+
+@layer base {
+  :root {
+        --radius: 0.5rem;
+    }
+}
