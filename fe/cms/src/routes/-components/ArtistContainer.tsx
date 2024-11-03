@@ -1,21 +1,35 @@
 import { trpc } from "../../helper/trpc.ts";
-import { ArtistCard, useSearchContext, useSortSelectContext,  useTagFilterContext } from "@lib/ui";
+import {
+  ArtistCard,
+  Pagination,
+  usePaginationContext,
+  useSearchContext,
+  useSortSelectContext,
+  useTagFilterContext
+} from "@lib/ui";
 import React, { useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { EditButton } from "../../components/EditButton.tsx";
+import { usePagination } from "@mantine/hooks";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
-  const [page] = useState(1);
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
+  const [page, setPage] = usePaginationContext();
   const res = trpc.artist.getArtist.useQuery({
     search: search,
     searchTable: "",
     page: String(page),
     sort: sortSelect,
     tag: allTag
+  });
+  const pagination = usePagination({
+    total: res?.data?.totalPage ?? 20,
+    page,
+    siblings: 2,
+    onChange: setPage
   });
   if (!res.data) return null;
   console.log(res.data);
@@ -39,5 +53,8 @@ export const ArtistContainer = () => {
         ))}
       </Masonry>
     </ResponsiveMasonry>
+    <div className={"w-full flex justify-center"}>
+    <Pagination pagination={pagination} />
+    </div>
   </>;
 };

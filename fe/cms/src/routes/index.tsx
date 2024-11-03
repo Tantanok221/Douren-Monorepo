@@ -26,7 +26,7 @@ function Index() {
         <FilterContainer sortItem={sortItem} />
         <InsertContainer />
       </div>
-      <div>
+      <div className={"flex flex-col"}>
         <ArtistContainer />
       </div>
     </DataOperationProvider>
