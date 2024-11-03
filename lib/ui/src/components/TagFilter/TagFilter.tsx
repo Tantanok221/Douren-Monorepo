@@ -6,12 +6,11 @@ import * as Popover from "@radix-ui/react-popover";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import { TagItem } from "./subcomponent";
-import { useTagFilter } from "@lib/ui/src/stores/useTagFilter";
-import { usePaginationContext } from "@lib/ui";
+import { usePaginationContext, useTagFilterContext } from "@lib/ui";
 export const TagFilter = () => {
   const sx = classNames.bind(style);
-  const allFilter = useTagFilter((state) => state.allFilter);
-  const tagFilter = useTagFilter((state) => state.tagFilter);
+  const allFilter = useTagFilterContext((state) => state.allFilter);
+  const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const [, setPage] = usePaginationContext();
   useEffect(() => {
     setPage(1);

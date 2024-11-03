@@ -1,16 +1,14 @@
 import React from "react";
 import style from "./Artist.module.css";
 import classNames from "classnames/bind";
-import { usePageInit } from "@/hooks/usePageInit.ts";
 import { createFileRoute } from "@tanstack/react-router";
-import { DataOperationProvider, FilterContainer, SearchBox } from "@lib/ui";
+import { DataOperationProvider, FilterContainer, SearchBox, TagFilterContextProvider } from "@lib/ui";
 import { Animate } from "@/components";
 import { ArtistContainer } from "@/routes/artist/-components/ArtistContainer.tsx";
 
 const sortItem = [{ text: "排序: 作者名稱", value: "Author_Main(Author)" }];
 
 const Artist = () => {
-  usePageInit();
   const sx = classNames.bind(style);
 
   return (

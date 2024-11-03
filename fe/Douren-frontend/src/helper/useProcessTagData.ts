@@ -1,7 +1,7 @@
-import { TagObject, useTagFilter } from "@lib/ui";
+import { TagObject,  useTagFilterContext } from "@lib/ui";
 
 export function useProcessTagData(allTag: string[]) {
-  const getTag = useTagFilter((state) => state.getTag);
+  const getTag = useTagFilterContext((state) => state.getTag);
   allTag?.filter((item) => item !== "");
   allTag = allTag?.map((item, index) => {
     return item.trim();

@@ -6,7 +6,7 @@ import {
   DataOperationProvider,
   FilterContainer,
   SearchContainer,
-  useTagFilter
+  useTagFilterContext
 } from "@lib/ui";
 import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
@@ -24,7 +24,7 @@ const sortItem = [
 ];
 function EventName() {
   const tag = trpc.tag.getTag.useQuery();
-  const setAllTag = useTagFilter((state) => state.setAllFilter);
+  const setAllTag = useTagFilterContext((state) => state.setAllFilter);
   useEffect(() => {
     if (tag.data) {
       setAllTag(tag.data);

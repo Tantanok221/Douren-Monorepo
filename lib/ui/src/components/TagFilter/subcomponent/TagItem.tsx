@@ -3,7 +3,8 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import style from "../TagFilter.module.css";
 import classNames from "classnames/bind";
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
-import { TagObject, useTagFilter } from "@lib/ui/src/stores/useTagFilter";
+import { TagObject } from "@lib/ui/src/stores/useTagFilter";
+import { useTagFilterContext } from "../../../context";
 
 interface Props {
   data: TagObject;
@@ -13,10 +14,10 @@ interface Props {
 export const TagItem = ({ data, index }: Props) => {
   const sx = classNames.bind(style);
   const { tag } = data;
-  const addTagFilter = useTagFilter((state) => state.addTagFilter);
-  const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
-  const checked = useTagFilter((state) => state.checked); // any to avoid type error cause by third party
-  const setChecked = useTagFilter((state) => state.setChecked);
+  const addTagFilter = useTagFilterContext((state) => state.addTagFilter);
+  const removeTagFilter = useTagFilterContext((state) => state.removeTagFilter);
+  const checked = useTagFilterContext((state) => state.checked); // any to avoid type error cause by third party
+  const setChecked = useTagFilterContext((state) => state.setChecked);
   return (
     <Checkbox.Root
       className={sx("tagItem")}

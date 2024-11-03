@@ -3,4 +3,4 @@
  */
 
 export * from "./useArtistLoader";
-export * from "./usePageInit";
+export * from "./useFetchTagData";

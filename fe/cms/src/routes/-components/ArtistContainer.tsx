@@ -1,12 +1,13 @@
-import {trpc} from "../../helper/trpc.ts";
-import {ArtistCard, useSearchContext, useSortSelectContext, useTagFilter} from "@lib/ui";
-import React, {useState} from "react";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
+import { trpc } from "../../helper/trpc.ts";
+import { ArtistCard, useSearchContext, useSortSelectContext,  useTagFilterContext } from "@lib/ui";
+import React, { useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { EditButton } from "../../components/EditButton.tsx";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
-  const [page,] = useState(1);
-  const tagFilter = useTagFilter((state) => state.tagFilter);
+  const [page] = useState(1);
+  const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
   const res = trpc.artist.getArtist.useQuery({
@@ -14,28 +15,29 @@ export const ArtistContainer = () => {
     searchTable: "",
     page: String(page),
     sort: sortSelect,
-    tag: allTag,
+    tag: allTag
   });
   if (!res.data) return null;
-  console.log(res.data)
+  console.log(res.data);
   return <>
-    <ResponsiveMasonry columnsCountBreakPoints={{200: 1, 700: 2}}>
+    <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2, 900: 4 }}>
       <Masonry gutter="32px">
         {res.data.data?.map((item, index) => (
           <ArtistCard key={index} data={item}>
             <ArtistCard.RightContainer>
-            <ArtistCard.ImageContainer/>
+              <ArtistCard.ImageContainer />
               {/*<div className={sx("rightHeaderContainer")}>*/}
               <div>
-                <ArtistCard.HeaderContainer/>
-                <ArtistCard.TagContainer size="s" activeButton/>
+                <ArtistCard.HeaderContainer />
+                <ArtistCard.TagContainer size="s" activeButton />
               </div>
               <ArtistCard.LinkContainerWrapper size="s">
+                <EditButton />
               </ArtistCard.LinkContainerWrapper>
             </ArtistCard.RightContainer>
           </ArtistCard>
         ))}
       </Masonry>
     </ResponsiveMasonry>
-  </>
-}
+  </>;
+};
