@@ -8,7 +8,7 @@ interface setValueProps<T extends FieldValues> {
   control: SetFieldValue<T>;
 }
 
-function FormTagFilterComponent<T extends FieldValues>({ control }: setValueProps<T>, ref: React.Ref<HTMLDivElement>) {
+function FormTagFilterComponent<T extends FieldValues>({ control }: setValueProps<T>, ref?: React.Ref<HTMLDivElement>) {
   const tag = useFetchTagData();
   if (!tag) return <></>;
   return (
@@ -18,11 +18,9 @@ function FormTagFilterComponent<T extends FieldValues>({ control }: setValueProp
   );
 }
 
-export const FormTagFilter = forwardRef(FormTagFilterComponent) as <T extends FieldValues>(
-  props: setValueProps<T> & { ref?: React.Ref<HTMLDivElement> }
-) => ReturnType<typeof FormTagFilterComponent>;
+export const FormTagFilter = forwardRef(FormTagFilterComponent)
 
-const FormTagFilterBaseComponent = <T extends FieldValues>({ control }: setValueProps<T>, ref: React.Ref<HTMLDivElement>) => {
+const FormTagFilterBaseComponent = <T extends FieldValues>({ control }: setValueProps<T>, ref?: React.Ref<HTMLDivElement>) => {
   const allFilter = useTagFilterContext((state) => state.allFilter);
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   useEffect(() => {
@@ -33,6 +31,4 @@ const FormTagFilterBaseComponent = <T extends FieldValues>({ control }: setValue
   </Form.Control>;
 };
 
-const FormTagFilterBase = forwardRef(FormTagFilterBaseComponent) as <T extends FieldValues>(props: setValueProps<T> & {
-  ref?: React.Ref<HTMLDivElement>
-}) => ReturnType<typeof FormTagFilterBaseComponent>;
+const FormTagFilterBase = forwardRef(FormTagFilterBaseComponent)
