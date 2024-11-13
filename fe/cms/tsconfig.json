@@ -25,5 +25,6 @@
   "references": [
     { "path": "./tsconfig.node.json" },
     { "path": "../../be/douren-backend/tsconfig.json" }
-  ]
+  ],
+  "include": ["src"]
 }
