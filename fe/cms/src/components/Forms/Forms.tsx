@@ -12,9 +12,8 @@ import {
 } from "./subcomponent";
 
 interface props extends FormProps {
-  children: ReactNode
+  children: ReactNode;
 }
-
 
 interface CompoundForm extends React.FC<props> {
   Label: typeof FormsLabel;
@@ -23,11 +22,11 @@ interface CompoundForm extends React.FC<props> {
   FormLabelMessageStyle: typeof FormLabelMessageStyle;
   Control: typeof FormControl;
   Submit: typeof FormSubmit;
-  TagFilter : typeof FormTagFilter
+  TagFilter: typeof FormTagFilter;
 }
 
 
-const FormsComponent = forwardRef<HTMLFormElement,props>(({children,...rest},ref) => {
+const FormsComponent = forwardRef<HTMLFormElement, props>(({ children, ...rest }, ref) => {
   return (<Form.Root ref={ref} {...rest} className={"gap-6 flex flex-col w-full"}>
     {children}
   </Form.Root>);
@@ -41,5 +40,5 @@ export const Forms = Object.assign(FormsComponent, {
   FormLabelMessageStyle: FormLabelMessageStyle,
   Control: FormControl,
   Submit: FormSubmit,
-  TagFilter: FormTagFilter,
+  TagFilter: FormTagFilter
 }) as CompoundForm;

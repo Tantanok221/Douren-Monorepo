@@ -37,17 +37,17 @@ function Artist() {
             <Forms.Control
               {...register("artistName", { required: true })} />
           </Forms.Field>
-          {/*<Forms.Field name={"tag"}>*/}
-          {/*  <Forms.FormLabelMessageStyle>*/}
-          {/*    <Forms.Label>*/}
-          {/*      {"藝人名字"}*/}
-          {/*    </Forms.Label>*/}
-          {/*    <Forms.Message condition={errors.artistName?.type === "required"}>*/}
-          {/*      {"請輸入藝人名字"}*/}
-          {/*    </Forms.Message>*/}
-          {/*  </Forms.FormLabelMessageStyle>*/}
-          {/*  <Forms.TagFilter control={setValue}/>*/}
-          {/*</Forms.Field>*/}
+          <Forms.Field name={"tag"}>
+            <Forms.FormLabelMessageStyle>
+              <Forms.Label>
+                {"藝人名字"}
+              </Forms.Label>
+              <Forms.Message condition={errors.artistName?.type === "required"}>
+                {"請輸入藝人名字"}
+              </Forms.Message>
+            </Forms.FormLabelMessageStyle>
+            <Forms.TagFilter control={setValue}/>
+          </Forms.Field>
         </Forms.FormLabelMessageStyle>
         <Forms.Submit>
           下一步 <ArrowRight />
