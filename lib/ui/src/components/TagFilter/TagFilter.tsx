@@ -23,49 +23,53 @@ interface PureTagFilterProps {
   selectedTag: TagObject[];
 }
 
-export const PureTagFilter = forwardRef<HTMLDivElement,PureTagFilterProps>(({ allTag, selectedTag },ref) => {
-  const sx = classNames.bind(style);
-  if (!allTag) return <></>;
-  return (
-    <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
-      <Popover.Root>
-        <Popover.Trigger asChild>
-          <motion.div
-            ref={ref}
-            whileHover={{
-              backgroundColor: "#4D4D4D",
-            }}
-            className={sx("popoverTrigger")}
-          >
-            <div className={sx("buttonContainer") + " noSelect"}>
-              <div className={sx("buttonText")}>
-                標簽:
-                {selectedTag.length === 0 ? " 全部" : null}
-                {selectedTag.length <= 3 && selectedTag.length !== 0
-                  ? " " +
-                    selectedTag.map((item) => {
-                      return item.tag;
-                    })
-                  : null}
-                {selectedTag.length > 3
-                  ? " " + selectedTag.length + " 個標簽"
-                  : null}
+export const PureTagFilter = forwardRef<HTMLDivElement, PureTagFilterProps>(
+  ({ allTag, selectedTag }, ref) => {
+    const sx = classNames.bind(style);
+    if (!allTag) return <></>;
+    return (
+      <IconContext.Provider value={{ color: "AAAAAA", size: "1.25rem" }}>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <motion.div
+              ref={ref}
+              whileHover={{
+                backgroundColor: "#4D4D4D",
+              }}
+              className={sx("popoverTrigger")}
+            >
+              <div className={sx("buttonContainer") + " noSelect"}>
+                <div className={sx("buttonText")}>
+                  標簽:
+                  {selectedTag.length === 0 ? " 全部" : null}
+                  {selectedTag.length <= 3 && selectedTag.length !== 0
+                    ? " " +
+                      selectedTag.map((item) => {
+                        return item.tag;
+                      })
+                    : null}
+                  {selectedTag.length > 3
+                    ? " " + selectedTag.length + " 個標簽"
+                    : null}
+                </div>
+                <IoChevronDownOutline />
               </div>
-              <IoChevronDownOutline />
-            </div>
-          </motion.div>
-        </Popover.Trigger>
+            </motion.div>
+          </Popover.Trigger>
 
-        <Popover.Content align={"start"} className={sx("tagContainer")}>
-          <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
-            {allTag.map((item) => {
-              if (!item.index) return null;
-              return <TagItem key={item.tag} data={item} index={item.index} />;
-            })}
-          </IconContext.Provider>
-        </Popover.Content>
-      </Popover.Root>
-    </IconContext.Provider>
-  );
-})
-PureTagFilter.displayName = "PureTagFilter"
+          <Popover.Content align={"start"} className={sx("tagContainer")}>
+            <IconContext.Provider value={{ color: "AAAAAA", size: "1.5rem" }}>
+              {allTag.map((item) => {
+                if (!item.index) return null;
+                return (
+                  <TagItem key={item.tag} data={item} index={item.index} />
+                );
+              })}
+            </IconContext.Provider>
+          </Popover.Content>
+        </Popover.Root>
+      </IconContext.Provider>
+    );
+  },
+);
+PureTagFilter.displayName = "PureTagFilter";
