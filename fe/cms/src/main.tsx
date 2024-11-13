@@ -11,7 +11,13 @@ import { trpc } from "./helper/trpc.ts";
 // Create a new router instance
 const router = createRouter({ routeTree });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+  queries: {
+    gcTime: 1000 * 60 * 5 // 5 minute
+  }
+  }
+});
 const trpcClient = trpc.createClient({
   links: [
     httpLink({
