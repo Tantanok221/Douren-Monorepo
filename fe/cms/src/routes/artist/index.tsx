@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ArrowRight } from "@phosphor-icons/react";
-import { Forms } from "../../components";
+import { Forms } from "@/components";
 import { TagObject } from "@lib/ui";
 
 export const Route = createFileRoute("/artist/")({

@@ -2,7 +2,7 @@ import { FieldValues, SetFieldValue } from "react-hook-form";
 import { PureTagFilter, TagFilterContextProvider, useTagFilterContext } from "@lib/ui";
 import { forwardRef, useEffect } from "react";
 import * as Form from "@radix-ui/react-form";
-import { useFetchTagData } from "../../../hooks";
+import { useFetchTagData } from "@/hooks";
 
 interface setValueProps<T extends FieldValues> {
   control: SetFieldValue<T>;

@@ -9,7 +9,7 @@ import {
 } from "@lib/ui";
 import React, { useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { EditButton } from "../../components/EditButton.tsx";
+import { EditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";
 
 export const ArtistContainer = () => {

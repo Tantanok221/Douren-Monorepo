@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DataOperationProvider, FilterContainer, SearchContainer } from "@lib/ui";
 import { InsertContainer } from "./-components/InsertContainer.tsx";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
-import { useFetchTagData } from "../hooks";
+import { useFetchTagData } from "@/hooks";
 
 export const Route = createFileRoute("/")({
   component: Index
