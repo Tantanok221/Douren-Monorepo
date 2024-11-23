@@ -4,3 +4,4 @@
 
 export * from "./EditButton";
 export * from "./Forms/index";
+export * from "./RichForm/index";

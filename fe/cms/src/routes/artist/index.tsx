@@ -5,22 +5,19 @@ import { ZodTagObject } from "@lib/ui";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Forms } from "../../components";
-import { InputTextField, TagFilterField } from "../../components/Forms/RichForm.tsx";
+import { ZodLinkObject } from "../../helper/ConvertLinkSchemaToObject.ts";
+import { InputTextField,  TagFilterField } from "../../components/RichForm/RichForm.tsx";
+import { LinkFormField } from "../../components/RichForm/LinkForm.tsx";
 
 export const Route = createFileRoute("/artist/")({
   component: Artist
 });
 
-const ZodLinkObject = z.object({
-  LinkType: z.string(),
-  LinkUrl: z.string()
-});
-
 const formSchema = z.object({
   introduction: z.string(),
   artistName: z.string().min(1, { message: "請輸入名字" }),
-  tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" })
-  // links: z.array(ZodLinkObject)
+  tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
+  links: z.array(ZodLinkObject)
 });
 
 type FormSchema = z.infer<typeof formSchema>
@@ -42,14 +39,7 @@ function Artist() {
           <InputTextField formField={"introduction"} label={"自我介紹"} />
         </Forms.HorizontalLayout>
         <TagFilterField formField={"tag"} label={"標簽"} />
-        <Forms.Field name={"link"}>
-          <Forms.HorizontalLayout>
-            <Forms.Label>
-              {"鏈接"}
-            </Forms.Label>
-            <Forms.Button extendClass={"border-formBorder border"} type={"button"}>{"添加鏈接"}</Forms.Button>
-          </Forms.HorizontalLayout>
-        </Forms.Field>
+        <LinkFormField formField={"links"} label={"鏈接"} />
 
         <Forms.Submit>
           下一步 <ArrowRight />

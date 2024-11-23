@@ -1,4 +1,4 @@
-import { Forms } from "./Forms.tsx";
+import { Forms } from "../Forms";
 
 interface Props {
   label: React.ReactNode;
