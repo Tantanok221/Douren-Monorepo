@@ -3,26 +3,27 @@ import { PureTagFilter, TagFilterContextProvider, useTagFilterContext } from "@l
 import { forwardRef, Ref, useEffect } from "react";
 import * as Form from "@radix-ui/react-form";
 import { useFetchTagData } from "@/hooks";
+import { useFormFieldContext } from "../context/FormFieldContext.ts";
 
 
-
-export const FormTagFilter = forwardRef((props: unknown,ref: Ref<HTMLDivElement>) => {
+export const FormTagFilter = forwardRef((props: unknown, ref: Ref<HTMLDivElement>) => {
   const tag = useFetchTagData();
   if (!tag) return <></>;
   return (
     <TagFilterContextProvider allFilter={tag}>
-      <FormTagFilterBase  ref={ref} />
+      <FormTagFilterBase ref={ref} />
     </TagFilterContextProvider>
   );
 });
 
 
-export const FormTagFilterBase = forwardRef((props:unknown ,ref: Ref<HTMLDivElement>) => {
+export const FormTagFilterBase = forwardRef((props: unknown, ref: Ref<HTMLDivElement>) => {
   const { setValue } = useFormContext();
+  const { name } = useFormFieldContext();
   const allFilter = useTagFilterContext((state) => state.allFilter);
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   useEffect(() => {
-    setValue("tag", tagFilter);
+    setValue(name, tagFilter);
   }, [setValue, tagFilter]);
   return <Form.Control asChild>
     <PureTagFilter ref={ref} allTag={allFilter} selectedTag={tagFilter} />
