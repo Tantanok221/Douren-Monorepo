@@ -28,9 +28,7 @@ export const FormMessage = () => {
   const {
     formState: { errors }
   } = useFormContext();
-
   const { name } = useFormFieldContext();
-  console.log(errors[name])
   return errors[name] ?
     <Form.Message className={"text-tagText font-sans w-full text-right"}> {String(errors[name]?.message)} </Form.Message> : null;
 };

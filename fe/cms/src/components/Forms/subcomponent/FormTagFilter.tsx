@@ -1,34 +1,30 @@
-import { FieldValues, SetFieldValue } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { PureTagFilter, TagFilterContextProvider, useTagFilterContext } from "@lib/ui";
-import { forwardRef, useEffect } from "react";
+import { forwardRef, Ref, useEffect } from "react";
 import * as Form from "@radix-ui/react-form";
 import { useFetchTagData } from "@/hooks";
 
-interface setValueProps<T extends FieldValues> {
-  control: SetFieldValue<T>;
-}
 
-function FormTagFilterComponent<T extends FieldValues>({ control }: setValueProps<T>, ref?: React.Ref<HTMLDivElement>) {
+
+export const FormTagFilter = forwardRef((props: unknown,ref: Ref<HTMLDivElement>) => {
   const tag = useFetchTagData();
   if (!tag) return <></>;
   return (
     <TagFilterContextProvider allFilter={tag}>
-      <FormTagFilterBase control={control} ref={ref} />
+      <FormTagFilterBase  ref={ref} />
     </TagFilterContextProvider>
   );
-}
+});
 
-export const FormTagFilter = forwardRef(FormTagFilterComponent)
 
-const FormTagFilterBaseComponent = <T extends FieldValues>({ control }: setValueProps<T>, ref?: React.Ref<HTMLDivElement>) => {
+export const FormTagFilterBase = forwardRef((props:unknown ,ref: Ref<HTMLDivElement>) => {
+  const { setValue } = useFormContext();
   const allFilter = useTagFilterContext((state) => state.allFilter);
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   useEffect(() => {
-    control("tag", tagFilter);
-  }, [control, tagFilter]);
+    setValue("tag", tagFilter);
+  }, [setValue, tagFilter]);
   return <Form.Control asChild>
     <PureTagFilter ref={ref} allTag={allFilter} selectedTag={tagFilter} />
   </Form.Control>;
-};
-
-const FormTagFilterBase = forwardRef(FormTagFilterBaseComponent)
+});

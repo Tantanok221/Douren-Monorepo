@@ -10,10 +10,10 @@ export interface TagObject {
 }
 
 export const ZodTagObject = z.object({
-    tag: z.string(),
-    count: z.number(),
-    index: z.number()
-})
+  tag: z.string(),
+  count: z.number(),
+  index: z.number(),
+});
 
 interface TagFilter {
   allFilter: TagObject[];
