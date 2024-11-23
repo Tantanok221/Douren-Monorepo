@@ -1,58 +1,85 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ArrowRight } from "@phosphor-icons/react";
-import { Forms } from "@/components";
-import { TagObject } from "@lib/ui";
+import { ZodTagObject } from "@lib/ui";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Forms } from "../../components";
 
 export const Route = createFileRoute("/artist/")({
   component: Artist
 });
 
-interface ArtistInput {
-  artistName: string;
-  tag: TagObject[];
-  introduction: string;
-}
+const ZodLinkObject = z.object({
+  LinkType: z.string(),
+  LinkUrl: z.string()
+});
 
-const onSubmit: SubmitHandler<ArtistInput> = (data) => console.log(data);
+const formSchema = z.object({
+  introduction: z.string(),
+  artistName: z.string().min(1, { message: "請輸入名字" }),
+  tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
+  // links: z.array(ZodLinkObject)
+});
+
+type FormSchema = z.infer<typeof formSchema>
+
+const onSubmit: SubmitHandler<FormSchema> = (data) => console.log(data);
 
 function Artist() {
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<ArtistInput>();
+  const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
+   const {
+      formState: { errors },
+    setValue,
+  } = formHook
+  console.log(errors)
   return (
     <div className={"flex flex-col px-6 py-8 w-full gap-8 bg-panel rounded-2xl justify-center items-start "}>
       <div className={"text-2xl font-sans font-semibold text-white"}>
         {"基本資訊"}
       </div>
-      <Forms onSubmit={handleSubmit(onSubmit)}>
-        <Forms.FormLabelMessageStyle>
+      <Forms.Root
+        OnSubmit={onSubmit}
+        formHook={formHook}>
+        <Forms.HorizontalLayout>
           <Forms.Field name={"artistName"}>
-            <Forms.FormLabelMessageStyle>
+            <Forms.HorizontalLayout>
               <Forms.Label>
-                {"藝人名字"}
+                {"名字"}
               </Forms.Label>
-              <Forms.Message condition={errors.artistName?.type === "required"}>
-                {"請輸入藝人名字"}
-              </Forms.Message>
-            </Forms.FormLabelMessageStyle>
-            <Forms.Control
-              {...register("artistName", { required: true })} />
+              <Forms.Message />
+            </Forms.HorizontalLayout>
+            <Forms.Control/>
           </Forms.Field>
-          <Forms.Field name={"tag"}>
-            <Forms.FormLabelMessageStyle>
-              <Forms.Label>
-                {"藝人名字"}
-              </Forms.Label>
-              <Forms.Message condition={errors.artistName?.type === "required"}>
-                {"請輸入藝人名字"}
-              </Forms.Message>
-            </Forms.FormLabelMessageStyle>
-            <Forms.TagFilter control={setValue}/>
+          <Forms.Field name={"introduction"}>
+            <Forms.Label>
+              {"自我介紹"}
+            </Forms.Label>
+            <Forms.Control  />
           </Forms.Field>
-        </Forms.FormLabelMessageStyle>
+        </Forms.HorizontalLayout>
+        <Forms.Field name={"tag"}>
+          <Forms.HorizontalLayout>
+            <Forms.Label>
+              {"標簽"}
+            </Forms.Label>
+            <Forms.Message />
+          </Forms.HorizontalLayout>
+          <Forms.TagFilter control={setValue} />
+        </Forms.Field>
+        <Forms.Field name={"link"}>
+          <Forms.HorizontalLayout>
+            <Forms.Label>
+              {"鏈接"}
+            </Forms.Label>
+            <Forms.Button extendClass={"border-formBorder border"} type={"button"}>{"添加鏈接"}</Forms.Button>
+          </Forms.HorizontalLayout>
+        </Forms.Field>
+
         <Forms.Submit>
           下一步 <ArrowRight />
         </Forms.Submit>
-      </Forms>
+      </Forms.Root>
     </div>
   );
 }

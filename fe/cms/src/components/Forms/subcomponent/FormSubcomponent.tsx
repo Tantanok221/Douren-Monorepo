@@ -1,54 +1,77 @@
 import * as Form from "@radix-ui/react-form";
 import { FormControlProps } from "@radix-ui/react-form";
-import { forwardRef, ReactNode } from "react";
+import { ReactNode } from "react";
+import { useFormContext } from "react-hook-form";
+import { useFormFieldContext } from "../context/FormFieldContext.ts";
+import { FormFieldContextProvider } from "../context/FormFieldContextProvider.tsx";
 
 interface childrenProps {
   children: ReactNode;
 }
 
-interface messageProps {
-  condition: boolean;
-}
 
 interface nameProps {
   name: string;
 }
 
+interface extendClassProps {
+  extendClass?: string;
+}
+
 export const FormsLabel = ({ children }: childrenProps) => {
-  return (<Form.Label className={"text-white font-sans"}>
+  return (<Form.Label className={"text-white font-sans w-full"}>
     {children}
   </Form.Label>);
 };
 
-export const FormMessage = ({ children, condition }: messageProps & childrenProps) => {
-  return condition ?
-    <Form.Message className={"text-tagText font-sans "}> {children} </Form.Message> : null;
+export const FormMessage = () => {
+  const {
+    formState: { errors }
+  } = useFormContext();
+
+  const { name } = useFormFieldContext();
+  console.log(errors[name])
+  return errors[name] ?
+    <Form.Message className={"text-tagText font-sans w-full text-right"}> {String(errors[name]?.message)} </Form.Message> : null;
 };
 
 export const FormField = ({ children, name }: childrenProps & nameProps) => {
-  return <Form.Field className={"flex flex-col gap-1 w-full"} name={name}>{children}</Form.Field>;
+  return <FormFieldContextProvider name={name}>
+    <Form.Field className={"flex flex-col gap-1 w-full"} name={name}>{children}</Form.Field>
+  </FormFieldContextProvider>;
 };
 
 // Form Label and Message gap
-export const FormLabelMessageStyle = ({ children }: childrenProps) => {
+export const HorizontalLayout = ({ children }: childrenProps) => {
   return <div className={"flex flex-row justify-between gap-6 text-tagText font-sans"}>
     {children}</div>;
 };
 
-export const FormControl = forwardRef<HTMLInputElement, FormControlProps>((props, ref) => {
-  return <Form.Control
+export const FormControl = ({ ...props }: FormControlProps) => {
+  const { name } = useFormFieldContext();
+  const { control } = useFormContext();
+  return <input
     className={"border text-tagText px-2 border-formBorder bg-transparent rounded"}
     {...props}
-    ref={ref}
-  />;
-});
+    {...control.register(name)} />;
+};
 
+type FormButtonProps = extendClassProps & React.ComponentPropsWithRef<"button">;
+export const FormButton = ({ extendClass, children, ...rest }: FormButtonProps) => {
+  return (
+    <button
+      className={"w-full rounded-lg items-center justify-center py-1 flex gap-[3px] " + extendClass}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+};
 
 export const FormSubmit = ({ children }: childrenProps) => {
   return <Form.Submit asChild>
-    <button
-      className={"w-full bg-white rounded-lg items-center justify-center py-1 flex gap-[3px] "}>
+    <FormButton extendClass={"bg-white"} type={"submit"}>
       {children}
-    </button>
+    </FormButton>
   </Form.Submit>;
 };

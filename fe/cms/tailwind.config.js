@@ -8,6 +8,7 @@ export default {
   theme: {
     colors: {
       background: "#111",
+      black: "#000000",
       day: "#cbc3c3",
       link: "#cbc3c3",
       linkPanel: "#3c3c3c",
