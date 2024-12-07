@@ -1,4 +1,4 @@
-import { trpc } from "../../helper/trpc.ts";
+import { trpc } from "../../helper";
 import {
   ArtistCard,
   Pagination,
@@ -7,7 +7,7 @@ import {
   useSortSelectContext,
   useTagFilterContext
 } from "@lib/ui";
-import React, { useState } from "react";
+import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { EditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";

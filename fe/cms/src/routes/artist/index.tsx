@@ -4,10 +4,12 @@ import { ArrowRight } from "@phosphor-icons/react";
 import { ZodTagObject } from "@lib/ui";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Forms } from "../../components";
-import { ZodLinkObject } from "../../helper/ConvertLinkSchemaToObject.ts";
-import { InputTextField,  TagFilterField } from "../../components/RichForm/RichForm.tsx";
-import { LinkFormField } from "../../components/RichForm/LinkForm.tsx";
+import {
+  InputTextField,
+  TagFilterField,
+  Forms,
+  LinkFormSchema, AllAvailableLinkType, GetLinkLabelFromKey
+} from "../../components";
 
 export const Route = createFileRoute("/artist/")({
   component: Artist
@@ -17,8 +19,7 @@ const formSchema = z.object({
   introduction: z.string(),
   artistName: z.string().min(1, { message: "請輸入名字" }),
   tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
-  links: z.array(ZodLinkObject)
-});
+}).merge(LinkFormSchema);
 
 type FormSchema = z.infer<typeof formSchema>
 
@@ -35,11 +36,15 @@ function Artist() {
         OnSubmit={onSubmit}
         formHook={formHook}>
         <Forms.HorizontalLayout>
-          <InputTextField formField={"artistName"} label={"名字"} />
+          <InputTextField formField={"artistName"} label={"作者"} />
           <InputTextField formField={"introduction"} label={"自我介紹"} />
         </Forms.HorizontalLayout>
         <TagFilterField formField={"tag"} label={"標簽"} />
-        <LinkFormField formField={"links"} label={"鏈接"} />
+        <div className={"gap-6 grid-cols-2 grid"}>
+          {Object.keys(AllAvailableLinkType).map((key) => {
+            return <InputTextField formField={key} label={GetLinkLabelFromKey(key)} key={key}/>
+          })}
+        </div>
 
         <Forms.Submit>
           下一步 <ArrowRight />
