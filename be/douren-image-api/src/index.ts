@@ -34,6 +34,17 @@ app.get("/test", async (c) => {
   return c.json({ data: data });
 });
 
+app.post("/image", async (c) => {
+  const formData = await c.req.formData();
+  const image = formData.get("image") as File | null;
+  if (!image) {
+    return c.json({ error: "No image file provided" }, 400);
+  }
+  const data = await postCloudflareImage(c, image);
+  const imageLink = data["result"]["variants"][0];
+  return c.json({link: imageLink})
+})
+
 app.post("/productImage/:artistId/:imageId", async (c) => {
   const db = initDB();
   let returnResponse;
