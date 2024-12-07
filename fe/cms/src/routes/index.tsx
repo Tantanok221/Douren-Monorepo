@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DataOperationProvider, FilterContainer, SearchContainer } from "@lib/ui";
-import { InsertContainer } from "./-components/InsertContainer.tsx";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 import { useFetchTagData } from "@/hooks";
 
@@ -24,7 +23,6 @@ function Index() {
       <div className={"flex flex-col w-full gap-6"}>
         <SearchContainer />
         <FilterContainer sortItem={sortItem} />
-        <InsertContainer />
       </div>
       <div>
         <ArtistContainer />
