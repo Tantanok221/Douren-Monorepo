@@ -47,22 +47,14 @@ jobs:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
         run: |
-          cd be/douren-backend
+          cd be/douren-image-api
           WRANGLER_VARS=""
-              while IFS= read -r line || [[ -n "$line" ]]; do
-              # Ignore comments, empty lines, and the DEV_ENV variable
-              if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
-              # Split the line on the first '=' to handle complex values correctly
-              key=$(echo "$line" | cut -d '=' -f 1 | xargs)
-              value=$(echo "$line" | cut -d '=' -f 2- | xargs)
-
-            # Properly escape any special characters in the value
-              quoted_value=$(printf '%q' "$value")
-
-            # Append the key-value pair to WRANGLER_VARS
-              WRANGLER_VARS+="--var ${key}=${quoted_value} "
-              fi
-              done < .env
-
+          while IFS= read -r line || [[ -n "$line" ]]; do
+            if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
+            key=$(echo "$line" | cut -d '=' -f 1 | xargs)
+            value=$(echo "$line" | cut -d '=' -f 2- | tr -d '\r' | xargs)
+            WRANGLER_VARS+="--var ${key}=\"${value}\" "
+            fi
+          done < .env 
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS" 
-          npm run deploy -- $WRANGLER_VARS --env staging
+          npm run deploy -- $WRANGLER_VARS --env production 
