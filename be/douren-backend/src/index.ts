@@ -13,7 +13,7 @@ import { RedisStore } from "@hono-rate-limiter/redis";
 import { rateLimiter } from "hono-rate-limiter";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
-import imageRoute from "@/routes/image";
+import imageRoute from "./routes/image";
 
 const redis = initRedis();
 const store = new RedisStore({ client: redis });
