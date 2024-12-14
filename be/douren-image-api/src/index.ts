@@ -4,22 +4,18 @@ import { cors } from "hono/cors";
 import { desc, eq, sql } from "drizzle-orm";
 import { postCloudflareImage } from "./utils/cloudflare";
 import { initDB, s } from "@pkg/database/db";
-type Bindings = {
-  DATABASE_URL: string;
-  CLOUDFLARE_IMAGE_ENDPOINT: string;
-  CLOUDFLARE_IMAGE_TOKEN: string;
-  DOUREN_IMAGE_AUTH_TOKEN: string;
-};
+import {BACKEND_BINDING} from "@pkg/env/constant";
+import {CloudflareImageResponse} from "./types/cloudflareReponse";
 
 const app = new Hono<{
-  Bindings: Bindings;
+  Bindings: BACKEND_BINDING ;
 }>();
 
 app.use("*", cors());
 app.use("*", logger());
 app.use("*", async (c, next) => {
   const token = c.req.header("Authorization");
-  if (token != c.env.DOUREN_IMAGE_AUTH_TOKEN) {
+  if (token != c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN) {
     await next();
   }
   return c.json("Invalid Authorization Token", 403);
@@ -40,7 +36,16 @@ app.post("/image", async (c) => {
   if (!image) {
     return c.json({ error: "No image file provided" }, 400);
   }
-  const data = await postCloudflareImage(c, image);
+  const uploadFormData = new FormData();
+  uploadFormData.append("file", image);
+  const response = await fetch(c.env.CLOUDFLARE_IMAGE_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${c.env.CLOUDFLARE_IMAGE_TOKEN}`,
+    },
+    body: uploadFormData,
+  });
+  const data = (await response.json()) as CloudflareImageResponse;
   const imageLink = data["result"]["variants"][0];
   return c.json({link: imageLink})
 })
