@@ -15,7 +15,8 @@ app.use("*", cors());
 app.use("*", logger());
 app.use("*", async (c, next) => {
   const token = c.req.header("Authorization");
-  if (token != c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN) {
+  console.log(c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN)
+  if (token === c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN) {
     await next();
   }
   return c.json("Invalid Authorization Token", 403);
