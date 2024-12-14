@@ -49,7 +49,7 @@ app
 	.route("/event", EventRoute)
 	.route("/artist", ArtistRoute)
 	.route("/tag", TagRoute)
-	.route("/image", imageRoute)
+	.route("/image", imageRoute);
 export { app };
 export default {
 	/** this part manages cronjobs */
