@@ -40,7 +40,7 @@ const imageRoute = new Hono<{ Bindings: BACKEND_BINDING }>().post(
 			body: uploadFormData,
 		});
 		const data = (await response.json()) as CloudflareImageResponse;
-		const imageLink = data["result"]["variants"][0];
+		const imageLink = data.result.variants[0];
 		return c.json({ link: imageLink });
 	},
 );
