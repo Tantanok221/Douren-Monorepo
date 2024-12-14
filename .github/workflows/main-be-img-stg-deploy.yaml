@@ -50,17 +50,20 @@ jobs:
           cd be/douren-image-api
           WRANGLER_VARS=""
           while IFS= read -r line || [[ -n "$line" ]]; do
-              # Ignore comments, empty lines, and the DEV_ENV variable
-              if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
-                  # Split the line on the first '=' to handle complex values correctly
-                  key=$(echo "$line" | cut -d '=' -f 1 | xargs)
-                  # Remove carriage return and use direct string instead of $'...' syntax
-                  value=$(echo "$line" | cut -d '=' -f 2- | tr -d '\r\n' | xargs)
-                  
-                  # Add the key-value pair without special quoting
-                  WRANGLER_VARS+="--var ${key}=${value} "
-              fi
+          # Ignore comments, empty lines, and the DEV_ENV variable
+          if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
+          # Split only on the first '=' and preserve the rest
+          key="${line%%=*}"
+          value="${line#*=}"
+          
+          # Clean up the key and value
+          key=$(echo "$key" | tr -d '\r\n' | xargs)
+          value=$(echo "$value" | tr -d '\r\n' | xargs)
+          
+          # Add the key-value pair
+          WRANGLER_VARS+="--var ${key}=\"${value}\" "
+          fi
           done < .env
 
-          echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"
+          echo "Debug: WRANGLER_VARS=$WRANGLER_VARS" 
           npm run deploy -- $WRANGLER_VARS --env staging
