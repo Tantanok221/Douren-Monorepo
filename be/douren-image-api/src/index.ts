@@ -39,6 +39,8 @@ app.post("/image", async (c) => {
   }
   const uploadFormData = new FormData();
   uploadFormData.append("file", image);
+  console.log("IMAGE ENDPOINT: ", c.env.CLOUDFLARE_IMAGE_ENDPOINT)
+  console.log("IMAGE TOKEN: ", c.env.CLOUDFLARE_IMAGE_TOKEN)
   const response = await fetch(c.env.CLOUDFLARE_IMAGE_ENDPOINT, {
     method: "POST",
     headers: {
