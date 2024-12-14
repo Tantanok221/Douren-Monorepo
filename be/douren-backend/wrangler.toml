@@ -11,7 +11,7 @@ enabled = true
 [env.staging.observability.logs]
 enabled = true
 
-[env.staging.observability.logs]
+[env.production.observability.logs]
 enabled = true
 
 [env.staging]
