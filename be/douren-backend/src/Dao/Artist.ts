@@ -1,7 +1,5 @@
 import { initDB, s } from "@pkg/database/db";
-import {
-	ArtistFetchParams,
-} from "@/utlis/fetchHelper";
+import { ArtistFetchParams } from "@/utlis/fetchHelper";
 import { BaseDao } from "../Dao";
 import { CreateArtistSchemaTypes } from "@/schema/artist.zod";
 import { cacheJsonResults, initRedis } from "@pkg/redis/redis";

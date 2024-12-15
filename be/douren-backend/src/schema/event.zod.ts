@@ -10,7 +10,7 @@ export const PutEventArtistSchema = createInsertSchema(s.eventDm);
 export const CreateEventSchema = createInsertSchema(s.event, {
 	id: (schema) => schema.id.optional(),
 });
-export type CreateEventSchemaTypes = z.infer<typeof CreateEventSchema>
+export type CreateEventSchemaTypes = z.infer<typeof CreateEventSchema>;
 
 export type CreateEventArtistSchemaTypes = z.infer<
 	typeof CreateEventArtistSchema

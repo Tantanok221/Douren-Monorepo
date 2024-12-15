@@ -113,7 +113,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				401,
 			);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
-		const returnResponse = await EventArtistDao.Update(body)
+		const returnResponse = await EventArtistDao.Update(body);
 
 		return c.json(returnResponse, 200);
 	});
