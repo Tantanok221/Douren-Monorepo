@@ -55,7 +55,7 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				401,
 			);
 		const { artistId } = c.req.param();
-		const returnResponse = ArtistDao.Delete(artistId)
+		const returnResponse = ArtistDao.Delete(artistId);
 		return c.json(returnResponse, 200);
 	})
 	.put(
@@ -69,8 +69,9 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 					401,
 				);
 			const { artistId } = c.req.param();
-			const body: zodSchemaType["authorMain"]["InsertSchema"] = await c.req.json();
-			const returnResponse = await ArtistDao.Update(artistId,body)
+			const body: zodSchemaType["authorMain"]["InsertSchema"] =
+				await c.req.json();
+			const returnResponse = await ArtistDao.Update(artistId, body);
 
 			return c.json(returnResponse, 200);
 		},
