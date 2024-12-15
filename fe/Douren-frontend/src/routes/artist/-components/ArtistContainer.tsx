@@ -3,19 +3,20 @@ import {
   Pagination,
   useSearchContext,
   useSortSelectContext,
-  useTagFilter,
+   useTagFilterContext
 } from "@lib/ui";
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import style from "@/routes/artist/Artist.module.css";
 import { usePagination } from "@mantine/hooks";
 import { trpc } from "@/helper";
+import ArtistButton from "@/routes/artist/-components/ArtistButton.tsx";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
   const [page, setPage] = useState(1);
   const sx = classNames.bind(style);
-  const tagFilter = useTagFilter((state) => state.tagFilter);
+  const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
   const res = trpc.artist.getArtist.useQuery({
@@ -44,9 +45,10 @@ export const ArtistContainer = () => {
                 <ArtistCard.HeaderContainer />
                 <ArtistCard.TagContainer size="s" activeButton />
               </div>
-              <ArtistCard.LinkContainer size="s">
-                <ArtistCard.Button size="s" />
-              </ArtistCard.LinkContainer>
+              <ArtistCard.LinkContainerWrapper size="s">
+                <ArtistButton size="s" />
+                <ArtistCard.LinkContainer size={"s"}/>
+              </ArtistCard.LinkContainerWrapper>
             </ArtistCard.RightContainer>
           </ArtistCard>
         ))}

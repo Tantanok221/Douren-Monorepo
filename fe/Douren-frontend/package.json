@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint ./src --fix --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format": "prettier ./src --write",
+    "format": "prettier ./src",
     "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
   },
   "dependencies": {

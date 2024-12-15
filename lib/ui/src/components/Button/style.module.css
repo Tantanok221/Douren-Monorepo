@@ -1,0 +1,20 @@
+.linkButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--Link, #cbc3c3);
+  background: var(--LinkPanel, #3c3c3c);
+  border: none;
+  font-family: var(--Font);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  gap: 0.5rem;
+  cursor: pointer;
+  min-width: 100px;
+}

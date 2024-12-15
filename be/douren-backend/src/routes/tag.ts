@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../trpc";
+import { publicProcedure, router } from "@/trpc";
 import { Hono } from "hono";
 import { BACKEND_BINDING } from "@pkg/env/constant";
 import { initDB, s } from "@pkg/database/db";

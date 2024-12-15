@@ -2,14 +2,11 @@ import { initDB, s } from "@pkg/database/db";
 import { asc, count, desc, eq } from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
-import { PAGE_SIZE } from "../helper/constant";
-import { processTableName } from "../helper/processTableName";
-import { processTagConditions } from "../helper/processTagConditions";
-import {
-	ArtistFetchParams,
-	EventArtistFetchParams,
-} from "../utlis/fetchHelper";
-import { DerivedFetchParams } from "../utlis/paramHelper";
+import { PAGE_SIZE } from "@/helper/constant";
+import { processTableName } from "@/helper/processTableName";
+import { processTagConditions } from "@/helper/processTagConditions";
+import { ArtistFetchParams, EventArtistFetchParams } from "@/utlis/fetchHelper";
+import { DerivedFetchParams } from "@/utlis/paramHelper";
 
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;

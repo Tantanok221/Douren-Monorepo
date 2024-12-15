@@ -4,14 +4,13 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { usePagination } from "@mantine/hooks";
 import { trpc } from "@/helper/trpc.ts";
 import { Route } from "@/routes/event/$eventName.tsx";
-import { useTagFilter } from "@lib/ui/src/stores/useTagFilter.ts";
 import {
   Pagination,
   usePaginationContext,
   useSearchColumnContext,
   useSearchContext,
   useSortSelectContext,
-  ArtistCard,
+  ArtistCard, useTagFilterContext
 } from "@lib/ui";
 
 const EventContainer = () => {
@@ -19,7 +18,7 @@ const EventContainer = () => {
   const [sortSelect] = useSortSelectContext();
   const [searchColumn] = useSearchColumnContext();
   const [search] = useSearchContext();
-  const tagFilter = useTagFilter((state) => state.tagFilter);
+  const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [page, setPage] = usePaginationContext();
   const id = trpc.eventArtist.getEventId.useQuery({
@@ -46,7 +45,7 @@ const EventContainer = () => {
       <div className={sx("ArtistContainer")}>
         <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2 }}>
           <Masonry gutter="32px">
-            {res.data.data.map((item, index) => {
+            {res.data.data.map((item) => {
               return (
                 <ArtistCard
                   key={`${item.boothName} ${item.author}`}
@@ -57,9 +56,10 @@ const EventContainer = () => {
                     <ArtistCard.HeaderContainer keys={Route.fullPath} />
                     <ArtistCard.TagContainer activeButton />
                     <ArtistCard.DayContainer />
-                    <ArtistCard.LinkContainer>
+                    <ArtistCard.LinkContainerWrapper>
                       <ArtistCard.DMButton />
-                    </ArtistCard.LinkContainer>
+                      <ArtistCard.LinkContainer />
+                    </ArtistCard.LinkContainerWrapper>
                   </ArtistCard.RightContainer>
                 </ArtistCard>
               );

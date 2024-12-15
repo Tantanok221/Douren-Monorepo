@@ -28,7 +28,8 @@
     "env:login": "npx dotenv-vault login",
     "dev:db": "from-env psql %LOCAL_DATABASE_URL",
     "db:sync": "make db_sync",
-    "prepare": "husky"
+    "prepare": "husky",
+    "reinstall": "rimraf --glob ./**/node_modules && rimraf --glob ./**/dist && rimraf --glob ./**/.turbo && npm install && npm run pkg && npm run lib && npm run be "
   },
   "devDependencies": {
     "@babel/types": "^7.25.6",

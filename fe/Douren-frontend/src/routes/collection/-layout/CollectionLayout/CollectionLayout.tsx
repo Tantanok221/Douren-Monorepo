@@ -48,9 +48,10 @@ const CollectionArtistRenderer = ({
                 <ArtistCard.HeaderContainer keys={keys} />
                 <ArtistCard.TagContainer />
                 <ArtistCard.DayContainer />
-                <ArtistCard.LinkContainer>
+                <ArtistCard.LinkContainerWrapper>
                   <ArtistCard.DMButton />
-                </ArtistCard.LinkContainer>
+                  <ArtistCard.LinkContainer/>
+                </ArtistCard.LinkContainerWrapper>
               </ArtistCard.RightContainer>
             </ArtistCard>
           );

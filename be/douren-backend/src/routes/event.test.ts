@@ -20,6 +20,7 @@ beforeAll(async () => {
 	);
 	const data: any = await res.json();
 	artistId = data[0].uuid;
+	console.log(artistId)
 });
 
 afterAll(async () => {

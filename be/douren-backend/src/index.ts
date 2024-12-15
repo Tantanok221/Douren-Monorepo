@@ -13,6 +13,7 @@ import { RedisStore } from "@hono-rate-limiter/redis";
 import { rateLimiter } from "hono-rate-limiter";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
+import imageRoute from "./routes/image";
 
 const redis = initRedis();
 const store = new RedisStore({ client: redis });
@@ -47,7 +48,8 @@ app.use(
 app
 	.route("/event", EventRoute)
 	.route("/artist", ArtistRoute)
-	.route("/tag", TagRoute);
+	.route("/tag", TagRoute)
+	.route("/image", imageRoute);
 export { app };
 export default {
 	/** this part manages cronjobs */

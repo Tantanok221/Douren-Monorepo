@@ -5,9 +5,8 @@ import classNames from "classnames/bind";
 import { listVariants } from "../../helper";
 import EventDataContext from "./EventDataContext.ts";
 import ImageContainer from "./subcomponent/ImageContainer";
-import ArtistButton from "./subcomponent/ArtistButton";
 import ArtistDMButton from "./subcomponent/ArtistDMButton";
-import ArtistLinkContainer from "./subcomponent/ArtistLinkContainer";
+import ArtistLinkContainerStyle from "./subcomponent/ArtistLinkContainerStyle.tsx";
 import ArtistTagContainer from "./subcomponent/ArtistTagContainer";
 import DayContainer from "./subcomponent/DayContainer";
 import EventBookmarkContainer from "./subcomponent/EventBookmarkContainer";
@@ -18,6 +17,7 @@ import {
   artistBaseSchemaWithTagType,
   eventArtistBaseSchemaType,
 } from "@pkg/type";
+import { ArtistLinkContainer } from "./subcomponent/ArtistLinkContainer.tsx";
 
 interface ArtistCardProps {
   index?: number;
@@ -27,8 +27,8 @@ interface ArtistCardProps {
 
 export const ArtistCard: React.FC<ArtistCardProps> & {
   ImageContainer: typeof ImageContainer;
-  Button: typeof ArtistButton;
   DMButton: typeof ArtistDMButton;
+  LinkContainerWrapper: typeof ArtistLinkContainerStyle;
   LinkContainer: typeof ArtistLinkContainer;
   TagContainer: typeof ArtistTagContainer;
   DayContainer: typeof DayContainer;
@@ -56,8 +56,8 @@ export const ArtistCard: React.FC<ArtistCardProps> & {
 
 ArtistCard.displayName = "ArtistCard";
 ArtistCard.ImageContainer = ImageContainer;
-ArtistCard.Button = ArtistButton;
 ArtistCard.DMButton = ArtistDMButton;
+ArtistCard.LinkContainerWrapper = ArtistLinkContainerStyle;
 ArtistCard.LinkContainer = ArtistLinkContainer;
 ArtistCard.TagContainer = ArtistTagContainer;
 ArtistCard.DayContainer = DayContainer;

@@ -1,25 +1,27 @@
 import { Hono } from "hono";
 import { BACKEND_BINDING } from "@pkg/env/constant";
-import { desc, eq } from "drizzle-orm";
-import { initDB, s } from "@pkg/database/db";
 import { zValidator } from "@hono/zod-validator";
 import {
 	CreateArtistSchema,
 	CreateArtistSchemaTypes,
-} from "../schema/artist.zod";
-import { verifyUser } from "../utlis/authHelper";
-import { publicProcedure, router } from "../trpc";
+} from "@/schema/artist.zod";
+import { verifyUser } from "@/utlis/authHelper";
+import { authProcedure, publicProcedure, router } from "@/trpc";
+import { artistInputParams } from "@pkg/type";
+import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
-import { artistInputParams, artistSchema } from "@pkg/type";
-import { NewArtistDao } from "../Dao/Artist";
 
 const ArtistDao = NewArtistDao();
 
 export const trpcArtistRoute = router({
 	getArtist: publicProcedure.input(artistInputParams).query(async (opts) => {
-		const data = await ArtistDao.Fetch(opts.input);
-		return data;
+		return await ArtistDao.Fetch(opts.input);
 	}),
+	createArtist: authProcedure
+		.input(CreateArtistSchema)
+		.mutation(async (opts) => {
+			return await ArtistDao.Create(opts.input);
+		}),
 });
 
 const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
@@ -41,22 +43,8 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
-
 		const body: CreateArtistSchemaTypes = await c.req.json();
-		const db = initDB();
-		const [counts] = await db
-			.select({ count: s.authorMain.uuid })
-			.from(s.authorMain)
-			.orderBy(desc(s.authorMain.uuid))
-			.limit(1);
-		if (!body.uuid) {
-			body.uuid = counts.count + 1;
-		}
-		const returnResponse = await db
-			.insert(s.authorMain)
-			.values(body)
-			.onConflictDoNothing({ target: s.authorMain.uuid })
-			.returning();
+		const returnResponse = await ArtistDao.Create(body);
 		return c.json(returnResponse, 200);
 	})
 	.delete("/:artistId", async (c) => {
@@ -67,11 +55,7 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				401,
 			);
 		const { artistId } = c.req.param();
-		const db = initDB();
-		const returnResponse = await db
-			.delete(s.authorMain)
-			.where(eq(s.authorMain.uuid, Number(artistId)))
-			.returning();
+		const returnResponse = ArtistDao.Delete(artistId);
 		return c.json(returnResponse, 200);
 	})
 	.put(
@@ -84,16 +68,11 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 					{ message: "You are not authorized to create artist" },
 					401,
 				);
+			const { artistId } = c.req.param();
 			const body: zodSchemaType["authorMain"]["InsertSchema"] =
 				await c.req.json();
-			const { artistId } = c.req.param();
-			const db = initDB();
-			body.uuid = Number(artistId);
-			const returnResponse = await db
-				.update(s.authorMain)
-				.set(body)
-				.where(eq(s.authorMain.uuid, Number(artistId)))
-				.returning();
+			const returnResponse = await ArtistDao.Update(artistId, body);
+
 			return c.json(returnResponse, 200);
 		},
 	);

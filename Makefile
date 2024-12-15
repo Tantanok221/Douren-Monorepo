@@ -56,14 +56,14 @@ else
 	# Merge base .env with .env.be into backend directories, but don't modify .env
 	@for dir in be/*; do \
 		if [ -d "$$dir" ]; then \
-			$(PYTHON) merge_env.py .env .env.be "$$dir/.env"; \
-			$(PYTHON) merge_env.py .env .env.be "$$dir/.dev.vars"; \
+	        cp .env "$$dir/.env"; \
+	        cp .env "$$dir/.dev.vars"; \
 		fi; \
 	done
 	# Merge base .env with .env.fe into frontend directories, but don't modify .env
 	@for dir in fe/*; do \
 		if [ -d "$$dir" ]; then \
-			$(PYTHON) merge_env.py .env .env.fe "$$dir/.env"; \
+	        cp .env "$$dir/.env"; \
 		fi; \
 	done
 	# Only copy .env to lib directories (do not merge or modify it)
@@ -78,8 +78,6 @@ else
 			cp .env "$$dir/.env"; \
 		fi; \
 	done
-	# Generate TypeScript interfaces, but don't modify .env
-	@$(PYTHON) merge_env.py .env .env.be .env.temp generate_ts
 	@rm -f .env.temp
 	npx turbo build --filter="./pkg/env"
 	npm install

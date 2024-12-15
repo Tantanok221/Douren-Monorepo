@@ -3,13 +3,16 @@
  */
 
 export * from "./ArtistCard/index";
+export * from "./Button/index";
 export * from "./DMButton/index";
+export * from "./FilterContainer/index";
 export * from "./LazyImage/index";
 export * from "./LinkContainer/index";
 export * from "./LinkIcon/index";
 export * from "./NavMenu/index";
 export * from "./Pagination/index";
 export * from "./SearchBox/index";
+export * from "./SearchContainer/index";
 export * from "./SelectComponent/index";
 export * from "./TagContainer/index";
 export * from "./TagFilter/index";

@@ -1,12 +1,19 @@
 import { create } from "zustand";
 import { produce } from "immer";
-//     { tag: '原創', count: 149, index: 0 },
+import { z } from "zod";
 
+//     { tag: '原創', count: 149, index: 0 },
 export interface TagObject {
   tag: string | null;
   count: number | null;
   index: number | null;
 }
+
+export const ZodTagObject = z.object({
+  tag: z.string(),
+  count: z.number(),
+  index: z.number(),
+});
 
 interface TagFilter {
   allFilter: TagObject[];

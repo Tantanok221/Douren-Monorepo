@@ -7,15 +7,15 @@ echo Running Windows batch file...
 :: Merge base .env with .env.be into backend directories
 for /d %%d in (be\*) do (
     if exist "%%d" (
-        python merge_env.py .env .env.be "%%d\.env"
-        python merge_env.py .env .env.be "%%d\.dev.vars"
+        copy /Y .env "%%d\.env"
+        copy /Y .dev.vars"%%d\.env"
     )
 )
 
 :: Merge base .env with .env.fe into frontend directories
 for /d %%d in (fe\*) do (
     if exist "%%d" (
-        python merge_env.py .env .env.fe "%%d\.env"
+        copy /Y .env "%%d\.env"
     )
 )
 

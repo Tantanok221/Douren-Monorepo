@@ -8,18 +8,20 @@ import {
 	CreateEventSchema,
 	PutEventArtistSchema,
 	PutEventArtistSchemaTypes,
-} from "../schema/event.zod";
-import { verifyUser } from "../utlis/authHelper";
-import { publicProcedure, router } from "../trpc";
+} from "@/schema/event.zod";
+import { verifyUser } from "@/utlis/authHelper";
+import { publicProcedure, router } from "@/trpc";
 import {
 	eventArtistSchema,
 	eventInputParams,
 	eventNameInputParams,
 } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
-import { NewEventArtistDao } from "../Dao/EventArtist";
+import { NewEventArtistDao } from "@/Dao/EventArtist";
+import { NewEventDao } from "@/Dao/Event";
 
 const EventArtistDao = NewEventArtistDao();
+const EventDao = NewEventDao();
 
 export const trpcEventRoute = router({
 	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
@@ -55,15 +57,10 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 	})
 	.get("/:eventName", async (c) => {
 		const { eventName } = c.req.param();
-		const db = initDB();
-		const [data] = await db
-			.select()
-			.from(s.event)
-			.where(eq(s.event.name, eventName));
+		const data = EventDao.Fetch(eventName);
 		return c.json(data);
 	})
 	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
-		// infer as PutEventArtistSchemaTypes to ignore type error mean while getting automatic type from zod
 		const verified = verifyUser(c);
 		if (!verified)
 			return c.json(
@@ -71,20 +68,8 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				401,
 			);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
-		const db = initDB();
-		const [counts] = await db
-			.select({ count: s.eventDm.uuid })
-			.from(s.eventDm)
-			.orderBy(desc(s.eventDm.uuid))
-			.limit(1);
-		if (!body.uuid) {
-			body.uuid = counts.count + 1;
-		}
-		const returnResponse = await db
-			.insert(s.eventDm)
-			.values(body)
-			.onConflictDoNothing({ target: s.eventDm.uuid })
-			.returning();
+		const returnResponse = await EventArtistDao.Create(body);
+
 		return c.json(returnResponse, 201);
 	})
 	.post("/", zValidator("json", CreateEventSchema), async (c) => {
@@ -96,20 +81,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 			);
 
 		const body = await c.req.json();
-		const db = initDB();
-		const [counts] = await db
-			.select({ count: s.event.id })
-			.from(s.event)
-			.orderBy(desc(s.event.id))
-			.limit(1);
-		if (!body.id) {
-			body.id = counts.count + 1;
-		}
-		const returnResponse = await db
-			.insert(s.event)
-			.values(body)
-			.onConflictDoNothing({ target: s.event.id })
-			.returning();
+		const returnResponse = EventDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
 	.delete("/:eventId/artist/:artistId", async (c) => {
@@ -141,12 +113,8 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				401,
 			);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
-		const db = initDB();
-		const returnResponse = await db
-			.update(s.eventDm)
-			.set(body)
-			.where(eq(s.eventDm.uuid, Number(body.uuid)))
-			.returning();
+		const returnResponse = await EventArtistDao.Update(body);
+
 		return c.json(returnResponse, 200);
 	});
 

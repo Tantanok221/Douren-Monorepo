@@ -8,6 +8,12 @@ enabled = true
 [env.production.observability]
 enabled = true
 
+[env.staging.observability.logs]
+enabled = true
+
+[env.production.observability.logs]
+enabled = true
+
 [env.staging]
 vars = { DEV_ENV = "stg" }
 routes = [

@@ -2,7 +2,8 @@ import React from "react";
 import style from "./TagContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { TagObject, useTagFilter } from "../../stores/useTagFilter";
+import { TagObject } from "../../stores";
+import { useTagFilterContext } from "../../context";
 
 interface Props {
   renderTag: TagObject[];
@@ -11,12 +12,12 @@ interface Props {
 }
 
 export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
-  const tagFilter = useTagFilter((state) => state.tagFilter);
-  const addTagFilter = useTagFilter((state) => state.addTagFilter);
-  const removeTagFilter = useTagFilter((state) => state.removeTagFilter);
-  const checked = useTagFilter((state) => state.checked);
-  const setChecked = useTagFilter((state) => state.setChecked);
+  const addTagFilter = useTagFilterContext((state) => state.addTagFilter);
+  const removeTagFilter = useTagFilterContext((state) => state.removeTagFilter);
+  const checked = useTagFilterContext((state) => state.checked);
+  const setChecked = useTagFilterContext((state) => state.setChecked);
   size = size ?? "l";
+
   function handleClick(val: TagObject) {
     if (!val.index) return null;
     if (!checked[val.index] && activeButton) {
@@ -27,10 +28,11 @@ export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
       setChecked(val.index, false);
     }
   }
+
   const sx = classNames.bind(style);
   return (
     <>
-      {renderTag.map((val, index) => {
+      {renderTag.map((val) => {
         if (!val.tag) return null;
         if (!val.index) return null;
         const active = checked[val.index];
