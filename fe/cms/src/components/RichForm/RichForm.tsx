@@ -5,6 +5,12 @@ interface Props {
   formField: string;
 }
 
+interface ImageFieldProps{
+  label: React.ReactNode;
+  formField: string;
+  title: string;
+}
+
 export const InputTextField = ({ label, formField }: Props) => {
   return <Forms.Field name={formField}>
     <Forms.HorizontalLayout>
@@ -28,3 +34,10 @@ export const TagFilterField = ({ label, formField }: Props) => {
     <Forms.TagFilter />
   </Forms.Field>;
 };
+
+export const ImageField = ({ label, formField,title }: ImageFieldProps) => {
+  return <Forms.Field name={formField}>
+    <Forms.Label>{label}</Forms.Label>
+    <Forms.ImageUpload title={title}/>
+  </Forms.Field>
+}

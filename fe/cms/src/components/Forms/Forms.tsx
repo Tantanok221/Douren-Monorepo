@@ -12,6 +12,7 @@ import {
 } from "./subcomponent";
 import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { ReactNode } from "react";
+import {FormImageUpload} from "./subcomponent/FormImageUpload.tsx";
 
 interface FormComponentProps<T extends FieldValues, > extends FormProps {
   children: ReactNode;
@@ -30,6 +31,7 @@ interface CompoundForm {
   Control: typeof FormControl,
   Submit: typeof FormSubmit,
   TagFilter: typeof FormTagFilter
+  ImageUpload: typeof FormImageUpload,
 };
 
 const RootComponent = <T extends FieldValues>({ children, formHook,
@@ -57,5 +59,6 @@ export const Forms: CompoundForm = {
   HorizontalLayout: HorizontalLayout,
   Control: FormControl,
   Submit: FormSubmit,
-  TagFilter: FormTagFilter
+  TagFilter: FormTagFilter,
+  ImageUpload: FormImageUpload,
 };

@@ -23,7 +23,8 @@ export default {
       sidebarBg: "#1d1d1d",
       sidebarActive: "#292929",
       stroke: "#3c3c3c",
-      formBorder: "#494949"
+      formBorder: "#494949",
+      highlightFormBorder: "#a3a0a0",
     },
     fontFamily: {
       sans: ["Noto Sans TC", "sans-serif"]
