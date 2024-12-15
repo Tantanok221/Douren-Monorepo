@@ -24,7 +24,7 @@ export const FormTagFilterBase = forwardRef((props: unknown, ref: Ref<HTMLDivEle
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   useEffect(() => {
     setValue(name, tagFilter);
-  }, [setValue, tagFilter]);
+  }, [name, setValue, tagFilter]);
   return <Form.Control asChild>
     <PureTagFilter ref={ref} allTag={allFilter} selectedTag={tagFilter} />
   </Form.Control>;

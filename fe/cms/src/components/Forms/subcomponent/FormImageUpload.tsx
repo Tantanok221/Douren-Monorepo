@@ -33,7 +33,7 @@ export const FormImageUpload = ({ title }: Props) => {
       setValue(name, data);
   }, [currentFile, data, setValue, name]);
 
-  const useOnChange = (imageList: ImageListType, _: number[] | undefined) => {
+  const useOnChange = (imageList: ImageListType) => {
     setImages(imageList);
     if (imageList[0]?.file) {
       console.log("Have Files");
