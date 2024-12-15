@@ -13,18 +13,18 @@ const router = createRouter({ routeTree });
 
 const queryClient = new QueryClient({
   defaultOptions: {
-  queries: {
-    gcTime: 1000 * 60 * 5 // 5 minute
-  }
-  }
+    queries: {
+      gcTime: 1000 * 60 * 5, // 5 minute
+    },
+  },
 });
 const trpcClient = trpc.createClient({
   links: [
     httpLink({
-      url: import.meta.env.VITE_BACKEND_URL
+      url: import.meta.env.VITE_BACKEND_URL,
     }),
-    loggerLink()
-  ]
+    loggerLink(),
+  ],
 });
 
 // Register the router instance for type safety
@@ -45,6 +45,6 @@ if (!rootElement.innerHTML) {
           <RouterProvider router={router} />
         </QueryClientProvider>
       </trpc.Provider>
-    </StrictMode>
+    </StrictMode>,
   );
 }

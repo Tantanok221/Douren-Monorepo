@@ -1,5 +1,5 @@
 import * as Form from "@radix-ui/react-form";
-import {  FormProps } from "@radix-ui/react-form";
+import { FormProps } from "@radix-ui/react-form";
 import {
   FormButton,
   FormControl,
@@ -8,42 +8,50 @@ import {
   FormMessage,
   FormsLabel,
   FormSubmit,
-  FormTagFilter
+  FormTagFilter,
 } from "./subcomponent";
-import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  UseFormReturn,
+} from "react-hook-form";
 import { ReactNode } from "react";
-import {FormImageUpload} from "./subcomponent/FormImageUpload.tsx";
+import { FormImageUpload } from "./subcomponent/FormImageUpload.tsx";
 
-interface FormComponentProps<T extends FieldValues, > extends FormProps {
+interface FormComponentProps<T extends FieldValues> extends FormProps {
   children: ReactNode;
   formHook: UseFormReturn<T>;
   OnSubmit: SubmitHandler<T>;
 }
 
-
 interface CompoundForm {
-  Root: typeof RootComponent,
-  Label: typeof FormsLabel,
-  Message: typeof FormMessage,
-  Field: typeof FormField,
-  Button: typeof FormButton,
-  HorizontalLayout: typeof HorizontalLayout,
-  Control: typeof FormControl,
-  Submit: typeof FormSubmit,
-  TagFilter: typeof FormTagFilter
-  ImageUpload: typeof FormImageUpload,
+  Root: typeof RootComponent;
+  Label: typeof FormsLabel;
+  Message: typeof FormMessage;
+  Field: typeof FormField;
+  Button: typeof FormButton;
+  HorizontalLayout: typeof HorizontalLayout;
+  Control: typeof FormControl;
+  Submit: typeof FormSubmit;
+  TagFilter: typeof FormTagFilter;
+  ImageUpload: typeof FormImageUpload;
 }
 
-const RootComponent = <T extends FieldValues>({ children, formHook,
-                                                OnSubmit,
-                                                ...rest }: FormComponentProps<T>) => {
+const RootComponent = <T extends FieldValues>({
+  children,
+  formHook,
+  OnSubmit,
+  ...rest
+}: FormComponentProps<T>) => {
   const { handleSubmit } = formHook;
   return (
     <FormProvider {...formHook}>
       <Form.Root
         onSubmit={handleSubmit(OnSubmit)}
         {...rest}
-        className="gap-6 flex flex-col w-full">
+        className="gap-6 flex flex-col w-full"
+      >
         {children}
       </Form.Root>
     </FormProvider>

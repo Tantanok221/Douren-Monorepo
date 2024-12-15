@@ -7,5 +7,5 @@ export const Navbar = () => {
         <NavMenu.ItemWithLink path={""}>首頁</NavMenu.ItemWithLink>
       </NavMenu.List>
     </NavMenu>
-  )
-}
+  );
+};

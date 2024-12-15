@@ -3,47 +3,47 @@
 @tailwind utilities;
 
 :root {
-    --Background: #111;
-    --Day: #cbc3c3;
-    --Link: #cbc3c3;
-    --LinkPanel: #3c3c3c;
-    --NumberTag: #838181;
-    --NumberTagBackground: #3c3c3c;
-    --Panel: #1f1f21;
-    --TagBackground: #464646;
-    --TagText: #aaaaaa;
-    --White: #ffffff;
-    --Font: Noto Sans TC;
-    --OnHover: #4d4d4d;
-    --Sidebar-BG: #1d1d1d;
-    --Sidebar-Active: #292929;
-    --Stroke: #3c3c3c;
+  --Background: #111;
+  --Day: #cbc3c3;
+  --Link: #cbc3c3;
+  --LinkPanel: #3c3c3c;
+  --NumberTag: #838181;
+  --NumberTagBackground: #3c3c3c;
+  --Panel: #1f1f21;
+  --TagBackground: #464646;
+  --TagText: #aaaaaa;
+  --White: #ffffff;
+  --Font: Noto Sans TC;
+  --OnHover: #4d4d4d;
+  --Sidebar-BG: #1d1d1d;
+  --Sidebar-Active: #292929;
+  --Stroke: #3c3c3c;
 }
 
 body {
-    background-color: var(--Background);
-    font-size: 16px;
+  background-color: var(--Background);
+  font-size: 16px;
 }
 html {
-    font-size: 13px;
-    scroll-behavior: smooth;
+  font-size: 13px;
+  scroll-behavior: smooth;
 }
 
 *,
 *::before,
 *::after {
-    min-width: 0px;
-    box-sizing: border-box;
+  min-width: 0px;
+  box-sizing: border-box;
 }
 
 .image {
-    width: 100%;
-    object-fit: contain;
-    border-radius: 8px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 @layer base {
   :root {
-        --radius: 0.5rem;
-    }
+    --radius: 0.5rem;
+  }
 }

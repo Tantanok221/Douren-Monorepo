@@ -5,7 +5,7 @@ import {
   usePaginationContext,
   useSearchContext,
   useSortSelectContext,
-  useTagFilterContext
+  useTagFilterContext,
 } from "@lib/ui";
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -23,38 +23,40 @@ export const ArtistContainer = () => {
     searchTable: "",
     page: String(page),
     sort: sortSelect,
-    tag: allTag
+    tag: allTag,
   });
   const pagination = usePagination({
     total: res?.data?.totalPage ?? 20,
     page,
     siblings: 2,
-    onChange: setPage
+    onChange: setPage,
   });
   if (!res.data) return null;
   console.log(res.data);
-  return <>
-    <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2, 900: 4 }}>
-      <Masonry gutter="32px">
-        {res.data.data?.map((item, index) => (
-          <ArtistCard key={index} data={item}>
-            <ArtistCard.RightContainer>
-              <ArtistCard.ImageContainer />
-              {/*<div className={sx("rightHeaderContainer")}>*/}
-              <div>
-                <ArtistCard.HeaderContainer />
-                <ArtistCard.TagContainer size="s" activeButton />
-              </div>
-              <ArtistCard.LinkContainerWrapper size="s">
-                <EditButton />
-              </ArtistCard.LinkContainerWrapper>
-            </ArtistCard.RightContainer>
-          </ArtistCard>
-        ))}
-      </Masonry>
-    </ResponsiveMasonry>
-    <div className={"w-full flex justify-center"}>
-    <Pagination pagination={pagination} />
-    </div>
-  </>;
+  return (
+    <>
+      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2, 900: 4 }}>
+        <Masonry gutter="32px">
+          {res.data.data?.map((item, index) => (
+            <ArtistCard key={index} data={item}>
+              <ArtistCard.RightContainer>
+                <ArtistCard.ImageContainer />
+                {/*<div className={sx("rightHeaderContainer")}>*/}
+                <div>
+                  <ArtistCard.HeaderContainer />
+                  <ArtistCard.TagContainer size="s" activeButton />
+                </div>
+                <ArtistCard.LinkContainerWrapper size="s">
+                  <EditButton />
+                </ArtistCard.LinkContainerWrapper>
+              </ArtistCard.RightContainer>
+            </ArtistCard>
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+      <div className={"w-full flex justify-center"}>
+        <Pagination pagination={pagination} />
+      </div>
+    </>
+  );
 };

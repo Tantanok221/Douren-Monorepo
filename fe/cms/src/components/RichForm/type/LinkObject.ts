@@ -3,8 +3,7 @@ import { LinkTypeEnum } from "./LinkFormSchema.ts";
 
 export const ZodLinkObject = z.object({
   LinkType: LinkTypeEnum,
-  LinkUrl: z.string()
+  LinkUrl: z.string(),
 });
 
-export type ZodLinkObjectType = z.infer<typeof ZodLinkObject>
-
+export type ZodLinkObjectType = z.infer<typeof ZodLinkObject>;
