@@ -3,3 +3,4 @@
  */
 
 export * from "./useFetchTagData";
+export * from "./useUploadImage";
