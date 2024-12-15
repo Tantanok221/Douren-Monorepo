@@ -1,8 +1,8 @@
 import { BaseDao } from "@/Dao/index";
-import { initDB, s } from "@pkg/database/src/db";
-import { cacheJsonResults, initRedis } from "@pkg/redis/src";
 import { desc, eq } from "drizzle-orm";
 import { CreateEventSchemaTypes } from "@/schema/event.zod";
+import { initDB, s } from "@pkg/database/db";
+import { initRedis } from "@pkg/redis/redis";
 
 class EventDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
