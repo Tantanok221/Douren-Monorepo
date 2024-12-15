@@ -4,11 +4,11 @@ import { zValidator } from "@hono/zod-validator";
 import {
 	CreateArtistSchema,
 	CreateArtistSchemaTypes,
-} from "../schema/artist.zod";
-import { verifyUser } from "../utlis/authHelper";
-import { authProcedure, publicProcedure, router } from "../trpc";
+} from "@/schema/artist.zod";
+import { verifyUser } from "@/utlis/authHelper";
+import { authProcedure, publicProcedure, router } from "@/trpc";
 import { artistInputParams } from "@pkg/type";
-import { NewArtistDao } from "../Dao/Artist";
+import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
 
 const ArtistDao = NewArtistDao();

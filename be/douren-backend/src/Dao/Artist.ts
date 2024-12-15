@@ -1,15 +1,14 @@
 import { initDB, s } from "@pkg/database/db";
 import {
 	ArtistFetchParams,
-	EventArtistFetchParams,
-} from "../utlis/fetchHelper";
+} from "@/utlis/fetchHelper";
 import { BaseDao } from "../Dao";
-import { CreateArtistSchemaTypes } from "../schema/artist.zod";
+import { CreateArtistSchemaTypes } from "@/schema/artist.zod";
 import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import { artistSchemaType } from "@pkg/type";
-import { createPaginationObject } from "../helper/createPaginationObject";
-import { PAGE_SIZE } from "../helper/constant";
-import { NewQueryBuilder } from "../QueryBuilder";
+import { createPaginationObject } from "@/helper/createPaginationObject";
+import { PAGE_SIZE } from "@/helper/constant";
+import { NewQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import { zodSchemaType } from "@pkg/database/zod";
 
@@ -49,8 +48,7 @@ class ArtistDao implements BaseDao {
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
-		const db = initDB();
-		const [counts] = await db
+		const [counts] = await this.db
 			.select({ count: s.authorMain.uuid })
 			.from(s.authorMain)
 			.orderBy(desc(s.authorMain.uuid))
@@ -58,7 +56,7 @@ class ArtistDao implements BaseDao {
 		if (!body.uuid) {
 			body.uuid = counts.count + 1;
 		}
-		return await db
+		return await this.db
 			.insert(s.authorMain)
 			.values(body)
 			.onConflictDoNothing({ target: s.authorMain.uuid })
@@ -69,9 +67,8 @@ class ArtistDao implements BaseDao {
 		artistId: string,
 		body: zodSchemaType["authorMain"]["InsertSchema"],
 	) {
-		const db = initDB();
 		body.uuid = Number(artistId);
-		return await db
+		return await this.db
 			.update(s.authorMain)
 			.set(body)
 			.where(eq(s.authorMain.uuid, Number(artistId)))
@@ -79,8 +76,7 @@ class ArtistDao implements BaseDao {
 	}
 
 	async Delete(artistId: string) {
-		const db = initDB();
-		return await db
+		return await this.db
 			.delete(s.authorMain)
 			.where(eq(s.authorMain.uuid, Number(artistId)))
 			.returning();
