@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useFormFieldContext } from "../context";
 import { useUploadImage } from "../../../hooks/useUploadImage.ts";
-import { LazyImage } from "@lib/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { X } from "lucide-react";
 
@@ -50,11 +49,8 @@ export const FormImageUpload = ({ title }: Props) => {
       onChange={useOnChange}
     >
       {({
-          imageList,
           onImageUpload,
           onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
           isDragging,
           dragProps
         }) => {

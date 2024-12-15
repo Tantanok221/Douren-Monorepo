@@ -32,7 +32,7 @@ interface CompoundForm {
   Submit: typeof FormSubmit,
   TagFilter: typeof FormTagFilter
   ImageUpload: typeof FormImageUpload,
-};
+}
 
 const RootComponent = <T extends FieldValues>({ children, formHook,
                                                 OnSubmit,
