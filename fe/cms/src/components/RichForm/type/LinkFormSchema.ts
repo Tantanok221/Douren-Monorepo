@@ -46,7 +46,7 @@ export function GetLinkLabelFromKey(key: string): string {
     case "officialLink":
       return "官網鏈接";
     case "plurkLink":
-      return "普浪鏈接";
+      return "噗浪鏈接";
     case "storeLink":
       return "商店鏈接";
     case "twitchLink":
