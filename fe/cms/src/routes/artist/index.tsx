@@ -30,10 +30,9 @@ const formSchema = z
 
 type FormSchema = z.infer<typeof formSchema>;
 
-
 function Artist() {
   const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
-  const mutation = trpc.artist.createArtist.useMutation()
+  const mutation = trpc.artist.createArtist.useMutation();
   const val = formHook.getValues();
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     console.log(data);
