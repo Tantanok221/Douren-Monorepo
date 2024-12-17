@@ -24,7 +24,7 @@ const formSchema = z
     introduction: z.string().optional(),
     author: z.string().min(1, { message: "請輸入名字" }),
     tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
-    image: z.string().optional(),
+    photo: z.string().optional(),
   })
   .merge(LinkFormSchema);
 
@@ -33,12 +33,10 @@ type FormSchema = z.infer<typeof formSchema>;
 function Artist() {
   const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
   const mutation = trpc.artist.createArtist.useMutation();
-  const val = formHook.getValues();
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     console.log(data);
     mutation.mutate(data);
   };
-  console.log(val.image);
   return (
     <div
       className={
@@ -65,7 +63,7 @@ function Artist() {
             );
           })}
         </div>
-        <ImageField formField={"image"} title={"头像"} label={"头像"} />
+        <ImageField formField={"photo"} title={"头像"} label={"头像"} />
 
         <Forms.Submit>
           下一步 <ArrowRight />
