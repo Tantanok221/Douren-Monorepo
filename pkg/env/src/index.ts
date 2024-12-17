@@ -22,6 +22,8 @@ export interface BACKEND_BINDING {
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
   VITE_BACKEND_URL: string;
+  VITE_IMAGE_URL: string;
+  VITE_IMAGE_URL_TOKEN: string;
   DOTENV_ME: string;
 }
 
@@ -47,6 +49,8 @@ export interface FRONTEND_BINDING {
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
   VITE_BACKEND_URL: string;
+  VITE_IMAGE_URL: string;
+  VITE_IMAGE_URL_TOKEN: string;
   DOTENV_ME: string;
 }
 
@@ -72,6 +76,8 @@ export interface PACKAGE_BINDING {
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
   VITE_BACKEND_URL: string;
+  VITE_IMAGE_URL: string;
+  VITE_IMAGE_URL_TOKEN: string;
   DOTENV_ME: string;
 }
 
@@ -97,6 +103,8 @@ export interface ENV_BINDING {
   VITE_PUBLIC_KEY: string;
   VITE_LINK: string;
   VITE_BACKEND_URL: string;
+  VITE_IMAGE_URL: string;
+  VITE_IMAGE_URL_TOKEN: string;
   DOTENV_ME: string;
 }
 

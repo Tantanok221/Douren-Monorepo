@@ -1,16 +1,16 @@
 import { z } from "zod";
 
 export const AllAvailableLinkType = {
-  twitterLink: z.string(),
-  facebookLink: z.string(),
-  instagramLink: z.string(),
-  plurkLink: z.string(),
-  bahaLink: z.string(),
-  youtubeLink: z.string(),
-  twitchLink: z.string(),
-  officialLink: z.string(),
-  storeLink: z.string(),
-  myacgLink: z.string(),
+  twitterLink: z.string().optional(),
+  facebookLink: z.string().optional(),
+  instagramLink: z.string().optional(),
+  plurkLink: z.string().optional(),
+  bahaLink: z.string().optional(),
+  youtubeLink: z.string().optional(),
+  twitchLink: z.string().optional(),
+  officialLink: z.string().optional(),
+  storeLink: z.string().optional(),
+  myacgLink: z.string().optional(),
 };
 export const LinkTypeEnum = z.enum([
   "twitterLink",

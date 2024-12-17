@@ -13,6 +13,7 @@ import {
   GetLinkLabelFromKey,
   ImageField,
 } from "../../components";
+import { trpc } from "../../helper";
 
 export const Route = createFileRoute("/artist/")({
   component: Artist,
@@ -20,20 +21,24 @@ export const Route = createFileRoute("/artist/")({
 
 const formSchema = z
   .object({
-    introduction: z.string(),
-    artistName: z.string().min(1, { message: "請輸入名字" }),
+    introduction: z.string().optional(),
+    author: z.string().min(1, { message: "請輸入名字" }),
     tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
-    image: z.string(),
+    image: z.string().optional(),
   })
   .merge(LinkFormSchema);
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const onSubmit: SubmitHandler<FormSchema> = (data) => console.log(data);
 
 function Artist() {
   const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
+  const mutation = trpc.artist.createArtist.useMutation()
   const val = formHook.getValues();
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    console.log(data);
+    mutation.mutate(data);
+  };
   console.log(val.image);
   return (
     <div
@@ -46,7 +51,7 @@ function Artist() {
       </div>
       <Forms.Root OnSubmit={onSubmit} formHook={formHook}>
         <Forms.HorizontalLayout>
-          <InputTextField formField={"artistName"} label={"作者"} />
+          <InputTextField formField={"author"} label={"作者"} />
           <InputTextField formField={"introduction"} label={"自我介紹"} />
         </Forms.HorizontalLayout>
         <TagFilterField formField={"tag"} label={"標簽"} />
