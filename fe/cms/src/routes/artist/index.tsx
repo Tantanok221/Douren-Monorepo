@@ -35,8 +35,8 @@ function Artist() {
   const mutation = trpc.artist.createArtist.useMutation();
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     console.log(data);
-    const allTag = data.tags.map(i => i.tag).join(",");
-    mutation.mutate({...data,tags: allTag,});
+    const allTag = data.tags.map((i) => i.tag).join(",");
+    mutation.mutate({ ...data, tags: allTag });
   };
   return (
     <div

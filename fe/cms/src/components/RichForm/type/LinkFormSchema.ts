@@ -24,7 +24,7 @@ export const LinkTypeEnum = z.enum([
   "officialLink",
   "storeLink",
   "myacgLink",
-  "pixivLink"
+  "pixivLink",
 ]);
 
 export type LinkTypeKeys = keyof typeof AllAvailableLinkType;
@@ -56,7 +56,7 @@ export function GetLinkLabelFromKey(key: string): string {
     case "youtubeLink":
       return "YT鏈接";
     case "pixivLink":
-      return "pixiv鏈接"
+      return "pixiv鏈接";
   }
   return "";
 }
