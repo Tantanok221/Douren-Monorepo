@@ -20,6 +20,7 @@ export const trpcArtistRoute = router({
 	createArtist: authProcedure
 		.input(CreateArtistSchema)
 		.mutation(async (opts) => {
+			console.log(opts.input);
 			return await ArtistDao.Create(opts.input);
 		}),
 });

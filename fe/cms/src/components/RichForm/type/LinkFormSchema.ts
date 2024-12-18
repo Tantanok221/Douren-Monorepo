@@ -1,16 +1,17 @@
 import { z } from "zod";
 
 export const AllAvailableLinkType = {
-  twitterLink: z.string(),
-  facebookLink: z.string(),
-  instagramLink: z.string(),
-  plurkLink: z.string(),
-  bahaLink: z.string(),
-  youtubeLink: z.string(),
-  twitchLink: z.string(),
-  officialLink: z.string(),
-  storeLink: z.string(),
-  myacgLink: z.string(),
+  twitterLink: z.string().optional(),
+  facebookLink: z.string().optional(),
+  instagramLink: z.string().optional(),
+  plurkLink: z.string().optional(),
+  bahaLink: z.string().optional(),
+  youtubeLink: z.string().optional(),
+  twitchLink: z.string().optional(),
+  officialLink: z.string().optional(),
+  storeLink: z.string().optional(),
+  myacgLink: z.string().optional(),
+  pixivLink: z.string().optional(),
 };
 export const LinkTypeEnum = z.enum([
   "twitterLink",
@@ -23,6 +24,7 @@ export const LinkTypeEnum = z.enum([
   "officialLink",
   "storeLink",
   "myacgLink",
+  "pixivLink",
 ]);
 
 export type LinkTypeKeys = keyof typeof AllAvailableLinkType;
@@ -46,13 +48,15 @@ export function GetLinkLabelFromKey(key: string): string {
     case "officialLink":
       return "官網鏈接";
     case "plurkLink":
-      return "普浪鏈接";
+      return "噗浪鏈接";
     case "storeLink":
       return "商店鏈接";
     case "twitchLink":
       return "圖奇鏈接";
     case "youtubeLink":
       return "YT鏈接";
+    case "pixivLink":
+      return "pixiv鏈接";
   }
   return "";
 }

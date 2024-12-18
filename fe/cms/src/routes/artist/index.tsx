@@ -13,6 +13,7 @@ import {
   GetLinkLabelFromKey,
   ImageField,
 } from "../../components";
+import { trpc } from "../../helper";
 
 export const Route = createFileRoute("/artist/")({
   component: Artist,
@@ -20,21 +21,23 @@ export const Route = createFileRoute("/artist/")({
 
 const formSchema = z
   .object({
-    introduction: z.string(),
-    artistName: z.string().min(1, { message: "請輸入名字" }),
-    tag: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
-    image: z.string(),
+    introduction: z.string().optional(),
+    author: z.string().min(1, { message: "請輸入名字" }),
+    tags: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
+    photo: z.string().optional(),
   })
   .merge(LinkFormSchema);
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const onSubmit: SubmitHandler<FormSchema> = (data) => console.log(data);
-
 function Artist() {
   const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
-  const val = formHook.getValues();
-  console.log(val.image);
+  const mutation = trpc.artist.createArtist.useMutation();
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    console.log(data);
+    const allTag = data.tags.map((i) => i.tag).join(",");
+    mutation.mutate({ ...data, tags: allTag });
+  };
   return (
     <div
       className={
@@ -46,10 +49,10 @@ function Artist() {
       </div>
       <Forms.Root OnSubmit={onSubmit} formHook={formHook}>
         <Forms.HorizontalLayout>
-          <InputTextField formField={"artistName"} label={"作者"} />
+          <InputTextField formField={"author"} label={"作者"} />
           <InputTextField formField={"introduction"} label={"自我介紹"} />
         </Forms.HorizontalLayout>
-        <TagFilterField formField={"tag"} label={"標簽"} />
+        <TagFilterField formField={"tags"} label={"標簽"} />
         <div className={"gap-6 grid-cols-2 grid"}>
           {Object.keys(AllAvailableLinkType).map((key) => {
             return (
@@ -61,7 +64,7 @@ function Artist() {
             );
           })}
         </div>
-        <ImageField formField={"image"} title={"头像"} label={"头像"} />
+        <ImageField formField={"photo"} title={"头像"} label={"头像"} />
 
         <Forms.Submit>
           下一步 <ArrowRight />
