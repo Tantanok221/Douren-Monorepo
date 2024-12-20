@@ -11,10 +11,7 @@ import {
 } from "@/schema/event.zod";
 import { verifyUser } from "@/utlis/authHelper";
 import { publicProcedure, router } from "@/trpc";
-import {
-	eventInputParams,
-	eventNameInputParams,
-} from "@pkg/type";
+import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
@@ -24,7 +21,7 @@ const EventDao = NewEventDao();
 
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async () => {
-		return await EventDao.FetchAll()
+		return await EventDao.FetchAll();
 	}),
 	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
 		return await EventArtistDao.Fetch(opts.input);

@@ -10,131 +10,131 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as FormImport } from './routes/form'
-import { Route as IndexImport } from './routes/index'
-import { Route as FormEventartistImport } from './routes/form/eventartist'
-import { Route as FormArtistImport } from './routes/form/artist'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as FormImport } from "./routes/form";
+import { Route as IndexImport } from "./routes/index";
+import { Route as FormEventartistImport } from "./routes/form/eventartist";
+import { Route as FormArtistImport } from "./routes/form/artist";
 
 // Create/Update Routes
 
 const FormRoute = FormImport.update({
-  id: '/form',
-  path: '/form',
+  id: "/form",
+  path: "/form",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const FormEventartistRoute = FormEventartistImport.update({
-  id: '/eventartist',
-  path: '/eventartist',
+  id: "/eventartist",
+  path: "/eventartist",
   getParentRoute: () => FormRoute,
-} as any)
+} as any);
 
 const FormArtistRoute = FormArtistImport.update({
-  id: '/artist',
-  path: '/artist',
+  id: "/artist",
+  path: "/artist",
   getParentRoute: () => FormRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/form': {
-      id: '/form'
-      path: '/form'
-      fullPath: '/form'
-      preLoaderRoute: typeof FormImport
-      parentRoute: typeof rootRoute
-    }
-    '/form/artist': {
-      id: '/form/artist'
-      path: '/artist'
-      fullPath: '/form/artist'
-      preLoaderRoute: typeof FormArtistImport
-      parentRoute: typeof FormImport
-    }
-    '/form/eventartist': {
-      id: '/form/eventartist'
-      path: '/eventartist'
-      fullPath: '/form/eventartist'
-      preLoaderRoute: typeof FormEventartistImport
-      parentRoute: typeof FormImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/form": {
+      id: "/form";
+      path: "/form";
+      fullPath: "/form";
+      preLoaderRoute: typeof FormImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/form/artist": {
+      id: "/form/artist";
+      path: "/artist";
+      fullPath: "/form/artist";
+      preLoaderRoute: typeof FormArtistImport;
+      parentRoute: typeof FormImport;
+    };
+    "/form/eventartist": {
+      id: "/form/eventartist";
+      path: "/eventartist";
+      fullPath: "/form/eventartist";
+      preLoaderRoute: typeof FormEventartistImport;
+      parentRoute: typeof FormImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface FormRouteChildren {
-  FormArtistRoute: typeof FormArtistRoute
-  FormEventartistRoute: typeof FormEventartistRoute
+  FormArtistRoute: typeof FormArtistRoute;
+  FormEventartistRoute: typeof FormEventartistRoute;
 }
 
 const FormRouteChildren: FormRouteChildren = {
   FormArtistRoute: FormArtistRoute,
   FormEventartistRoute: FormEventartistRoute,
-}
+};
 
-const FormRouteWithChildren = FormRoute._addFileChildren(FormRouteChildren)
+const FormRouteWithChildren = FormRoute._addFileChildren(FormRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/form': typeof FormRouteWithChildren
-  '/form/artist': typeof FormArtistRoute
-  '/form/eventartist': typeof FormEventartistRoute
+  "/": typeof IndexRoute;
+  "/form": typeof FormRouteWithChildren;
+  "/form/artist": typeof FormArtistRoute;
+  "/form/eventartist": typeof FormEventartistRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/form': typeof FormRouteWithChildren
-  '/form/artist': typeof FormArtistRoute
-  '/form/eventartist': typeof FormEventartistRoute
+  "/": typeof IndexRoute;
+  "/form": typeof FormRouteWithChildren;
+  "/form/artist": typeof FormArtistRoute;
+  "/form/eventartist": typeof FormEventartistRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/form': typeof FormRouteWithChildren
-  '/form/artist': typeof FormArtistRoute
-  '/form/eventartist': typeof FormEventartistRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/form": typeof FormRouteWithChildren;
+  "/form/artist": typeof FormArtistRoute;
+  "/form/eventartist": typeof FormEventartistRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/form' | '/form/artist' | '/form/eventartist'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/form' | '/form/artist' | '/form/eventartist'
-  id: '__root__' | '/' | '/form' | '/form/artist' | '/form/eventartist'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/form" | "/form/artist" | "/form/eventartist";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/form" | "/form/artist" | "/form/eventartist";
+  id: "__root__" | "/" | "/form" | "/form/artist" | "/form/eventartist";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  FormRoute: typeof FormRouteWithChildren
+  IndexRoute: typeof IndexRoute;
+  FormRoute: typeof FormRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FormRoute: FormRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 

@@ -53,12 +53,11 @@ export const ImageField = ({ label, formField, title }: ImageFieldProps) => {
   );
 };
 
-
 export const EventField = ({ label, formField }: EventFieldProps) => {
   const { setValue } = useFormContext();
   const { data } = trpc.eventArtist.getAllEvent.useQuery();
   const onEventFieldChange = (value: string) => {
-    setValue(formField,value)
+    setValue(formField, value);
   };
 
   return (
@@ -70,13 +69,17 @@ export const EventField = ({ label, formField }: EventFieldProps) => {
       <SelectComponent defaultValue={"3"} onValueChange={onEventFieldChange}>
         <SelectComponent.Group>
           <SelectComponent.Label text={label} />
-          {data ? data.map((item) => {
-            return <SelectComponent.Item
-              key={item.id + item.name + "event"}
-              text={item.name}
-              value={String(item.id)}
-            />;
-          }) : null}
+          {data
+            ? data.map((item) => {
+                return (
+                  <SelectComponent.Item
+                    key={item.id + item.name + "event"}
+                    text={item.name}
+                    value={String(item.id)}
+                  />
+                );
+              })
+            : null}
         </SelectComponent.Group>
       </SelectComponent>
     </Forms.Field>
