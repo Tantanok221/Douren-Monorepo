@@ -12,7 +12,6 @@ import {
 import { verifyUser } from "@/utlis/authHelper";
 import { publicProcedure, router } from "@/trpc";
 import {
-	eventArtistSchema,
 	eventInputParams,
 	eventNameInputParams,
 } from "@pkg/type";
@@ -24,6 +23,9 @@ const EventArtistDao = NewEventArtistDao();
 const EventDao = NewEventDao();
 
 export const trpcEventRoute = router({
+	getAllEvent: publicProcedure.query(async () => {
+		return await EventDao.FetchAll()
+	}),
 	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
 		return await EventArtistDao.Fetch(opts.input);
 	}),
@@ -55,9 +57,13 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 		});
 		return c.json(returnObj);
 	})
+	.get("/", async (c) => {
+		const data = EventDao.FetchAll();
+		return c.json(data);
+	})
 	.get("/:eventName", async (c) => {
 		const { eventName } = c.req.param();
-		const data = EventDao.Fetch(eventName);
+		const data = EventDao.FetchByEventName(eventName);
 		return c.json(data);
 	})
 	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
