@@ -11,9 +11,9 @@ export const FormImageUpload = ({ title }: Props) => {
   const { name } = useFormFieldContext();
 
   return (
-  <ImageUpload setValue={setValue} formField={name}>
-    <ImageUpload.ResultBox/>
-    <ImageUpload.UploadBox title={title}/>
-  </ImageUpload>
+    <ImageUpload setValue={setValue} formField={name}>
+      <ImageUpload.ResultBox />
+      <ImageUpload.UploadBox title={title} />
+    </ImageUpload>
   );
 };

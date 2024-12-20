@@ -1,17 +1,17 @@
 import { useImageUploadContext } from "../context/useImageUploadContext.tsx";
 
 interface props {
- title: string
+  title: string;
 }
 
-export const UploadBox = ({title}: props) => {
-  const {imageHook,uploadHook,multiple} = useImageUploadContext()
-  const {onImageUpload,dragProps,isDragging} = imageHook
-  const {  isPending,isSuccess } = uploadHook;
+export const UploadBox = ({ title }: props) => {
+  const { imageHook, uploadHook, multiple } = useImageUploadContext();
+  const { onImageUpload, dragProps, isDragging } = imageHook;
+  const { isPending, isSuccess } = uploadHook;
   const extendedClass = isDragging
     ? "border-highlightFormBorder"
     : "border-formBorder";
-  if(isSuccess && !multiple) return null
+  if (isSuccess && !multiple) return null;
   return (
     <button
       className={
@@ -26,4 +26,4 @@ export const UploadBox = ({title}: props) => {
       {isPending ? "上传中" : `拖拉照片或者點擊來放著${title}`}
     </button>
   );
-}
+};

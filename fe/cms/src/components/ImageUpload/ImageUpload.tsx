@@ -1,4 +1,6 @@
-import ImageUploading, { ImageListType, ImageType } from "react-images-uploading";
+import ImageUploading, {
+  ImageListType,
+} from "react-images-uploading";
 import { ImageUploadContextProvider } from "./context/ImageUploadContext.tsx";
 import { ReactNode, useEffect, useState } from "react";
 import { useUploadImage } from "../../hooks";
@@ -15,20 +17,20 @@ interface props<T extends FieldValues> {
 }
 
 export const ImageUpload: React.FC<props<FieldValues>> & {
-  ResultBox: typeof ResultBox
-  UploadBox: typeof UploadBox
+  ResultBox: typeof ResultBox;
+  UploadBox: typeof UploadBox;
 } = ({ formField: name, setValue, multiple, children }) => {
   const [images, setImages] = useState<ImageListType>([]);
   const uploadHook = useUploadImage();
   const { mutate, data } = uploadHook;
   useEffect(() => {
     setValue(name, data);
-  }, [setValue,data,name]);
+  }, [setValue, data, name]);
   const useOnChange = (imageList: ImageListType) => {
     if (!multiple) {
       if (imageList[0].file) {
         mutate(imageList[0].file);
-        setImages(imageList)
+        setImages(imageList);
         console.log(data);
       }
       return;
@@ -37,9 +39,7 @@ export const ImageUpload: React.FC<props<FieldValues>> & {
   return (
     <ImageUploading multiple value={images} onChange={useOnChange}>
       {(imageHook) => (
-        <ImageUploadContextProvider
-          hook={{ imageHook, uploadHook,multiple }}
-        >
+        <ImageUploadContextProvider hook={{ imageHook, uploadHook, multiple }}>
           {children}
         </ImageUploadContextProvider>
       )}
@@ -48,4 +48,3 @@ export const ImageUpload: React.FC<props<FieldValues>> & {
 };
 ImageUpload.ResultBox = ResultBox;
 ImageUpload.UploadBox = UploadBox;
-

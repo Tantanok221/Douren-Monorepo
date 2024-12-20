@@ -3,19 +3,15 @@ import { X } from "lucide-react";
 import { useImageUploadContext } from "../context/useImageUploadContext.tsx";
 
 export const ResultBox = () => {
-  const {uploadHook,imageHook} = useImageUploadContext()
-  const {data,isSuccess} = uploadHook
-  const {onImageRemoveAll} = imageHook
-  console.log(data,isSuccess)
+  const { uploadHook, imageHook } = useImageUploadContext();
+  const { data, isSuccess } = uploadHook;
+  const { onImageRemoveAll } = imageHook;
+  console.log(data, isSuccess);
   if (isSuccess)
     return (
       <HoverCard.Root>
         <HoverCard.Trigger>
-          <img
-            className={"w-full "}
-            alt={"User Uploaded Image"}
-            src={data}
-          />
+          <img className={"w-full "} alt={"User Uploaded Image"} src={data} />
         </HoverCard.Trigger>
         <HoverCard.Portal>
           <HoverCard.Content
@@ -35,4 +31,4 @@ export const ResultBox = () => {
         </HoverCard.Portal>
       </HoverCard.Root>
     );
-}
+};
