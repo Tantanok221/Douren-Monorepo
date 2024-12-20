@@ -1,6 +1,4 @@
-import ImageUploading, {
-  ImageListType,
-} from "react-images-uploading";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 import { ImageUploadContextProvider } from "./context/ImageUploadContext.tsx";
 import { ReactNode, useEffect, useState } from "react";
 import { useUploadImage } from "../../hooks";
