@@ -1,10 +1,8 @@
 import { createContext, ReactNode } from "react";
 import { ExportInterface } from "react-images-uploading/dist/typings";
-import { UseMutationResult } from "@tanstack/react-query";
 
 export interface ImageUploadHook {
   imageHook: ExportInterface;
-  uploadHook: UseMutationResult<string, Error, File | null, unknown>;
   multiple?: boolean;
 }
 

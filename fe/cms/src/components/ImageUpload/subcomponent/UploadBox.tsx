@@ -5,13 +5,12 @@ interface props {
 }
 
 export const UploadBox = ({ title }: props) => {
-  const { imageHook, uploadHook, multiple } = useImageUploadContext();
-  const { onImageUpload, dragProps, isDragging } = imageHook;
-  const { isPending, isSuccess } = uploadHook;
+  const { imageHook,  multiple } = useImageUploadContext();
+  const { imageList, onImageUpload, dragProps, isDragging } = imageHook;
   const extendedClass = isDragging
     ? "border-highlightFormBorder"
     : "border-formBorder";
-  if (isSuccess && !multiple) return null;
+  if (imageList.length>0 && !multiple) return null;
   return (
     <button
       className={
@@ -21,9 +20,8 @@ export const UploadBox = ({ title }: props) => {
       onClick={onImageUpload}
       type={"button"}
       {...dragProps}
-      disabled={isPending}
     >
-      {isPending ? "上传中" : `拖拉照片或者點擊來放著${title}`}
+      {`拖拉照片或者點擊來放著${title}`}
     </button>
   );
 };

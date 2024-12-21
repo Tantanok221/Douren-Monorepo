@@ -1,43 +1,33 @@
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { ImageUploadContextProvider } from "./context/ImageUploadContext.tsx";
 import { ReactNode, useEffect, useState } from "react";
-import { useUploadImage } from "../../hooks";
 import { ResultBox } from "./subcomponent/ResultBox.tsx";
 import { UploadBox } from "./subcomponent/UploadBox.tsx";
-import { UseFormSetValue } from "react-hook-form/dist/types/form";
-import { FieldValues } from "react-hook-form";
 
-interface props<T extends FieldValues> {
+interface props {
   children: ReactNode;
-  setValue: UseFormSetValue<T>;
+  setValue: (val: File[]) => void;
   multiple?: boolean;
-  formField: string;
 }
 
-export const ImageUpload: React.FC<props<FieldValues>> & {
+export const ImageUpload: React.FC<props> & {
   ResultBox: typeof ResultBox;
   UploadBox: typeof UploadBox;
-} = ({ formField: name, setValue, multiple, children }) => {
+} = ({ setValue, multiple, children }) => {
   const [images, setImages] = useState<ImageListType>([]);
-  const uploadHook = useUploadImage();
-  const { mutate, data } = uploadHook;
-  useEffect(() => {
-    setValue(name, data);
-  }, [setValue, data, name]);
   const useOnChange = (imageList: ImageListType) => {
-    if (!multiple) {
-      if (imageList[0].file) {
-        mutate(imageList[0].file);
-        setImages(imageList);
-        console.log(data);
-      }
-      return;
-    }
+    setImages(imageList);
+    const allFile: File[] = [];
+    imageList.forEach((i) => {
+      if (i.file) allFile.push(i.file);
+    });
+    setValue(allFile);
+
   };
   return (
     <ImageUploading multiple value={images} onChange={useOnChange}>
       {(imageHook) => (
-        <ImageUploadContextProvider hook={{ imageHook, uploadHook, multiple }}>
+        <ImageUploadContextProvider hook={{ imageHook, multiple }}>
           {children}
         </ImageUploadContextProvider>
       )}

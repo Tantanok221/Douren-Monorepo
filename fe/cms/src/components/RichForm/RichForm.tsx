@@ -1,6 +1,6 @@
-import { Forms } from "../Forms";
+import { FormImageUploadRef, Forms } from "../Forms";
 import { SelectComponent } from "@lib/ui";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { trpc } from "../../helper";
 import { useFormContext } from "react-hook-form";
 
@@ -10,6 +10,7 @@ interface Props {
 }
 
 interface ImageFieldProps {
+  multiple?: boolean
   label: React.ReactNode;
   formField: string;
   title: string;
@@ -44,14 +45,14 @@ export const TagFilterField = ({ label, formField }: Props) => {
   );
 };
 
-export const ImageField = ({ label, formField, title }: ImageFieldProps) => {
+export const ImageField = forwardRef<FormImageUploadRef,ImageFieldProps>(({ label, formField, title,multiple}: ImageFieldProps,ref) => {
   return (
     <Forms.Field name={formField}>
       <Forms.Label>{label}</Forms.Label>
-      <Forms.ImageUpload title={title} />
+      <Forms.ImageUpload title={title} multiple={multiple} ref={ref}/>
     </Forms.Field>
   );
-};
+});
 
 export const EventField = ({ label, formField }: EventFieldProps) => {
   const { setValue } = useFormContext();
