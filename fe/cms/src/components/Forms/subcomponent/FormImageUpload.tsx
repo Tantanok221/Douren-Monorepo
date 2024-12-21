@@ -10,28 +10,30 @@ interface Props {
 }
 
 export type FormImageUploadRef = {
-  uploadImage: () => Promise<string>
-}
+  uploadImage: () => Promise<string>;
+};
 
-export const FormImageUpload = forwardRef<FormImageUploadRef, Props>(({ multiple, title }: Props, ref) => {
-  const [image, setImage] = useState<File[]>([]);
-  useImperativeHandle(ref, () => {
-    return {
-      uploadImage: async () => {
-        const allLink: string[] = [];
-        for(const img of image){
-          allLink.push(await uploadImage(img));
-        }
-        console.log("uploadImage allLink: " + allLink.join("\n"))
-        return allLink.join("\n");
-      }
-    };
-  }, [image]);
+export const FormImageUpload = forwardRef<FormImageUploadRef, Props>(
+  ({ multiple, title }: Props, ref) => {
+    const [image, setImage] = useState<File[]>([]);
+    useImperativeHandle(ref, () => {
+      return {
+        uploadImage: async () => {
+          const allLink: string[] = [];
+          for (const img of image) {
+            allLink.push(await uploadImage(img));
+          }
+          console.log("uploadImage allLink: " + allLink.join("\n"));
+          return allLink.join("\n");
+        },
+      };
+    }, [image]);
 
-  return (
-    <ImageUpload setValue={setImage} multiple={multiple}>
-      <ImageUpload.UploadBox title={title} />
-      <ImageUpload.ResultBox />
-    </ImageUpload>
-  );
-});
+    return (
+      <ImageUpload setValue={setImage} multiple={multiple}>
+        <ImageUpload.UploadBox title={title} />
+        <ImageUpload.ResultBox />
+      </ImageUpload>
+    );
+  },
+);

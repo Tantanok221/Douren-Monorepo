@@ -22,7 +22,6 @@ export const ImageUpload: React.FC<props> & {
       if (i.file) allFile.push(i.file);
     });
     setValue(allFile);
-
   };
   return (
     <ImageUploading multiple value={images} onChange={useOnChange}>

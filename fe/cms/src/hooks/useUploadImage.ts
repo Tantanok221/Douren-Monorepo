@@ -7,12 +7,12 @@ interface ImageResponse {
 export const useUploadImage = () => {
   return useMutation({
     mutationFn: async (file: File | null) => {
-      return uploadImage(file)
+      return uploadImage(file);
     },
   });
 };
 
-export async function uploadImage(file: File | null ):Promise<string> {
+export async function uploadImage(file: File | null): Promise<string> {
   if (!file) throw new Error("No file provided");
   const formData = new FormData();
   formData.append("image", file);

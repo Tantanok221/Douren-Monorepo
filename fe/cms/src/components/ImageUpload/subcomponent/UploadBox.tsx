@@ -5,12 +5,12 @@ interface props {
 }
 
 export const UploadBox = ({ title }: props) => {
-  const { imageHook,  multiple } = useImageUploadContext();
+  const { imageHook, multiple } = useImageUploadContext();
   const { imageList, onImageUpload, dragProps, isDragging } = imageHook;
   const extendedClass = isDragging
     ? "border-highlightFormBorder"
     : "border-formBorder";
-  if (imageList.length>0 && !multiple) return null;
+  if (imageList.length > 0 && !multiple) return null;
   return (
     <button
       className={

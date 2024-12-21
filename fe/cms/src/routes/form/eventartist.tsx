@@ -3,10 +3,11 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  EventField, FormImageUploadRef,
+  EventField,
+  FormImageUploadRef,
   Forms,
   ImageField,
-  InputTextField
+  InputTextField,
 } from "../../components";
 import { ArrowRight } from "@phosphor-icons/react";
 import { useRef } from "react";
@@ -34,11 +35,11 @@ function EventArtist() {
       event_id: "3",
     },
   });
-  const uploadImageRef = useRef<FormImageUploadRef>(null!)
+  const uploadImageRef = useRef<FormImageUploadRef>(null!);
   const onSubmit: SubmitHandler<eventArtistSchema> = async (data) => {
-    if(!uploadImageRef.current) return
-    const link= await uploadImageRef.current.uploadImage()
-    console.log(link)
+    if (!uploadImageRef.current) return;
+    const link = await uploadImageRef.current.uploadImage();
+    console.log(link);
     console.log(data);
   };
 
@@ -53,7 +54,13 @@ function EventArtist() {
         <InputTextField formField={"location_day02"} label={"第二天攤位位置"} />
         <InputTextField formField={"location_day03"} label={"第三天攤位位置"} />
         <EventField formField={"event_id"} label={"選擇活動"} />
-        <ImageField formField={"DM"} label={"DM"} title={"DM"} multiple ref={uploadImageRef} />
+        <ImageField
+          formField={"DM"}
+          label={"DM"}
+          title={"DM"}
+          multiple
+          ref={uploadImageRef}
+        />
         <Forms.Submit>
           下一步 <ArrowRight />
         </Forms.Submit>

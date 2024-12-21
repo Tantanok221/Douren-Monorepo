@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface ImageFieldProps {
-  multiple?: boolean
+  multiple?: boolean;
   label: React.ReactNode;
   formField: string;
   title: string;
@@ -45,14 +45,16 @@ export const TagFilterField = ({ label, formField }: Props) => {
   );
 };
 
-export const ImageField = forwardRef<FormImageUploadRef,ImageFieldProps>(({ label, formField, title,multiple}: ImageFieldProps,ref) => {
-  return (
-    <Forms.Field name={formField}>
-      <Forms.Label>{label}</Forms.Label>
-      <Forms.ImageUpload title={title} multiple={multiple} ref={ref}/>
-    </Forms.Field>
-  );
-});
+export const ImageField = forwardRef<FormImageUploadRef, ImageFieldProps>(
+  ({ label, formField, title, multiple }: ImageFieldProps, ref) => {
+    return (
+      <Forms.Field name={formField}>
+        <Forms.Label>{label}</Forms.Label>
+        <Forms.ImageUpload title={title} multiple={multiple} ref={ref} />
+      </Forms.Field>
+    );
+  },
+);
 
 export const EventField = ({ label, formField }: EventFieldProps) => {
   const { setValue } = useFormContext();

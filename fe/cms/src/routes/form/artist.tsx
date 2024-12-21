@@ -11,14 +11,14 @@ import {
   LinkFormSchema,
   AllAvailableLinkType,
   GetLinkLabelFromKey,
-  ImageField
+  ImageField,
 } from "@/components";
 import { trpc } from "@/helper";
 import { useRef } from "react";
 import { FormImageUploadRef } from "../../components";
 
 export const Route = createFileRoute("/form/artist")({
-  component: Artist
+  component: Artist,
 });
 
 export const artistFormSchema = z
@@ -33,14 +33,14 @@ export type ArtistFormSchema = z.infer<typeof artistFormSchema>;
 
 function Artist() {
   const formHook = useForm<ArtistFormSchema>({
-    resolver: zodResolver(artistFormSchema)
+    resolver: zodResolver(artistFormSchema),
   });
   const createArtistMutation = trpc.artist.createArtist.useMutation();
-  const uploadImageRef = useRef<FormImageUploadRef>(null!)
+  const uploadImageRef = useRef<FormImageUploadRef>(null!);
   // const {getValues} = formHook
   // console.log(getValues())
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
-    if(!uploadImageRef.current) return
+    if (!uploadImageRef.current) return;
     console.log("inside onsubmit");
     console.log(data);
     const allTag = data.tags.map((i) => i.tag).join(",");
@@ -70,7 +70,12 @@ function Artist() {
             );
           })}
         </div>
-        <ImageField formField={"photo"} title={"頭像"} label={"頭像"} ref={uploadImageRef}/>
+        <ImageField
+          formField={"photo"}
+          title={"頭像"}
+          label={"頭像"}
+          ref={uploadImageRef}
+        />
         <Forms.Submit>
           下一步 <ArrowRight />
         </Forms.Submit>
