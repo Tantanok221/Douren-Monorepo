@@ -1,6 +1,6 @@
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { ImageUploadContextProvider } from "./context/ImageUploadContext.tsx";
-import { ReactNode,  useState } from "react";
+import { ReactNode, useState } from "react";
 import { ResultBox } from "./subcomponent/ResultBox.tsx";
 import { UploadBox } from "./subcomponent/UploadBox.tsx";
 

@@ -1,5 +1,5 @@
 import { ImageUpload } from "../../ImageUpload/ImageUpload.tsx";
-import { uploadImage  } from "../../../hooks";
+import { uploadImage } from "../../../hooks";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
 interface Props {
