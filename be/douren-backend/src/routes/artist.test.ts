@@ -31,6 +31,7 @@ describe("Test Artist Routes", () => {
 		const resJson: any = await res.json();
 		expect(res.status).toBe(200);
 		createdId = resJson[0].uuid;
+		console.log(createdId)
 	});
 	test.sequential("PUT /artist/:artistId", async () => {
 		const res = await app.request(

@@ -12,38 +12,44 @@ import {
   AllAvailableLinkType,
   GetLinkLabelFromKey,
   ImageField,
-} from "../../components";
-import { trpc } from "../../helper";
+} from "@/components";
+import { trpc } from "@/helper";
+import { useRef } from "react";
+import { FormImageUploadRef } from "../../components";
 
-export const Route = createFileRoute("/artist/")({
+export const Route = createFileRoute("/form/artist")({
   component: Artist,
 });
 
-const formSchema = z
+export const artistFormSchema = z
   .object({
     introduction: z.string().optional(),
     author: z.string().min(1, { message: "請輸入名字" }),
     tags: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
-    photo: z.string().optional(),
   })
   .merge(LinkFormSchema);
 
-type FormSchema = z.infer<typeof formSchema>;
+export type ArtistFormSchema = z.infer<typeof artistFormSchema>;
 
 function Artist() {
-  const formHook = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
-  const mutation = trpc.artist.createArtist.useMutation();
-  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+  const formHook = useForm<ArtistFormSchema>({
+    resolver: zodResolver(artistFormSchema),
+  });
+  const createArtistMutation = trpc.artist.createArtist.useMutation();
+  const uploadImageRef = useRef<FormImageUploadRef>(null!);
+  // const {getValues} = formHook
+  // console.log(getValues())
+  const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
+    if (!uploadImageRef.current) return;
+    console.log("inside onsubmit");
     console.log(data);
     const allTag = data.tags.map((i) => i.tag).join(",");
-    mutation.mutate({ ...data, tags: allTag });
+    const imgLink = await uploadImageRef.current.uploadImage();
+    console.log(imgLink);
+    createArtistMutation.mutate({ ...data, photo: imgLink, tags: allTag });
   };
   return (
-    <div
-      className={
-        "flex flex-col px-6 py-8 w-full gap-8 bg-panel rounded-2xl justify-center items-start "
-      }
-    >
+    <>
       <div className={"text-2xl font-sans font-semibold text-white"}>
         {"基本資訊"}
       </div>
@@ -64,12 +70,16 @@ function Artist() {
             );
           })}
         </div>
-        <ImageField formField={"photo"} title={"头像"} label={"头像"} />
-
+        <ImageField
+          formField={"photo"}
+          title={"頭像"}
+          label={"頭像"}
+          ref={uploadImageRef}
+        />
         <Forms.Submit>
           下一步 <ArrowRight />
         </Forms.Submit>
       </Forms.Root>
-    </div>
+    </>
   );
 }
