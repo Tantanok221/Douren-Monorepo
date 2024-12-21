@@ -1,7 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import { useFormFieldContext } from "../context";
 import { ImageUpload } from "../../ImageUpload/ImageUpload.tsx";
-import { uploadImage, useUploadImage } from "../../../hooks";
+import { uploadImage  } from "../../../hooks";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
 interface Props {
