@@ -1,12 +1,10 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { useState } from "react";
 
 export const Route = createFileRoute("/form")({
   component: () => <Form />,
 });
 
 function Form() {
-  // const [step, setStep] = useState(0);
   return (
     <div
       className={
