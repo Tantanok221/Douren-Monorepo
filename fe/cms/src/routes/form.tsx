@@ -6,7 +6,7 @@ export const Route = createFileRoute("/form")({
 });
 
 function Form() {
-  const [step, setStep] = useState(0);
+  // const [step, setStep] = useState(0);
   return (
     <div
       className={
