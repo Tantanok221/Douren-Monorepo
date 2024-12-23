@@ -2,7 +2,7 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { MultiStepFormProvider } from "../components/MultiStepForm/context/MultiStepFormContext.tsx";
 
 export const Route = createFileRoute("/form")({
-  component: () => <Form />
+  component: () => <Form />,
 });
 
 function Form() {

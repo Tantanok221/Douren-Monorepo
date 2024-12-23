@@ -11,7 +11,7 @@ interface childrenProps {
 
 interface formSubmitProps {
   children: ReactNode;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 interface nameProps {
@@ -97,7 +97,7 @@ export const FormButton = ({
   );
 };
 
-export const FormSubmit = ({ children,disabled }: formSubmitProps) => {
+export const FormSubmit = ({ children, disabled }: formSubmitProps) => {
   return (
     <Form.Submit asChild>
       <FormButton disabled={disabled} extendClass={"bg-white"} type={"submit"}>
