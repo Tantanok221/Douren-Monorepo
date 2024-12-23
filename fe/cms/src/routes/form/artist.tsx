@@ -11,14 +11,14 @@ import {
   LinkFormSchema,
   AllAvailableLinkType,
   GetLinkLabelFromKey,
-  ImageField,
+  ImageField
 } from "@/components";
-import { trpc } from "@/helper";
 import { useRef } from "react";
 import { FormImageUploadRef } from "../../components";
+import { useMultiStepFormContext } from "../../components/MultiStepForm/context/useMultiStepFormContext.ts";
 
 export const Route = createFileRoute("/form/artist")({
-  component: Artist,
+  component: Artist
 });
 
 export const artistFormSchema = z
@@ -26,6 +26,8 @@ export const artistFormSchema = z
     introduction: z.string().optional(),
     author: z.string().min(1, { message: "請輸入名字" }),
     tags: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
+    photo: z.string().optional(),
+
   })
   .merge(LinkFormSchema);
 
@@ -33,20 +35,21 @@ export type ArtistFormSchema = z.infer<typeof artistFormSchema>;
 
 function Artist() {
   const formHook = useForm<ArtistFormSchema>({
-    resolver: zodResolver(artistFormSchema),
+    resolver: zodResolver(artistFormSchema)
   });
-  const createArtistMutation = trpc.artist.createArtist.useMutation();
+  // const { mutate } = trpc.artist.createArtist.useMutation();
   const uploadImageRef = useRef<FormImageUploadRef>(null!);
+  const setArtistStep = useMultiStepFormContext((state) => state.setArtistStep);
   // const {getValues} = formHook
   // console.log(getValues())
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     console.log("inside onsubmit");
     console.log(data);
-    const allTag = data.tags.map((i) => i.tag).join(",");
+    // const allTag = data.tags.map((i) => i.tag).join(",");
     const imgLink = await uploadImageRef.current.uploadImage();
     console.log(imgLink);
-    createArtistMutation.mutate({ ...data, photo: imgLink, tags: allTag });
+    setArtistStep({ ...data, photo: imgLink});
   };
   return (
     <>

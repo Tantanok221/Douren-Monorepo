@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import { ArrowRight } from "@phosphor-icons/react";
 import { useRef } from "react";
+import { useMultiStepFormContext } from "../../components/MultiStepForm/context/useMultiStepFormContext.ts";
 
 export const Route = createFileRoute("/form/eventartist")({
   component: () => <EventArtist />,
@@ -24,6 +25,7 @@ export const eventArtistSchema = z.object({
   location_day01: z.string().optional(),
   location_day02: z.string().optional(),
   location_day03: z.string().optional(),
+  photo: z.string().optional()
 });
 
 export type eventArtistSchema = z.infer<typeof eventArtistSchema>;
@@ -36,9 +38,11 @@ function EventArtist() {
     },
   });
   const uploadImageRef = useRef<FormImageUploadRef>(null!);
+  const setEventArtistStep = useMultiStepFormContext((state) => state.setEventArtistStep);
   const onSubmit: SubmitHandler<eventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
+    setEventArtistStep({...data, photo: link})
     console.log(link);
     console.log(data);
   };
