@@ -6,11 +6,12 @@ import { CaretDown, IconContext } from "@phosphor-icons/react";
 import SelectItem from "./subcomponents/SelectItem";
 import SelectLabel from "./subcomponents/SelectLabel";
 import SelectGroup from "./subcomponents/SelectGroup";
+import { SelectProps } from "@radix-ui/react-select";
 
 interface Props {
   defaultValue: string;
   children: React.ReactNode;
-  onValueChange: React.Dispatch<React.SetStateAction<string>>;
+  onValueChange: (value: string) => void;
 }
 
 export const SelectComponent = ({

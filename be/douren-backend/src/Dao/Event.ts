@@ -12,7 +12,11 @@ class EventDao implements BaseDao {
 		this.redis = initRedis();
 	}
 
-	async Fetch(eventName: string) {
+	async FetchAll() {
+		return this.db.select().from(s.event).orderBy(desc(s.event.id));
+	}
+
+	async FetchByEventName(eventName: string) {
 		const [data] = await this.db
 			.select()
 			.from(s.event)
