@@ -1,16 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/form/product')({
-  component: () => <AllProductForm/>,
-})
+export const Route = createFileRoute("/form/product")({
+  component: () => <AllProductForm />,
+});
 
-function AllProductForm(){
-  return (
-    <>
-    </>
-  )
+function AllProductForm() {
+  return <></>;
 }
 
-function ProductForm(){
-
-}
+function ProductForm() {}
