@@ -18,7 +18,7 @@
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*", "../api/src/*"]
+      "@/*": ["./src/*"]
     },
     "composite": true
   },
