@@ -1,24 +1,29 @@
 import { MultiStepFormContext } from "./useMultiStepFormContext.ts";
 import { useState } from "react";
 import { createStore } from "zustand";
-import { ArtistFormSchema } from "../../../routes/form/artist.tsx";
-import { eventArtistSchema } from "../../../routes/form/eventartist.tsx";
+import {
+  ArtistFormSchema,
+  EventArtistSchema,
+} from "@/routes/form/-components/form/schema";
 
 interface props {
   children: React.ReactNode;
 }
 
 export interface MultiStepStore {
+  step: number;
   artistStep: ArtistFormSchema | null;
-  eventArtistStep: eventArtistSchema | null;
+  eventArtistStep: EventArtistSchema | null;
   setArtistStep: (step: ArtistFormSchema) => void;
-  setEventArtistStep: (step: eventArtistSchema) => void;
+  setEventArtistStep: (step: EventArtistSchema) => void;
+  bumpStep: () => void;
   triggerSubmit: () => void;
 }
 
 export const MultiStepFormProvider = ({ children }: props) => {
   const [store] = useState(() =>
     createStore<MultiStepStore>((set, get) => ({
+      step: 1,
       artistStep: null,
       eventArtistStep: null,
       setArtistStep: (step) =>
@@ -31,6 +36,11 @@ export const MultiStepFormProvider = ({ children }: props) => {
           artistStep: state.artistStep,
           eventArtistStep: step,
         })),
+      bumpStep: () => {
+        set((state) => ({
+          step: state.step + 1,
+        }));
+      },
       triggerSubmit: () => {
         const artistData = get().artistStep;
         const eventArtistData = get().eventArtistStep;
