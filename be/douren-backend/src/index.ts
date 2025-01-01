@@ -33,7 +33,7 @@ app.use("*", limiter);
 app.use(
 	"*",
 	cors({
-		origin: "https://douren.net",
+		origin: "*",
 		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
 		allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
 		exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
@@ -52,6 +52,12 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
+		responseMeta: () => ({
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Credentials": "true",
+			},
+		}),
 	}),
 );
 app
