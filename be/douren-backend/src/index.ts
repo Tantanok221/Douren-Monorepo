@@ -52,12 +52,6 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
-		responseMeta: () => ({
-			headers: {
-				"Access-Control-Allow-Origin": "https://douren.net",
-				"Access-Control-Allow-Credentials": "true",
-			},
-		}),
 	}),
 );
 app
