@@ -1,15 +1,12 @@
-name: Douren Backend Deploy Pipeline
+name: Douren Backend Deploy Pipeline(Manual Action)
 
-on:
-  push:
-    branches:
-      - "main"
+on: workflow_dispatch
 
 jobs:
   prod-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Production Deploy
+    name: Staging Deploy
     steps:
       - name: Check out code
         uses: actions/checkout@v4
