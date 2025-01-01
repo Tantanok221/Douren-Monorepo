@@ -30,19 +30,22 @@ const app = new Hono<{ Bindings: BACKEND_BINDING }>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", limiter);
-app.use("*", cors({
-	origin: (origin, c) => {
-		// Allow requests from any subdomain of douren.net
-		if (origin.endsWith("douren.net")) {
-			return origin; // Allow the origin
-		}
-		return ""; // Block the request
-	},
-	allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
-	allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
-	exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
-	credentials: true, // Allow credentials (cookies, authorization headers) if required
-}))
+app.use(
+	"*",
+	cors({
+		origin: (origin, c) => {
+			// Allow requests from any subdomain of douren.net
+			if (origin.endsWith("douren.net")) {
+				return origin; // Allow the origin
+			}
+			return ""; // Block the request
+		},
+		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
+		allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+		exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
+		credentials: true, // Allow credentials (cookies, authorization headers) if required
+	}),
+);
 
 const appRouter = router({
 	artist: trpcArtistRoute,
