@@ -6,15 +6,14 @@ on:
       - 'be/douren-backend/**'
       - 'pkg/**'
 
+
+  workflow_dispatch:
+
 jobs:
   stg-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     name: Staging Deploy
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      TURBO_REMOTE_ONLY: true
     steps:
       - name: Check out code
         uses: actions/checkout@v4
