@@ -30,7 +30,16 @@ const app = new Hono<{ Bindings: BACKEND_BINDING }>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", limiter);
-app.use(cors());
+app.use('*', async (c, next) => {
+	const corsMiddleware = cors({
+		origin: '*',
+		allowHeaders: ['Origin', 'Content-Type', 'Authorization'],
+		allowMethods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
+		credentials: true,
+	});
+	return await corsMiddleware(c, next);
+});
+
 
 const appRouter = router({
 	artist: trpcArtistRoute,
