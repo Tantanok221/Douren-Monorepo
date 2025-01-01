@@ -33,7 +33,7 @@ app.use("*", limiter);
 app.use(
 	"*",
 	cors({
-		origin: "*",
+		origin: "https://douren.net",
 		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
 		allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
 		exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
