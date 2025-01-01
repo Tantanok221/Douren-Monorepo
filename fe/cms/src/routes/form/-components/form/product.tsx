@@ -1,9 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { ImageField, InputTextField, Forms } from "@/components";
 import { useUploadImageRef } from "@/hooks";
 import { productFormSchema, ProductFormSchema } from "./schema";
