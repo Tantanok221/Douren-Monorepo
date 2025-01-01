@@ -1,12 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Dispatch,
-  forwardRef,
-  SetStateAction,
   useEffect,
-  useImperativeHandle,
-  useRef,
   useState,
 } from "react";
 import { ImageField, InputTextField, Forms } from "@/components";
@@ -20,10 +15,6 @@ import { FormButton } from "../../../../components";
 
 interface formProps {
   index: number;
-}
-
-interface formHandle {
-  submit: () => void;
 }
 
 export function AllProductForm() {
@@ -90,7 +81,6 @@ const ProductForm = ({ index }: formProps) => {
           ref={previewImageRef}
         />
       </Forms.Root>
-      ;
     </>
   );
 };
