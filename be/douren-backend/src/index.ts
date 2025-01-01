@@ -30,15 +30,18 @@ const app = new Hono<{ Bindings: BACKEND_BINDING }>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", limiter);
-app.use("*", cors({
-	origin: (origin, c) => {
-		// Allow requests from any subdomain of douren.net
-		if (origin.endsWith("douren.net")) {
-			return origin; // Allow the origin
-		}
-		return ""; // Block the request (or return a default origin if needed)
-	},
-}));
+app.use(
+	"*",
+	cors({
+		origin: (origin, c) => {
+			// Allow requests from any subdomain of douren.net
+			if (origin.endsWith("douren.net")) {
+				return origin; // Allow the origin
+			}
+			return ""; // Block the request (or return a default origin if needed)
+		},
+	}),
+);
 
 const appRouter = router({
 	artist: trpcArtistRoute,
