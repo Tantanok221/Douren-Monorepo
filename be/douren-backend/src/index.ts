@@ -34,7 +34,7 @@ app.use(
 	"*",
 	cors({
 		origin: (origin, c) => {
-			return origin.endsWith("douren.net") ? origin :  "api.douren.net"
+			return origin.endsWith("douren.net") ? origin : "api.douren.net";
 		},
 	}),
 );
