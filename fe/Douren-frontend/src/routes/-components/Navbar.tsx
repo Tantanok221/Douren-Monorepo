@@ -13,7 +13,6 @@ export const Navbar = () => {
           </NavMenu.Content>
         </NavMenu.Item>
         <NavMenu.ItemWithLink path="/collection">我的收藏</NavMenu.ItemWithLink>
-        <NavMenu.ItemWithLink path="/artist">創作者</NavMenu.ItemWithLink>
         <NavMenu.ItemWithLink path="/about">關於我們</NavMenu.ItemWithLink>
       </NavMenu.List>
     </NavMenu>
