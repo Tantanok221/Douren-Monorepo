@@ -1,15 +1,16 @@
-name: Production Deployment
+name: Douren Frontend Production Deployment
 
 on:
   push:
     branches:
       - "main"
+  workflow_dispatch:
 
 jobs:
   fe-stg-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Douren Frontend
+    name: Deployment
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
