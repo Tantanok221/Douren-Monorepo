@@ -33,14 +33,7 @@ app.use("*", limiter);
 app.use(
 	"*",
 	cors({
-		origin: (origin, c) => {
-			console.log("Incoming Origin:", origin); // Log the origin for debugging
-			// Allow requests from any subdomain of douren.net
-			if (origin.endsWith("douren.net")) {
-				return origin; // Allow the origin
-			}
-			return ""; // Block the request
-		},
+		origin: "*",
 		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
 		allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
 		exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
