@@ -30,16 +30,7 @@ const app = new Hono<{ Bindings: BACKEND_BINDING }>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", limiter);
-app.use(
-	"*",
-	cors({
-		origin: "*",
-		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow necessary HTTP methods
-		allowHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
-		exposeHeaders: ["Content-Length", "X-Custom-Header"], // Expose additional headers if needed
-		credentials: true, // Allow credentials (cookies, authorization headers) if required
-	}),
-);
+app.use(cors());
 
 const appRouter = router({
 	artist: trpcArtistRoute,
