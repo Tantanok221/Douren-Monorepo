@@ -1,4 +1,4 @@
-name: Staging Deployment
+name: Douren CMS Staging Deployment
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ jobs:
   cms-stg-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Douren CMS
+    name: Deployment
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}

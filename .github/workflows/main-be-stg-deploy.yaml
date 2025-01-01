@@ -1,4 +1,4 @@
-name: Douren Backend Deploy Pipeline
+name: Douren Backend Staging Deployment
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ jobs:
   stg-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Staging Deploy
+    name: Deployment
     steps:
       - name: Check out code
         uses: actions/checkout@v4
