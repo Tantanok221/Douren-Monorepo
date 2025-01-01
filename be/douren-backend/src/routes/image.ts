@@ -31,8 +31,6 @@ const imageRoute = new Hono<{ Bindings: BACKEND_BINDING }>().post(
 		}
 		const uploadFormData = new FormData();
 		uploadFormData.append("file", image);
-		console.log("IMAGE ENDPOINT: ", c.env.CLOUDFLARE_IMAGE_ENDPOINT);
-		console.log("IMAGE TOKEN: ", c.env.CLOUDFLARE_IMAGE_TOKEN);
 		const response = await fetch(c.env.CLOUDFLARE_IMAGE_ENDPOINT, {
 			method: "POST",
 			headers: {
