@@ -34,6 +34,7 @@ app.use(
 	"*",
 	cors({
 		origin: (origin, c) => {
+			console.log("Incoming Origin:", origin); // Log the origin for debugging
 			// Allow requests from any subdomain of douren.net
 			if (origin.endsWith("douren.net")) {
 				return origin; // Allow the origin
