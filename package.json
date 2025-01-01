@@ -6,7 +6,7 @@
     "reset": "rimraf --glob node_modules",
     "all": "npm run pkg && npm run lib && npm run be",
     "be": "turbo build --filter=./be/* && npm install",
-    "pkg": "turbo build --filter=./pkg/* --force && npm install",
+    "pkg": "turbo build --filter=./pkg/* && npm install",
     "lib": "turbo build --filter=./lib/* && npm install",
     "dev": "turbo dev",
     "deploy": "turbo deploy",

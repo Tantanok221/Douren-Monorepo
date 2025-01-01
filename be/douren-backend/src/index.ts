@@ -34,7 +34,11 @@ app.use(
 	"*",
 	cors({
 		origin: (origin, c) => {
-			return origin.endsWith("douren.net") ? origin : "api.douren.net";
+			// Allow requests from any subdomain of douren.net
+			if (origin.endsWith("douren.net")) {
+				return origin; // Allow the origin
+			}
+			return ""; // Block the request (or return a default origin if needed)
 		},
 	}),
 );
