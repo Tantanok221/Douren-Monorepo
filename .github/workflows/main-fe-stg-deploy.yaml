@@ -3,7 +3,6 @@ name: Staging Deployment
 on:
   pull_request:
     paths:
-      - 'be/douren-backend/**'
       - 'fe/Douren-frontend/**'
       - 'pkg/type'
       - "lib/ui/**"
