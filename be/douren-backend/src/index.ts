@@ -30,24 +30,30 @@ const app = new Hono<{ Bindings: BACKEND_BINDING }>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", limiter);
+
 app.use(
 	"*",
-	cors({
-		origin: "*",
-	}),
+	async (c, next) => {
+		console.log("Request Headers:", c.req.header);
+		console.log("Request Method:", c.req.method);
+
+		try {
+			await cors({
+				origin: "*", // Allow all origins.
+			})(c, next);
+		} catch (err) {
+			console.error("CORS Error:", err);
+			throw err;
+		}
+	}
 );
-app.use(
-	"/trpc/*",
-	cors({
-		origin: "*", // Allow all origins. Replace with specific origins in production.
-	})
-);
+
+
 app.use("*", async (c, next) => {
 	console.log("Incoming Request:", c.req.method, c.req.url);
 	await next();
 	console.log("Outgoing Response Headers:", c.res.headers);
 });
-
 
 const appRouter = router({
 	artist: trpcArtistRoute,
