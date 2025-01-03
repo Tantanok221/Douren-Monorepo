@@ -36,7 +36,10 @@ class EventArtistDao implements BaseDao {
 			.select()
 			.from(s.event)
 			.where(eq(s.event.name, params.eventName));
-		const QueryBuilder = NewQueryBuilder({eventId: String(eventIdData.id),...params}, this.url);
+		const QueryBuilder = NewQueryBuilder(
+			{ eventId: String(eventIdData.id), ...params },
+			this.url,
+		);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 		const [data, [counts]] = await Promise.all([
 			SelectQuery.query,
