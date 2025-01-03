@@ -32,7 +32,7 @@ const CollectionArtistRenderer = ({ keys, title }: {
   title: string;
 }) => {
   const ax = classNames.bind(style);
-  const [collection, dispatch] = useCollectionProvider();
+  const [collection, ] = useCollectionProvider();
   const tag = useFetchTagData();
 
   if (!collection) return null;

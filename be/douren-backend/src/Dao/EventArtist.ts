@@ -1,16 +1,13 @@
 import { initDB, s } from "@pkg/database/db";
-import { EventArtistFetchParams } from "../utlis/fetchHelper";
 import { BaseDao } from "../Dao";
-import { CreateArtistSchemaTypes } from "../schema/artist.zod";
 import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import {
-	artistSchemaType,
 	eventArtistSchemaType,
 	eventInputParamsType,
 } from "@pkg/type";
-import { createPaginationObject } from "../helper/createPaginationObject";
-import { PAGE_SIZE } from "../helper/constant";
-import { NewQueryBuilder } from "../QueryBuilder";
+import { createPaginationObject } from "@/helper/createPaginationObject";
+import { PAGE_SIZE } from "@/helper/constant";
+import { NewQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import {
 	CreateEventArtistSchemaTypes,

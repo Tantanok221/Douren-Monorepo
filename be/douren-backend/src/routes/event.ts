@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { and, desc, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { initDB, s } from "@pkg/database/db";
 import { BACKEND_BINDING } from "@pkg/env/constant";
 import { zValidator } from "@hono/zod-validator";
@@ -15,7 +15,6 @@ import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
-import { NewArtistDao } from "@/Dao/Artist";
 
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
