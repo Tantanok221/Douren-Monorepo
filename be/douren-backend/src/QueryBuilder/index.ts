@@ -11,10 +11,11 @@ import { DerivedFetchParams } from "@/utlis/paramHelper";
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;
 	public derivedFetchParams: DerivedFetchParams;
+	url: string;
 
 	abstract BuildQuery(): { SelectQuery: unknown; CountQuery: unknown };
 
-	constructor(params: T) {
+	constructor(params: T, url: string) {
 		const table = processTableName(params.sort.split(",")[0]);
 		const sortBy = params.sort.split(",")[1] === "asc" ? asc : desc;
 		const searchTable = processTableName(params.searchTable);
@@ -26,12 +27,13 @@ abstract class IQueryBuilder<T extends ArtistFetchParams> {
 			tagConditions,
 		};
 		this.fetchParams = params;
+		this.url = url;
 	}
 }
 
 class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB();
+		const db = initDB(this.url);
 		const query = db
 			.select(FETCH_ARTIST_OBJECT)
 			.from(s.authorMain)
@@ -78,7 +80,7 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 
 class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB();
+		const db = initDB(this.url);
 		const query = db
 			.select(FETCH_EVENT_ARTIST_OBJECT)
 			.from(s.eventDm)
@@ -132,9 +134,10 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 
 export function NewQueryBuilder(
 	params: ArtistFetchParams | EventArtistFetchParams,
+	url: string,
 ): EventArtistQueryBuilder | ArtistQueryBuilder {
 	if ("eventId" in params) {
-		return new EventArtistQueryBuilder(params);
+		return new EventArtistQueryBuilder(params,url);
 	}
-	return new ArtistQueryBuilder(params);
+	return new ArtistQueryBuilder(params,url);
 }

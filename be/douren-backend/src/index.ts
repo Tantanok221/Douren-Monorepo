@@ -18,6 +18,7 @@ import imageRoute from "./routes/image";
 const redis = initRedis();
 const store = new RedisStore({ client: redis });
 
+
 const limiter = rateLimiter({
 	windowMs: 10 * 1000,
 	limit: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -51,11 +52,8 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
-		responseMeta: () => ({
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Credentials": "true",
-			},
+		createContext:(_opts,c) => ({
+			DATABASE_URL: c.env.DATABASE_URL,
 		}),
 	}),
 );
@@ -73,7 +71,7 @@ export default {
 		ctx: ExecutionContext,
 	) {
 		const delayedProcessing = async () => {
-			const db = initDB();
+			const db = initDB(env.DATABASE_URL);
 			await syncAuthorTag(db);
 			console.log("CRONJOB EXECUTED");
 		};

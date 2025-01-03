@@ -15,15 +15,16 @@ import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
+import { NewArtistDao } from "@/Dao/Artist";
 
-const EventArtistDao = NewEventArtistDao();
-const EventDao = NewEventDao();
 
 export const trpcEventRoute = router({
-	getAllEvent: publicProcedure.query(async () => {
+	getAllEvent: publicProcedure.query(async (opts) => {
+		const EventDao = NewEventDao(opts.ctx.env.DATABASE_URL);
 		return await EventDao.FetchAll();
 	}),
 	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
+		const EventArtistDao = NewEventArtistDao(opts.ctx.env.DATABASE_URL);
 		return await EventArtistDao.Fetch(opts.input);
 	}),
 	getEventId: publicProcedure
@@ -31,7 +32,7 @@ export const trpcEventRoute = router({
 		.output(zodSchema.event.SelectSchema)
 		.query(async (opts) => {
 			const { eventName } = opts.input;
-			const db = initDB();
+			const db = initDB(opts.ctx.env.DATABASE_URL);
 			const [data] = await db
 				.select()
 				.from(s.event)
@@ -43,6 +44,7 @@ export const trpcEventRoute = router({
 const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 	.get("/:eventId/artist", async (c) => {
 		const { page, search, tag, sort, searchTable } = c.req.query();
+		const EventArtistDao = NewEventArtistDao(c.env.DATABASE_URL);
 		const { eventId } = c.req.param();
 		const returnObj = await EventArtistDao.Fetch({
 			page,
@@ -55,11 +57,13 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 		return c.json(returnObj);
 	})
 	.get("/", async (c) => {
+		const EventDao = NewEventDao(c.env.DATABASE_URL);
 		const data = EventDao.FetchAll();
 		return c.json(data);
 	})
 	.get("/:eventName", async (c) => {
 		const { eventName } = c.req.param();
+		const EventDao = NewEventDao(c.env.DATABASE_URL);
 		const data = EventDao.FetchByEventName(eventName);
 		return c.json(data);
 	})
@@ -70,6 +74,8 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
+
+		const EventArtistDao = NewEventArtistDao(c.env.DATABASE_URL);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Create(body);
 
@@ -82,6 +88,8 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
+
+		const EventDao = NewEventDao(c.env.DATABASE_URL);
 
 		const body = await c.req.json();
 		const returnResponse = EventDao.Create(body);
@@ -96,7 +104,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 			);
 		const { artistId, eventId } = c.req.param();
 		console.log(artistId, eventId);
-		const db = initDB();
+		const db = initDB(c.env.DATABASE_URL);
 		const returnResponse = await db
 			.delete(s.eventDm)
 			.where(
@@ -115,6 +123,7 @@ const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
+		const EventArtistDao = NewEventArtistDao(c.env.DATABASE_URL);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Update(body);
 
