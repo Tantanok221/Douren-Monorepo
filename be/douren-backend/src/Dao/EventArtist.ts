@@ -1,10 +1,7 @@
 import { initDB, s } from "@pkg/database/db";
 import { BaseDao } from "../Dao";
 import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
-import {
-	eventArtistSchemaType,
-	eventInputParamsType,
-} from "@pkg/type";
+import { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
 import { NewQueryBuilder } from "@/QueryBuilder";
