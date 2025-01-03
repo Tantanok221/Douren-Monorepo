@@ -132,12 +132,16 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	}
 }
 
-export function NewQueryBuilder(
-	params: ArtistFetchParams | EventArtistFetchParams,
+export function NewArtistQueryBuilder(
+	params: ArtistFetchParams,
 	url: string,
-): EventArtistQueryBuilder | ArtistQueryBuilder {
-	if ("eventId" in params) {
-		return new EventArtistQueryBuilder(params, url);
-	}
+): ArtistQueryBuilder {
 	return new ArtistQueryBuilder(params, url);
+}
+
+export function NewEventArtistQueryBuilder(
+	params: EventArtistFetchParams,
+	url: string,
+) {
+	return new EventArtistQueryBuilder(params, url);
 }

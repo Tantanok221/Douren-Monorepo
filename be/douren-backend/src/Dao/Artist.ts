@@ -6,7 +6,7 @@ import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import { artistSchemaType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
-import { NewQueryBuilder } from "@/QueryBuilder";
+import { NewArtistQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import { zodSchemaType } from "@pkg/database/zod";
 
@@ -31,7 +31,7 @@ class ArtistDao implements BaseDao {
 			console.log("redis cache hit");
 			return redisData[0];
 		}
-		const QueryBuilder = NewQueryBuilder(params, this.url);
+		const QueryBuilder = NewArtistQueryBuilder(params, this.url);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 		const [data, [counts]] = await Promise.all([
 			SelectQuery.query,

@@ -121,8 +121,9 @@ export const paginationObject = z.object({
 })
 
 export const eventInputParams = artistInputParams.extend({
-  eventId: z.string()
+  eventName: z.string()
 })
+
 
 export const eventNameInputParams = z.object(
   {eventName: z.string()}
