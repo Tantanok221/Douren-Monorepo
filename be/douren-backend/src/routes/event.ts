@@ -40,17 +40,17 @@ export const trpcEventRoute = router({
 });
 
 const EventRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
-	.get("/:eventId/artist", async (c) => {
+	.get("/:eventName/artist", async (c) => {
 		const { page, search, tag, sort, searchTable } = c.req.query();
 		const EventArtistDao = NewEventArtistDao(c.env.DATABASE_URL);
-		const { eventId } = c.req.param();
+		const { eventName } = c.req.param();
 		const returnObj = await EventArtistDao.Fetch({
 			page,
 			search,
 			sort,
 			searchTable,
 			tag,
-			eventId,
+			eventName,
 		});
 		return c.json(returnObj);
 	})

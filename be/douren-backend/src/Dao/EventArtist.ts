@@ -4,7 +4,7 @@ import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
-import { NewQueryBuilder } from "@/QueryBuilder";
+import { NewEventArtistQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import {
 	CreateEventArtistSchemaTypes,
@@ -36,7 +36,7 @@ class EventArtistDao implements BaseDao {
 			.select()
 			.from(s.event)
 			.where(eq(s.event.name, params.eventName));
-		const QueryBuilder = NewQueryBuilder(
+		const QueryBuilder = NewEventArtistQueryBuilder(
 			{ eventId: String(eventIdData.id), ...params },
 			this.url,
 		);
