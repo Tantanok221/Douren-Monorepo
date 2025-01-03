@@ -46,6 +46,6 @@ class EventDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventDao(url:string): EventDao {
+export function NewEventDao(url: string): EventDao {
 	return new EventDao(url);
 }

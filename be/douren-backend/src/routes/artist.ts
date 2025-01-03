@@ -38,7 +38,6 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 		return c.json(returnObj);
 	})
 	.post("/", zValidator("json", CreateArtistSchema), async (c) => {
-
 		const ArtistDao = NewArtistDao(c.env.DATABASE_URL);
 		const verified = verifyUser(c);
 		if (!verified)
@@ -66,7 +65,6 @@ const ArtistRoute = new Hono<{ Bindings: BACKEND_BINDING }>()
 		"/:artistId",
 		zValidator("json", zodSchema.authorMain.InsertSchema),
 		async (c) => {
-
 			const ArtistDao = NewArtistDao(c.env.DATABASE_URL);
 			const verified = verifyUser(c);
 			if (!verified)

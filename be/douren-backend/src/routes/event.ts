@@ -17,7 +17,6 @@ import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
 import { NewArtistDao } from "@/Dao/Artist";
 
-
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
 		const EventDao = NewEventDao(opts.ctx.env.DATABASE_URL);

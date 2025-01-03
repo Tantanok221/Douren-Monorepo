@@ -18,7 +18,6 @@ import imageRoute from "./routes/image";
 const redis = initRedis();
 const store = new RedisStore({ client: redis });
 
-
 const limiter = rateLimiter({
 	windowMs: 10 * 1000,
 	limit: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -52,7 +51,7 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
-		createContext:(_opts,c) => ({
+		createContext: (_opts, c) => ({
 			DATABASE_URL: c.env.DATABASE_URL,
 		}),
 	}),

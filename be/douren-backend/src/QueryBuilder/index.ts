@@ -137,7 +137,7 @@ export function NewQueryBuilder(
 	url: string,
 ): EventArtistQueryBuilder | ArtistQueryBuilder {
 	if ("eventId" in params) {
-		return new EventArtistQueryBuilder(params,url);
+		return new EventArtistQueryBuilder(params, url);
 	}
-	return new ArtistQueryBuilder(params,url);
+	return new ArtistQueryBuilder(params, url);
 }
