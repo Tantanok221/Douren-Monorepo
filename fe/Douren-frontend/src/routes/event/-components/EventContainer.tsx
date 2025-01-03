@@ -12,6 +12,7 @@ import {
   useSortSelectContext,
   ArtistCard, useTagFilterContext
 } from "@lib/ui";
+import { useLocation  } from "@tanstack/react-router";
 
 const EventContainer = () => {
   const sx = classNames.bind(styles);
@@ -21,6 +22,8 @@ const EventContainer = () => {
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [page, setPage] = usePaginationContext();
+  const location = useLocation();
+
   const id = trpc.eventArtist.getEventId.useQuery({
     eventName: Route.useParams().eventName,
   });
@@ -53,7 +56,7 @@ const EventContainer = () => {
                 >
                   <ArtistCard.ImageContainer />
                   <ArtistCard.RightContainer>
-                    <ArtistCard.HeaderContainer keys={Route.fullPath} />
+                    <ArtistCard.HeaderContainer keys={location.pathname} />
                     <ArtistCard.TagContainer activeButton />
                     <ArtistCard.DayContainer />
                     <ArtistCard.LinkContainerWrapper>
