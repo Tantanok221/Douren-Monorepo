@@ -1,15 +1,6 @@
 import { initDB } from "@pkg/database/db";
-import {
-	ArtistFetchParams,
-	EventArtistFetchParams,
-} from "../utlis/fetchHelper";
 import { BaseDao } from "../Dao";
-import { CreateArtistSchemaTypes } from "../schema/artist.zod";
 import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
-import { artistSchemaType } from "@pkg/type";
-import { createPaginationObject } from "../helper/createPaginationObject";
-import { PAGE_SIZE } from "../helper/constant";
-import { NewQueryBuilder } from "../QueryBuilder";
 
 interface ProductArtist {
 	artistId: string;
@@ -18,9 +9,10 @@ interface ProductArtist {
 class ProductArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
+	url: string;
 
-	constructor() {
-		this.db = initDB();
+	constructor(url: string) {
+		this.db = initDB(url);
 		this.redis = initRedis();
 	}
 
@@ -41,6 +33,6 @@ class ProductArtistDao implements BaseDao {
 	}
 }
 
-export function NewProductArtistDao(): ProductArtistDao {
-	return new ProductArtistDao();
+export function NewProductArtistDao(url: string): ProductArtistDao {
+	return new ProductArtistDao(url);
 }
