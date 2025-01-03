@@ -22,7 +22,7 @@ class EventArtistDao implements BaseDao {
 	}
 
 	async Fetch(params: eventInputParamsType) {
-		const redisKey = `get_event_artist_${params.page}_${params.search}_${params.tag}_${params.sort}_${params.searchTable}`;
+		const redisKey = `get_event_artist_${params.eventName}_${params.page}_${params.search}_${params.tag}_${params.sort}_${params.searchTable}`;
 		const redisData: eventArtistSchemaType[] | null = await this.redis.json.get(
 			redisKey,
 			{},
@@ -32,7 +32,11 @@ class EventArtistDao implements BaseDao {
 			console.log("redis cache hit");
 			return redisData[0];
 		}
-		const QueryBuilder = NewQueryBuilder(params, this.url);
+		const [eventIdData] = await this.db
+			.select()
+			.from(s.event)
+			.where(eq(s.event.name, params.eventName));
+		const QueryBuilder = NewQueryBuilder({eventId: String(eventIdData.id),...params}, this.url);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 		const [data, [counts]] = await Promise.all([
 			SelectQuery.query,
