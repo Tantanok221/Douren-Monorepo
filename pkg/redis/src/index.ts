@@ -1,11 +1,9 @@
-import { config } from "dotenv";
 import { Redis} from "@upstash/redis/cloudflare";
 
-export function initRedis() {
-  config();
+export function initRedis(url: string,token: string) {
   return new Redis({
-    url: process.env.REDIS_URL,
-    token: process.env.REDIS_TOKEN,
+    url,
+    token,
   });
 }
 

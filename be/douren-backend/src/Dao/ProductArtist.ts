@@ -9,11 +9,12 @@ interface ProductArtist {
 class ProductArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	url: string;
-
-	constructor(url: string) {
-		this.db = initDB(url);
-		this.redis = initRedis();
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
+		this.redis = redis;
 	}
 
 	async Fetch(params: ProductArtist) {
@@ -33,6 +34,9 @@ class ProductArtistDao implements BaseDao {
 	}
 }
 
-export function NewProductArtistDao(url: string): ProductArtistDao {
-	return new ProductArtistDao(url);
+export function NewProductArtistDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): ProductArtistDao {
+	return new ProductArtistDao(db, redis);
 }

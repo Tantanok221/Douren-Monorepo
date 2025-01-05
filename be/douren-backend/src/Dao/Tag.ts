@@ -4,13 +4,14 @@ import { InnerTagSchema } from "@pkg/type";
 
 const tagKey = "Douren_Tag";
 
-export async function fetchTag(url: string) {
-	const redis = initRedis();
+export async function fetchTag(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+) {
 	const redisData: InnerTagSchema = await redis.json.get(tagKey, {}, "$");
 	if (redisData && redisData?.length > 0) {
 		return redisData[0];
 	}
-	const db = initDB(url);
 	const data = await db.select().from(s.tag);
 	await cacheJsonResults(redis, tagKey, data);
 	return data;

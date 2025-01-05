@@ -14,11 +14,12 @@ import {
 class EventArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	url;
-	constructor(url: string) {
-		this.db = initDB(url);
-		this.url = url;
-		this.redis = initRedis();
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
+		this.redis = redis;
 	}
 
 	async Fetch(params: eventInputParamsType) {
@@ -32,7 +33,7 @@ class EventArtistDao implements BaseDao {
 			console.log("redis cache hit");
 			return redisData[0];
 		}
-		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.url);
+		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.db);
 		try {
 			const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 			const [data, [counts]] = await Promise.all([
@@ -81,6 +82,9 @@ class EventArtistDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventArtistDao(url: string): EventArtistDao {
-	return new EventArtistDao(url);
+export function NewEventArtistDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): EventArtistDao {
+	return new EventArtistDao(db, redis);
 }

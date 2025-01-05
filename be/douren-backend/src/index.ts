@@ -15,23 +15,34 @@ import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
 
-const redis = initRedis();
-const store = new RedisStore({ client: redis });
+export type HonoVariables = {
+	db: ReturnType<typeof initDB>;
+	redis: ReturnType<typeof initRedis>;
+};
 
-const limiter = rateLimiter({
-	windowMs: 10 * 1000,
-	limit: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-	standardHeaders: "draft-6", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-	keyGenerator: (c: Context) => c.req.header("cf-connecting-ip") ?? "", // Method to generate custom identifiers for clients.
-	store, // Redis, MemoryStore, etc. See below.
-});
+export type HonoEnv = { Bindings: BACKEND_BINDING; Variables: HonoVariables };
 
-const app = new Hono<{ Bindings: BACKEND_BINDING }>();
+const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
-app.use("*", limiter);
+app.use("*", async (c, next) => {
+	const redis = initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN);
+	const store = new RedisStore({ client: redis });
+	const limiter = rateLimiter({
+		windowMs: 10 * 1000,
+		limit: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+		standardHeaders: "draft-6", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+		keyGenerator: (c: Context) => c.req.header("cf-connecting-ip") ?? "", // Method to generate custom identifiers for clients.
+		store, // Redis, MemoryStore, etc. See below.
+	});
+	return limiter(c, next);
+});
 app.use("*", cors());
-
+app.use("*", async (c, next) => {
+	c.set("db", initDB(c.env.DATABASE_URL));
+	c.set("redis", initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN));
+	await next();
+});
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
@@ -43,9 +54,13 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
-		createContext: (_opts, c) => ({
-			DATABASE_URL: c.env.DATABASE_URL,
-		}),
+		createContext: (_opts, c) => {
+			console.log("init context");
+			return {
+				db: initDB(c.env.DATABASE_URL),
+				redis: initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN),
+			};
+		},
 	}),
 );
 app
