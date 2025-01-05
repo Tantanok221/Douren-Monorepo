@@ -13,8 +13,11 @@ import { zodSchemaType } from "@pkg/database/zod";
 class ArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	constructor(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>) {
-		this.db = db
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
 		this.redis = redis;
 	}
 
@@ -81,6 +84,9 @@ class ArtistDao implements BaseDao {
 	}
 }
 
-export function NewArtistDao(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>): ArtistDao {
-	return new ArtistDao(db,redis);
+export function NewArtistDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): ArtistDao {
+	return new ArtistDao(db, redis);
 }

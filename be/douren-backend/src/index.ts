@@ -55,10 +55,10 @@ app.use(
 	trpcServer({
 		router: appRouter,
 		createContext: (_opts, c) => {
-			console.log("init context")
+			console.log("init context");
 			return {
 				db: initDB(c.env.DATABASE_URL),
-				redis:initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN)
+				redis: initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN),
 			};
 		},
 	}),

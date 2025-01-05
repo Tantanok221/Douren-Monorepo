@@ -7,8 +7,11 @@ import { initRedis } from "@pkg/redis/redis";
 class EventDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	constructor(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>) {
-		this.db = db
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
 		this.redis = redis;
 	}
 
@@ -45,6 +48,9 @@ class EventDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventDao(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>): EventDao {
-	return new EventDao(db,redis);
+export function NewEventDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): EventDao {
+	return new EventDao(db, redis);
 }

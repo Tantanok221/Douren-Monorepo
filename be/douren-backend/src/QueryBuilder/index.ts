@@ -27,20 +27,20 @@ abstract class IQueryBuilder<T extends ArtistFetchParams> {
 			tagConditions,
 		};
 		this.fetchParams = params;
-		this.db = db
+		this.db = db;
 	}
 }
 
 class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 	BuildQuery() {
-		const query =this.db
+		const query = this.db
 			.select(FETCH_ARTIST_OBJECT)
 			.from(s.authorMain)
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
 			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
 			.groupBy(s.authorMain.uuid)
 			.$dynamic();
-		const countQuery =this.db
+		const countQuery = this.db
 			.select({ totalCount: count(s.authorMain.uuid) })
 			.from(s.authorMain)
 			.$dynamic();
@@ -79,7 +79,7 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 
 class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	BuildQuery() {
-		const query =this.db
+		const query = this.db
 			.select(FETCH_EVENT_ARTIST_OBJECT)
 			.from(s.eventDm)
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
@@ -95,7 +95,7 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 				s.eventDm.dm,
 			)
 			.$dynamic();
-		const countQuery =this.db
+		const countQuery = this.db
 			.select({ totalCount: count(s.eventDm.artistId) })
 			.from(s.eventDm)
 			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))

@@ -14,8 +14,11 @@ import {
 class EventArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	constructor(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>) {
-		this.db = db
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
 		this.redis = redis;
 	}
 
@@ -79,6 +82,9 @@ class EventArtistDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventArtistDao(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>): EventArtistDao {
-	return new EventArtistDao(db,redis);
+export function NewEventArtistDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): EventArtistDao {
+	return new EventArtistDao(db, redis);
 }

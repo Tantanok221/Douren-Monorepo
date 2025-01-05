@@ -3,7 +3,7 @@ import { BACKEND_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
 
 type HonoContext = {
-	 env: BACKEND_BINDING,
+	env: BACKEND_BINDING;
 } & HonoVariables;
 
 const t = initTRPC.context<HonoContext>().create();

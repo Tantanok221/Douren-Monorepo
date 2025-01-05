@@ -9,8 +9,11 @@ interface ProductArtist {
 class ProductArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	constructor(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>) {
-		this.db = db
+	constructor(
+		db: ReturnType<typeof initDB>,
+		redis: ReturnType<typeof initRedis>,
+	) {
+		this.db = db;
 		this.redis = redis;
 	}
 
@@ -31,6 +34,9 @@ class ProductArtistDao implements BaseDao {
 	}
 }
 
-export function NewProductArtistDao(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>): ProductArtistDao {
-	return new ProductArtistDao(db,redis);
+export function NewProductArtistDao(
+	db: ReturnType<typeof initDB>,
+	redis: ReturnType<typeof initRedis>,
+): ProductArtistDao {
+	return new ProductArtistDao(db, redis);
 }
