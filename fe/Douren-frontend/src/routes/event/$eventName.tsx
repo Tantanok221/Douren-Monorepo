@@ -12,6 +12,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop.tsx";
 import { Animate } from "@/components";
 import EventContainer from "@/routes/event/-components/EventContainer.tsx";
 import { useFetchTagData } from "@/hooks";
+import { trpc } from "@/helper";
 
 const sortItem = [
   { text: "排序: 作者名稱", value: "Author_Main(Author)" },
@@ -23,6 +24,14 @@ const sortItem = [
 function EventName() {
   const tag = useFetchTagData()
   const sx = classNames.bind(styles);
+  trpc.eventArtist.getEvent.usePrefetchQuery({
+    eventName: Route.useParams().eventName,
+    page: "1",
+    sort: "Author_Main(Author),asc",
+    search: "",
+    tag: "",
+    searchTable: "Booth_name",
+  });
   return (
     <motion.div
       initial={{ opacity: 0 }}
