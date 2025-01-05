@@ -13,11 +13,9 @@ import { zodSchemaType } from "@pkg/database/zod";
 class ArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
 	redis;
-	url;
-	constructor(url: string) {
-		this.db = initDB(url);
-		this.redis = initRedis();
-		this.url = url;
+	constructor(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>) {
+		this.db = db
+		this.redis = redis;
 	}
 
 	async Fetch(params: ArtistFetchParams) {
@@ -31,7 +29,7 @@ class ArtistDao implements BaseDao {
 			console.log("redis cache hit");
 			return redisData[0];
 		}
-		const QueryBuilder = NewArtistQueryBuilder(params, this.url);
+		const QueryBuilder = NewArtistQueryBuilder(params, this.db);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 		const [data, [counts]] = await Promise.all([
 			SelectQuery.query,
@@ -83,6 +81,6 @@ class ArtistDao implements BaseDao {
 	}
 }
 
-export function NewArtistDao(url: string): ArtistDao {
-	return new ArtistDao(url);
+export function NewArtistDao(db: ReturnType<typeof initDB>, redis: ReturnType<typeof initRedis>): ArtistDao {
+	return new ArtistDao(db,redis);
 }
