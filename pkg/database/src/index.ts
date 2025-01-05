@@ -15,8 +15,8 @@ export class SelectDatabaseQueryBuilder<T extends PgSelect> implements ISelectDa
   constructor(query: T) {
     this.query = query;
   }
-  withFilterEventId(eventId: number) {
-    this.query = this.query.where(eq(s.eventDm.eventId, eventId));
+  withFilterEventName(eventName: string) {
+    this.query = this.query.where(eq(s.event.name, eventName));
     return this
   }
   withOrderBy(sortBy: typeof asc | typeof desc, table: AnyColumn | SQLWrapper) {

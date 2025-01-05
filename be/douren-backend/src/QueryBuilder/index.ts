@@ -11,10 +11,11 @@ import { DerivedFetchParams } from "@/utlis/paramHelper";
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;
 	public derivedFetchParams: DerivedFetchParams;
+	url: string;
 
 	abstract BuildQuery(): { SelectQuery: unknown; CountQuery: unknown };
 
-	constructor(params: T) {
+	constructor(params: T, url: string) {
 		const table = processTableName(params.sort.split(",")[0]);
 		const sortBy = params.sort.split(",")[1] === "asc" ? asc : desc;
 		const searchTable = processTableName(params.searchTable);
@@ -26,12 +27,13 @@ abstract class IQueryBuilder<T extends ArtistFetchParams> {
 			tagConditions,
 		};
 		this.fetchParams = params;
+		this.url = url;
 	}
 }
 
 class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB();
+		const db = initDB(this.url);
 		const query = db
 			.select(FETCH_ARTIST_OBJECT)
 			.from(s.authorMain)
@@ -78,13 +80,14 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 
 class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB();
+		const db = initDB(this.url);
 		const query = db
 			.select(FETCH_EVENT_ARTIST_OBJECT)
 			.from(s.eventDm)
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
 			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
+			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.groupBy(
 				s.eventDm.boothName,
 				s.authorMain.uuid,
@@ -97,14 +100,15 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 		const countQuery = db
 			.select({ totalCount: count(s.eventDm.artistId) })
 			.from(s.eventDm)
+			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
 			.$dynamic();
 		const CountQuery = BuildQuery(countQuery)
-			.withFilterEventId(Number(this.fetchParams.eventId))
+			.withFilterEventName(this.fetchParams.eventName)
 			.Build();
 		const SelectQuery = BuildQuery(query)
 			.withPagination(Number(this.fetchParams.page), PAGE_SIZE)
-			.withFilterEventId(Number(this.fetchParams.eventId))
+			.withFilterEventName(this.fetchParams.eventName)
 			.withOrderBy(
 				this.derivedFetchParams.sortBy,
 				this.derivedFetchParams.table,
@@ -130,11 +134,16 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	}
 }
 
-export function NewQueryBuilder(
-	params: ArtistFetchParams | EventArtistFetchParams,
-): EventArtistQueryBuilder | ArtistQueryBuilder {
-	if ("eventId" in params) {
-		return new EventArtistQueryBuilder(params);
-	}
-	return new ArtistQueryBuilder(params);
+export function NewArtistQueryBuilder(
+	params: ArtistFetchParams,
+	url: string,
+): ArtistQueryBuilder {
+	return new ArtistQueryBuilder(params, url);
+}
+
+export function NewEventArtistQueryBuilder(
+	params: EventArtistFetchParams,
+	url: string,
+) {
+	return new EventArtistQueryBuilder(params, url);
 }

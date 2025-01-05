@@ -1,19 +1,16 @@
-name: Douren Backend Deploy Pipeline
+name: Douren Backend Production Deployment
 
 on:
   push:
     branches:
       - "main"
+  workflow_dispatch:
 
 jobs:
   prod-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    name: Production Deploy
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      TURBO_REMOTE_ONLY: true
+    name: Deployment
     steps:
       - name: Check out code
         uses: actions/checkout@v4

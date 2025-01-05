@@ -12,6 +12,8 @@ import {
   useSortSelectContext,
   ArtistCard, useTagFilterContext
 } from "@lib/ui";
+import { useLocation  } from "@tanstack/react-router";
+import { useMemo } from "react";
 
 const EventContainer = () => {
   const sx = classNames.bind(styles);
@@ -19,13 +21,25 @@ const EventContainer = () => {
   const [searchColumn] = useSearchColumnContext();
   const [search] = useSearchContext();
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
-  const allTag = tagFilter.map((val) => val.tag).join(",");
+  const allTag = useMemo(() => {
+    if (!tagFilter.length) return ""; // Default to empty tags
+    return tagFilter.map((val) => val.tag).join(",");
+  }, [tagFilter]);
+
   const [page, setPage] = usePaginationContext();
-  const id = trpc.eventArtist.getEventId.useQuery({
-    eventName: Route.useParams().eventName,
-  });
+  const location = useLocation();
+
+  console.log(
+    {
+      page: String(page),
+    sort: sortSelect,
+    search,
+    tag: allTag,
+    searchTable: searchColumn,
+    }
+  )
   const res = trpc.eventArtist.getEvent.useQuery({
-    eventId: String(id?.data?.id),
+    eventName: Route.useParams().eventName,
     page: String(page),
     sort: sortSelect,
     search,
@@ -53,7 +67,7 @@ const EventContainer = () => {
                 >
                   <ArtistCard.ImageContainer />
                   <ArtistCard.RightContainer>
-                    <ArtistCard.HeaderContainer keys={Route.fullPath} />
+                    <ArtistCard.HeaderContainer keys={location.pathname} />
                     <ArtistCard.TagContainer activeButton />
                     <ArtistCard.DayContainer />
                     <ArtistCard.LinkContainerWrapper>
