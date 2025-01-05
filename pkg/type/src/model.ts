@@ -92,8 +92,12 @@ const innerTagSchema = z.object({
   index: z.number()
 })
 
+const innerTagSchemaArray = z.array(innerTagSchema).nullable()
+
+export type InnerTagSchema = z.infer<typeof innerTagSchemaArray>
+
 const tagSchema = z.object({
-  tags: z.array(innerTagSchema).nullable()
+  tags: innerTagSchemaArray
 });
 // Event base schema
 const eventBaseSchema = z.object({
