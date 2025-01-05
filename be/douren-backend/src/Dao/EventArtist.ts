@@ -32,28 +32,25 @@ class EventArtistDao implements BaseDao {
 			console.log("redis cache hit");
 			return redisData[0];
 		}
-		const [eventIdData] = await this.db
-			.select()
-			.from(s.event)
-			.where(eq(s.event.name, params.eventName));
-		const QueryBuilder = NewEventArtistQueryBuilder(
-			{ eventId: String(eventIdData.id), ...params },
-			this.url,
-		);
-		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
-		const [data, [counts]] = await Promise.all([
-			SelectQuery.query,
-			CountQuery.query,
-		]);
-		const returnObj = createPaginationObject(
-			data,
-			Number(params.page),
-			PAGE_SIZE,
-			counts.totalCount,
-		) as object;
-		console.log("Setting redis cache");
-		await cacheJsonResults(this.redis, redisKey, returnObj);
-		return returnObj as eventArtistSchemaType;
+		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.url);
+		try {
+			const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
+			const [data, [counts]] = await Promise.all([
+				SelectQuery.query,
+				CountQuery.query,
+			]);
+			const returnObj = createPaginationObject(
+				data,
+				Number(params.page),
+				PAGE_SIZE,
+				counts.totalCount,
+			) as object;
+			console.log("Setting redis cache");
+			await cacheJsonResults(this.redis, redisKey, returnObj);
+			return returnObj as eventArtistSchemaType;
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	async Create(body: CreateEventArtistSchemaTypes) {

@@ -87,6 +87,7 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
 			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
+			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.groupBy(
 				s.eventDm.boothName,
 				s.authorMain.uuid,
@@ -99,14 +100,15 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 		const countQuery = db
 			.select({ totalCount: count(s.eventDm.artistId) })
 			.from(s.eventDm)
+			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
 			.$dynamic();
 		const CountQuery = BuildQuery(countQuery)
-			.withFilterEventId(Number(this.fetchParams.eventId))
+			.withFilterEventName(this.fetchParams.eventName)
 			.Build();
 		const SelectQuery = BuildQuery(query)
 			.withPagination(Number(this.fetchParams.page), PAGE_SIZE)
-			.withFilterEventId(Number(this.fetchParams.eventId))
+			.withFilterEventName(this.fetchParams.eventName)
 			.withOrderBy(
 				this.derivedFetchParams.sortBy,
 				this.derivedFetchParams.table,
