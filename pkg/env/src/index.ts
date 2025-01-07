@@ -10,6 +10,8 @@ export interface BACKEND_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   STG_DATABASE_URL: string;
+  NEON_STG_DATABASE_URL: string;
+  NEON_PRD_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
   PRD_DATABASE_URL: string;
@@ -37,6 +39,8 @@ export interface FRONTEND_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   STG_DATABASE_URL: string;
+  NEON_STG_DATABASE_URL: string;
+  NEON_PRD_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
   PRD_DATABASE_URL: string;
@@ -64,6 +68,8 @@ export interface PACKAGE_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   STG_DATABASE_URL: string;
+  NEON_STG_DATABASE_URL: string;
+  NEON_PRD_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
   PRD_DATABASE_URL: string;
@@ -91,6 +97,8 @@ export interface ENV_BINDING {
   REDIS_URL: string;
   REDIS_TOKEN: string;
   STG_DATABASE_URL: string;
+  NEON_STG_DATABASE_URL: string;
+  NEON_PRD_DATABASE_URL: string;
   DATABASE_URL: string;
   LOCAL_DATABASE_URL: string;
   PRD_DATABASE_URL: string;
