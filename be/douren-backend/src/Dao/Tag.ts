@@ -8,13 +8,13 @@ export async function fetchTag(
 	db: ReturnType<typeof initDB>,
 	redis: ReturnType<typeof initRedis>,
 ) {
-	const redisData = (await redis.json.get(tagKey, {}, "$")) as
-		| InnerTagSchema[]
-		| null;
-	if (redisData && redisData?.length > 0) {
-		return redisData[0];
-	}
+	// const redisData = (await redis.json.get(tagKey, {}, "$")) as
+	// 	| InnerTagSchema[]
+	// 	| null;
+	// if (redisData && redisData?.length > 0) {
+	// 	return redisData[0];
+	// }
 	const data = await db.select().from(s.tag);
-	await cacheJsonResults(redis, tagKey, data);
+	// await cacheJsonResults(redis, tagKey, data);
 	return data;
 }

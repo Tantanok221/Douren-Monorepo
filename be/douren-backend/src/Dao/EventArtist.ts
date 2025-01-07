@@ -24,15 +24,15 @@ class EventArtistDao implements BaseDao {
 
 	async Fetch(params: eventInputParamsType) {
 		const redisKey = `get_event_artist_${params.eventName}_${params.page}_${params.search}_${params.tag}_${params.sort}_${params.searchTable}`;
-		const redisData: eventArtistSchemaType[] | null = await this.redis.json.get(
-			redisKey,
-			{},
-			"$",
-		);
-		if (redisData && redisData?.length > 0) {
-			console.log("redis cache hit");
-			return redisData[0];
-		}
+		// const redisData: eventArtistSchemaType[] | null = await this.redis.json.get(
+		// 	redisKey,
+		// 	{},
+		// 	"$",
+		// );
+		// if (redisData && redisData?.length > 0) {
+		// 	console.log("redis cache hit");
+		// 	return redisData[0];
+		// }
 		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.db);
 		try {
 			const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
@@ -47,7 +47,7 @@ class EventArtistDao implements BaseDao {
 				counts.totalCount,
 			) as object;
 			console.log("Setting redis cache");
-			await cacheJsonResults(this.redis, redisKey, returnObj);
+			// await cacheJsonResults(this.redis, redisKey, returnObj);
 			return returnObj as eventArtistSchemaType;
 		} catch (err) {
 			console.log(err);

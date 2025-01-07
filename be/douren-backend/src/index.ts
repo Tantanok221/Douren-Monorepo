@@ -14,6 +14,7 @@ import { initRedis } from "@pkg/redis/redis";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
+import { cache } from 'hono/cache'
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
@@ -43,6 +44,13 @@ app.use("*", async (c, next) => {
 	c.set("redis", initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN));
 	await next();
 });
+app.get(
+	'*',
+	cache({
+		cacheName: (c) => c.req.path,
+		cacheControl: 'max-age=3600',
+	})
+)
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
