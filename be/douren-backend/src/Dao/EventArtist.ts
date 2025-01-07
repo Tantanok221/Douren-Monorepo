@@ -1,6 +1,5 @@
 import { initDB, s } from "@pkg/database/db";
 import { BaseDao } from "../Dao";
-import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
@@ -13,45 +12,24 @@ import {
 
 class EventArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	redis;
-	constructor(
-		db: ReturnType<typeof initDB>,
-		redis: ReturnType<typeof initRedis>,
-	) {
+	constructor(db: ReturnType<typeof initDB>) {
 		this.db = db;
-		this.redis = redis;
 	}
 
 	async Fetch(params: eventInputParamsType) {
-		const redisKey = `get_event_artist_${params.eventName}_${params.page}_${params.search}_${params.tag}_${params.sort}_${params.searchTable}`;
-		const redisData: eventArtistSchemaType[] | null = await this.redis.json.get(
-			redisKey,
-			{},
-			"$",
-		);
-		if (redisData && redisData?.length > 0) {
-			console.log("redis cache hit");
-			return redisData[0];
-		}
 		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.db);
-		try {
-			const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
-			const [data, [counts]] = await Promise.all([
-				SelectQuery.query,
-				CountQuery.query,
-			]);
-			const returnObj = createPaginationObject(
-				data,
-				Number(params.page),
-				PAGE_SIZE,
-				counts.totalCount,
-			) as object;
-			console.log("Setting redis cache");
-			await cacheJsonResults(this.redis, redisKey, returnObj);
-			return returnObj as eventArtistSchemaType;
-		} catch (err) {
-			console.log(err);
-		}
+		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
+		const [data, [counts]] = await Promise.all([
+			SelectQuery.query,
+			CountQuery.query,
+		]);
+		const returnObj = createPaginationObject(
+			data,
+			Number(params.page),
+			PAGE_SIZE,
+			counts.totalCount,
+		) as object;
+		return returnObj as eventArtistSchemaType;
 	}
 
 	async Create(body: CreateEventArtistSchemaTypes) {
@@ -84,7 +62,6 @@ class EventArtistDao implements BaseDao {
 
 export function NewEventArtistDao(
 	db: ReturnType<typeof initDB>,
-	redis: ReturnType<typeof initRedis>,
 ): EventArtistDao {
-	return new EventArtistDao(db, redis);
+	return new EventArtistDao(db);
 }

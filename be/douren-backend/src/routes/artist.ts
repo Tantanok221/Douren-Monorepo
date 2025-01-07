@@ -13,20 +13,20 @@ import { HonoEnv } from "@/index";
 
 export const trpcArtistRoute = router({
 	getArtist: publicProcedure.input(artistInputParams).query(async (opts) => {
-		const ArtistDao = NewArtistDao(opts.ctx.db, opts.ctx.redis);
+		const ArtistDao = NewArtistDao(opts.ctx.db);
 		return await ArtistDao.Fetch(opts.input);
 	}),
 	createArtist: authProcedure
 		.input(CreateArtistSchema)
 		.mutation(async (opts) => {
-			const ArtistDao = NewArtistDao(opts.ctx.db, opts.ctx.redis);
+			const ArtistDao = NewArtistDao(opts.ctx.db);
 			return await ArtistDao.Create(opts.input);
 		}),
 });
 
 const ArtistRoute = new Hono<HonoEnv>()
 	.get("/", zValidator("query", artistInputParams), async (c) => {
-		const ArtistDao = NewArtistDao(c.var.db, c.var.redis);
+		const ArtistDao = NewArtistDao(c.var.db);
 		const { page, search, tag, sort, searchTable } = c.req.query();
 		const returnObj = await ArtistDao.Fetch({
 			page,
@@ -38,7 +38,7 @@ const ArtistRoute = new Hono<HonoEnv>()
 		return c.json(returnObj);
 	})
 	.post("/", zValidator("json", CreateArtistSchema), async (c) => {
-		const ArtistDao = NewArtistDao(c.var.db, c.var.redis);
+		const ArtistDao = NewArtistDao(c.var.db);
 		const verified = verifyUser(c);
 		if (!verified)
 			return c.json(
@@ -56,7 +56,7 @@ const ArtistRoute = new Hono<HonoEnv>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
-		const ArtistDao = NewArtistDao(c.var.db, c.var.redis);
+		const ArtistDao = NewArtistDao(c.var.db);
 		const { artistId } = c.req.param();
 		const returnResponse = ArtistDao.Delete(artistId);
 		return c.json(returnResponse, 200);
@@ -65,7 +65,7 @@ const ArtistRoute = new Hono<HonoEnv>()
 		"/:artistId",
 		zValidator("json", zodSchema.authorMain.InsertSchema),
 		async (c) => {
-			const ArtistDao = NewArtistDao(c.var.db, c.var.redis);
+			const ArtistDao = NewArtistDao(c.var.db);
 			const verified = verifyUser(c);
 			if (!verified)
 				return c.json(
