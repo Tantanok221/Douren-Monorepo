@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { BACKEND_BINDING } from "@pkg/env/constant";
 import { zValidator } from "@hono/zod-validator";
 import {
 	CreateArtistSchema,

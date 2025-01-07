@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { and, eq } from "drizzle-orm";
 import { initDB, s } from "@pkg/database/db";
-import { BACKEND_BINDING } from "@pkg/env/constant";
 import { zValidator } from "@hono/zod-validator";
 import {
 	CreateEventArtistSchema,
