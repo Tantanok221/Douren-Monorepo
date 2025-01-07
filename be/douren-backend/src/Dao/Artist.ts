@@ -8,17 +8,13 @@ import { PAGE_SIZE } from "@/helper/constant";
 import { NewArtistQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import { zodSchemaType } from "@pkg/database/zod";
-import { initRedis } from "@pkg/redis/redis";
 
 class ArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	redis;
 	constructor(
 		db: ReturnType<typeof initDB>,
-		redis: ReturnType<typeof initRedis>,
 	) {
 		this.db = db;
-		this.redis = redis;
 	}
 
 	async Fetch(params: ArtistFetchParams) {
@@ -75,7 +71,6 @@ class ArtistDao implements BaseDao {
 
 export function NewArtistDao(
 	db: ReturnType<typeof initDB>,
-	redis: ReturnType<typeof initRedis>,
 ): ArtistDao {
-	return new ArtistDao(db, redis);
+	return new ArtistDao(db);
 }

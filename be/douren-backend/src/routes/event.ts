@@ -18,11 +18,11 @@ import { HonoEnv } from "@/index";
 
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
-		const EventDao = NewEventDao(opts.ctx.db, opts.ctx.redis);
+		const EventDao = NewEventDao(opts.ctx.db);
 		return await EventDao.FetchAll();
 	}),
 	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
-		const EventArtistDao = NewEventArtistDao(opts.ctx.db, opts.ctx.redis);
+		const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 		return await EventArtistDao.Fetch(opts.input);
 	}),
 	getEventId: publicProcedure
@@ -42,7 +42,7 @@ export const trpcEventRoute = router({
 const EventRoute = new Hono<HonoEnv>()
 	.get("/:eventName/artist", async (c) => {
 		const { page, search, tag, sort, searchTable } = c.req.query();
-		const EventArtistDao = NewEventArtistDao(c.var.db, c.var.redis);
+		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const { eventName } = c.req.param();
 		const returnObj = await EventArtistDao.Fetch({
 			page,
@@ -55,13 +55,13 @@ const EventRoute = new Hono<HonoEnv>()
 		return c.json(returnObj);
 	})
 	.get("/", async (c) => {
-		const EventDao = NewEventDao(c.var.db, c.var.redis);
+		const EventDao = NewEventDao(c.var.db);
 		const data = EventDao.FetchAll();
 		return c.json(data);
 	})
 	.get("/:eventName", async (c) => {
 		const { eventName } = c.req.param();
-		const EventDao = NewEventDao(c.var.db, c.var.redis);
+		const EventDao = NewEventDao(c.var.db);
 		const data = EventDao.FetchByEventName(eventName);
 		return c.json(data);
 	})
@@ -73,7 +73,7 @@ const EventRoute = new Hono<HonoEnv>()
 				401,
 			);
 
-		const EventArtistDao = NewEventArtistDao(c.var.db, c.var.redis);
+		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Create(body);
 
@@ -86,7 +86,7 @@ const EventRoute = new Hono<HonoEnv>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
-		const EventDao = NewEventDao(c.var.db, c.var.redis);
+		const EventDao = NewEventDao(c.var.db);
 		const body = await c.req.json();
 		const returnResponse = EventDao.Create(body);
 		return c.json(returnResponse, 201);
@@ -119,7 +119,7 @@ const EventRoute = new Hono<HonoEnv>()
 				{ message: "You are not authorized to create artist" },
 				401,
 			);
-		const EventArtistDao = NewEventArtistDao(c.var.db, c.var.redis);
+		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Update(body);
 

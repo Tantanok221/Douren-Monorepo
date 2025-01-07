@@ -8,7 +8,6 @@ import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { BACKEND_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
-import { initRedis } from "@pkg/redis/redis";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
@@ -16,7 +15,6 @@ import { cache } from "hono/cache";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
-	redis: ReturnType<typeof initRedis>;
 };
 
 export type HonoEnv = { Bindings: BACKEND_BINDING; Variables: HonoVariables };
@@ -27,7 +25,6 @@ app.use("*", trimTrailingSlash());
 app.use("*", cors());
 app.use("*", async (c, next) => {
 	c.set("db", initDB(c.env.DATABASE_URL));
-	c.set("redis", initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN));
 	await next();
 });
 app.get(
@@ -52,7 +49,6 @@ app.use(
 			console.log("init context");
 			return {
 				db: initDB(c.env.DATABASE_URL),
-				redis: initRedis(c.env.REDIS_URL, c.env.REDIS_TOKEN),
 			};
 		},
 	}),

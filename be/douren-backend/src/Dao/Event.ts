@@ -2,17 +2,13 @@ import { BaseDao } from "@/Dao/index";
 import { desc, eq } from "drizzle-orm";
 import { CreateEventSchemaTypes } from "@/schema/event.zod";
 import { initDB, s } from "@pkg/database/db";
-import { initRedis } from "@pkg/redis/redis";
 
 class EventDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	redis;
 	constructor(
 		db: ReturnType<typeof initDB>,
-		redis: ReturnType<typeof initRedis>,
 	) {
 		this.db = db;
-		this.redis = redis;
 	}
 
 	async FetchAll() {
@@ -50,7 +46,6 @@ class EventDao implements BaseDao {
 
 export function NewEventDao(
 	db: ReturnType<typeof initDB>,
-	redis: ReturnType<typeof initRedis>,
 ): EventDao {
-	return new EventDao(db, redis);
+	return new EventDao(db);
 }
