@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Env, Hono } from "hono";
 import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
@@ -7,7 +7,7 @@ import EventRoute, { trpcEventRoute } from "./routes/event";
 import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { BACKEND_BINDING } from "@pkg/env/constant";
-// import { syncAuthorTag } from "./helper/migrate";
+import { syncAuthorTag } from "./helper/migrate";
 import { initRedis } from "@pkg/redis/redis";
 // import { RedisStore } from "@hono-rate-limiter/redis";
 // import { rateLimiter } from "hono-rate-limiter";
