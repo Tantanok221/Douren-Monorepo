@@ -8,7 +8,9 @@ export async function fetchTag(
 	db: ReturnType<typeof initDB>,
 	redis: ReturnType<typeof initRedis>,
 ) {
-	const redisData: InnerTagSchema = await redis.json.get(tagKey, {}, "$");
+	const redisData = (await redis.json.get(tagKey, {}, "$")) as
+		| InnerTagSchema[]
+		| null;
 	if (redisData && redisData?.length > 0) {
 		return redisData[0];
 	}

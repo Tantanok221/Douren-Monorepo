@@ -3,12 +3,14 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import style from "../Navbar.module.css";
 import classNames from "classnames/bind";
 import { CaretDown } from "@phosphor-icons/react";
+import { useLocation } from "@tanstack/react-router";
 type Props = {
   children: ReactNode;
   activePath: string[];
 };
 const NavMenuTrigger = ({ children, activePath }: Props) => {
   const sx = classNames.bind(style);
+  const location = useLocation();
   const activeMenuBoolean = activePath.includes(location.pathname);
   return (
     <NavigationMenu.Trigger

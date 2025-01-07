@@ -6,8 +6,8 @@ import { HonoEnv } from "@/index";
 
 export const trpcTagRoute = router({
 	getTag: publicProcedure.query(async (opts) => {
-		console.log(opts.ctx);
-		const data = fetchTag(opts.ctx.db, opts.ctx.redis);
+		const data = await fetchTag(opts.ctx.db, opts.ctx.redis);
+		if (!data) throw new Error("Fetch Tag Had Failed");
 		return data;
 	}),
 });
