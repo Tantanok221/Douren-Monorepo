@@ -11,9 +11,7 @@ import { zodSchemaType } from "@pkg/database/zod";
 
 class ArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	constructor(
-		db: ReturnType<typeof initDB>,
-	) {
+	constructor(db: ReturnType<typeof initDB>) {
 		this.db = db;
 	}
 
@@ -69,8 +67,6 @@ class ArtistDao implements BaseDao {
 	}
 }
 
-export function NewArtistDao(
-	db: ReturnType<typeof initDB>,
-): ArtistDao {
+export function NewArtistDao(db: ReturnType<typeof initDB>): ArtistDao {
 	return new ArtistDao(db);
 }

@@ -12,9 +12,7 @@ import {
 
 class EventArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	constructor(
-		db: ReturnType<typeof initDB>,
-	) {
+	constructor(db: ReturnType<typeof initDB>) {
 		this.db = db;
 	}
 

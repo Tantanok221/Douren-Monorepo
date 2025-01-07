@@ -7,9 +7,7 @@ interface ProductArtist {
 
 class ProductArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	constructor(
-		db: ReturnType<typeof initDB>,
-	) {
+	constructor(db: ReturnType<typeof initDB>) {
 		this.db = db;
 	}
 

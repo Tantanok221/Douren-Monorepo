@@ -5,9 +5,7 @@ import { initDB, s } from "@pkg/database/db";
 
 class EventDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
-	constructor(
-		db: ReturnType<typeof initDB>,
-	) {
+	constructor(db: ReturnType<typeof initDB>) {
 		this.db = db;
 	}
 
@@ -44,8 +42,6 @@ class EventDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventDao(
-	db: ReturnType<typeof initDB>,
-): EventDao {
+export function NewEventDao(db: ReturnType<typeof initDB>): EventDao {
 	return new EventDao(db);
 }
