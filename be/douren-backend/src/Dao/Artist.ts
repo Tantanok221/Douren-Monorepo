@@ -2,13 +2,13 @@ import { initDB, s } from "@pkg/database/db";
 import { ArtistFetchParams } from "@/utlis/fetchHelper";
 import { BaseDao } from "../Dao";
 import { CreateArtistSchemaTypes } from "@/schema/artist.zod";
-import { cacheJsonResults, initRedis } from "@pkg/redis/redis";
 import { artistSchemaType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
 import { NewArtistQueryBuilder } from "@/QueryBuilder";
 import { desc, eq } from "drizzle-orm";
 import { zodSchemaType } from "@pkg/database/zod";
+import { initRedis } from "@pkg/redis/redis";
 
 class ArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
@@ -22,16 +22,6 @@ class ArtistDao implements BaseDao {
 	}
 
 	async Fetch(params: ArtistFetchParams) {
-		const redisKey = `get_artist_${params.page}_${params.search}_${params.tag}_${params.sort}_${params.searchTable}`;
-		const redisData: artistSchemaType[] | null = await this.redis.json.get(
-			redisKey,
-			{},
-			"$",
-		);
-		if (redisData && redisData?.length > 0) {
-			console.log("redis cache hit");
-			return redisData[0];
-		}
 		const QueryBuilder = NewArtistQueryBuilder(params, this.db);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
 		const [data, [counts]] = await Promise.all([
@@ -45,7 +35,6 @@ class ArtistDao implements BaseDao {
 			counts.totalCount,
 		) as object;
 		console.log("Setting redis cache");
-		await cacheJsonResults(this.redis, redisKey, returnObj);
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
