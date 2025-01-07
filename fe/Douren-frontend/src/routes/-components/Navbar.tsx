@@ -5,7 +5,7 @@ export const Navbar = () => {
     <NavMenu>
       <NavMenu.List>
         <NavMenu.Item>
-          <NavMenu.Trigger activePath={["/", "/event/FF43"]}>
+          <NavMenu.Trigger activePath={["/event/FF43"]}>
             場次
           </NavMenu.Trigger>
           <NavMenu.Content>
