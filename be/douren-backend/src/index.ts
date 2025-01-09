@@ -1,4 +1,4 @@
-import { Context, Env, Hono } from "hono";
+import { Env, Hono } from "hono";
 import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
@@ -8,30 +8,32 @@ import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { BACKEND_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
-import { initRedis } from "@pkg/redis/redis";
-import { RedisStore } from "@hono-rate-limiter/redis";
-import { rateLimiter } from "hono-rate-limiter";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
+import { cache } from "hono/cache";
 
-const redis = initRedis();
-const store = new RedisStore({ client: redis });
+export type HonoVariables = {
+	db: ReturnType<typeof initDB>;
+};
 
-const limiter = rateLimiter({
-	windowMs: 10 * 1000,
-	limit: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-	standardHeaders: "draft-6", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-	keyGenerator: (c: Context) => c.req.header("cf-connecting-ip") ?? "", // Method to generate custom identifiers for clients.
-	store, // Redis, MemoryStore, etc. See below.
-});
+export type HonoEnv = { Bindings: BACKEND_BINDING; Variables: HonoVariables };
 
-const app = new Hono<{ Bindings: BACKEND_BINDING }>();
+const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
-app.use("*", limiter);
 app.use("*", cors());
-
+app.use("*", async (c, next) => {
+	c.set("db", initDB(c.env.DATABASE_URL));
+	await next();
+});
+app.get(
+	"*",
+	cache({
+		cacheName: (c) => c.req.path,
+		cacheControl: "max-age=3600",
+	}),
+);
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
@@ -43,9 +45,12 @@ app.use(
 	"/trpc/*",
 	trpcServer({
 		router: appRouter,
-		createContext: (_opts, c) => ({
-			DATABASE_URL: c.env.DATABASE_URL,
-		}),
+		createContext: (_opts, c) => {
+			console.log("init context");
+			return {
+				db: initDB(c.env.DATABASE_URL),
+			};
+		},
 	}),
 );
 app

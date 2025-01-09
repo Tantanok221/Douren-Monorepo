@@ -35,6 +35,7 @@
     "ts-morph": "^23.0.0"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
     "drizzle-zod": "^0.5.1",

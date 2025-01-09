@@ -11,11 +11,11 @@ import { DerivedFetchParams } from "@/utlis/paramHelper";
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;
 	public derivedFetchParams: DerivedFetchParams;
-	url: string;
+	public db: ReturnType<typeof initDB>;
 
 	abstract BuildQuery(): { SelectQuery: unknown; CountQuery: unknown };
 
-	constructor(params: T, url: string) {
+	constructor(params: T, db: ReturnType<typeof initDB>) {
 		const table = processTableName(params.sort.split(",")[0]);
 		const sortBy = params.sort.split(",")[1] === "asc" ? asc : desc;
 		const searchTable = processTableName(params.searchTable);
@@ -27,21 +27,20 @@ abstract class IQueryBuilder<T extends ArtistFetchParams> {
 			tagConditions,
 		};
 		this.fetchParams = params;
-		this.url = url;
+		this.db = db;
 	}
 }
 
 class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB(this.url);
-		const query = db
+		const query = this.db
 			.select(FETCH_ARTIST_OBJECT)
 			.from(s.authorMain)
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
 			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
 			.groupBy(s.authorMain.uuid)
 			.$dynamic();
-		const countQuery = db
+		const countQuery = this.db
 			.select({ totalCount: count(s.authorMain.uuid) })
 			.from(s.authorMain)
 			.$dynamic();
@@ -80,8 +79,7 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 
 class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 	BuildQuery() {
-		const db = initDB(this.url);
-		const query = db
+		const query = this.db
 			.select(FETCH_EVENT_ARTIST_OBJECT)
 			.from(s.eventDm)
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
@@ -97,7 +95,7 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 				s.eventDm.dm,
 			)
 			.$dynamic();
-		const countQuery = db
+		const countQuery = this.db
 			.select({ totalCount: count(s.eventDm.artistId) })
 			.from(s.eventDm)
 			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
@@ -136,14 +134,14 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 
 export function NewArtistQueryBuilder(
 	params: ArtistFetchParams,
-	url: string,
+	db: ReturnType<typeof initDB>,
 ): ArtistQueryBuilder {
-	return new ArtistQueryBuilder(params, url);
+	return new ArtistQueryBuilder(params, db);
 }
 
 export function NewEventArtistQueryBuilder(
 	params: EventArtistFetchParams,
-	url: string,
+	db: ReturnType<typeof initDB>,
 ) {
-	return new EventArtistQueryBuilder(params, url);
+	return new EventArtistQueryBuilder(params, db);
 }
