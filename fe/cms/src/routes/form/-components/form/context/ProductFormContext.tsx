@@ -1,18 +1,28 @@
 import {
   createContext,
   Dispatch,
+  MutableRefObject,
   ReactNode,
   SetStateAction,
   useContext,
   useState,
 } from "react";
 import { ProductFormSchema } from "../schema";
-import { SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormHandleSubmit,
+} from "react-hook-form";
+import { FormImageUploadRef } from "@/components";
 
-interface ProductFormType {
+export interface ProductFormType {
   submitHook: UseFormHandleSubmit<ProductFormSchema>;
   onSubmit: SubmitHandler<ProductFormSchema>;
+  thumbnailPromise: MutableRefObject<FormImageUploadRef>;
+  previewPromise: MutableRefObject<FormImageUploadRef>;
+  getValues: UseFormGetValues<ProductFormSchema>;
 }
+
 type ProductFormSubmitHandler = ProductFormType[];
 
 export const ProductFormContext = createContext<

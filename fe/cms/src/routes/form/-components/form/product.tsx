@@ -8,7 +8,8 @@ import {
   ProductFormContextProvider,
   useProductFormContext,
 } from "./context/ProductFormContext.tsx";
-import { FormButton } from "../../../../components";
+import { FormButton, useMultiStepFormContext } from "@/components";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 
 interface formProps {
   index: number;
@@ -42,7 +43,9 @@ const ProductForm = ({ index }: formProps) => {
   const previewImageRef = useUploadImageRef();
   const [, setProductHook] = useProductFormContext();
 
-  const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = (data) => {
+  const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = async (
+    data,
+  ) => {
     console.log(data);
   };
   useEffect(() => {
@@ -51,6 +54,9 @@ const ProductForm = ({ index }: formProps) => {
       {
         submitHook: formHook.handleSubmit,
         onSubmit: ProductSubmitHandler,
+        getValues: formHook.getValues,
+        thumbnailPromise: thumbnailImageRef,
+        previewPromise: previewImageRef,
       },
     ]);
     return () =>
@@ -84,17 +90,53 @@ const ProductForm = ({ index }: formProps) => {
 
 const ProductFormSubmit = () => {
   const [productFormData] = useProductFormContext();
+  const setProductStep = useMultiStepFormContext(
+    (state) => state.setProductStep,
+  );
+  const goBack = useMultiStepFormContext((state) => state.goBackStep);
 
-  const onClick = () => {
-    productFormData.forEach((item) => {
-      item.submitHook(item.onSubmit)();
+  const onClick = async () => {
+    const validData: ProductFormSchema[] = [];
+    const allPromises: Promise<string>[] = [];
+
+    productFormData.forEach((item) => item.submitHook(item.onSubmit)());
+    productFormData.forEach((i) => {
+      const data = i.getValues();
+      if (data.title.length == 0) return;
+      validData.push(data);
+      allPromises.push(
+        i.thumbnailPromise.current.uploadImage(),
+        i.previewPromise.current.uploadImage(),
+      );
     });
+    if (validData.length != productFormData.length) return;
+
+    const resolvedPromises = await Promise.all(allPromises);
+    validData.map((item, index) => {
+      const thumbnailUrl = resolvedPromises[index * 2];
+      const previewUrl = resolvedPromises[index * 2 + 1];
+
+      // Update the item with resolved URLs
+      item.thumbnail = thumbnailUrl;
+      item.preview = previewUrl;
+    });
+    console.log("Resolved promises:", resolvedPromises);
+    console.log(validData);
+    setProductStep(validData);
   };
 
   return (
-    <FormButton extendClass={"bg-white"} onClick={onClick}>
-      {" "}
-      下一步{" "}
-    </FormButton>
+    <Forms.HorizontalLayout>
+      <Forms.Button
+        onClick={() => goBack()}
+        extendClass={"bg-white"}
+        type={"button"}
+      >
+        <ArrowLeft /> 上一步
+      </Forms.Button>
+      <FormButton extendClass={"bg-white"} onClick={onClick}>
+        下一步 <ArrowRight />
+      </FormButton>
+    </Forms.HorizontalLayout>
   );
 };

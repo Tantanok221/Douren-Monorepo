@@ -3,6 +3,12 @@ import { useMultiStepFormContext, MultiStepFormProvider } from "@/components";
 import { ArtistForm } from "./-components/form/artist";
 import { EventArtistForm } from "./-components/form/eventartist";
 import { AllProductForm } from "./-components/form/product";
+import { ReactNode } from "react";
+
+interface props {
+  children: ReactNode;
+  validStep: number;
+}
 
 export const Route = createFileRoute("/form/")({
   component: () => <Form />,
@@ -10,33 +16,33 @@ export const Route = createFileRoute("/form/")({
 
 function Form() {
   return (
-    <div
-      className={
-        "flex flex-col px-6 py-8 w-full gap-8 bg-panel rounded-2xl justify-center items-start"
-      }
-    >
+    <>
       <MultiStepFormProvider>
-        <FormBase />
+        <FormWrapper validStep={1}>
+          <ArtistForm />
+        </FormWrapper>
+        <FormWrapper validStep={2}>
+          <EventArtistForm />
+        </FormWrapper>
+        <FormWrapper validStep={3}>
+          <AllProductForm />
+        </FormWrapper>
       </MultiStepFormProvider>
-    </div>
+    </>
   );
 }
 
-function FormBase() {
+function FormWrapper({ children, validStep }: props) {
   const step = useMultiStepFormContext((state) => state.step);
-  return <>{renderStep(step)}</>;
-}
-
-function renderStep(step: number) {
-  switch (step) {
-    case 1:
-      return <AllProductForm />;
-    // return <ArtistForm>
-    case 2:
-      return <EventArtistForm />;
-    case 3:
-      return <AllProductForm />;
-    default:
-      return <></>;
-  }
+  if (step == validStep)
+    return (
+      <div
+        className={
+          "flex flex-col px-6 py-8 w-full gap-8 bg-panel rounded-2xl justify-center items-start"
+        }
+      >
+        {children}
+      </div>
+    );
+  return <div className={"hidden"}>{children}</div>;
 }
