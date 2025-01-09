@@ -57,7 +57,7 @@ export const FormField = ({ children, name }: childrenProps & nameProps) => {
 export const HorizontalLayout = ({ children }: childrenProps) => {
   return (
     <div
-      className={"flex flex-row justify-between gap-6 text-tagText font-sans"}
+      className={"flex flex-row justify-between gap-6 font-sans"}
     >
       {children}
     </div>
