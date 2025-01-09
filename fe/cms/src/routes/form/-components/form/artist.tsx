@@ -17,18 +17,14 @@ export function ArtistForm() {
   const formHook = useForm<ArtistFormSchema>({
     resolver: zodResolver(artistFormSchema),
   });
-  // const { mutate } = trpc.artist.createArtist.useMutation();
   const uploadImageRef = useUploadImageRef();
   const setArtistStep = useMultiStepFormContext((state) => state.setArtistStep);
 
   const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
-  // const {getValues} = formHook
-  // console.log(getValues())
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     console.log("inside onsubmit");
     console.log(data);
-    // const allTag = data.tags.map((i) => i.tag).join(",");
     const imgLink = await uploadImageRef.current.uploadImage();
     console.log(imgLink);
     setArtistStep({ ...data, photo: imgLink });

@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { useUploadImageRef } from "@/hooks";
 import {
   EventField,
@@ -24,6 +24,7 @@ export function EventArtistForm() {
   );
 
   const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
+  const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
@@ -51,9 +52,18 @@ export function EventArtistForm() {
           multiple
           ref={uploadImageRef}
         />
-        <Forms.Submit>
-          下一步 <ArrowRight />
-        </Forms.Submit>
+        <Forms.HorizontalLayout>
+          <Forms.Button
+            onClick={() => goBack()}
+            extendClass={"bg-white"}
+            type={"button"}
+          >
+            <ArrowLeft /> 上一步
+          </Forms.Button>
+          <Forms.Submit>
+            下一步 <ArrowRight />
+          </Forms.Submit>
+        </Forms.HorizontalLayout>
       </Forms.Root>
     </>
   );
