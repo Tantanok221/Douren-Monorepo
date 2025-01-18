@@ -1,5 +1,5 @@
-import { ImageUpload } from "../../ImageUpload/ImageUpload.tsx";
-import { uploadImage } from "../../../hooks";
+import { ImageUpload } from "../../ImageUpload";
+import { uploadImage } from "@/hooks";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
 interface Props {
@@ -21,7 +21,6 @@ export const FormImageUpload = forwardRef<FormImageUploadRef, Props>(
           for (const img of image) {
             allLink.push(await uploadImage(img));
           }
-          console.log("uploadImage allLink: " + allLink.join("\n"));
           return allLink.join("\n");
         },
       };

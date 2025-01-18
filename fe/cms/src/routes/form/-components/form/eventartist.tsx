@@ -1,50 +1,35 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { useUploadImageRef } from "@/hooks";
 import {
   EventField,
-  FormImageUploadRef,
   Forms,
   ImageField,
   InputTextField,
-} from "../../components";
-import { ArrowRight } from "@phosphor-icons/react";
-import { useRef } from "react";
-import { useMultiStepFormContext } from "../../components/MultiStepForm/context/useMultiStepFormContext.ts";
+  useMultiStepFormContext,
+} from "@/components";
+import { eventArtistSchema, EventArtistSchema } from "./schema";
 
-export const Route = createFileRoute("/form/eventartist")({
-  component: () => <EventArtist />,
-});
-
-export const eventArtistSchema = z.object({
-  event_id: z.string().min(1, "請選擇一個活動"),
-  artist_id: z.string().optional(),
-  booth_name: z.string().min(1, "請輸入攤位名字"),
-  DM: z.string().optional(),
-  location_day01: z.string().optional(),
-  location_day02: z.string().optional(),
-  location_day03: z.string().optional(),
-  photo: z.string().optional(),
-});
-
-export type eventArtistSchema = z.infer<typeof eventArtistSchema>;
-
-function EventArtist() {
-  const formHook = useForm<eventArtistSchema>({
+export function EventArtistForm() {
+  const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
     defaultValues: {
       event_id: "3",
     },
   });
-  const uploadImageRef = useRef<FormImageUploadRef>(null!);
+  const uploadImageRef = useUploadImageRef();
   const setEventArtistStep = useMultiStepFormContext(
     (state) => state.setEventArtistStep,
   );
-  const onSubmit: SubmitHandler<eventArtistSchema> = async (data) => {
+
+  const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
+  const goBack = useMultiStepFormContext((state) => state.goBackStep);
+  const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
     setEventArtistStep({ ...data, photo: link });
+    bumpStep();
     console.log(link);
     console.log(data);
   };
@@ -67,9 +52,18 @@ function EventArtist() {
           multiple
           ref={uploadImageRef}
         />
-        <Forms.Submit>
-          下一步 <ArrowRight />
-        </Forms.Submit>
+        <Forms.HorizontalLayout>
+          <Forms.Button
+            onClick={() => goBack()}
+            extendClass={"bg-white"}
+            type={"button"}
+          >
+            <ArrowLeft /> 上一步
+          </Forms.Button>
+          <Forms.Submit>
+            下一步 <ArrowRight />
+          </Forms.Submit>
+        </Forms.HorizontalLayout>
       </Forms.Root>
     </>
   );
