@@ -22,14 +22,6 @@ class EventDao implements BaseDao {
 	}
 
 	async Create(body: CreateEventSchemaTypes) {
-		const [counts] = await this.db
-			.select({ count: s.event.id })
-			.from(s.event)
-			.orderBy(desc(s.event.id))
-			.limit(1);
-		if (!body.id) {
-			body.id = counts.count + 1;
-		}
 		return await this.db
 			.insert(s.event)
 			.values(body)
