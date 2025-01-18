@@ -124,23 +124,23 @@ const ProductFormSubmit = () => {
     console.log("Resolved promises:", resolvedPromises);
     console.log(validData);
     setProductStep(validData);
-    bumpStep()
+    bumpStep();
   };
 
   return (
     <div className={"w-full"}>
-    <Forms.HorizontalLayout>
-      <Forms.Button
-        onClick={() => goBack()}
-        extendClass={"bg-white"}
-        type={"button"}
-      >
-        <ArrowLeft /> 上一步
-      </Forms.Button>
-      <FormButton extendClass={"bg-white"} onClick={onClick}>
-        下一步 <ArrowRight />
-      </FormButton>
-    </Forms.HorizontalLayout>
+      <Forms.HorizontalLayout>
+        <Forms.Button
+          onClick={() => goBack()}
+          extendClass={"bg-white"}
+          type={"button"}
+        >
+          <ArrowLeft /> 上一步
+        </Forms.Button>
+        <FormButton extendClass={"bg-white"} onClick={onClick}>
+          下一步 <ArrowRight />
+        </FormButton>
+      </Forms.HorizontalLayout>
     </div>
   );
 };
