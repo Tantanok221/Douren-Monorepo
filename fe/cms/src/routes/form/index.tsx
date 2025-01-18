@@ -4,6 +4,7 @@ import { ArtistForm } from "./-components/form/artist";
 import { EventArtistForm } from "./-components/form/eventartist";
 import { AllProductForm } from "./-components/form/product";
 import { ReactNode } from "react";
+import { ConfirmStep } from "./-components/form/confirm.tsx";
 
 interface props {
   children: ReactNode;
@@ -26,6 +27,9 @@ function Form() {
         </FormWrapper>
         <FormWrapper validStep={3}>
           <AllProductForm />
+        </FormWrapper>
+        <FormWrapper validStep={4}>
+          <ConfirmStep />
         </FormWrapper>
       </MultiStepFormProvider>
     </>

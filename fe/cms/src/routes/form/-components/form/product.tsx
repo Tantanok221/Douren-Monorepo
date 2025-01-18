@@ -94,6 +94,7 @@ const ProductFormSubmit = () => {
     (state) => state.setProductStep,
   );
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
+  const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
 
   const onClick = async () => {
     const validData: ProductFormSchema[] = [];
@@ -123,9 +124,11 @@ const ProductFormSubmit = () => {
     console.log("Resolved promises:", resolvedPromises);
     console.log(validData);
     setProductStep(validData);
+    bumpStep()
   };
 
   return (
+    <div className={"w-full"}>
     <Forms.HorizontalLayout>
       <Forms.Button
         onClick={() => goBack()}
@@ -138,5 +141,6 @@ const ProductFormSubmit = () => {
         下一步 <ArrowRight />
       </FormButton>
     </Forms.HorizontalLayout>
+    </div>
   );
 };
