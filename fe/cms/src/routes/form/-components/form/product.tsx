@@ -61,7 +61,7 @@ const ProductForm = ({ index }: formProps) => {
     ]);
     return () =>
       setProductHook((state) => state.filter((_, i) => i !== index - 1));
-  }, [setProductHook, formHook, index,previewImageRef,thumbnailImageRef]);
+  }, [setProductHook, formHook, index, previewImageRef, thumbnailImageRef]);
 
   return (
     <>
@@ -93,7 +93,8 @@ const ProductFormSubmit = () => {
   const setProductStep = useMultiStepFormContext(
     (state) => state.setProductStep,
   );
-  const {setSubmitState,goBackStep,bumpStep,triggerSubmit}= useMultiStepFormContext((state) => state);
+  const { setSubmitState, goBackStep, bumpStep, triggerSubmit } =
+    useMultiStepFormContext((state) => state);
 
   const onClick = async () => {
     const validData: ProductFormSchema[] = [];
@@ -124,9 +125,9 @@ const ProductFormSubmit = () => {
     console.log(validData);
     setProductStep(validData);
     bumpStep();
-    setSubmitState("submitting")
-    triggerSubmit()
-    setSubmitState("complete")
+    setSubmitState("submitting");
+    triggerSubmit();
+    setSubmitState("complete");
   };
 
   return (

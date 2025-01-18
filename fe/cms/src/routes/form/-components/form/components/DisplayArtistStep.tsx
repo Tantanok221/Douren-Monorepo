@@ -5,7 +5,7 @@ interface props {
   artistStep: ArtistFormSchema;
 }
 
-const DisplayArtistStep = ({ artistStep }: props) => {
+export const DisplayArtistStep = ({ artistStep }: props) => {
   return (
     <div className={"gap-6 grid-cols-2 grid"}>
       {Object.keys(artistStep).map((key) => {

@@ -1,8 +1,9 @@
 import { useMultiStepFormContext } from "../../../../components";
 
 export function ConfirmStep() {
-  const {  artistStep, eventArtistStep, productStep } =
-    useMultiStepFormContext((state) => state);
+  const { artistStep, eventArtistStep, productStep } = useMultiStepFormContext(
+    (state) => state,
+  );
   if (!artistStep || !eventArtistStep || !productStep) return <></>;
   return (
     <>

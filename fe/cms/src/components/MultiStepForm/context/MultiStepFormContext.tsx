@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createStore } from "zustand";
 import {
   ArtistFormSchema,
-  EventArtistSchema
+  EventArtistSchema,
 } from "@/routes/form/-components/form/schema";
 import { ProductFormSchema } from "../../../routes/form/-components/form/schema";
 
@@ -11,7 +11,7 @@ interface props {
   children: React.ReactNode;
 }
 
-type submitStepState = "" | "submitting" | "complete" | "fail"
+type submitStepState = "" | "submitting" | "complete" | "fail";
 
 export interface MultiStepStore {
   step: number;
@@ -38,29 +38,29 @@ export const MultiStepFormProvider = ({ children }: props) => {
       productStep: null,
       setArtistStep: (step) =>
         set(() => ({
-          artistStep: step
+          artistStep: step,
         })),
       setEventArtistStep: (step) =>
         set(() => ({
-          eventArtistStep: step
+          eventArtistStep: step,
         })),
       setProductStep: (step) =>
         set(() => ({
-          productStep: step
+          productStep: step,
         })),
       bumpStep: () => {
         set((state) => ({
-          step: state.step + 1
+          step: state.step + 1,
         }));
       },
       goBackStep: () => {
         set((state) => ({
-          step: state.step - 1
+          step: state.step - 1,
         }));
       },
       setSubmitState: (state: submitStepState) => {
         set(() => ({
-          submitState: state
+          submitState: state,
         }));
       },
       triggerSubmit: () => {
@@ -68,8 +68,8 @@ export const MultiStepFormProvider = ({ children }: props) => {
         const eventArtistData = get().eventArtistStep;
         console.log("artist data:", artistData);
         console.log("event artist data:", eventArtistData);
-      }
-    }))
+      },
+    })),
   );
 
   return (
