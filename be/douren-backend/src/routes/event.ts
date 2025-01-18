@@ -8,7 +8,6 @@ import {
 	PutEventArtistSchema,
 	PutEventArtistSchemaTypes,
 } from "@/schema/event.zod";
-import { verifyUser } from "@/utlis/authHelper";
 import { publicProcedure, router } from "@/trpc";
 import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
@@ -66,13 +65,6 @@ const EventRoute = new Hono<HonoEnv>()
 		return c.json(data);
 	})
 	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
-
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Create(body);
@@ -80,24 +72,12 @@ const EventRoute = new Hono<HonoEnv>()
 		return c.json(returnResponse, 201);
 	})
 	.post("/", zValidator("json", CreateEventSchema), async (c) => {
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
 		const EventDao = NewEventDao(c.var.db);
 		const body = await c.req.json();
 		const returnResponse = EventDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
 	.delete("/:eventId/artist/:artistId", async (c) => {
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
 		const { artistId, eventId } = c.req.param();
 		console.log(artistId, eventId);
 		const db = initDB(c.env.DATABASE_URL);
@@ -113,12 +93,6 @@ const EventRoute = new Hono<HonoEnv>()
 		return c.json(returnResponse, 200);
 	})
 	.put("/artist", zValidator("json", PutEventArtistSchema), async (c) => {
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = await c.req.json();
 		const returnResponse = await EventArtistDao.Update(body);
