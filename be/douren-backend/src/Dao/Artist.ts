@@ -6,7 +6,7 @@ import { artistSchemaType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
 import { NewArtistQueryBuilder } from "@/QueryBuilder";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { zodSchemaType } from "@pkg/database/zod";
 
 class ArtistDao implements BaseDao {
@@ -32,14 +32,6 @@ class ArtistDao implements BaseDao {
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
-		const [counts] = await this.db
-			.select({ count: s.authorMain.uuid })
-			.from(s.authorMain)
-			.orderBy(desc(s.authorMain.uuid))
-			.limit(1);
-		if (!body.uuid) {
-			body.uuid = counts.count + 1;
-		}
 		return await this.db
 			.insert(s.authorMain)
 			.values(body)

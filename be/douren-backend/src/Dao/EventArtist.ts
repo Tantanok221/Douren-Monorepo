@@ -4,7 +4,7 @@ import { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
 import { NewEventArtistQueryBuilder } from "@/QueryBuilder";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import {
 	CreateEventArtistSchemaTypes,
 	PutEventArtistSchemaTypes,
@@ -33,14 +33,6 @@ class EventArtistDao implements BaseDao {
 	}
 
 	async Create(body: CreateEventArtistSchemaTypes) {
-		const [counts] = await this.db
-			.select({ count: s.eventDm.uuid })
-			.from(s.eventDm)
-			.orderBy(desc(s.eventDm.uuid))
-			.limit(1);
-		if (!body.uuid) {
-			body.uuid = counts.count + 1;
-		}
 		// infer as PutEventArtistSchemaTypes to ignore type error meanwhile getting automatic type from zod
 		return this.db
 			.insert(s.eventDm)
