@@ -1,23 +1,23 @@
 import { pgTable, bigint, text, uuid, bigserial, primaryKey, integer } from 'drizzle-orm/pg-core';
 import { relations, sql } from 'drizzle-orm';
 
-export const authorMain = pgTable('Author_Main', {
+export const authorMain = pgTable('author_main', {
   uuid: integer('uuid').primaryKey().default(sql`gen_random_uuid()`),
-  author: text('Author').notNull(),
-  plurkLink: text('Plurk_link'),
-  bahaLink: text('Baha_link'),
-  twitchLink: text('Twitch_link'),
-  youtubeLink: text('Youtube_link'),
-  twitterLink: text('Twitter_link'),
-  facebookLink: text('Facebook_link'),
-  instagramLink: text('Instagram_link'),
-  pixivLink: text('Pixiv_link'),
-  tags: text('Tags'),
-  introduction: text('Introduction'),
-  photo: text('Photo'),
-  myacgLink: text('Myacg_link'),
-  storeLink: text('Store_link'),
-  officialLink: text('Official_link'),
+  author: text('author').notNull(),
+  plurkLink: text('plurk_link'),
+  bahaLink: text('baha_link'),
+  twitchLink: text('twitch_link'),
+  youtubeLink: text('youtube_link'),
+  twitterLink: text('twitter_link'),
+  facebookLink: text('facebook_link'),
+  instagramLink: text('instagram_link'),
+  pixivLink: text('pixiv_link'),
+  tags: text('tags'),
+  introduction: text('introduction'),
+  photo: text('photo'),
+  myacgLink: text('myacg_link'),
+  storeLink: text('store_link'),
+  officialLink: text('official_link'),
 });
 
 export const authorMainRelations = relations(authorMain, ({ many }) => ({
@@ -25,12 +25,12 @@ export const authorMainRelations = relations(authorMain, ({ many }) => ({
   events: many(eventDm),
 }));
 
-export const authorProduct = pgTable('Author_Product', {
+export const authorProduct = pgTable('author_product', {
   id: integer('id').primaryKey().notNull().default(sql`gen_random_uuid()`),
-  tag: text('Tag'),
-  preview: text('Preview'),
-  thumbnail: text('Thumbnail').notNull(),
-  title: text('Title'),
+  tag: text('tag'),
+  preview: text('preview'),
+  thumbnail: text('thumbnail').notNull(),
+  title: text('title'),
   artistId: integer('artist_id').notNull(),
 });
 
@@ -41,7 +41,7 @@ export const authorProductRelations = relations(authorProduct, ({ one }) => ({
   }),
 }));
 
-export const event = pgTable('Event', {
+export const event = pgTable('event', {
   id: integer('id').primaryKey().notNull().default(sql`gen_random_uuid()`),
   name: text('name').notNull(),
 });
@@ -50,13 +50,13 @@ export const eventRelations = relations(event, ({ many }) => ({
   eventDms: many(eventDm),
 }));
 
-export const eventDm = pgTable('Event_DM', {
+export const eventDm = pgTable('event_dm', {
   uuid: integer('uuid').primaryKey().notNull(),
-  locationDay01: text('Location_Day01'),
-  locationDay02: text('Location_Day02'),
-  locationDay03: text('Location_Day03'),
-  boothName: text('Booth_name'),
-  dm: text('DM'),
+  locationDay01: text('location_day01'),
+  locationDay02: text('location_day02'),
+  locationDay03: text('location_day03'),
+  boothName: text('booth_name'),
+  dm: text('dm'),
   artistId: integer('artist_id').notNull(),
   eventId: integer('event_id'),
 });
@@ -73,7 +73,7 @@ export const eventDmRelations = relations(eventDm, ({ one }) => ({
 }));
 
 
-export const owner = pgTable('Owner', {
+export const owner = pgTable('owner', {
   id: integer('id').primaryKey(),
   name: text('name').notNull(),
   discordName: text('discord_name'),
@@ -85,7 +85,7 @@ export const owner = pgTable('Owner', {
   title: text('title'),
 });
 
-export const tag = pgTable('Tag', {
+export const tag = pgTable('tag', {
   tag: text('tag').primaryKey(),
   count: integer('count'),
   index: integer('index').notNull(),
