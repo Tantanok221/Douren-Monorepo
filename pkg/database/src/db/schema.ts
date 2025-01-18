@@ -2,7 +2,7 @@ import { pgTable, text, primaryKey, integer } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const authorMain = pgTable("author_main", {
-  uuid: integer("id").notNull().generatedAlwaysAsIdentity({ startWith: 1300 }),
+  uuid: integer("id").notNull().generatedAlwaysAsIdentity({ startWith: 1300 }).primaryKey(),
   author: text("author").notNull(),
   plurkLink: text("plurk_link"),
   bahaLink: text("baha_link"),
