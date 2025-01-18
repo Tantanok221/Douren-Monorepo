@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createStore, StateCreator } from "zustand";
 import {
   ArtistFormSchema,
-  EventArtistSchema
+  EventArtistSchema,
 } from "@/routes/form/-components/form/schema";
 import { ProductFormSchema } from "../../../routes/form/-components/form/schema";
 
@@ -36,29 +36,29 @@ const multiStepFormFunction: StateCreator<MultiStepStore> = (set, get) => ({
   productStep: null,
   setArtistStep: (step) =>
     set(() => ({
-      artistStep: step
+      artistStep: step,
     })),
   setEventArtistStep: (step) =>
     set(() => ({
-      eventArtistStep: step
+      eventArtistStep: step,
     })),
   setProductStep: (step) =>
     set(() => ({
-      productStep: step
+      productStep: step,
     })),
   bumpStep: () => {
     set((state) => ({
-      step: state.step + 1
+      step: state.step + 1,
     }));
   },
   goBackStep: () => {
     set((state) => ({
-      step: state.step - 1
+      step: state.step - 1,
     }));
   },
   setSubmitState: (state: submitStepState) => {
     set(() => ({
-      submitState: state
+      submitState: state,
     }));
   },
   triggerSubmit: () => {
@@ -66,12 +66,12 @@ const multiStepFormFunction: StateCreator<MultiStepStore> = (set, get) => ({
     const eventArtistData = get().eventArtistStep;
     console.log("artist data:", artistData);
     console.log("event artist data:", eventArtistData);
-  }
+  },
 });
 
 export const MultiStepFormProvider = ({ children }: props) => {
   const [store] = useState(() =>
-    createStore<MultiStepStore>(multiStepFormFunction)
+    createStore<MultiStepStore>(multiStepFormFunction),
   );
 
   return (
