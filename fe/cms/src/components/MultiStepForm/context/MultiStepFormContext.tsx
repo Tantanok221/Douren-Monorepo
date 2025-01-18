@@ -3,18 +3,23 @@ import { useState } from "react";
 import { createStore } from "zustand";
 import {
   ArtistFormSchema,
-  EventArtistSchema,
+  EventArtistSchema
 } from "@/routes/form/-components/form/schema";
 import { ProductFormSchema } from "../../../routes/form/-components/form/schema";
+
 interface props {
   children: React.ReactNode;
 }
+
+type submitStepState = "" | "submitting" | "complete" | "fail"
 
 export interface MultiStepStore {
   step: number;
   artistStep: ArtistFormSchema | null;
   eventArtistStep: EventArtistSchema | null;
   productStep: ProductFormSchema[] | null;
+  submitState: submitStepState;
+  setSubmitState: (step: submitStepState) => void;
   setArtistStep: (step: ArtistFormSchema) => void;
   setEventArtistStep: (step: EventArtistSchema) => void;
   setProductStep: (step: ProductFormSchema[]) => void;
@@ -27,29 +32,35 @@ export const MultiStepFormProvider = ({ children }: props) => {
   const [store] = useState(() =>
     createStore<MultiStepStore>((set, get) => ({
       step: 1,
+      submitState: "",
       artistStep: null,
       eventArtistStep: null,
       productStep: null,
       setArtistStep: (step) =>
-        set((state) => ({
-          artistStep: step,
+        set(() => ({
+          artistStep: step
         })),
       setEventArtistStep: (step) =>
-        set((state) => ({
-          eventArtistStep: step,
+        set(() => ({
+          eventArtistStep: step
         })),
       setProductStep: (step) =>
-        set((state) => ({
-          productStep: step,
+        set(() => ({
+          productStep: step
         })),
       bumpStep: () => {
         set((state) => ({
-          step: state.step + 1,
+          step: state.step + 1
         }));
       },
       goBackStep: () => {
         set((state) => ({
-          step: state.step - 1,
+          step: state.step - 1
+        }));
+      },
+      setSubmitState: (state: submitStepState) => {
+        set(() => ({
+          submitState: state
         }));
       },
       triggerSubmit: () => {
@@ -57,8 +68,8 @@ export const MultiStepFormProvider = ({ children }: props) => {
         const eventArtistData = get().eventArtistStep;
         console.log("artist data:", artistData);
         console.log("event artist data:", eventArtistData);
-      },
-    })),
+      }
+    }))
   );
 
   return (

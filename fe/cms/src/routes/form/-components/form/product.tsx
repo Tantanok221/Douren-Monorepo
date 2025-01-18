@@ -61,7 +61,7 @@ const ProductForm = ({ index }: formProps) => {
     ]);
     return () =>
       setProductHook((state) => state.filter((_, i) => i !== index - 1));
-  }, [setProductHook, formHook, index]);
+  }, [setProductHook, formHook, index,previewImageRef,thumbnailImageRef]);
 
   return (
     <>
@@ -93,8 +93,7 @@ const ProductFormSubmit = () => {
   const setProductStep = useMultiStepFormContext(
     (state) => state.setProductStep,
   );
-  const goBack = useMultiStepFormContext((state) => state.goBackStep);
-  const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
+  const {setSubmitState,goBackStep,bumpStep,triggerSubmit}= useMultiStepFormContext((state) => state);
 
   const onClick = async () => {
     const validData: ProductFormSchema[] = [];
@@ -125,13 +124,16 @@ const ProductFormSubmit = () => {
     console.log(validData);
     setProductStep(validData);
     bumpStep();
+    setSubmitState("submitting")
+    triggerSubmit()
+    setSubmitState("complete")
   };
 
   return (
     <div className={"w-full"}>
       <Forms.HorizontalLayout>
         <Forms.Button
-          onClick={() => goBack()}
+          onClick={() => goBackStep()}
           extendClass={"bg-white"}
           type={"button"}
         >
