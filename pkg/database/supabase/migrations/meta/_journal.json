@@ -33,22 +33,8 @@
     {
       "idx": 4,
       "version": "7",
-      "when": 1737195772689,
-      "tag": "0004_equal_pretty_boy",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1737196868738,
-      "tag": "0005_green_ultron",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1737196959823,
-      "tag": "0006_flat_gressill",
+      "when": 1737201287996,
+      "tag": "0004_tough_tombstone",
       "breakpoints": true
     }
   ]
