@@ -1,5 +1,5 @@
 {
-  "id": "dfc85931-7815-42b3-80c3-f5dc8b25ac21",
+  "id": "1c4a36e5-1152-4af6-ae03-b59d4aa9e27c",
   "prevId": "ff6d6f05-ce0e-478f-945a-7ed0daa9447f",
   "version": "7",
   "dialect": "postgresql",
@@ -11,14 +11,14 @@
         "id": {
           "name": "id",
           "type": "integer",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
             "name": "author_main_id_seq",
             "schema": "public",
             "increment": "1",
-            "startWith": "1",
+            "startWith": "1300",
             "minValue": "1",
             "maxValue": "2147483647",
             "cache": "1",
@@ -135,7 +135,7 @@
             "name": "author_product_id_seq",
             "schema": "public",
             "increment": "1",
-            "startWith": "1",
+            "startWith": "9",
             "minValue": "1",
             "maxValue": "2147483647",
             "cache": "1",
@@ -249,7 +249,7 @@
             "name": "event_id_seq",
             "schema": "public",
             "increment": "1",
-            "startWith": "1",
+            "startWith": "5",
             "minValue": "1",
             "maxValue": "2147483647",
             "cache": "1",
@@ -272,11 +272,22 @@
       "name": "event_dm",
       "schema": "",
       "columns": {
-        "uuid": {
-          "name": "uuid",
+        "id": {
+          "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "event_dm_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1300",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "location_day01": {
           "name": "location_day01",
