@@ -9,8 +9,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
     "db:push": "drizzle-kit push",
-    "codegen": "rimraf src/zod && node generateZodSchema.js",
-    "dev": "from-env psql %LOCAL_DATABASE_URL"
+    "codegen": "rimraf src/zod && node generateZodSchema.js"
   },
   "exports": {
     "./db": {

@@ -65,3 +65,6 @@ jobs:
 
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS" 
           npm run deploy -- $WRANGLER_VARS --env staging 
+      - name: Update Database
+        run: |
+          npm run db:migrate
