@@ -35,10 +35,13 @@ app.get(
 		cacheControl: "max-age=3600",
 	}),
 );
-app.on(["POST","PUT","DELETE"],"/*", async (c, next) => {
+app.on(["POST", "PUT", "DELETE"], "/*", async (c, next) => {
 	const verified = verifyUser(c);
 	if (!verified)
-		return c.json({ message: "You are not authorized to perform this actions" }, 401);
+		return c.json(
+			{ message: "You are not authorized to perform this actions" },
+			401,
+		);
 	next();
 });
 const appRouter = router({
