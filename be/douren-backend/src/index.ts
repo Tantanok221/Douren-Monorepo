@@ -59,6 +59,7 @@ app.use(
 			console.log("init context");
 			return {
 				db: initDB(c.env.DATABASE_URL),
+				honoContext: c,
 			};
 		},
 	}),

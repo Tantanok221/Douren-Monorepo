@@ -14,8 +14,5 @@ const t = initTRPC.context<HonoContext>().create();
 export const router = t.router;
 export const publicProcedure = t.procedure;
 export const authProcedure = t.procedure.use(async (opts) => {
-	const { ctx } = opts;
-	if (!verifyUser(ctx.honoContext))
-		throw new TRPCError({ code: "UNAUTHORIZED" });
 	return opts.next();
 });
