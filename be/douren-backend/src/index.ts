@@ -42,7 +42,7 @@ app.on(["POST", "PUT", "DELETE"], "/*", async (c, next) => {
 			{ message: "You are not authorized to perform this actions" },
 			401,
 		);
-	next();
+	await next();
 });
 const appRouter = router({
 	artist: trpcArtistRoute,
