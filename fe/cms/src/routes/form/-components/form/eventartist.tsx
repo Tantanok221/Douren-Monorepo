@@ -15,7 +15,8 @@ export function EventArtistForm() {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
     defaultValues: {
-      event_id: "3",
+      eventId: 3,
+      artistId: 1,
     },
   });
   const uploadImageRef = useUploadImageRef();
@@ -28,10 +29,8 @@ export function EventArtistForm() {
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
-    setEventArtistStep({ ...data, photo: link });
+    setEventArtistStep({ ...data, dm: link });
     bumpStep();
-    console.log(link);
-    console.log(data);
   };
 
   return (
@@ -40,11 +39,11 @@ export function EventArtistForm() {
         {"場次資訊"}
       </div>
       <Forms.Root OnSubmit={onSubmit} formHook={formHook}>
-        <InputTextField formField={"booth_name"} label={"攤位名字"} />
-        <InputTextField formField={"location_day01"} label={"第一天攤位位置"} />
-        <InputTextField formField={"location_day02"} label={"第二天攤位位置"} />
-        <InputTextField formField={"location_day03"} label={"第三天攤位位置"} />
-        <EventField formField={"event_id"} label={"選擇活動"} />
+        <InputTextField formField={"boothName"} label={"攤位名字"} />
+        <InputTextField formField={"locationDay01"} label={"第一天攤位位置"} />
+        <InputTextField formField={"locationDay02"} label={"第二天攤位位置"} />
+        <InputTextField formField={"locationDay03"} label={"第三天攤位位置"} />
+        <EventField formField={"eventId"} label={"選擇活動"} />
         <ImageField
           formField={"DM"}
           label={"DM"}

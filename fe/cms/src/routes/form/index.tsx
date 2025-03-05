@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMultiStepFormContext, MultiStepFormProvider } from "@/components";
 import { ArtistForm } from "./-components/form/artist";
 import { EventArtistForm } from "./-components/form/eventartist";
-import { AllProductForm } from "./-components/form/product";
+// import { AllProductForm } from "./-components/form/product";
 import { ReactNode } from "react";
-import { ConfirmStep } from "./-components/form/confirm.tsx";
 
 interface props {
   children: ReactNode;
@@ -18,7 +17,7 @@ export const Route = createFileRoute("/form/")({
 function Form() {
   return (
     <>
-      <MultiStepFormProvider>
+      <MultiStepFormProvider triggerStep={3}>
         <FormWrapper validStep={1}>
           <ArtistForm />
         </FormWrapper>
@@ -26,11 +25,18 @@ function Form() {
           <EventArtistForm />
         </FormWrapper>
         <FormWrapper validStep={3}>
-          <AllProductForm />
+          <div className={"text-2xl font-sans font-semibold text-white"}>
+            上傳中
+          </div>
         </FormWrapper>
         <FormWrapper validStep={4}>
-          <ConfirmStep />
+          <div className={"text-2xl font-sans font-semibold text-white"}>
+            完成
+          </div>
         </FormWrapper>
+        {/*<FormWrapper validStep={3}>*/}
+        {/*  <AllProductForm />*/}
+        {/*</FormWrapper>*/}
       </MultiStepFormProvider>
     </>
   );

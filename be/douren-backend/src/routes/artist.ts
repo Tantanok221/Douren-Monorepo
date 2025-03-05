@@ -4,7 +4,6 @@ import {
 	CreateArtistSchema,
 	CreateArtistSchemaTypes,
 } from "@/schema/artist.zod";
-import { verifyUser } from "@/utlis/authHelper";
 import { authProcedure, publicProcedure, router } from "@/trpc";
 import { artistInputParams } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
@@ -39,23 +38,11 @@ const ArtistRoute = new Hono<HonoEnv>()
 	})
 	.post("/", zValidator("json", CreateArtistSchema), async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
 		const body: CreateArtistSchemaTypes = await c.req.json();
 		const returnResponse = await ArtistDao.Create(body);
 		return c.json(returnResponse, 200);
 	})
 	.delete("/:artistId", async (c) => {
-		const verified = verifyUser(c);
-		if (!verified)
-			return c.json(
-				{ message: "You are not authorized to create artist" },
-				401,
-			);
 		const ArtistDao = NewArtistDao(c.var.db);
 		const { artistId } = c.req.param();
 		const returnResponse = ArtistDao.Delete(artistId);
@@ -66,12 +53,6 @@ const ArtistRoute = new Hono<HonoEnv>()
 		zValidator("json", zodSchema.authorMain.InsertSchema),
 		async (c) => {
 			const ArtistDao = NewArtistDao(c.var.db);
-			const verified = verifyUser(c);
-			if (!verified)
-				return c.json(
-					{ message: "You are not authorized to create artist" },
-					401,
-				);
 			const { artistId } = c.req.param();
 			const body: zodSchemaType["authorMain"]["InsertSchema"] =
 				await c.req.json();

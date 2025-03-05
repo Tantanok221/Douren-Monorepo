@@ -11,14 +11,13 @@ export const productFormSchema = z.object({
 export type ProductFormSchema = z.infer<typeof productFormSchema>;
 
 export const eventArtistSchema = z.object({
-  event_id: z.string().min(1, "請選擇一個活動"),
-  artist_id: z.string().optional(),
-  booth_name: z.string().min(1, "請輸入攤位名字"),
-  DM: z.string().optional(),
-  location_day01: z.string().optional(),
-  location_day02: z.string().optional(),
-  location_day03: z.string().optional(),
-  photo: z.string().optional(),
+  eventId: z.number().min(1, "請選擇一個活動"),
+  artistId: z.number(),
+  boothName: z.string().min(1, "請輸入攤位名字"),
+  dm: z.string().optional(),
+  locationDay01: z.string().optional(),
+  locationDay02: z.string().optional(),
+  locationDay03: z.string().optional(),
 });
 
 export type EventArtistSchema = z.infer<typeof eventArtistSchema>;

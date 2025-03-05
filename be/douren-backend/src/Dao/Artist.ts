@@ -32,11 +32,12 @@ class ArtistDao implements BaseDao {
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
-		return await this.db
+		const data = await this.db
 			.insert(s.authorMain)
 			.values(body)
 			.onConflictDoNothing({ target: s.authorMain.uuid })
 			.returning();
+		return data;
 	}
 
 	async Update(

@@ -12,6 +12,7 @@ import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
+import { verifyUser } from "@/utlis/authHelper";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
@@ -34,6 +35,15 @@ app.get(
 		cacheControl: "max-age=3600",
 	}),
 );
+app.on(["POST", "PUT", "DELETE"], "/*", async (c, next) => {
+	const verified = verifyUser(c);
+	if (!verified)
+		return c.json(
+			{ message: "You are not authorized to perform this actions" },
+			401,
+		);
+	await next();
+});
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
@@ -49,6 +59,7 @@ app.use(
 			console.log("init context");
 			return {
 				db: initDB(c.env.DATABASE_URL),
+				honoContext: c,
 			};
 		},
 	}),

@@ -93,8 +93,7 @@ const ProductFormSubmit = () => {
   const setProductStep = useMultiStepFormContext(
     (state) => state.setProductStep,
   );
-  const { setSubmitState, goBackStep, bumpStep, triggerSubmit } =
-    useMultiStepFormContext((state) => state);
+  const { goBackStep, bumpStep } = useMultiStepFormContext((state) => state);
 
   const onClick = async () => {
     const validData: ProductFormSchema[] = [];
@@ -125,9 +124,6 @@ const ProductFormSubmit = () => {
     console.log(validData);
     setProductStep(validData);
     bumpStep();
-    setSubmitState("submitting");
-    triggerSubmit();
-    setSubmitState("complete");
   };
 
   return (
