@@ -30,7 +30,7 @@ export interface MultiStepStore {
   bumpStep: () => void;
 }
 
-const multiStepFormFunction: StateCreator<MultiStepStore> = (set, get) => ({
+const multiStepFormFunction: StateCreator<MultiStepStore> = (set) => ({
   step: 1,
   submitState: "",
   artistStep: null,
