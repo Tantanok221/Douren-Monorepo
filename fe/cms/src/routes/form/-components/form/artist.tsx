@@ -23,10 +23,7 @@ export function ArtistForm() {
   const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
     if (!uploadImageRef.current) return;
-    console.log("inside onsubmit");
-    console.log(data);
     const imgLink = await uploadImageRef.current.uploadImage();
-    console.log(imgLink);
     setArtistStep({ ...data, photo: imgLink });
     bumpStep();
   };

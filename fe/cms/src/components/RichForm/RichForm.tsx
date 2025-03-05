@@ -60,7 +60,7 @@ export const EventField = ({ label, formField }: EventFieldProps) => {
   const { setValue } = useFormContext();
   const { data } = trpc.eventArtist.getAllEvent.useQuery();
   const onEventFieldChange = (value: string) => {
-    setValue(formField, value);
+    setValue(formField, Number(value));
   };
 
   return (

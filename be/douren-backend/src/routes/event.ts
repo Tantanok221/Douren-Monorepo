@@ -36,6 +36,12 @@ export const trpcEventRoute = router({
 				.where(eq(s.event.name, eventName));
 			return data;
 		}),
+	createEventArtist: publicProcedure
+		.input(CreateEventArtistSchema)
+		.mutation(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Create(opts.input);
+		}),
 });
 
 const EventRoute = new Hono<HonoEnv>()

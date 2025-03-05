@@ -1,17 +1,20 @@
 import { MultiStepFormContext } from "./useMultiStepFormContext.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createStore, StateCreator } from "zustand";
 import {
   ArtistFormSchema,
   EventArtistSchema,
 } from "@/routes/form/-components/form/schema";
 import { ProductFormSchema } from "../../../routes/form/-components/form/schema";
+import { trpc } from "../../../helper";
+import { ArrayTagHelper } from "@lib/ui/src/helper/tag.ts";
 
 interface props {
   children: React.ReactNode;
+  triggerStep: number;
 }
 
-type submitStepState = "" | "submitting" | "complete" | "fail";
+type submitStepState = "" | "complete";
 
 export interface MultiStepStore {
   step: number;
@@ -25,7 +28,6 @@ export interface MultiStepStore {
   setProductStep: (step: ProductFormSchema[]) => void;
   goBackStep: () => void;
   bumpStep: () => void;
-  triggerSubmit: () => void;
 }
 
 const multiStepFormFunction: StateCreator<MultiStepStore> = (set, get) => ({
@@ -51,28 +53,43 @@ const multiStepFormFunction: StateCreator<MultiStepStore> = (set, get) => ({
       step: state.step + 1,
     }));
   },
-  goBackStep: () => {
-    set((state) => ({
-      step: state.step - 1,
-    }));
-  },
   setSubmitState: (state: submitStepState) => {
     set(() => ({
       submitState: state,
     }));
   },
-  triggerSubmit: () => {
-    const artistData = get().artistStep;
-    const eventArtistData = get().eventArtistStep;
-    console.log("artist data:", artistData);
-    console.log("event artist data:", eventArtistData);
+  goBackStep: () => {
+    set((state) => ({
+      step: state.step - 1,
+    }));
   },
 });
 
-export const MultiStepFormProvider = ({ children }: props) => {
+export const MultiStepFormProvider = ({ children, triggerStep }: props) => {
   const [store] = useState(() =>
     createStore<MultiStepStore>(multiStepFormFunction),
   );
+  const createArtist = trpc.artist.createArtist.useMutation();
+  const createEventArtist = trpc.eventArtist.createEventArtist.useMutation();
+  useEffect(() => {
+    store.subscribe(async (state) => {
+      if (state.step === triggerStep) {
+        state.bumpStep();
+        console.log("trigger submit");
+        console.log(state.submitState);
+        const { artistStep, eventArtistStep } = state;
+        if (!artistStep || !eventArtistStep) return;
+        const TagHelper = new ArrayTagHelper(artistStep.tags);
+        const artistDataWithTags = {
+          ...artistStep,
+          tags: TagHelper.toString(),
+        };
+        const [artistData] = await createArtist.mutateAsync(artistDataWithTags);
+        eventArtistStep.artistId = artistData.uuid;
+        createEventArtist.mutate(eventArtistStep);
+      }
+    });
+  }, [triggerStep, store, createArtist, createEventArtist]);
 
   return (
     <MultiStepFormContext.Provider value={store}>
