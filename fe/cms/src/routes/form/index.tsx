@@ -13,7 +13,7 @@ interface props {
 }
 
 export const Route = createFileRoute("/form/")({
-  component: () => <Form />
+  component: () => <Form />,
 });
 
 function Form() {
