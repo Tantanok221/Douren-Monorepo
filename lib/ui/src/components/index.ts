@@ -11,6 +11,7 @@ export * from "./LinkContainer/index";
 export * from "./LinkIcon/index";
 export * from "./NavMenu/index";
 export * from "./Pagination/index";
+export * from "./RefreshHelper/index";
 export * from "./SearchBox/index";
 export * from "./SearchContainer/index";
 export * from "./SelectComponent/index";

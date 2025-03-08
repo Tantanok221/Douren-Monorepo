@@ -4,6 +4,8 @@ import { ArtistForm } from "./-components/form/artist";
 import { EventArtistForm } from "./-components/form/eventartist";
 // import { AllProductForm } from "./-components/form/product";
 import { ReactNode } from "react";
+import { RefreshHelperProvider } from "@lib/ui";
+import { CompleteStep } from "./-components/form/CompleteStep";
 
 interface props {
   children: ReactNode;
@@ -16,7 +18,7 @@ export const Route = createFileRoute("/form/")({
 
 function Form() {
   return (
-    <>
+    <RefreshHelperProvider uniqueKey={"formResetKey"}>
       <MultiStepFormProvider triggerStep={3}>
         <FormWrapper validStep={1}>
           <ArtistForm />
@@ -30,15 +32,13 @@ function Form() {
           </div>
         </FormWrapper>
         <FormWrapper validStep={4}>
-          <div className={"text-2xl font-sans font-semibold text-white"}>
-            完成
-          </div>
+          <CompleteStep />
         </FormWrapper>
         {/*<FormWrapper validStep={3}>*/}
         {/*  <AllProductForm />*/}
         {/*</FormWrapper>*/}
       </MultiStepFormProvider>
-    </>
+    </RefreshHelperProvider>
   );
 }
 

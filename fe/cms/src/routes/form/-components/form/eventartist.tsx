@@ -15,7 +15,7 @@ export function EventArtistForm() {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
     defaultValues: {
-      eventId: 3,
+      eventId: 4,
       artistId: 1,
     },
   });
