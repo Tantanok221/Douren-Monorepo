@@ -3,7 +3,8 @@ import { useMultiStepFormContext, MultiStepFormProvider } from "@/components";
 import { ArtistForm } from "./-components/form/artist";
 import { EventArtistForm } from "./-components/form/eventartist";
 // import { AllProductForm } from "./-components/form/product";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { Button } from "@lib/ui";
 
 interface props {
   children: ReactNode;
@@ -15,9 +16,15 @@ export const Route = createFileRoute("/form/")({
 });
 
 function Form() {
+  const [resetKey, setResetKey] = useState(0);
+
+  const handleReset = () => {
+    setResetKey((prev) => prev + 1);
+  };
+
   return (
     <>
-      <MultiStepFormProvider triggerStep={3}>
+      <MultiStepFormProvider key={"formResetKey:" + resetKey} triggerStep={3}>
         <FormWrapper validStep={1}>
           <ArtistForm />
         </FormWrapper>
@@ -30,8 +37,11 @@ function Form() {
           </div>
         </FormWrapper>
         <FormWrapper validStep={4}>
-          <div className={"text-2xl font-sans font-semibold text-white"}>
-            完成
+          <div>
+            <div className={"text-2xl font-sans font-semibold text-white"}>
+              完成
+            </div>
+            <Button onClick={handleReset}>刷新</Button>
           </div>
         </FormWrapper>
         {/*<FormWrapper validStep={3}>*/}
