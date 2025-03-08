@@ -69,7 +69,7 @@ export const EventField = ({ label, formField }: EventFieldProps) => {
         <Forms.Label>{label}</Forms.Label>
         <Forms.Message />
       </Forms.HorizontalLayout>
-      <SelectComponent defaultValue={"3"} onValueChange={onEventFieldChange}>
+      <SelectComponent defaultValue={"4"} onValueChange={onEventFieldChange}>
         <SelectComponent.Group>
           <SelectComponent.Label text={label} />
           {data
