@@ -7,7 +7,7 @@ interface Props {
 }
 type RefreshFunc = () => void;
 
-const RefreshHelperContext = createContext<RefreshFunc | null>(null);
+export const RefreshHelperContext = createContext<RefreshFunc | null>(null);
 
 export const RefreshHelperProvider = ({ uniqueKey, children }: Props) => {
   const [resetKey, setResetKey] = useState(0);
@@ -24,14 +24,4 @@ export const RefreshHelperProvider = ({ uniqueKey, children }: Props) => {
       {children}
     </RefreshHelperContext.Provider>
   );
-};
-
-export const useRefreshHelperContext = () => {
-  const data = useContext(RefreshHelperContext);
-  if (!data) {
-    throw new Error(
-      "useRefreshHelperContext must be used within RefreshHelperContext",
-    );
-  }
-  return data;
 };
