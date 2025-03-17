@@ -8,6 +8,5 @@ export const CreateArtistSchema = createInsertSchema(s.authorMain, {
 export type CreateArtistSchemaTypes = z.infer<typeof CreateArtistSchema>;
 
 export const DeleteAristSchema = z.object({
-	id: z.string()
-})
-
+	id: z.string(),
+});
