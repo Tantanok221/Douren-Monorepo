@@ -33,6 +33,7 @@ export const PureTagFilter = forwardRef<HTMLDivElement, PureTagFilterProps>(
           <Popover.Trigger asChild>
             <motion.div
               ref={ref}
+              tabIndex={0}
               whileHover={{
                 backgroundColor: "#4D4D4D",
               }}
