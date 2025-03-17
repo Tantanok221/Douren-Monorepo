@@ -6,3 +6,8 @@ export const CreateArtistSchema = createInsertSchema(s.authorMain, {
 	uuid: (schema) => schema.uuid.optional(),
 });
 export type CreateArtistSchemaTypes = z.infer<typeof CreateArtistSchema>;
+
+export const DeleteAristSchema = z.object({
+	id: z.string()
+})
+
