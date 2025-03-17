@@ -26,7 +26,7 @@ export const artistFormSchema = z
   .object({
     introduction: z.string().optional(),
     author: z.string().min(1, { message: "請輸入名字" }),
-    tags: z.array(ZodTagObject).min(1, { message: "請選擇標簽" }),
+    tags: z.array(ZodTagObject),
     photo: z.string().optional(),
   })
   .merge(LinkFormSchema);
