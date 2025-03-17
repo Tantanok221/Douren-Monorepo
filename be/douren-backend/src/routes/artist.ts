@@ -3,6 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import {
 	CreateArtistSchema,
 	CreateArtistSchemaTypes,
+	DeleteAristSchema,
 } from "@/schema/artist.zod";
 import { authProcedure, publicProcedure, router } from "@/trpc";
 import { artistInputParams } from "@pkg/type";
@@ -20,6 +21,12 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 			return await ArtistDao.Create(opts.input);
+		}),
+	deleteArtist: authProcedure
+		.input(DeleteAristSchema)
+		.mutation(async (opts) => {
+			const ArtistDao = NewArtistDao(opts.ctx.db);
+			return await ArtistDao.Delete(opts.input.id);
 		}),
 });
 

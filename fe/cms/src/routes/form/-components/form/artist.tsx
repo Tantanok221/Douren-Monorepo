@@ -33,6 +33,9 @@ export function ArtistForm() {
         {"基本資訊"}
       </div>
       <Forms.Root OnSubmit={onSubmit} formHook={formHook}>
+        <Forms.Submit>
+          下一步 <ArrowRight />
+        </Forms.Submit>
         <Forms.HorizontalLayout>
           <InputTextField formField={"author"} label={"作者"} />
           <InputTextField formField={"introduction"} label={"自我介紹"} />
@@ -55,9 +58,6 @@ export function ArtistForm() {
           label={"頭像"}
           ref={uploadImageRef}
         />
-        <Forms.Submit>
-          下一步 <ArrowRight />
-        </Forms.Submit>
       </Forms.Root>
     </>
   );
