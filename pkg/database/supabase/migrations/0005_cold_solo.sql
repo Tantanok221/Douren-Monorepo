@@ -1,0 +1,1 @@
+ALTER TABLE "author_main" ADD COLUMN "email" text;
