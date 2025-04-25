@@ -12,6 +12,7 @@ export const AllAvailableLinkType = {
   storeLink: z.string().optional(),
   myacgLink: z.string().optional(),
   pixivLink: z.string().optional(),
+  email: z.string().optional(),
 };
 export const LinkTypeEnum = z.enum([
   "twitterLink",
@@ -25,6 +26,7 @@ export const LinkTypeEnum = z.enum([
   "storeLink",
   "myacgLink",
   "pixivLink",
+  "email",
 ]);
 
 export type LinkTypeKeys = keyof typeof AllAvailableLinkType;
@@ -57,6 +59,8 @@ export function GetLinkLabelFromKey(key: string): string {
       return "YT鏈接";
     case "pixivLink":
       return "pixiv鏈接";
+    case "email":
+      return "email";
   }
   return "";
 }

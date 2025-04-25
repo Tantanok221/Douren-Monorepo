@@ -17,6 +17,7 @@ export const authorMain = pgTable("author_main", {
   photo: text("photo"),
   myacgLink: text("myacg_link"),
   storeLink: text("store_link"),
+  email: text("email"),
   officialLink: text("official_link")
 });
 
