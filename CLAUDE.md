@@ -121,3 +121,12 @@ The application manages artists, products/artworks, events, and tags with many-t
 - Always run `make copy-env` after environment variable changes
 - Use `npm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
+
+## Commit History Notes
+- On DR-90 Jira ticket, remember to update commit history accordingly
+
+## Development Workflow
+- After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files. 
+
+## Development Practices
+- Each time you update your claude.md you should commit it via "[DR-00] dev: update claude.md", a simple commit is enough
