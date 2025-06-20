@@ -5,7 +5,7 @@ import {
   ArtistFormSchema,
   EventArtistSchema,
 } from "@/routes/form/-components/form/schema";
-import { ProductFormSchema } from "../../../routes/form/-components/form/schema";
+import { ProductFormSchema } from "../../EntityForm/schema";
 import { trpc } from "../../../helper";
 import { ArrayTagHelper } from "@lib/ui/src/helper/tag.ts";
 

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMultiStepFormContext, MultiStepFormProvider } from "@/components";
-import { ArtistForm } from "./-components/form/artist";
-import { EventArtistForm } from "./-components/form/eventartist";
+import { ArtistForm } from "../../components/EntityForm/artist.tsx";
+import { EventArtistForm } from "../../components/EntityForm/eventartist.tsx";
 // import { AllProductForm } from "./-components/form/product";
 import { ReactNode } from "react";
 import { RefreshHelperProvider } from "@lib/ui";
-import { CompleteStep } from "./-components/form/CompleteStep";
+import { CompleteStep } from "../../components/EntityForm/CompleteStep.tsx";
 
 interface props {
   children: ReactNode;
