@@ -5,7 +5,7 @@ export const Navbar = () => {
     <NavMenu>
       <NavMenu.List>
         <NavMenu.ItemWithLink path={"/"}>首頁</NavMenu.ItemWithLink>
-        <NavMenu.ItemWithLink path={"/form"}>Form</NavMenu.ItemWithLink>
+        <NavMenu.ItemWithLink path={"/new"}>新增</NavMenu.ItemWithLink>
       </NavMenu.List>
     </NavMenu>
   );
