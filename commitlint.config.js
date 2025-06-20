@@ -1,4 +1,4 @@
-﻿export default {
+﻿module.exports = {
     parserPreset: {
         parserOpts: {
             headerPattern: /^\[DR-(\d+)\]\s(\w+):\s(.+)$/,
@@ -9,7 +9,7 @@
         {
             rules: {
                 'header-match-team-pattern': (parsed) => {
-                    const {ticket, type, subject} = parsed;
+                    const { ticket, type, subject } = parsed;
                     if (ticket === null) {
                         return [false, 'header must start with [DR-<number>]'];
                     }
