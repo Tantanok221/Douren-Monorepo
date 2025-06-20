@@ -12,19 +12,20 @@ import {
 } from "@/components";
 import { useUploadImageRef } from "@/hooks";
 import { artistFormSchema, ArtistFormSchema } from "./schema";
+import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
+import { ENTITY_FORM_KEY } from "./constant.ts";
 
 export function ArtistForm() {
   const formHook = useForm<ArtistFormSchema>({
     resolver: zodResolver(artistFormSchema),
   });
   const uploadImageRef = useUploadImageRef();
-  const setArtistStep = useMultiStepFormContext((state) => state.setArtistStep);
-
+  const setData = useFormDataContext((state) => state.setData);
   const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const imgLink = await uploadImageRef.current.uploadImage();
-    setArtistStep({ ...data, photo: imgLink });
+    setData(ENTITY_FORM_KEY.artist, { ...data, photo: imgLink });
     bumpStep();
   };
   return (

@@ -10,6 +10,8 @@ import {
   useMultiStepFormContext,
 } from "@/components";
 import { eventArtistSchema, EventArtistSchema } from "./schema";
+import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
+import { ENTITY_FORM_KEY } from "./constant.ts";
 
 export function EventArtistForm() {
   const formHook = useForm<EventArtistSchema>({
@@ -20,16 +22,14 @@ export function EventArtistForm() {
     },
   });
   const uploadImageRef = useUploadImageRef();
-  const setEventArtistStep = useMultiStepFormContext(
-    (state) => state.setEventArtistStep,
-  );
+  const setData = useFormDataContext((state) => state.setData);
 
   const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
-    setEventArtistStep({ ...data, dm: link });
+    setData(ENTITY_FORM_KEY.eventArtist, { ...data, dm: link });
     bumpStep();
   };
 

@@ -4,6 +4,7 @@
 
 export * from "./CompleteStep";
 export * from "./artist";
+export * from "./constant";
 export * from "./eventartist";
 export * from "./product";
 export * from "./components/index";

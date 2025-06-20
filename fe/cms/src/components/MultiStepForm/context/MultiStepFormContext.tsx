@@ -2,10 +2,10 @@ import { MultiStepFormContext } from "./useMultiStepFormContext.ts";
 import { useEffect, useState } from "react";
 import { createStore, StateCreator } from "zustand";
 import {
+  ProductFormSchema,
   ArtistFormSchema,
   EventArtistSchema,
-} from "@/routes/form/-components/form/schema";
-import { ProductFormSchema } from "../../EntityForm/schema";
+} from "../../EntityForm";
 import { trpc } from "../../../helper";
 import { ArrayTagHelper } from "@lib/ui/src/helper/tag.ts";
 
@@ -23,9 +23,6 @@ export interface MultiStepStore {
   productStep: ProductFormSchema[] | null;
   submitState: submitStepState;
   setSubmitState: (step: submitStepState) => void;
-  setArtistStep: (step: ArtistFormSchema) => void;
-  setEventArtistStep: (step: EventArtistSchema) => void;
-  setProductStep: (step: ProductFormSchema[]) => void;
   goBackStep: () => void;
   bumpStep: () => void;
 }
@@ -36,18 +33,6 @@ const multiStepFormFunction: StateCreator<MultiStepStore> = (set) => ({
   artistStep: null,
   eventArtistStep: null,
   productStep: null,
-  setArtistStep: (step) =>
-    set(() => ({
-      artistStep: step,
-    })),
-  setEventArtistStep: (step) =>
-    set(() => ({
-      eventArtistStep: step,
-    })),
-  setProductStep: (step) =>
-    set(() => ({
-      productStep: step,
-    })),
   bumpStep: () => {
     set((state) => ({
       step: state.step + 1,

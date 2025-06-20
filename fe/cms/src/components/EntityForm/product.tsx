@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { ImageField, InputTextField, Forms } from "@/components";
 import { useUploadImageRef } from "@/hooks";
 import { productFormSchema, ProductFormSchema } from "./schema";
-import {
-  ProductFormContextProvider,
-  useProductFormContext,
-} from "./context/ProductFormContext.tsx";
+import { ProductFormContextProvider, useProductFormContext } from "./context";
 import { FormButton, useMultiStepFormContext } from "@/components";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
+import { ENTITY_FORM_KEY } from "./constant.ts";
 
 interface formProps {
   index: number;
@@ -90,9 +89,7 @@ const ProductForm = ({ index }: formProps) => {
 
 const ProductFormSubmit = () => {
   const [productFormData] = useProductFormContext();
-  const setProductStep = useMultiStepFormContext(
-    (state) => state.setProductStep,
-  );
+  const setProductStep = useFormDataContext((state) => state.setData);
   const { goBackStep, bumpStep } = useMultiStepFormContext((state) => state);
 
   const onClick = async () => {
@@ -122,7 +119,7 @@ const ProductFormSubmit = () => {
     });
     console.log("Resolved promises:", resolvedPromises);
     console.log(validData);
-    setProductStep(validData);
+    setProductStep(ENTITY_FORM_KEY.product, validData);
     bumpStep();
   };
 
