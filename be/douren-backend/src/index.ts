@@ -73,7 +73,7 @@ export { app };
 export default {
 	/** this part manages cronjobs */
 	scheduled(
-		event: ScheduledEvent,
+		_event: ScheduledEvent,
 		env: BACKEND_BINDING,
 		ctx: ExecutionContext,
 	) {

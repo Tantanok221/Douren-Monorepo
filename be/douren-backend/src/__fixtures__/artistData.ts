@@ -11,7 +11,7 @@ export const minimalArtistData = {
 
 export const invalidArtistData = {
 	author: "",
-	uuid: "not-a-number" as any,
+	uuid: "not-a-number" as unknown as number,
 };
 
 export const updateArtistData = {

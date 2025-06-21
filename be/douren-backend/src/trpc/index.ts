@@ -1,7 +1,6 @@
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import { BACKEND_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
-import { verifyUser } from "@/utlis/authHelper";
 import { Context } from "hono";
 
 type HonoContext = {
