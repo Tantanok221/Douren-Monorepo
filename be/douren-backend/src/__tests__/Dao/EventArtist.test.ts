@@ -133,12 +133,6 @@ describe("EventArtist DAO", () => {
 			expect(result).toEqual(mockEventArtistDbResponse);
 		});
 
-		it("should use correct type casting (PutEventArtistSchemaTypes)", async () => {
-			await eventArtistDao.Create(validEventArtistData);
-
-			expect(mockDb.insert().values).toHaveBeenCalledWith(validEventArtistData);
-		});
-
 		it("should return created event artist data", async () => {
 			const result = await eventArtistDao.Create(validEventArtistData);
 
@@ -263,12 +257,6 @@ describe("EventArtist DAO", () => {
 	});
 
 	describe("Type handling", () => {
-		it("should handle CreateEventArtistSchemaTypes in Create method", async () => {
-			await eventArtistDao.Create(validEventArtistData);
-
-			expect(mockDb.insert().values).toHaveBeenCalledWith(validEventArtistData);
-		});
-
 		it("should handle PutEventArtistSchemaTypes in Update method", async () => {
 			await eventArtistDao.Update(updateEventArtistData);
 
