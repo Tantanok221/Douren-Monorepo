@@ -1,4 +1,3 @@
-import { BACKEND_BINDING } from "@pkg/env/constant";
 import { Hono } from "hono";
 import { HonoEnv } from "@/index";
 
