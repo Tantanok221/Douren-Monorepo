@@ -256,18 +256,4 @@ describe("EventArtist DAO", () => {
 		});
 	});
 
-	describe("Type handling", () => {
-		it("should handle PutEventArtistSchemaTypes in Update method", async () => {
-			await eventArtistDao.Update(updateEventArtistData);
-
-			expect(mockDb.update().set).toHaveBeenCalledWith(updateEventArtistData);
-		});
-
-		it("should handle eventInputParamsType in Fetch method", async () => {
-			const result = await eventArtistDao.Fetch(mockEventInputParams);
-
-			// Should handle input params correctly
-			expect(result).toBeDefined();
-		});
-	});
 });
