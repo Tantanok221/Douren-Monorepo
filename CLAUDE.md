@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 # Initial setup - copies env files and installs dependencies
 npm run env:pull && make copy-env
+npx husky prepare
 ```
 
 ### Common Development Tasks
