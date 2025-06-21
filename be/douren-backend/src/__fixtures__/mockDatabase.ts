@@ -130,3 +130,31 @@ export const createEventArtistMockQueryBuilder = () => {
 		}),
 	};
 };
+
+// Extended DAO Mocks for route testing
+export const createMockArtistDao = () => ({
+	Create: vi.fn().mockResolvedValue([mockArtistDbResponse[0]]),
+	Update: vi.fn().mockResolvedValue([mockArtistDbResponse[0]]),
+	Delete: vi.fn().mockResolvedValue([mockArtistDbResponse[0]]),
+	Fetch: vi.fn().mockResolvedValue({
+		data: mockArtistDbResponse,
+		totalCount: 1,
+		totalPage: 1,
+	}),
+});
+
+export const createMockEventDao = () => ({
+	FetchAll: vi.fn().mockResolvedValue(mockEventDbResponse),
+	FetchByEventName: vi.fn().mockResolvedValue(singleEventDbResponse),
+	Create: vi.fn().mockResolvedValue([singleEventDbResponse]),
+});
+
+export const createMockEventArtistDao = () => ({
+	Create: vi.fn().mockResolvedValue([mockEventArtistDbResponse[0]]),
+	Update: vi.fn().mockResolvedValue([mockEventArtistDbResponse[0]]),
+	Fetch: vi.fn().mockResolvedValue({
+		data: mockEventArtistDbResponse,
+		totalCount: 1,
+		totalPage: 1,
+	}),
+});
