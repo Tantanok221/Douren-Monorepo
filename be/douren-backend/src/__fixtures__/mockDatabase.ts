@@ -94,7 +94,9 @@ export const createEventMockDatabase = () => {
 };
 
 export const createEventArtistMockDatabase = () => {
-	const mockEventArtistReturning = vi.fn().mockResolvedValue(mockEventArtistDbResponse);
+	const mockEventArtistReturning = vi
+		.fn()
+		.mockResolvedValue(mockEventArtistDbResponse);
 	const mockEventArtistOnConflictDoNothing = vi.fn().mockReturnValue({
 		returning: mockEventArtistReturning,
 	});
