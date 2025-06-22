@@ -104,7 +104,7 @@ describe("verifyUser", () => {
 			expect(result).toBe(true);
 		});
 
-		it("should handle missing Authorization header with defined token", () => {
+		it("should reject missing Authorization header", () => {
 			const mockContext = createMockContext(
 				undefined,
 				"production",
@@ -115,7 +115,7 @@ describe("verifyUser", () => {
 			expect(result).toBe(false);
 		});
 
-		it("should return true when Authorization header is missing and tokens are undefined", () => {
+		it("should reject missing Authorization header even with undefined tokens", () => {
 			const mockContext = createMockContext(
 				undefined,
 				"production",
@@ -123,27 +123,27 @@ describe("verifyUser", () => {
 				undefined,
 			);
 			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
+			expect(result).toBe(false);
 		});
 
-		it("should handle malformed Authorization header without Bearer", () => {
+		it("should reject malformed Authorization header without Bearer prefix", () => {
 			const mockContext = createMockContext(
 				"just-a-token",
 				"production",
-				undefined,
-				undefined,
+				"just-a-token",
+				"just-a-token",
 			);
 			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
+			expect(result).toBe(false);
 		});
 
-		it("should handle Authorization header with only Bearer", () => {
-			const mockContext = createMockContext("Bearer", "production", undefined, undefined);
+		it("should reject Authorization header with only Bearer keyword", () => {
+			const mockContext = createMockContext("Bearer", "production", "token", "token");
 			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
+			expect(result).toBe(false);
 		});
 
-		it("should handle Authorization header with extra spaces", () => {
+		it("should reject Authorization header with extra spaces after Bearer", () => {
 			const token = "correct-token";
 			const mockContext = createMockContext(
 				`Bearer  ${token}`,
@@ -154,10 +154,22 @@ describe("verifyUser", () => {
 			expect(result).toBe(false);
 		});
 
-		it("should handle empty Authorization header", () => {
-			const mockContext = createMockContext("", "production", undefined, undefined);
+		it("should reject empty Authorization header", () => {
+			const mockContext = createMockContext("", "production", "token", "token");
 			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
+			expect(result).toBe(false);
+		});
+
+		it("should reject Authorization header with Bearer and empty token", () => {
+			const mockContext = createMockContext("Bearer ", "production", "token", "token");
+			const result = verifyUser(mockContext);
+			expect(result).toBe(false);
+		});
+
+		it("should reject non-Bearer authorization schemes", () => {
+			const mockContext = createMockContext("Basic dXNlcjpwYXNz", "production", "token", "token");
+			const result = verifyUser(mockContext);
+			expect(result).toBe(false);
 		});
 	});
 
@@ -189,7 +201,7 @@ describe("verifyUser", () => {
 	});
 
 	describe("edge cases", () => {
-		it("should return false when all tokens are undefined", () => {
+		it("should return false when environment tokens are undefined", () => {
 			const mockContext = createMockContext(
 				"Bearer some-token",
 				"production",
@@ -200,13 +212,13 @@ describe("verifyUser", () => {
 			expect(result).toBe(false);
 		});
 
-		it("should return false when all tokens are empty strings", () => {
+		it("should return false when environment tokens are empty strings", () => {
 			const mockContext = createMockContext("Bearer token", "production", "", "");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
-		it("should handle null DEV_ENV", () => {
+		it("should handle null DEV_ENV securely", () => {
 			const token = "valid-token";
 			const mockContext = createMockContext(
 				`Bearer ${token}`,
@@ -217,7 +229,7 @@ describe("verifyUser", () => {
 			expect(result).toBe(true);
 		});
 
-		it("should handle undefined DEV_ENV", () => {
+		it("should handle undefined DEV_ENV securely", () => {
 			const token = "valid-token";
 			const mockContext = createMockContext(
 				`Bearer ${token}`,
@@ -238,13 +250,45 @@ describe("verifyUser", () => {
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
+
+		it("should require both valid header format AND matching token", () => {
+			const mockContext = createMockContext(
+				"Bearer valid-token",
+				"production",
+				"different-token",
+				"another-different-token",
+			);
+			const result = verifyUser(mockContext);
+			expect(result).toBe(false);
+		});
+
+		it("should reject when token is undefined even with proper Bearer format", () => {
+			const mockContext = createMockContext(
+				"Bearer undefined",
+				"production",
+				undefined,
+				undefined,
+			);
+			const result = verifyUser(mockContext);
+			expect(result).toBe(false);
+		});
 	});
 
 	describe("case sensitivity", () => {
 		it("should be case sensitive for dev environment check", () => {
-			const mockContext = createMockContext(undefined, "DEV", undefined, undefined);
+			const mockContext = createMockContext(undefined, "DEV", "token", "token");
 			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
+			expect(result).toBe(false);
+		});
+
+		it("should be case sensitive for Bearer keyword", () => {
+			const mockContext = createMockContext(
+				"bearer valid-token",
+				"production",
+				"valid-token",
+			);
+			const result = verifyUser(mockContext);
+			expect(result).toBe(false);
 		});
 
 		it("should be case sensitive for token comparison", () => {
