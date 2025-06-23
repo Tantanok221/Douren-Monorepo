@@ -9,7 +9,11 @@
     "build:pkg": "tsc",
     "format": "npx @biomejs/biome format --write ./src",
     "lint": "npx @biomejs/biome lint --write ./src ",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:unit": "vitest run src/**/*.test.ts",
+    "test:integration": "vitest run src/**/*.integration.test.ts",
+    "test:watch": "vitest",
+    "test:integration:watch": "vitest src/**/*.integration.test.ts"
   },
   "exports": {
     "./api": {
@@ -33,6 +37,7 @@
     "@cloudflare/workers-types": "^4.20240529.0",
     "@pkg/env": "*",
     "@pkg/typescript-config": "*",
+    "postgres": "^3.4.4",
     "typescript": "^5.4.5",
     "wrangler": "^3.78.12",
     "vitest": "^2.1.1"
