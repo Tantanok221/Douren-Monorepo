@@ -17,11 +17,6 @@ interface Result {
 }
 
 const imageRoute = new Hono<HonoEnv>().post("/", async (c) => {
-	const token = c.req.header("Authorization");
-	if (c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN !== token) {
-		console.log("Token: ", c.env.CLOUDFLARE_IMAGE_AUTH_TOKEN);
-		return c.text("Invalid Auth");
-	}
 	const formData = await c.req.formData();
 	const image = formData.get("image") as File | null;
 	if (!image) {
