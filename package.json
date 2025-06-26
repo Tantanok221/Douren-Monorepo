@@ -23,7 +23,7 @@
     "db:push": "turbo db:push",
     "lint": "turbo lint",
     "env:pull": "npx dotenv-vault pull development  && make copy-env",
-    "env:push": "npx dotenv-vault push development && npx dotenv-vault push staging .env.stg && npx dotenv-vault push production .env.prod && make copy-env",
+    "env:push": "npx dotenv-vault push development && npx dotenv-vault push staging .env.staging && npx dotenv-vault push production .env.production & make copy-env",
     "env:new": "npx dotenv-vault new && touch .env && npm run env:push",
     "env:login": "npx dotenv-vault login",
     "dev:db": "from-env psql %LOCAL_DATABASE_URL",
