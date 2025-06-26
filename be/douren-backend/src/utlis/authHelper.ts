@@ -47,7 +47,7 @@ export function verifyAdminUser(c: Context): boolean {
 	}
 
 	// Check against basic auth token only
-	return c.env.basic_auth_token && c.env.basic_auth_token === token;
+	return c.env.VITE_ADMIN_AUTH_TOKEN && c.env.VITE_ADMIN_AUTH_TOKEN === token;
 }
 
 export function verifyImageUser(c: Context): boolean {

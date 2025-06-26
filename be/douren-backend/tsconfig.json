@@ -17,6 +17,10 @@
     "baseUrl": ".",
   },
   "exclude": [
-    "dist"
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/__tests__/**",
+    "**/__mocks__/**"
   ]
 }

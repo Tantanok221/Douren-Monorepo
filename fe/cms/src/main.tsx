@@ -23,7 +23,7 @@ const trpcClient = trpc.createClient({
     httpLink({
       url: import.meta.env.VITE_BACKEND_URL,
       headers: () => {
-        const token = import.meta.env.VITE_BASIC_AUTH_TOKEN;
+        const token = import.meta.env.VITE_ADMIN_AUTH_TOKEN;
         return token ? {
           Authorization: `Bearer ${token}`,
         } : {};
