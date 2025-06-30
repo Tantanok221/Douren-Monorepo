@@ -10,104 +10,104 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as NewIndexImport } from "./routes/new/index";
-import { Route as EditIndexImport } from "./routes/edit/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as NewIndexImport } from './routes/new/index'
+import { Route as EditArtistIdIndexImport } from './routes/edit.$artistId/index'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const NewIndexRoute = NewIndexImport.update({
-  id: "/new/",
-  path: "/new/",
+  id: '/new/',
+  path: '/new/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
-const EditIndexRoute = EditIndexImport.update({
-  id: "/edit/",
-  path: "/edit/",
+const EditArtistIdIndexRoute = EditArtistIdIndexImport.update({
+  id: '/edit/$artistId/',
+  path: '/edit/$artistId/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/edit/": {
-      id: "/edit/";
-      path: "/edit";
-      fullPath: "/edit";
-      preLoaderRoute: typeof EditIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/new/": {
-      id: "/new/";
-      path: "/new";
-      fullPath: "/new";
-      preLoaderRoute: typeof NewIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/new/': {
+      id: '/new/'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/edit/$artistId/': {
+      id: '/edit/$artistId/'
+      path: '/edit/$artistId'
+      fullPath: '/edit/$artistId'
+      preLoaderRoute: typeof EditArtistIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/edit": typeof EditIndexRoute;
-  "/new": typeof NewIndexRoute;
+  '/': typeof IndexRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/edit": typeof EditIndexRoute;
-  "/new": typeof NewIndexRoute;
+  '/': typeof IndexRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/edit/": typeof EditIndexRoute;
-  "/new/": typeof NewIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/new/': typeof NewIndexRoute
+  '/edit/$artistId/': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/edit" | "/new";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/edit" | "/new";
-  id: "__root__" | "/" | "/edit/" | "/new/";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/new' | '/edit/$artistId'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/new' | '/edit/$artistId'
+  id: '__root__' | '/' | '/new/' | '/edit/$artistId/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  EditIndexRoute: typeof EditIndexRoute;
-  NewIndexRoute: typeof NewIndexRoute;
+  IndexRoute: typeof IndexRoute
+  NewIndexRoute: typeof NewIndexRoute
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  EditIndexRoute: EditIndexRoute,
   NewIndexRoute: NewIndexRoute,
-};
+  EditArtistIdIndexRoute: EditArtistIdIndexRoute,
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
@@ -118,18 +118,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/edit/",
-        "/new/"
+        "/new/",
+        "/edit/$artistId/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/edit/": {
-      "filePath": "edit/index.tsx"
-    },
     "/new/": {
       "filePath": "new/index.tsx"
+    },
+    "/edit/$artistId/": {
+      "filePath": "edit.$artistId/index.tsx"
     }
   }
 }
