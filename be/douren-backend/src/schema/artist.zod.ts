@@ -10,3 +10,7 @@ export type CreateArtistSchemaTypes = z.infer<typeof CreateArtistSchema>;
 export const DeleteAristSchema = z.object({
 	id: z.string(),
 });
+
+export const GetArtistByIdSchema = z.object({
+	id: z.string(),
+});
