@@ -14,3 +14,8 @@ export const DeleteAristSchema = z.object({
 export const GetArtistByIdSchema = z.object({
 	id: z.string(),
 });
+
+export const UpdateArtistSchema = z.object({
+	id: z.string(),
+	data: CreateArtistSchema,
+});

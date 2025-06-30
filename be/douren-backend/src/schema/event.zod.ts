@@ -20,3 +20,8 @@ export type PutEventArtistSchemaTypes = z.infer<typeof PutEventArtistSchema>;
 export const GetEventArtistByIdSchema = z.object({
 	id: z.string(),
 });
+
+export const UpdateEventArtistSchema = z.object({
+	id: z.string(),
+	data: CreateEventArtistSchema,
+});

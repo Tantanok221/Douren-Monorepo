@@ -41,11 +41,12 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
-	async Update(body: PutEventArtistSchemaTypes) {
+	async Update(eventArtistId: string, body: PutEventArtistSchemaTypes) {
+		body.uuid = Number(eventArtistId);
 		return this.db
 			.update(s.eventDm)
 			.set(body)
-			.where(eq(s.eventDm.uuid, Number(body.uuid)))
+			.where(eq(s.eventDm.uuid, Number(eventArtistId)))
 			.returning();
 	}
 

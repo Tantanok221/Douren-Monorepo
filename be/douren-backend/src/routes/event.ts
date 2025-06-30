@@ -8,8 +8,9 @@ import {
 	PutEventArtistSchema,
 	PutEventArtistSchemaTypes,
 	GetEventArtistByIdSchema,
+	UpdateEventArtistSchema,
 } from "@/schema/event.zod";
-import { publicProcedure, router } from "@/trpc";
+import { authProcedure, publicProcedure, router } from "@/trpc";
 import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
@@ -48,6 +49,12 @@ export const trpcEventRoute = router({
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 			return await EventArtistDao.Create(opts.input);
+		}),
+	updateEventArtist: authProcedure
+		.input(UpdateEventArtistSchema)
+		.mutation(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Update(opts.input.id, opts.input.data);
 		}),
 });
 
@@ -105,10 +112,11 @@ const EventRoute = new Hono<HonoEnv>()
 			.returning();
 		return c.json(returnResponse, 200);
 	})
-	.put("/artist", zValidator("json", PutEventArtistSchema), async (c) => {
+	.put("/artist/:eventArtistId", zValidator("json", PutEventArtistSchema), async (c) => {
 		const EventArtistDao = NewEventArtistDao(c.var.db);
+		const { eventArtistId } = c.req.param();
 		const body: PutEventArtistSchemaTypes = await c.req.json();
-		const returnResponse = await EventArtistDao.Update(body);
+		const returnResponse = await EventArtistDao.Update(eventArtistId, body);
 
 		return c.json(returnResponse, 200);
 	});
