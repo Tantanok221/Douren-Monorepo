@@ -6,7 +6,7 @@ import { Link } from "@tanstack/react-router";
 export const ArtistEditButton = () => {
   const eventData = useEventDataContext();
   return (
-    <Link to={"/edit/:id"}>
+    <Link to={"edit/" + eventData.uuid}>
       <Pen /> Edit
     </Link>
   );

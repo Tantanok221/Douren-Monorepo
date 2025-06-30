@@ -131,3 +131,6 @@ The application manages artists, products/artworks, events, and tags with many-t
 
 ## Development Practices
 - Each time you update your claude.md you should commit it via "[DR-00] dev: update claude.md", a simple commit is enough
+
+## Commit Habits
+- Remember to commit via micro commit habits
