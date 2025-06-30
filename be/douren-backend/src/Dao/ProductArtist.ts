@@ -11,7 +11,7 @@ class ProductArtistDao implements BaseDao {
 		this.db = db;
 	}
 
-	async Fetch(params: ProductArtist) {
+	async Fetch(_params: ProductArtist) {
 		const returnObj = this.db.select();
 		return returnObj;
 	}
