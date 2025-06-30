@@ -9,12 +9,14 @@ import {
 } from "../components";
 
 export const useNewArtistSubmission = () => {
+  console.log("useNewArtistSubmission")
   const createArtist = trpc.artist.createArtist.useMutation();
   const createEventArtist = trpc.eventArtist.createEventArtist.useMutation();
-  const { artistStep, eventArtistStep } = useGetEntityFormData();
+  const getFormData = useFormDataContext((state) => state.getData);
 
   return async () => {
     console.log("trigger submit");
+    const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
     const TagHelper = new ArrayTagHelper(artistStep.tags);
     const artistDataWithTags = {
@@ -33,8 +35,7 @@ interface EntityFormData {
   productStep: ProductFormSchema[] | null;
 }
 
-const useGetEntityFormData = (): EntityFormData => {
-  const getFormData = useFormDataContext((state) => state.getData);
+const getEntityFormData = (getFormData: <T>(key: string) => T): EntityFormData => {
   const artistStep = getFormData(
     ENTITY_FORM_KEY.artist,
   ) as ArtistFormSchema | null;
