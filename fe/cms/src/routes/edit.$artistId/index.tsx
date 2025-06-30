@@ -11,7 +11,7 @@ import {
 // import { AllProductForm } from "./-components/form/product";
 import { RefreshHelperProvider } from '@lib/ui'
 import { FormDataProvider } from '../../components/FormDataContext/FormDataContext.tsx'
-import { useNewArtistSubmission } from '../../hooks/useNewArtistSubmission.ts'
+import { useUpdateArtistSubmission } from '../../hooks/useUpdateArtistSubmission.ts'
 import { trpc } from '../../helper/index.ts'
 import { transformArtistToFormData, transformEventArtistToFormData } from '../../utils/transformData.ts'
 export const Route = createFileRoute('/edit/$artistId/')({
@@ -29,7 +29,7 @@ function Form() {
 }
 
 function FormWithProviders() {
-  const submitNewArtist = useNewArtistSubmission()
+  const submitUpdateArtist = useUpdateArtistSubmission()
   const { artistId: id } = Route.useParams()
   const artistData = trpc.artist.getArtistById.useQuery({ id })
   const eventArtistData = trpc.eventArtist.getEventArtistById.useQuery({ id })
@@ -38,7 +38,7 @@ function FormWithProviders() {
   const transformedEventArtistData = transformEventArtistToFormData(eventArtistData.data)
 
   return (
-    <MultiStepFormProvider submitStep={3} onSubmit={submitNewArtist}>
+    <MultiStepFormProvider submitStep={3} onSubmit={submitUpdateArtist}>
       <FormStep activeStep={1} stepId={ENTITY_FORM_KEY.artist}>
         <ArtistForm defaultValues={transformedArtistData} />
       </FormStep>
