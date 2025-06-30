@@ -4,6 +4,7 @@ import {
 	CreateArtistSchema,
 	CreateArtistSchemaTypes,
 	DeleteAristSchema,
+	GetArtistByIdSchema,
 } from "@/schema/artist.zod";
 import { authProcedure, publicProcedure, router } from "@/trpc";
 import { artistInputParams } from "@pkg/type";
@@ -16,6 +17,12 @@ export const trpcArtistRoute = router({
 		const ArtistDao = NewArtistDao(opts.ctx.db);
 		return await ArtistDao.Fetch(opts.input);
 	}),
+	getArtistById: publicProcedure
+		.input(GetArtistByIdSchema)
+		.query(async (opts) => {
+			const ArtistDao = NewArtistDao(opts.ctx.db);
+			return await ArtistDao.FetchById(opts.input.id);
+		}),
 	createArtist: authProcedure
 		.input(CreateArtistSchema)
 		.mutation(async (opts) => {

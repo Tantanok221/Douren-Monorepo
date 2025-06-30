@@ -7,6 +7,7 @@ import {
 	CreateEventSchema,
 	PutEventArtistSchema,
 	PutEventArtistSchemaTypes,
+	GetEventArtistByIdSchema,
 } from "@/schema/event.zod";
 import { publicProcedure, router } from "@/trpc";
 import { eventInputParams, eventNameInputParams } from "@pkg/type";
@@ -24,6 +25,12 @@ export const trpcEventRoute = router({
 		const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 		return await EventArtistDao.Fetch(opts.input);
 	}),
+	getEventArtistById: publicProcedure
+		.input(GetEventArtistByIdSchema)
+		.query(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.FetchById(opts.input.id);
+		}),
 	getEventId: publicProcedure
 		.input(eventNameInputParams)
 		.output(zodSchema.event.SelectSchema)
