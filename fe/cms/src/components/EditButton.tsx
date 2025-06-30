@@ -1,10 +1,13 @@
 import { Button } from "@lib/ui/src/components/Button/Button.tsx";
 import { Pen } from "@phosphor-icons/react";
+import { useEventDataContext } from "@lib/ui";
+import { Link } from "@tanstack/react-router";
 
-export const EditButton = () => {
+export const ArtistEditButton = () => {
+  const eventData = useEventDataContext();
   return (
-    <Button>
+    <Link to={"/edit/:id"}>
       <Pen /> Edit
-    </Button>
+    </Link>
   );
 };
