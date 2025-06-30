@@ -49,6 +49,14 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
+	async FetchById(eventArtistId: string) {
+		const [data] = await this.db
+			.select()
+			.from(s.eventDm)
+			.where(eq(s.eventDm.uuid, Number(eventArtistId)));
+		return data;
+	}
+
 	async Delete() {}
 }
 

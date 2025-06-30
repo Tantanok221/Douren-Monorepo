@@ -52,6 +52,14 @@ class ArtistDao implements BaseDao {
 			.returning();
 	}
 
+	async FetchById(artistId: string) {
+		const [data] = await this.db
+			.select()
+			.from(s.authorMain)
+			.where(eq(s.authorMain.uuid, Number(artistId)));
+		return data;
+	}
+
 	async Delete(artistId: string) {
 		return await this.db
 			.delete(s.authorMain)
