@@ -10,104 +10,104 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as NewIndexImport } from './routes/new/index'
-import { Route as EditIndexImport } from './routes/edit/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as IndexImport } from "./routes/index";
+import { Route as NewIndexImport } from "./routes/new/index";
+import { Route as EditIndexImport } from "./routes/edit/index";
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const NewIndexRoute = NewIndexImport.update({
-  id: '/new/',
-  path: '/new/',
+  id: "/new/",
+  path: "/new/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const EditIndexRoute = EditIndexImport.update({
-  id: '/edit/',
-  path: '/edit/',
+  id: "/edit/",
+  path: "/edit/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/edit/': {
-      id: '/edit/'
-      path: '/edit'
-      fullPath: '/edit'
-      preLoaderRoute: typeof EditIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/new/': {
-      id: '/new/'
-      path: '/new'
-      fullPath: '/new'
-      preLoaderRoute: typeof NewIndexImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/edit/": {
+      id: "/edit/";
+      path: "/edit";
+      fullPath: "/edit";
+      preLoaderRoute: typeof EditIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/new/": {
+      id: "/new/";
+      path: "/new";
+      fullPath: "/new";
+      preLoaderRoute: typeof NewIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/edit': typeof EditIndexRoute
-  '/new': typeof NewIndexRoute
+  "/": typeof IndexRoute;
+  "/edit": typeof EditIndexRoute;
+  "/new": typeof NewIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/edit': typeof EditIndexRoute
-  '/new': typeof NewIndexRoute
+  "/": typeof IndexRoute;
+  "/edit": typeof EditIndexRoute;
+  "/new": typeof NewIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/edit/': typeof EditIndexRoute
-  '/new/': typeof NewIndexRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/edit/": typeof EditIndexRoute;
+  "/new/": typeof NewIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/edit' | '/new'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/edit' | '/new'
-  id: '__root__' | '/' | '/edit/' | '/new/'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/edit" | "/new";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/edit" | "/new";
+  id: "__root__" | "/" | "/edit/" | "/new/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  EditIndexRoute: typeof EditIndexRoute
-  NewIndexRoute: typeof NewIndexRoute
+  IndexRoute: typeof IndexRoute;
+  EditIndexRoute: typeof EditIndexRoute;
+  NewIndexRoute: typeof NewIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EditIndexRoute: EditIndexRoute,
   NewIndexRoute: NewIndexRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
