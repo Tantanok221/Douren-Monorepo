@@ -14,10 +14,14 @@ import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
 import { ENTITY_FORM_KEY } from "./constant.ts";
 import { useFormStep } from "../FormStep";
 
-export function EventArtistForm() {
+interface EventArtistFormProps {
+  defaultValues?: EventArtistSchema;
+}
+
+export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
-    defaultValues: {
+    defaultValues: defaultValues || {
       eventId: 4,
       artistId: 1,
     },
