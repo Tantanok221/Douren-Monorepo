@@ -5,11 +5,14 @@ import {
   ArtistForm,
   EventArtistForm,
   CompleteStep,
+  FormStep,
+  ENTITY_FORM_KEY,
 } from "../../components";
 // import { AllProductForm } from "./-components/form/product";
 import { ReactNode } from "react";
 import { RefreshHelperProvider } from "@lib/ui";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";
+import { useNewArtistSubmission } from "../../hooks/useNewArtistSubmission.ts";
 
 interface props {
   children: ReactNode;
@@ -24,41 +27,32 @@ function Form() {
   return (
     <FormDataProvider>
       <RefreshHelperProvider uniqueKey={"formResetKey"}>
-        <MultiStepFormProvider triggerStep={3}>
-          <FormWrapper validStep={1}>
-            <ArtistForm />
-          </FormWrapper>
-          <FormWrapper validStep={2}>
-            <EventArtistForm />
-          </FormWrapper>
-          <FormWrapper validStep={3}>
-            <div className={"text-2xl font-sans font-semibold text-white"}>
-              上傳中
-            </div>
-          </FormWrapper>
-          <FormWrapper validStep={4}>
-            <CompleteStep />
-          </FormWrapper>
-          {/*<FormWrapper validStep={3}>*/}
-          {/*  <AllProductForm />*/}
-          {/*</FormWrapper>*/}
-        </MultiStepFormProvider>
+        <FormWithProviders />
       </RefreshHelperProvider>
     </FormDataProvider>
   );
 }
 
-function FormWrapper({ children, validStep }: props) {
-  const step = useMultiStepFormContext((state) => state.step);
-  if (step == validStep)
-    return (
-      <div
-        className={
-          "flex flex-col px-6 py-8 w-full gap-8 bg-panel rounded-2xl justify-center items-start"
-        }
-      >
-        {children}
-      </div>
-    );
-  return <div className={"hidden"}>{children}</div>;
+function FormWithProviders() {
+  const submitNewArtist = useNewArtistSubmission();
+
+  return (
+    <MultiStepFormProvider
+      submitStep={3}
+      onSubmit={submitNewArtist}
+    >
+      <FormStep activeStep={1} stepId={ENTITY_FORM_KEY.artist}>
+        <ArtistForm />
+      </FormStep>
+      <FormStep activeStep={2} stepId={ENTITY_FORM_KEY.eventArtist}>
+        <EventArtistForm />
+      </FormStep>
+      <FormStep activeStep={3} stepId={"completeStep"}>
+        <CompleteStep />
+      </FormStep>
+      {/*<FormWrapper validStep={3}>*/}
+      {/*  <AllProductForm />*/}
+      {/*</FormWrapper>*/}
+    </MultiStepFormProvider>
+  );
 }
