@@ -6,7 +6,7 @@ import { Link } from "@tanstack/react-router";
 export const ArtistEditButton = () => {
   const eventData = useEventDataContext();
   return (
-    <Link to={"edit/" + eventData.uuid}>
+    <Link to={"edit/" + eventData.uuid} className="rounded px-6 py-2 text-tagText bg-tagBackground flex flex-row gap-4 font-bold">
       <Pen /> Edit
     </Link>
   );

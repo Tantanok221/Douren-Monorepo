@@ -34,8 +34,15 @@ function FormWithProviders() {
   const artistData = trpc.artist.getArtistById.useQuery({ id })
   const eventArtistData = trpc.eventArtist.getEventArtistById.useQuery({ id })
 
+
   const transformedArtistData = transformArtistToFormData(artistData.data)
   const transformedEventArtistData = transformEventArtistToFormData(eventArtistData.data)
+
+
+  console.log("transformedArtistData", transformedArtistData)
+  console.log("transformedEventArtistData", transformedEventArtistData)
+
+  if (!transformedArtistData) return null
 
   return (
     <MultiStepFormProvider submitStep={3} onSubmit={submitUpdateArtist}>

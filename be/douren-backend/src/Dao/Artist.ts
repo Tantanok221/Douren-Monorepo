@@ -44,7 +44,6 @@ class ArtistDao implements BaseDao {
 		artistId: string,
 		body: zodSchemaType["authorMain"]["InsertSchema"],
 	) {
-		body.uuid = Number(artistId);
 		return await this.db
 			.update(s.authorMain)
 			.set(body)

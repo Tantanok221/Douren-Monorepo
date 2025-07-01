@@ -42,7 +42,6 @@ class EventArtistDao implements BaseDao {
 	}
 
 	async Update(eventArtistId: string, body: PutEventArtistSchemaTypes) {
-		body.uuid = Number(eventArtistId);
 		return this.db
 			.update(s.eventDm)
 			.set(body)
