@@ -24,6 +24,12 @@ export const trpcArtistRoute = router({
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 			return await ArtistDao.FetchById(opts.input.id);
 		}),
+	getArtistPageDetails: publicProcedure
+		.input(GetArtistByIdSchema)
+		.query(async (opts) => {
+			const ArtistDao = NewArtistDao(opts.ctx.db);
+			return await ArtistDao.FetchArtistPageDetails(opts.input.id);
+		}),
 	createArtist: authProcedure
 		.input(CreateArtistSchema)
 		.mutation(async (opts) => {

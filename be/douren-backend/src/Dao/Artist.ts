@@ -59,6 +59,38 @@ class ArtistDao implements BaseDao {
 		return data;
 	}
 
+	async FetchArtistPageDetails(artistId: string) {
+		const data = await this.db.query.authorMain.findFirst({
+			where: eq(s.authorMain.uuid, Number(artistId)),
+			with: {
+				products: {
+					columns: {
+						title: true,
+						thumbnail: true,
+						preview: true,
+					},
+				},
+				events: {
+					columns: {
+						dm: true,
+						boothName: true,
+						locationDay01: true,
+						locationDay02: true,
+						locationDay03: true,
+					},
+					with: {
+						event: {
+							columns: {
+								name: true,
+							},
+						},
+					},
+				},
+			},
+		});
+		return data;
+	}
+
 	async Delete(artistId: string) {
 		return await this.db
 			.delete(s.authorMain)
