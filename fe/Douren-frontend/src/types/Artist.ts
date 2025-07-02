@@ -1,45 +1,49 @@
 interface ArtistPrimitiveTypes {
-  Author: string;
-  Baha_link: string | null;
-  Facebook_link: string | null;
-  Instagram_link: string | null;
-  Introduction: string | null;
-  Myacg_link: string | null;
-  Official_link: string | null;
-  Photo: string | undefined;
-  Pixiv_link: string | null;
-  Plurk_link: string | null;
-  Store_link: string | null;
-  Twitch_link: string | null;
-  Twitter_link: string | null;
-  Youtube_link: string | null;
   uuid: number;
-  Tags: string | null;
+  author: string;
+  plurkLink: string | null;
+  bahaLink: string | null;
+  twitchLink: string | null;
+  youtubeLink: string | null;
+  twitterLink: string | null;
+  facebookLink: string | null;
+  instagramLink: string | null;
+  pixivLink: string | null;
+  tags: string | null;
+  introduction: string | null;
+  photo: string | null;
+  myacgLink: string | null;
+  storeLink: string | null;
+  email: string | null;
+  officialLink: string | null;
 }
 
 export interface ArtistTypes extends ArtistPrimitiveTypes {
-  Event_DM:
+  events:
     | {
-        Booth_name: string | null;
+        boothName: string | null;
       }[]
     | null;
 }
 
-export interface ArtistPageTypes extends ArtistTypes {
-  Event_DM:
+export interface ArtistPageTypes extends ArtistPrimitiveTypes {
+  events:
     | {
-        Booth_name: string | null;
-        DM: string | null;
-        Event: {
+        dm: string | null;
+        boothName: string | null;
+        locationDay01: string | null;
+        locationDay02: string | null;
+        locationDay03: string | null;
+        event: {
           name: string | null;
-        };
+        } | null;
       }[]
     | null;
-  Author_Product:
+  products:
     | {
-        Thumbnail: string;
-        Title: string;
-        Preview: string | null;
+        title: string | null;
+        thumbnail: string;
+        preview: string | null;
       }[]
     | null;
 }

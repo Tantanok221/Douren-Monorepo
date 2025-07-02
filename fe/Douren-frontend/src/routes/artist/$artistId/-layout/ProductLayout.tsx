@@ -12,37 +12,36 @@ export const ProductLayout = () => {
   return (
     <>
       <div className={sx("bottomContainer")}>
-        {artistData?.Event_DM && artistData.Event_DM[0]?.DM ? (
+        {artistData?.events && artistData.events[0]?.dm ? (
           <div className={sx("dmText")}>過往DM</div>
         ) : null}
         <div className={sx("dmContainer")}>
-          {artistData.Event_DM?.map((item, index) => {
-            const link = (item?.DM ?? "").split("\n");
+          {artistData.events?.map((item, index) => {
+            const link = (item?.dm ?? "").split("\n");
 
             return link[0] != "" ? (
               <div className={sx("dmCard")} key={index + "ArtistID"}>
-                <div className={sx("dmEvent")}>{item.Event.name}</div>
+                <div className={sx("dmEvent")}>{item.event?.name}</div>
                 <DMButton link={link}></DMButton>
               </div>
             ) : null;
           })}
         </div>
       </div>
-      ;
       <div className={sx("mediumContainer")}>
         <div className={sx("dmText")}>作品試閱</div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="15px">
-            {artistData.Author_Product?.map((item, index) => {
-              const link = (item?.Preview ?? "").split("\n");
+            {artistData.products?.map((item, index) => {
+              const link = (item?.preview ?? "").split("\n");
               return (
-                <div className={sx("productCard")} key={artistData.Author}>
+                <div className={sx("productCard")} key={artistData.author}>
                   <LazyImage
                     width={"100%"}
-                    photo={item.Thumbnail}
-                    alt={item.Thumbnail}
+                    photo={item.thumbnail}
+                    alt={item.thumbnail}
                   />
-                  <div className={sx("productText")}>{item.Title}</div>
+                  <div className={sx("productText")}>{item.title}</div>
                   <DMButton link={link} text="查看產品試閱" />
                 </div>
               );
@@ -50,7 +49,6 @@ export const ProductLayout = () => {
           </Masonry>
         </ResponsiveMasonry>
       </div>
-      ;
     </>
   );
 };
