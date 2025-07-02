@@ -112,13 +112,17 @@ const EventRoute = new Hono<HonoEnv>()
 			.returning();
 		return c.json(returnResponse, 200);
 	})
-	.put("/artist/:eventArtistId", zValidator("json", PutEventArtistSchema), async (c) => {
-		const EventArtistDao = NewEventArtistDao(c.var.db);
-		const { eventArtistId } = c.req.param();
-		const body: PutEventArtistSchemaTypes = await c.req.json();
-		const returnResponse = await EventArtistDao.Update(eventArtistId, body);
+	.put(
+		"/artist/:eventArtistId",
+		zValidator("json", PutEventArtistSchema),
+		async (c) => {
+			const EventArtistDao = NewEventArtistDao(c.var.db);
+			const { eventArtistId } = c.req.param();
+			const body: PutEventArtistSchemaTypes = await c.req.json();
+			const returnResponse = await EventArtistDao.Update(eventArtistId, body);
 
-		return c.json(returnResponse, 200);
-	});
+			return c.json(returnResponse, 200);
+		},
+	);
 
 export default EventRoute;

@@ -4,6 +4,7 @@ import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
 import EventRoute, { trpcEventRoute } from "./routes/event";
+import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
 import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { BACKEND_BINDING } from "@pkg/env/constant";
@@ -74,6 +75,7 @@ const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
 	tag: trpcTagRoute,
+	owner: trpcOwnerRoute,
 });
 
 export type AppRouter = typeof appRouter;
@@ -94,6 +96,7 @@ app
 	.route("/event", EventRoute)
 	.route("/artist", ArtistRoute)
 	.route("/tag", TagRoute)
+	.route("/owner", OwnerRoute)
 	.route("/image", imageRoute);
 export { app };
 export default {

@@ -16,7 +16,7 @@ export function verifyUser(c: Context): boolean {
 	}
 
 	// Check against basic auth token
-	if (c.env.basic_auth_token && c.env.basic_auth_token === token) {
+	if (c.env.vite_basic_auth_token && c.env.vite_basic_auth_token === token) {
 		return true;
 	}
 
