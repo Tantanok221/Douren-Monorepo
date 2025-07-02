@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "infisical export > .dev.vars && wrangler dev src/index.ts --port 2000",
+    "preview": "infisical export > .dev.vars && wrangler dev src/index.ts --port 2000 --local",
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
     "build": "tsc",
