@@ -2,7 +2,7 @@
   "name": "@be/douren-backend",
   "version": "0.0.1",
   "scripts": {
-    "dev": "wrangler dev src/index.ts --port 2000",
+    "dev": "infisical run --env=dev -- wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
     "build": "tsc",
