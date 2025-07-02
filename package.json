@@ -23,9 +23,9 @@
     "db:push": "turbo db:push",
     "lint": "turbo lint",
     "env:push": "node scripts/sync-env-to-infisical.js",
-    "env:new": "npx dotenv-vault new && touch .env && npm run env:push",
-    "env:login": "npx dotenv-vault login",
-    "dev:db": "from-env psql %LOCAL_DATABASE_URL",
+    "env:pull": "node scripts/generate-env-binding.js && npm run pkg",
+    "env:login": "infisical login",
+    "dev:db": "infisical run --env=dev -- psql %LOCAL_DATABASE_URL",
     "db:sync": "make db_sync",
     "prepare": "husky",
     "reinstall": "rimraf --glob ./**/node_modules && rimraf --glob ./**/dist && rimraf --glob ./**/.turbo && npm install && npm run pkg && npm run lib && npm run be "

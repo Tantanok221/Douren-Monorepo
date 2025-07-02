@@ -28,7 +28,6 @@ class ArtistDao implements BaseDao {
 			PAGE_SIZE,
 			counts.totalCount,
 		) as object;
-		console.log("Setting redis cache");
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {

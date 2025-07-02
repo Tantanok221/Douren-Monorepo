@@ -7,7 +7,7 @@ import EventRoute, { trpcEventRoute } from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
 import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
-import { BACKEND_BINDING } from "@pkg/env/constant";
+import { ENV_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
@@ -19,7 +19,7 @@ export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
 };
 
-export type HonoEnv = { Bindings: BACKEND_BINDING; Variables: HonoVariables };
+export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
 
 const app = new Hono<HonoEnv>();
 app.use("*", logger());
@@ -103,7 +103,7 @@ export default {
 	/** this part manages cronjobs */
 	scheduled(
 		_event: ScheduledEvent,
-		env: BACKEND_BINDING,
+		env: ENV_BINDING,
 		ctx: ExecutionContext,
 	) {
 		const delayedProcessing = async () => {
