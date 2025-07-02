@@ -49,15 +49,15 @@ export const MultiStepFormProvider = ({
   );
 
   useEffect(() => {
-    const unsubscribe = store.subscribe(async state => {
+    const unsubscribe = store.subscribe(async (state) => {
       if (state.step === state.submitStep) {
-        console.log("submit state triggered at MultiStepFormProvider")
-        await onSubmit()
+        console.log("submit state triggered at MultiStepFormProvider");
+        await onSubmit();
       }
-    })
+    });
 
-    return unsubscribe
-  }, [store, onSubmit])
+    return unsubscribe;
+  }, [store, onSubmit]);
 
   return (
     <MultiStepFormContext.Provider value={store}>

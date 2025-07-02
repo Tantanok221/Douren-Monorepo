@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMultiStepFormContext } from "../MultiStepForm";
-import { useFormDataContext } from "../FormDataContext";
 import { FormStepContext } from "./useFormStep";
 
 interface FormStepProps {

@@ -5,7 +5,24 @@ import {
 
 // Transform database artist record to form schema
 export function transformArtistToFormData(
-  artistData: any,
+  artistData: {
+    uuid?: number;
+    author?: string;
+    introduction?: string | null;
+    photo?: string | null;
+    twitterLink?: string | null;
+    facebookLink?: string | null;
+    instagramLink?: string | null;
+    plurkLink?: string | null;
+    bahaLink?: string | null;
+    youtubeLink?: string | null;
+    twitchLink?: string | null;
+    officialLink?: string | null;
+    storeLink?: string | null;
+    myacgLink?: string | null;
+    pixivLink?: string | null;
+    email?: string | null;
+  } | undefined,
 ): ArtistFormSchema | undefined {
   if (!artistData) return undefined;
 
@@ -31,7 +48,16 @@ export function transformArtistToFormData(
 
 // Transform database eventArtist record to form schema
 export function transformEventArtistToFormData(
-  eventArtistData: any,
+  eventArtistData: {
+    uuid?: number;
+    eventId?: number | null;
+    artistId?: number;
+    boothName?: string | null;
+    dm?: string | null;
+    locationDay01?: string | null;
+    locationDay02?: string | null;
+    locationDay03?: string | null;
+  } | undefined,
 ): EventArtistSchema | undefined {
   if (!eventArtistData) return undefined;
 

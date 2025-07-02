@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  useMultiStepFormContext,
   MultiStepFormProvider,
   ArtistForm,
   EventArtistForm,
@@ -9,15 +8,9 @@ import {
   ENTITY_FORM_KEY,
 } from "../../components";
 // import { AllProductForm } from "./-components/form/product";
-import { ReactNode } from "react";
 import { RefreshHelperProvider } from "@lib/ui";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";
 import { useNewArtistSubmission } from "../../hooks/useNewArtistSubmission.ts";
-
-interface props {
-  children: ReactNode;
-  validStep: number;
-}
 
 export const Route = createFileRoute("/new/")({
   component: () => <Form />,
