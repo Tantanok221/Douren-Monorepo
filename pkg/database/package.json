@@ -3,12 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build": "npm run codegen && rimraf dist && tsc",
+    "build": "infisical run --env=dev -- npm run codegen && rimraf dist && tsc",
     "build:pkg": "npm run codegen && rimraf dist && tsc",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
-    "db:push": "drizzle-kit push",
+    "db:generate": "infisical run --env=dev -- drizzle-kit generate",
+    "db:migrate": "infisical run --env=dev -- drizzle-kit migrate",
+    "db:introspect": "infisical run --env=dev -- drizzle-kit introspect --config=drizzle.config.ts",
+    "db:push": "infisical run --env=dev -- drizzle-kit push",
     "codegen": "rimraf src/zod && node generateZodSchema.js"
   },
   "exports": {
