@@ -1,27 +1,19 @@
 import classNames from "classnames/bind";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/helper/supabase.ts";
-import { Owner } from "@/types/Owner.ts";
 import { createFileRoute } from "@tanstack/react-router";
 import { Animate } from "@/components/Animate/Animate.tsx";
 import { AboutCard } from "@/routes/about/-components/AboutCard/AboutCard.tsx";
-async function fetchOwner(): Promise<Owner[] | null> {
-  const query = supabase.from("Owner").select(`*`);
-  const { data } = await query;
-  return data;
-}
+import { trpc } from "@/helper/trpc.ts";
+
 const OwnerQuery = () => {
-  return useQuery({
-    queryKey: ["Owner"],
-    queryFn: fetchOwner,
-  });
+  return trpc.owner.getOwner.useQuery();
 };
 
 function AboutUs() {
   const sx = classNames.bind(styles);
   const { data } = OwnerQuery();
+  console.log(data)
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,8 +27,8 @@ function AboutUs() {
       <div className={sx("authorContainer")}>
         {data
           ? data.map((item, index) => {
-              return <AboutCard key={index} author_data={item} />;
-            })
+            return <AboutCard key={index} author_data={item} />;
+          })
           : null}
       </div>
       {/* <div className={sx("dcContainer")}>

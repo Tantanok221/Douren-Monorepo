@@ -14,12 +14,12 @@ interface Props {
 export const AboutCard = ({ author_data }: Props) => {
   const sx = classNames.bind(style);
   let link = processLink(
-    author_data.twitter_link,
-    author_data.twitter_name,
+    author_data.twitterLink,
+    author_data.twitterName,
     "Twitter",
   );
   link = link.concat(
-    processLink(author_data.github_link, author_data.github_name, "Github"),
+    processLink(author_data.githubLink, author_data.githubName, "Github"),
   );
 
   return (
@@ -37,8 +37,8 @@ export const AboutCard = ({ author_data }: Props) => {
           }}
         >
           <LinkContainer size="s" link={link} />
-          {author_data.discord_name ? (
-            <DiscordButton size="s" discord_name={author_data.discord_name} />
+          {author_data.discordName ? (
+            <DiscordButton size="s" discord_name={author_data.discordName} />
           ) : null}
         </IconContext.Provider>
       </div>
