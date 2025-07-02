@@ -101,11 +101,7 @@ app
 export { app };
 export default {
 	/** this part manages cronjobs */
-	scheduled(
-		_event: ScheduledEvent,
-		env: ENV_BINDING,
-		ctx: ExecutionContext,
-	) {
+	scheduled(_event: ScheduledEvent, env: ENV_BINDING, ctx: ExecutionContext) {
 		const delayedProcessing = async () => {
 			const db = initDB(env.DATABASE_URL);
 			await syncAuthorTag(db);
