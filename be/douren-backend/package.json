@@ -5,8 +5,8 @@
     "dev": "infisical export > .dev.vars && wrangler dev src/index.ts --port 2000",
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
-    "build": "infisical run --env=dev -- tsc",
-    "build:pkg": "infisical run --env=dev -- tsc",
+    "build": "tsc",
+    "build:pkg": "tsc",
     "format": "npx @biomejs/biome format --write ./src",
     "lint": "npx @biomejs/biome lint --write ./src ",
     "test": "vitest run"

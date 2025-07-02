@@ -29,11 +29,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Get Env Variable
-        env:
-          dotenv: ${{secrets.DOTENV_ME}}
-        run: npx dotenv-vault pull staging --dotenvMe=$dotenv -y && mv .env.staging .env &&make copy-env
-
       - name: Build Packages
         run: npm run pkg
 

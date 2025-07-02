@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build": "infisical run --env=dev -- npm run codegen && rimraf dist && tsc",
+    "build": "npm run codegen && rimraf dist && tsc",
     "build:pkg": "npm run codegen && rimraf dist && tsc",
     "db:generate": "infisical run --env=dev -- drizzle-kit generate",
     "db:migrate": "infisical run --env=dev -- drizzle-kit migrate",
