@@ -37,10 +37,7 @@ function FormWithProviders() {
   const submitNewArtist = useNewArtistSubmission();
 
   return (
-    <MultiStepFormProvider
-      submitStep={3}
-      onSubmit={submitNewArtist}
-    >
+    <MultiStepFormProvider submitStep={3} onSubmit={submitNewArtist}>
       <FormStep activeStep={1} stepId={ENTITY_FORM_KEY.artist}>
         <ArtistForm />
       </FormStep>

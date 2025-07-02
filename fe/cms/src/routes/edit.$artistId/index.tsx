@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 import {
   useMultiStepFormContext,
   MultiStepFormProvider,
@@ -7,42 +7,45 @@ import {
   CompleteStep,
   FormStep,
   ENTITY_FORM_KEY,
-} from '../../components/index.ts'
+} from "../../components/index.ts";
 // import { AllProductForm } from "./-components/form/product";
-import { RefreshHelperProvider } from '@lib/ui'
-import { FormDataProvider } from '../../components/FormDataContext/FormDataContext.tsx'
-import { useUpdateArtistSubmission } from '../../hooks/useUpdateArtistSubmission.ts'
-import { trpc } from '../../helper/index.ts'
-import { transformArtistToFormData, transformEventArtistToFormData } from '../../utils/transformData.ts'
-export const Route = createFileRoute('/edit/$artistId/')({
+import { RefreshHelperProvider } from "@lib/ui";
+import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";
+import { useUpdateArtistSubmission } from "../../hooks/useUpdateArtistSubmission.ts";
+import { trpc } from "../../helper/index.ts";
+import {
+  transformArtistToFormData,
+  transformEventArtistToFormData,
+} from "../../utils/transformData.ts";
+export const Route = createFileRoute("/edit/$artistId/")({
   component: () => <Form />,
-})
+});
 
 function Form() {
   return (
     <FormDataProvider>
-      <RefreshHelperProvider uniqueKey={'formResetKey'}>
+      <RefreshHelperProvider uniqueKey={"formResetKey"}>
         <FormWithProviders />
       </RefreshHelperProvider>
     </FormDataProvider>
-  )
+  );
 }
 
 function FormWithProviders() {
-  const submitUpdateArtist = useUpdateArtistSubmission()
-  const { artistId: id } = Route.useParams()
-  const artistData = trpc.artist.getArtistById.useQuery({ id })
-  const eventArtistData = trpc.eventArtist.getEventArtistById.useQuery({ id })
+  const submitUpdateArtist = useUpdateArtistSubmission();
+  const { artistId: id } = Route.useParams();
+  const artistData = trpc.artist.getArtistById.useQuery({ id });
+  const eventArtistData = trpc.eventArtist.getEventArtistById.useQuery({ id });
 
+  const transformedArtistData = transformArtistToFormData(artistData.data);
+  const transformedEventArtistData = transformEventArtistToFormData(
+    eventArtistData.data,
+  );
 
-  const transformedArtistData = transformArtistToFormData(artistData.data)
-  const transformedEventArtistData = transformEventArtistToFormData(eventArtistData.data)
+  console.log("transformedArtistData", transformedArtistData);
+  console.log("transformedEventArtistData", transformedEventArtistData);
 
-
-  console.log("transformedArtistData", transformedArtistData)
-  console.log("transformedEventArtistData", transformedEventArtistData)
-
-  if (!transformedArtistData) return null
+  if (!transformedArtistData) return null;
 
   return (
     <MultiStepFormProvider submitStep={3} onSubmit={submitUpdateArtist}>
@@ -52,12 +55,12 @@ function FormWithProviders() {
       <FormStep activeStep={2} stepId={ENTITY_FORM_KEY.eventArtist}>
         <EventArtistForm defaultValues={transformedEventArtistData} />
       </FormStep>
-      <FormStep activeStep={3} stepId={'completeStep'}>
+      <FormStep activeStep={3} stepId={"completeStep"}>
         <CompleteStep />
       </FormStep>
       {/*<FormWrapper validStep={3}>*/}
       {/*  <AllProductForm />*/}
       {/*</FormWrapper>*/}
     </MultiStepFormProvider>
-  )
+  );
 }

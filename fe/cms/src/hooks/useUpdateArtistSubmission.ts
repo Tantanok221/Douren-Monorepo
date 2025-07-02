@@ -10,9 +10,9 @@ import {
 import { Route } from "../routes/edit.$artistId";
 
 export const useUpdateArtistSubmission = () => {
-  console.log("useUpdateArtistSubmission")
-  const { artistId: id } = Route.useParams()
-  const updateArtist = trpc.artist.updateArtist.useMutation()
+  console.log("useUpdateArtistSubmission");
+  const { artistId: id } = Route.useParams();
+  const updateArtist = trpc.artist.updateArtist.useMutation();
   const updateEventArtist = trpc.eventArtist.updateEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
 
@@ -20,26 +20,26 @@ export const useUpdateArtistSubmission = () => {
     console.log("trigger update submit");
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
-    
+
     const TagHelper = new ArrayTagHelper(artistStep.tags);
     const artistDataWithTags = {
       ...artistStep,
       tags: TagHelper.toString(),
     };
-    
+
     // Update artist with correct mutation format
-    const [artistData] = await updateArtist.mutateAsync({ 
-      id, 
-      data: artistDataWithTags 
+    const [artistData] = await updateArtist.mutateAsync({
+      id,
+      data: artistDataWithTags,
     });
-    
+
     // Update event artist with correct mutation format
     await updateEventArtist.mutateAsync({
       id,
       data: {
         ...eventArtistStep,
         artistId: artistData.uuid,
-      }
+      },
     });
   };
 };
@@ -50,7 +50,9 @@ interface EntityFormData {
   productStep: ProductFormSchema[] | null;
 }
 
-const getEntityFormData = (getFormData: <T>(key: string) => T): EntityFormData => {
+const getEntityFormData = (
+  getFormData: <T>(key: string) => T,
+): EntityFormData => {
   const artistStep = getFormData(
     ENTITY_FORM_KEY.artist,
   ) as ArtistFormSchema | null;

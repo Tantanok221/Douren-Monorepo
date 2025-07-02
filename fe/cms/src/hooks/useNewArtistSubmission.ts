@@ -9,7 +9,7 @@ import {
 } from "../components";
 
 export const useNewArtistSubmission = () => {
-  console.log("useNewArtistSubmission")
+  console.log("useNewArtistSubmission");
   const createArtist = trpc.artist.createArtist.useMutation();
   const createEventArtist = trpc.eventArtist.createEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
@@ -35,7 +35,9 @@ interface EntityFormData {
   productStep: ProductFormSchema[] | null;
 }
 
-const getEntityFormData = (getFormData: <T>(key: string) => T): EntityFormData => {
+const getEntityFormData = (
+  getFormData: <T>(key: string) => T,
+): EntityFormData => {
   const artistStep = getFormData(
     ENTITY_FORM_KEY.artist,
   ) as ArtistFormSchema | null;
