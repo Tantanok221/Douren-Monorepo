@@ -8,8 +8,3 @@ export type ReactUseState<T> = [
 ]
 export type TableName = 'Author_Main' | 'Author_Product' | 'Event' | 'Event_DM' | 'FF42' | 'Owner' | 'Tag'
 
-export interface SupabaseCountReturn {
-  count: number,
-  status: number,
-  statusText: string
-}
