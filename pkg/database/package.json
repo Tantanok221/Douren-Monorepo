@@ -5,10 +5,10 @@
   "scripts": {
     "build": "npm run codegen && rimraf dist && tsc",
     "build:pkg": "npm run codegen && rimraf dist && tsc",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
-    "db:push": "drizzle-kit push",
+    "db:generate": "infisical run --env=dev -- drizzle-kit generate",
+    "db:migrate": "infisical run --env=dev -- drizzle-kit migrate",
+    "db:introspect": "infisical run --env=dev -- drizzle-kit introspect --config=drizzle.config.ts",
+    "db:push": "infisical run --env=dev -- drizzle-kit push",
     "codegen": "rimraf src/zod && node generateZodSchema.js"
   },
   "exports": {
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
     "drizzle-zod": "^0.5.1",
     "postgres": "^3.4.4",
