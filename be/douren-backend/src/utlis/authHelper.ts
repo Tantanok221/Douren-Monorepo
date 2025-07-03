@@ -2,7 +2,7 @@ import { Context } from "hono";
 
 export function verifyUser(c: Context): boolean {
 	// Always allow in development environment
-	if (c.env.DEV_ENV === "dev") return true;
+	// if (c.env.DEV_ENV === "dev") return true;
 
 	// Extract and validate authorization header
 	const authHeader = c.req.header("Authorization");
@@ -33,7 +33,7 @@ export function verifyUser(c: Context): boolean {
 
 export function verifyAdminUser(c: Context): boolean {
 	// Always allow in development environment
-	if (c.env.DEV_ENV === "dev") return true;
+	// if (c.env.DEV_ENV === "dev") return true;
 
 	// Extract and validate authorization header
 	const authHeader = c.req.header("Authorization");
@@ -52,7 +52,7 @@ export function verifyAdminUser(c: Context): boolean {
 
 export function verifyImageUser(c: Context): boolean {
 	// Always allow in development environment
-	if (c.env.DEV_ENV === "dev") return true;
+	// if (c.env.DEV_ENV === "dev") return true;
 
 	// Extract and validate authorization header
 	const authHeader = c.req.header("Authorization");
