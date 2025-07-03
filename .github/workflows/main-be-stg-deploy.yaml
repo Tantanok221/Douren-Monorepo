@@ -33,24 +33,29 @@ jobs:
       - name: Install Infisical
         run: npm install -g @infisical/cli
 
+      - name: Authenticate with Infisical
+        env:
+          CLIENT_ID: ${{secrets.CLIENT_ID}}
+          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        run: |
+          INFISICAL_TOKEN=$(infisical login --method=universal-auth --client-id=$CLIENT_ID --client-secret=$CLIENT_SECRET --plain --silent)
+          echo "INFISICAL_TOKEN=$INFISICAL_TOKEN" >> $GITHUB_ENV
+
       - name: Build Packages
-        run: npm run pkg
+        run: infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run pkg
 
       - name: Build Library
-        run: npm run lib
+        run: infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run lib
 
       - name: Deploy Backend
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
-          client_id: ${{secrets.CLIENT_ID}}
-          client_secret: ${{secrets.CLIENT_SECRET}}
-          project_id: ${{secrets.INFISICAL_PROJECT_ID}}
+          PROJECT_ID: ${{secrets.INFISICAL_PROJECT_ID}}
         run: |
           cd be/douren-backend
-          # Example
-  
-          INFISICAL_TOKEN=$(infisical login --method=universal-auth --client-id=$client_id --client-secret=$client_secret --plain --silent) infisical export --projectId=$project_id --env=staging > .env
+          
+          infisical export --projectId=$PROJECT_ID --env=staging > .env
           while IFS= read -r line || [[ -n "$line" ]]; do
             # Ignore comments, empty lines, and the DEV_ENV variable
             if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
@@ -69,6 +74,6 @@ jobs:
 
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"
           npm run deploy -- $WRANGLER_VARS --env staging
+
       - name: Update Database
-        run: |
-          npm run db:migrate
+        run: infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run db:migrate
