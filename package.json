@@ -21,7 +21,7 @@
     "test": "turbo test",
     "codegen": "turbo codegen && npm run pkg",
     "db:generate": "turbo db:generate",
-    "db:migrate": "turbo db:migrate",
+    "db:migrate": "infisical export > pkg/database/.env && turbo db:migrate",
     "db:introspect": "turbo db:introspect",
     "db:push": "turbo db:push",
     "lint": "turbo lint",

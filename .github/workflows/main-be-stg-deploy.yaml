@@ -76,4 +76,7 @@ jobs:
           npm run deploy -- $WRANGLER_VARS --env staging
 
       - name: Update Database
-        run: infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npx turbo db:migrate --filter=@pkg/database
+        run: |
+          cd pkg/database
+          infisical export --projectId=$PROJECT_ID --env=staging > .env
+          npm run db:migrate
