@@ -73,4 +73,4 @@ jobs:
           npm run deploy -- $WRANGLER_VARS --env production 
 
       - name: Update Database
-        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- turbo db:migrate --filter=@pkg/database
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npx turbo db:migrate --filter=@pkg/database
