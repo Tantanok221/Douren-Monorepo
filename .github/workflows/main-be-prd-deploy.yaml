@@ -27,24 +27,32 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Get Env Variable
+      - name: Install Infisical
+        run: npm install -g @infisical/cli
+
+      - name: Authenticate with Infisical
         env:
-          dotenv: ${{secrets.DOTENV_ME}}
-        run: npx dotenv-vault pull production --dotenvMe=$dotenv -y && mv .env.production .env &&make copy-env
+          CLIENT_ID: ${{secrets.CLIENT_ID}}
+          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        run: |
+          INFISICAL_TOKEN=$(infisical login --method=universal-auth --client-id=$CLIENT_ID --client-secret=$CLIENT_SECRET --plain --silent)
+          echo "INFISICAL_TOKEN=$INFISICAL_TOKEN" >> $GITHUB_ENV
 
       - name: Build Packages
-        run: npm run pkg
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run pkg
 
       - name: Build Library
-        run: npm run lib
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run lib
 
       - name: Deploy Backend
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
+          PROJECT_ID: ${{secrets.INFISICAL_PROJECT_ID}}
         run: |
-
           cd be/douren-backend
+          
+          infisical export --projectId=$PROJECT_ID --env=prod > .env
           while IFS= read -r line || [[ -n "$line" ]]; do
             # Ignore comments, empty lines, and the DEV_ENV variable
             if [[ ! $line =~ ^\s*# ]] && [[ -n "$line" ]] && [[ ! $line =~ ^DEV_ENV= ]]; then
@@ -63,6 +71,9 @@ jobs:
           
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS" 
           npm run deploy -- $WRANGLER_VARS --env production 
+
       - name: Update Database
         run: |
+          cd pkg/database
+          infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=prod > .env
           npm run db:migrate

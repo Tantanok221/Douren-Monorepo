@@ -9,7 +9,7 @@ import {
 } from "@lib/ui";
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { EditButton } from "@/components";
+import { ArtistEditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";
 
 export const ArtistContainer = () => {
@@ -47,7 +47,7 @@ export const ArtistContainer = () => {
                   <ArtistCard.TagContainer size="s" activeButton />
                 </div>
                 <ArtistCard.LinkContainerWrapper size="s">
-                  <EditButton />
+                  <ArtistEditButton />
                 </ArtistCard.LinkContainerWrapper>
               </ArtistCard.RightContainer>
             </ArtistCard>

@@ -2,7 +2,8 @@
   "name": "@be/douren-backend",
   "version": "0.0.1",
   "scripts": {
-    "dev": "wrangler dev src/index.ts --port 2000",
+    "dev": "infisical export > .dev.vars && wrangler dev src/index.ts --port 2000",
+    "preview": "infisical export > .dev.vars && wrangler dev src/index.ts --port 2000 --local",
     "deploy": "wrangler deploy --minify src/index.ts",
     "cron-test": "wrangler dev src/index.ts --test-scheduled --port 2000",
     "build": "tsc",
@@ -18,7 +19,6 @@
     }
   },
   "dependencies": {
-    "@clerk/backend": "^1.13.1",
     "@hono/trpc-server": "^0.3.2",
     "@hono/zod-validator": "^0.4.1",
     "@pkg/database": "*",

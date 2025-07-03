@@ -16,15 +16,15 @@ export const ShowcaseLayout = () => {
   const sx = classNames.bind(style);
   const artistData = useArtistPageContext();
   const artistLinkData = processArtistData(artistData);
-  const artistTagData = useProcessTagData(artistData?.Tags?.split(",") ?? []);
+  const artistTagData = useProcessTagData(artistData?.tags?.split(",") ?? []);
 
   return (
     <motion.div className={sx("mainContainer")}>
       <div className={sx("topContainer")}>
         <div className={sx("leftContainer")}>
           <div className={sx("imageContainer")}>
-            {artistData.Photo ? (
-              <LazyImage alt={artistData.Author} photo={artistData.Photo} />
+            {artistData.photo ? (
+              <LazyImage alt={artistData.author} photo={artistData.photo} />
             ) : null}
           </div>
 
@@ -34,14 +34,14 @@ export const ShowcaseLayout = () => {
         </div>
         <div className={sx("rightContainer")}>
           <div className={sx("headerContainer")}>
-            <div className={ax("header")}>{artistData.Author}</div>
+            <div className={ax("header")}>{artistData.author}</div>
           </div>
           <div className={ax("tagContainer")}>
             <TagContainer renderTag={artistTagData} />
           </div>
           <div className={sx("introductionContainer")}>
-            {artistData.Introduction
-              ? artistData.Introduction
+            {artistData.introduction
+              ? artistData.introduction
               : "大大没有留下任何自我介绍"}
           </div>
         </div>

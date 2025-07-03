@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ZodTagObject } from "@lib/ui";
-import { LinkFormSchema } from "@/components";
+import { LinkFormSchema } from "../../RichForm";
 
 export const productFormSchema = z.object({
   title: z.string().min(1, { message: "請輸入作品名字" }),

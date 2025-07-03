@@ -8,23 +8,30 @@ import {
   AllAvailableLinkType,
   GetLinkLabelFromKey,
   ImageField,
-  useMultiStepFormContext,
 } from "@/components";
 import { useUploadImageRef } from "@/hooks";
 import { artistFormSchema, ArtistFormSchema } from "./schema";
+import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
+import { useFormStep } from "../FormStep";
 
-export function ArtistForm() {
+interface artistFormProps {
+  defaultValues?: ArtistFormSchema;
+}
+
+export function ArtistForm({ defaultValues }: artistFormProps) {
   const formHook = useForm<ArtistFormSchema>({
     resolver: zodResolver(artistFormSchema),
+    defaultValues,
   });
   const uploadImageRef = useUploadImageRef();
-  const setArtistStep = useMultiStepFormContext((state) => state.setArtistStep);
-
-  const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
+  const setData = useFormDataContext((state) => state.setData);
+  const bumpStep = useFormStep().onNext;
+  const stepId = useFormStep().stepId;
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
+    console.log("hello from artistform");
     if (!uploadImageRef.current) return;
     const imgLink = await uploadImageRef.current.uploadImage();
-    setArtistStep({ ...data, photo: imgLink });
+    setData(stepId, { ...data, photo: imgLink });
     bumpStep();
   };
   return (

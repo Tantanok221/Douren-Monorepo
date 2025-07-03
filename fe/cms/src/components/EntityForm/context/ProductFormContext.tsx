@@ -4,7 +4,6 @@ import {
   MutableRefObject,
   ReactNode,
   SetStateAction,
-  useContext,
   useState,
 } from "react";
 import { ProductFormSchema } from "../schema";
@@ -44,13 +43,4 @@ export const ProductFormContextProvider = ({ children }: Props) => {
       {children}
     </ProductFormContext.Provider>
   );
-};
-
-export const useProductFormContext = () => {
-  const data = useContext(ProductFormContext);
-  if (!data)
-    throw new Error(
-      "useProductFormContext cannot be use within ProductFormContextProvider",
-    );
-  return data;
 };

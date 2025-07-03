@@ -10,26 +10,30 @@ import {
   useMultiStepFormContext,
 } from "@/components";
 import { eventArtistSchema, EventArtistSchema } from "./schema";
+import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
+import { ENTITY_FORM_KEY } from "./constant.ts";
+import { useFormStep } from "../FormStep";
 
-export function EventArtistForm() {
+interface EventArtistFormProps {
+  defaultValues?: EventArtistSchema;
+}
+
+export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
-    defaultValues: {
+    defaultValues: defaultValues || {
       eventId: 4,
       artistId: 1,
     },
   });
   const uploadImageRef = useUploadImageRef();
-  const setEventArtistStep = useMultiStepFormContext(
-    (state) => state.setEventArtistStep,
-  );
-
-  const bumpStep = useMultiStepFormContext((state) => state.bumpStep);
+  const setData = useFormDataContext((state) => state.setData);
+  const bumpStep = useFormStep().onNext;
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     if (!uploadImageRef.current) return;
     const link = await uploadImageRef.current.uploadImage();
-    setEventArtistStep({ ...data, dm: link });
+    setData(ENTITY_FORM_KEY.eventArtist, { ...data, dm: link });
     bumpStep();
   };
 

@@ -8,7 +8,7 @@
   "description": "",
   "scripts": {
     "build": "tsup",
-    "dev": "storybook dev -p 6006 --ci",
+    "dev": "infisical run --env=dev -- storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",
     "codegen": "barrelsby -d ./src -l all  --delete --exclude setup.ts --exclude .d.ts --exclude .stories.tsx --exclude config.ts --exclude test.ts --exclude test.tsx ",

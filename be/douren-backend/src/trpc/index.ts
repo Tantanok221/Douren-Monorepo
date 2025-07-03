@@ -1,11 +1,11 @@
 import { initTRPC, TRPCError } from "@trpc/server";
-import { BACKEND_BINDING } from "@pkg/env/constant";
+import { ENV_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
 import { Context } from "hono";
 import { verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
 
 type HonoContext = {
-	env: BACKEND_BINDING;
+	env: ENV_BINDING;
 	honoContext: Context;
 } & HonoVariables;
 

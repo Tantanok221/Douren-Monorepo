@@ -28,7 +28,6 @@ class ArtistDao implements BaseDao {
 			PAGE_SIZE,
 			counts.totalCount,
 		) as object;
-		console.log("Setting redis cache");
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
@@ -44,12 +43,51 @@ class ArtistDao implements BaseDao {
 		artistId: string,
 		body: zodSchemaType["authorMain"]["InsertSchema"],
 	) {
-		body.uuid = Number(artistId);
 		return await this.db
 			.update(s.authorMain)
 			.set(body)
 			.where(eq(s.authorMain.uuid, Number(artistId)))
 			.returning();
+	}
+
+	async FetchById(artistId: string) {
+		const [data] = await this.db
+			.select()
+			.from(s.authorMain)
+			.where(eq(s.authorMain.uuid, Number(artistId)));
+		return data;
+	}
+
+	async FetchArtistPageDetails(artistId: string) {
+		const data = await this.db.query.authorMain.findFirst({
+			where: eq(s.authorMain.uuid, Number(artistId)),
+			with: {
+				products: {
+					columns: {
+						title: true,
+						thumbnail: true,
+						preview: true,
+					},
+				},
+				events: {
+					columns: {
+						dm: true,
+						boothName: true,
+						locationDay01: true,
+						locationDay02: true,
+						locationDay03: true,
+					},
+					with: {
+						event: {
+							columns: {
+								name: true,
+							},
+						},
+					},
+				},
+			},
+		});
+		return data;
 	}
 
 	async Delete(artistId: string) {

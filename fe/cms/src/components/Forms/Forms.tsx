@@ -1,5 +1,3 @@
-import * as Form from "@radix-ui/react-form";
-import { FormProps } from "@radix-ui/react-form";
 import {
   FormButton,
   FormControl,
@@ -10,23 +8,11 @@ import {
   FormSubmit,
   FormTagFilter,
 } from "./subcomponent";
-import {
-  FieldValues,
-  FormProvider,
-  SubmitHandler,
-  UseFormReturn,
-} from "react-hook-form";
-import { ReactNode } from "react";
 import { FormImageUpload } from "./subcomponent/FormImageUpload.tsx";
-
-interface FormComponentProps<T extends FieldValues> extends FormProps {
-  children: ReactNode;
-  formHook: UseFormReturn<T>;
-  OnSubmit: SubmitHandler<T>;
-}
+import { FormsRoot } from "./FormsRoot";
 
 interface CompoundForm {
-  Root: typeof RootComponent;
+  Root: typeof FormsRoot;
   Label: typeof FormsLabel;
   Message: typeof FormMessage;
   Field: typeof FormField;
@@ -38,28 +24,8 @@ interface CompoundForm {
   ImageUpload: typeof FormImageUpload;
 }
 
-const RootComponent = <T extends FieldValues>({
-  children,
-  formHook,
-  OnSubmit,
-  ...rest
-}: FormComponentProps<T>) => {
-  const { handleSubmit } = formHook;
-  return (
-    <FormProvider {...formHook}>
-      <Form.Root
-        onSubmit={handleSubmit(OnSubmit)}
-        {...rest}
-        className="gap-6 flex flex-col w-full"
-      >
-        {children}
-      </Form.Root>
-    </FormProvider>
-  );
-};
-
 export const Forms: CompoundForm = {
-  Root: RootComponent,
+  Root: FormsRoot,
   Label: FormsLabel,
   Message: FormMessage,
   Field: FormField,

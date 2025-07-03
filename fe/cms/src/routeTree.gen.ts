@@ -12,7 +12,8 @@
 
 import { Route as rootRoute } from "./routes/__root";
 import { Route as IndexImport } from "./routes/index";
-import { Route as FormIndexImport } from "./routes/form/index";
+import { Route as NewIndexImport } from "./routes/new/index";
+import { Route as EditArtistIdIndexImport } from "./routes/edit.$artistId/index";
 
 // Create/Update Routes
 
@@ -22,9 +23,15 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const FormIndexRoute = FormIndexImport.update({
-  id: "/form/",
-  path: "/form/",
+const NewIndexRoute = NewIndexImport.update({
+  id: "/new/",
+  path: "/new/",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const EditArtistIdIndexRoute = EditArtistIdIndexImport.update({
+  id: "/edit/$artistId/",
+  path: "/edit/$artistId/",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -39,11 +46,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
-    "/form/": {
-      id: "/form/";
-      path: "/form";
-      fullPath: "/form";
-      preLoaderRoute: typeof FormIndexImport;
+    "/new/": {
+      id: "/new/";
+      path: "/new";
+      fullPath: "/new";
+      preLoaderRoute: typeof NewIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/edit/$artistId/": {
+      id: "/edit/$artistId/";
+      path: "/edit/$artistId";
+      fullPath: "/edit/$artistId";
+      preLoaderRoute: typeof EditArtistIdIndexImport;
       parentRoute: typeof rootRoute;
     };
   }
@@ -53,37 +67,42 @@ declare module "@tanstack/react-router" {
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
-  "/form": typeof FormIndexRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
-  "/form": typeof FormIndexRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
-  "/form/": typeof FormIndexRoute;
+  "/new/": typeof NewIndexRoute;
+  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/form";
+  fullPaths: "/" | "/new" | "/edit/$artistId";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/form";
-  id: "__root__" | "/" | "/form/";
+  to: "/" | "/new" | "/edit/$artistId";
+  id: "__root__" | "/" | "/new/" | "/edit/$artistId/";
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  FormIndexRoute: typeof FormIndexRoute;
+  NewIndexRoute: typeof NewIndexRoute;
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  FormIndexRoute: FormIndexRoute,
+  NewIndexRoute: NewIndexRoute,
+  EditArtistIdIndexRoute: EditArtistIdIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -99,14 +118,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/form/"
+        "/new/",
+        "/edit/$artistId/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/form/": {
-      "filePath": "form/index.tsx"
+    "/new/": {
+      "filePath": "new/index.tsx"
+    },
+    "/edit/$artistId/": {
+      "filePath": "edit.$artistId/index.tsx"
     }
   }
 }

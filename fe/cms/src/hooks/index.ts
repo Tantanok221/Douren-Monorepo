@@ -3,4 +3,6 @@
  */
 
 export * from "./useFetchTagData";
+export * from "./useNewArtistSubmission";
+export * from "./useUpdateArtistSubmission";
 export * from "./useUploadImage";
