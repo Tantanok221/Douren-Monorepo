@@ -1,8 +1,8 @@
-import {createFileRoute, useNavigate} from "@tanstack/react-router";
-import {useEffect} from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
-  component: () => <Navigate/>,
+  component: () => <Navigate />,
 });
 
 const Navigate = () => {
@@ -13,9 +13,9 @@ const Navigate = () => {
         to: "/event/$eventName",
         // mask: "/",
         params: {
-          eventName: "FF43",
+          eventName: "FF45",
         },
       });
     }, [])
-  return <div/>;
+  return <div />;
 };
