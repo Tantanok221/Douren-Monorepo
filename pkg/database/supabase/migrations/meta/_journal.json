@@ -43,6 +43,13 @@
       "when": 1745572596176,
       "tag": "0005_cold_solo",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1754100958749,
+      "tag": "0006_even_captain_cross",
+      "breakpoints": true
     }
   ]
 }
