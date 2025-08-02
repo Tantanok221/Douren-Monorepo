@@ -20,3 +20,7 @@ For setting up environment variable
 ```
 npm run onboard
 ```
+### Ignore CRLF Line Seperator Changes
+```
+git add --renormalize .
+```
