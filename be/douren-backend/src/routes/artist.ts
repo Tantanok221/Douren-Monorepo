@@ -62,6 +62,11 @@ const ArtistRoute = new Hono<HonoEnv>()
 			searchTable,
 		});
 		return c.json(returnObj);
+	}).get("/:artistId", async (c) => {
+		const ArtistDao = NewArtistDao(c.var.db);
+    const { artistId } = c.req.param();
+		const returnObj = await ArtistDao.FetchById(artistId);
+		return c.json(returnObj);
 	})
 	.post("/", zValidator("json", CreateArtistSchema), async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
