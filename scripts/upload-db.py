@@ -3,6 +3,10 @@
 Artist Excel to API Uploader
 
 Reads artist data from Excel file and uploads to the artist API endpoint.
+Also supports event artist uploads to link artists with events and booth locations.
+
+The script uses the EXCEL_SHEET environment variable to determine which sheet to read from.
+Default is 'Output' which contains both artist data and event information (DAY01/DAY02/DAY03 columns).
 """
 
 import os
@@ -56,6 +60,19 @@ class ArtistAPIClient:
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to create artist {artist_data.get('author', 'Unknown')}: {e}")
             raise
+    
+    def create_event_artist(self, event_artist_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a new event artist via POST /event/artist"""
+        try:
+            response = self.session.post(
+                f"{self.base_url}/event/artist",
+                json=event_artist_data
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to create event artist: {e}")
+            raise
 
     def update_artist(self, artist_id: str, artist_data: Dict[str, Any]) -> Dict[str, Any]:
         """Update an existing artist via PUT /artist/:artistId"""
@@ -108,6 +125,35 @@ class ExcelArtistReader:
             logger.error(f"Failed to read Excel file: {e}")
             raise
 
+    def map_excel_to_event_artist_schema(self, row: pd.Series, event_id: int = 4) -> Dict[str, Any]:
+        """Map Excel row to event artist API schema."""
+        event_artist_data = {}
+        
+        # Map Artist ID to artistId
+        if 'Author ID' in row.index and pd.notna(row['Author ID']):
+            event_artist_data['artistId'] = int(row['Author ID'])
+        else:
+            raise ValueError(f"Required 'Author ID' field not found in row")
+        
+        # Set event ID (default to 4 as specified)
+        event_artist_data['eventId'] = event_id
+        
+        # Map DAY columns to location fields
+        if 'DAY01' in row.index and pd.notna(row['DAY01']) and str(row['DAY01']).strip() != 'nan':
+            event_artist_data['locationDay01'] = str(row['DAY01']).strip()
+            
+        if 'DAY02' in row.index and pd.notna(row['DAY02']) and str(row['DAY02']).strip() != 'nan':
+            event_artist_data['locationDay02'] = str(row['DAY02']).strip()
+            
+        if 'DAY03' in row.index and pd.notna(row['DAY03']) and str(row['DAY03']).strip() != 'nan':
+            event_artist_data['locationDay03'] = str(row['DAY03']).strip()
+            
+        # Map Booth Name if available
+        if 'Booth Name' in row.index and pd.notna(row['Booth Name']):
+            event_artist_data['boothName'] = str(row['Booth Name']).strip()
+        
+        return event_artist_data
+
     def map_excel_to_artist_schema(self, row: pd.Series) -> Dict[str, Any]:
         """Map Excel row to artist API schema based on actual Excel columns."""
         # Exact mapping based on actual Excel file structure
@@ -145,7 +191,7 @@ class ExcelArtistReader:
         if 'author' not in artist_data:
             # Try to get from Author ID if Author is empty
             if 'Author ID' in row.index and pd.notna(row['Author ID']):
-                artist_data['author'] = row["布林後攤位"]
+                artist_data['author'] = row["Booth Name"]
             else:
                 raise ValueError(f"Required 'author' field not found in row. Available columns: {list(row.index)}")
 
@@ -161,6 +207,11 @@ class ArtistUploader:
         self.results = {
             'created': [],
             'updated': [],
+            'failed': [],
+            'skipped': []
+        }
+        self.event_artist_results = {
+            'created': [],
             'failed': [],
             'skipped': []
         }
@@ -215,10 +266,57 @@ class ArtistUploader:
 
         return self.results
 
+    def upload_event_artists(self, event_id: int = 4, dry_run: bool = False) -> Dict[str, List]:
+        """Upload event artists from Excel file to /event/artist endpoint."""
+        logger.info(f"Starting event artist upload for event ID {event_id} {'(DRY RUN)' if dry_run else ''}")
+        
+        # Read Excel data from the configured sheet (should contain event data)
+        try:
+            # Use the same sheet as configured for the reader, which should be Output sheet
+            df = pd.read_excel(self.excel_reader.excel_path, sheet_name=self.excel_reader.sheet_name)
+            logger.info(f"Read {len(df)} rows from {self.excel_reader.sheet_name} sheet")
+        except Exception as e:
+            logger.error(f"Failed to read {self.excel_reader.sheet_name} sheet: {e}")
+            raise
+        
+        # Filter rows that have event data (at least one DAY column filled)
+        event_rows = df.dropna(subset=['DAY01', 'DAY02', 'DAY03'], how='all')
+        logger.info(f"Found {len(event_rows)} rows with event data")
+        
+        # Process each row
+        for index, row in event_rows.iterrows():
+            try:
+                event_artist_data = self.excel_reader.map_excel_to_event_artist_schema(row, event_id)
+                artist_id = event_artist_data['artistId']
+                author_name = row.get('Author', f'Artist ID {artist_id}')
+                
+                logger.info(f"Processing event artist {len(self.event_artist_results['created']) + len(self.event_artist_results['failed']) + 1}/{len(event_rows)}: {author_name} (ID: {artist_id})")
+                
+                if dry_run:
+                    logger.info(f"DRY RUN: Would create event artist: {event_artist_data}")
+                    self.event_artist_results['skipped'].append(author_name)
+                    continue
+                
+                # Create event artist
+                try:
+                    result = self.api_client.create_event_artist(event_artist_data)
+                    self.event_artist_results['created'].append(author_name)
+                    logger.info(f"Created event artist: {author_name} (ID: {artist_id})")
+                except Exception as e:
+                    self.event_artist_results['failed'].append({'name': author_name, 'error': str(e)})
+                    logger.error(f"Failed to create event artist {author_name}: {e}")
+                    
+            except Exception as e:
+                author_name = f"Row {index + 1}"
+                self.event_artist_results['failed'].append({'name': author_name, 'error': str(e)})
+                logger.error(f"Failed to process event artist row {index + 1}: {e}")
+        
+        return self.event_artist_results
+
     def print_summary(self):
         """Print upload summary."""
         print("\n" + "=" * 50)
-        print("UPLOAD SUMMARY")
+        print("ARTIST UPLOAD SUMMARY")
         print("=" * 50)
         print(f"Created: {len(self.results['created'])}")
         print(f"Updated: {len(self.results['updated'])}")
@@ -228,6 +326,20 @@ class ArtistUploader:
         if self.results['failed']:
             print("\nFAILED UPLOADS:")
             for failure in self.results['failed']:
+                print(f"  - {failure['name']}: {failure['error']}")
+    
+    def print_event_artist_summary(self):
+        """Print event artist upload summary."""
+        print("\n" + "=" * 50)
+        print("EVENT ARTIST UPLOAD SUMMARY")
+        print("=" * 50)
+        print(f"Created: {len(self.event_artist_results['created'])}")
+        print(f"Failed: {len(self.event_artist_results['failed'])}")
+        print(f"Skipped: {len(self.event_artist_results['skipped'])}")
+
+        if self.event_artist_results['failed']:
+            print("\nFAILED EVENT ARTIST UPLOADS:")
+            for failure in self.event_artist_results['failed']:
                 print(f"  - {failure['name']}: {failure['error']}")
 
 
@@ -242,8 +354,8 @@ def main():
     )
     parser.add_argument(
         "--sheet",
-        default="Main Table",
-        help="Excel sheet name (default: Main Table)"
+        default=os.getenv("EXCEL_SHEET", "Output"),
+        help="Excel sheet name (default: Output, or EXCEL_SHEET env var)"
     )
     parser.add_argument(
         "--base-url",
@@ -260,6 +372,18 @@ def main():
         action="store_true",
         help="Run without making actual API calls"
     )
+    parser.add_argument(
+        "--mode",
+        choices=["artist", "event-artist", "both"],
+        default="artist",
+        help="Upload mode: artist (Main Table), event-artist (Output sheet), or both"
+    )
+    parser.add_argument(
+        "--event-id",
+        type=int,
+        default=4,
+        help="Event ID for event artist uploads (default: 4)"
+    )
 
     args = parser.parse_args()
 
@@ -269,13 +393,29 @@ def main():
         excel_reader = ExcelArtistReader(args.excel_file, args.sheet)
         uploader = ArtistUploader(api_client, excel_reader)
 
-        # Run upload
-        results = uploader.upload_artists(dry_run=args.dry_run)
-        uploader.print_summary()
-
-        # Exit with error code if there were failures
-        if results['failed']:
-            sys.exit(1)
+        # Run upload based on mode
+        if args.mode in ["artist", "both"]:
+            logger.info("Starting artist upload...")
+            results = uploader.upload_artists(dry_run=args.dry_run)
+            uploader.print_summary()
+            
+            if results['failed'] and args.mode == "artist":
+                sys.exit(1)
+        
+        if args.mode in ["event-artist", "both"]:
+            logger.info(f"Starting event artist upload for event ID {args.event_id}...")
+            event_results = uploader.upload_event_artists(event_id=args.event_id, dry_run=args.dry_run)
+            uploader.print_event_artist_summary()
+            
+            if event_results['failed'] and args.mode == "event-artist":
+                sys.exit(1)
+        
+        # Exit with error code if there were failures in both mode
+        if args.mode == "both":
+            artist_failures = len(uploader.results.get('failed', []))
+            event_artist_failures = len(uploader.event_artist_results.get('failed', []))
+            if artist_failures > 0 or event_artist_failures > 0:
+                sys.exit(1)
 
     except Exception as e:
         logger.error(f"Upload failed: {e}")
