@@ -31,16 +31,16 @@ class ArtistDao implements BaseDao {
 		return returnObj as artistSchemaType;
 	}
 	async Create(body: CreateArtistSchemaTypes) {
-    try {
-     const data = await this.db
-			.insert(s.authorMain)
-			.values(body)
-			.onConflictDoUpdate({ target: s.authorMain.uuid, set: {...body }})
-			.returning();
-		return data;
-    }catch(e){
-      console.log(e)
-    }
+		try {
+			const data = await this.db
+				.insert(s.authorMain)
+				.values(body)
+				.onConflictDoUpdate({ target: s.authorMain.uuid, set: { ...body } })
+				.returning();
+			return data;
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	async Update(
