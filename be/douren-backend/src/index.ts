@@ -16,7 +16,7 @@ import { cache } from "hono/cache";
 import { verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
 
 export type HonoVariables = {
-  db: ReturnType<typeof initDB>;
+	db: ReturnType<typeof initDB>;
 };
 
 export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
@@ -26,8 +26,8 @@ app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", cors());
 app.use("*", async (c, next) => {
-  c.set("db", initDB(c.env.DATABASE_URL));
-  await next();
+	c.set("db", initDB(c.env.DATABASE_URL));
+	await next();
 });
 // app.get(
 // 	"*",
@@ -38,30 +38,30 @@ app.use("*", async (c, next) => {
 // );
 // Admin authentication middleware
 const adminAuthMiddleware = async (
-  c: Context<HonoEnv>,
-  next: () => Promise<void>,
+	c: Context<HonoEnv>,
+	next: () => Promise<void>,
 ) => {
-  const verified = verifyAdminUser(c);
-  if (!verified)
-    return c.json(
-      { message: "You are not authorized to perform this actions" },
-      401,
-    );
-  await next();
+	const verified = verifyAdminUser(c);
+	if (!verified)
+		return c.json(
+			{ message: "You are not authorized to perform this actions" },
+			401,
+		);
+	await next();
 };
 
 // Image authentication middleware
 const imageAuthMiddleware = async (
-  c: Context<HonoEnv>,
-  next: () => Promise<void>,
+	c: Context<HonoEnv>,
+	next: () => Promise<void>,
 ) => {
-  const verified = verifyImageUser(c);
-  if (!verified)
-    return c.json(
-      { message: "You are not authorized to perform this actions" },
-      401,
-    );
-  await next();
+	const verified = verifyImageUser(c);
+	if (!verified)
+		return c.json(
+			{ message: "You are not authorized to perform this actions" },
+			401,
+		);
+	await next();
 };
 
 // Apply admin middleware to admin routes
@@ -72,45 +72,45 @@ app.on(["POST", "PUT", "DELETE"], "/tag/*", adminAuthMiddleware);
 // Apply image middleware to image routes
 app.on(["POST"], "/image/*", imageAuthMiddleware);
 const appRouter = router({
-  artist: trpcArtistRoute,
-  eventArtist: trpcEventRoute,
-  tag: trpcTagRoute,
-  owner: trpcOwnerRoute,
+	artist: trpcArtistRoute,
+	eventArtist: trpcEventRoute,
+	tag: trpcTagRoute,
+	owner: trpcOwnerRoute,
 });
 
 export type AppRouter = typeof appRouter;
 app.use(
-  "/trpc/*",
-  trpcServer({
-    router: appRouter,
-    createContext: (_opts, c) => {
-      console.log("init context");
-      return {
-        db: initDB(c.env.DATABASE_URL),
-        honoContext: c,
-      };
-    },
-  }),
+	"/trpc/*",
+	trpcServer({
+		router: appRouter,
+		createContext: (_opts, c) => {
+			console.log("init context");
+			return {
+				db: initDB(c.env.DATABASE_URL),
+				honoContext: c,
+			};
+		},
+	}),
 );
 app
-  .route("/event", EventRoute)
-  .route("/artist", ArtistRoute)
-  .route("/tag", TagRoute)
-  .route("/owner", OwnerRoute)
-  .route("/image", imageRoute);
+	.route("/event", EventRoute)
+	.route("/artist", ArtistRoute)
+	.route("/tag", TagRoute)
+	.route("/owner", OwnerRoute)
+	.route("/image", imageRoute);
 export { app };
 export default {
-  /** this part manages cronjobs */
-  scheduled(_event: ScheduledEvent, env: ENV_BINDING, ctx: ExecutionContext) {
-    const delayedProcessing = async () => {
-      const db = initDB(env.DATABASE_URL);
-      await syncAuthorTag(db);
-      console.log("CRONJOB EXECUTED");
-    };
-    ctx.waitUntil(delayedProcessing());
-  },
-  fetch(request: Request, env: Env, ctx: ExecutionContext) {
-    return app.fetch(request, env, ctx);
-  },
-  /** this part manages regular REST */
+	/** this part manages cronjobs */
+	scheduled(_event: ScheduledEvent, env: ENV_BINDING, ctx: ExecutionContext) {
+		const delayedProcessing = async () => {
+			const db = initDB(env.DATABASE_URL);
+			await syncAuthorTag(db);
+			console.log("CRONJOB EXECUTED");
+		};
+		ctx.waitUntil(delayedProcessing());
+	},
+	fetch(request: Request, env: Env, ctx: ExecutionContext) {
+		return app.fetch(request, env, ctx);
+	},
+	/** this part manages regular REST */
 };
