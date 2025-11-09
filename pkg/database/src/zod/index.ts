@@ -5,6 +5,10 @@ import { eventDmInsertSchema, eventDmSelectSchema } from "./eventDm.js";
 import { ownerInsertSchema, ownerSelectSchema } from "./owner.js";
 import { tagInsertSchema, tagSelectSchema } from "./tag.js";
 import { authorTagInsertSchema, authorTagSelectSchema } from "./authorTag.js";
+import { userInsertSchema, userSelectSchema } from "./user.js";
+import { sessionInsertSchema, sessionSelectSchema } from "./session.js";
+import { accountInsertSchema, accountSelectSchema } from "./account.js";
+import { verificationInsertSchema, verificationSelectSchema } from "./verification.js";
 
 export const zodSchema = { 
           authorMain: {
@@ -34,6 +38,22 @@ export const zodSchema = {
           authorTag: {
             InsertSchema: authorTagInsertSchema,
             SelectSchema: authorTagSelectSchema
+          },
+          user: {
+            InsertSchema: userInsertSchema,
+            SelectSchema: userSelectSchema
+          },
+          session: {
+            InsertSchema: sessionInsertSchema,
+            SelectSchema: sessionSelectSchema
+          },
+          account: {
+            InsertSchema: accountInsertSchema,
+            SelectSchema: accountSelectSchema
+          },
+          verification: {
+            InsertSchema: verificationInsertSchema,
+            SelectSchema: verificationSelectSchema
           }
         };
 
@@ -66,5 +86,21 @@ export type zodSchemaType = {
           authorTag: {
             InsertSchema: authorTagInsertSchema,
             SelectSchema: authorTagSelectSchema
+          },
+          user: {
+            InsertSchema: userInsertSchema,
+            SelectSchema: userSelectSchema
+          },
+          session: {
+            InsertSchema: sessionInsertSchema,
+            SelectSchema: sessionSelectSchema
+          },
+          account: {
+            InsertSchema: accountInsertSchema,
+            SelectSchema: accountSelectSchema
+          },
+          verification: {
+            InsertSchema: verificationInsertSchema,
+            SelectSchema: verificationSelectSchema
           }
       };

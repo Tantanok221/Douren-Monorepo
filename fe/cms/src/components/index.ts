@@ -11,3 +11,4 @@ export * from "./Forms/index";
 export * from "./ImageUpload/index";
 export * from "./MultiStepForm/index";
 export * from "./RichForm/index";
+export * from "./ui/index";
