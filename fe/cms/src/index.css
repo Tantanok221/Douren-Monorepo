@@ -1,45 +1,93 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --Background: #111;
-  --Day: #cbc3c3;
-  --Link: #cbc3c3;
-  --LinkPanel: #3c3c3c;
-  --NumberTag: #838181;
-  --NumberTagBackground: #3c3c3c;
-  --Panel: #1f1f21;
-  --TagBackground: #464646;
-  --TagText: #aaaaaa;
-  --White: #ffffff;
-  --Font: Noto Sans TC;
-  --OnHover: #4d4d4d;
-  --Sidebar-BG: #1d1d1d;
-  --Sidebar-Active: #292929;
-  --Stroke: #3c3c3c;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-*: initial;
+  --color-background: #111;
+  --color-black: #000000;
+  --color-day: #cbc3c3;
+  --color-link: #cbc3c3;
+  --color-link-panel: #3c3c3c;
+  --color-transparent: transparent;
+  --color-number-tag: #838181;
+  --color-number-tag-background: #3c3c3c;
+  --color-panel: #1f1f21;
+  --color-tag-background: #464646;
+  --color-tag-text: #aaaaaa;
+  --color-white: #ffffff;
+  --color-on-hover: #4d4d4d;
+  --color-sidebar-bg: #1d1d1d;
+  --color-sidebar-active: #292929;
+  --color-stroke: #3c3c3c;
+  --color-form-border: #494949;
+  --color-highlight-form-border: #a3a0a0;
+
+  --font-*: initial;
+  --font-sans: Noto Sans TC, sans-serif;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-body {
-  background-color: var(--Background);
-  font-size: 16px;
-}
-html {
-  font-size: 13px;
-  scroll-behavior: smooth;
-}
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-*,
-*::before,
-*::after {
-  min-width: 0px;
-  box-sizing: border-box;
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
+@layer utilities {
+  :root {
+    --Background: #111;
+    --Day: #cbc3c3;
+    --Link: #cbc3c3;
+    --LinkPanel: #3c3c3c;
+    --NumberTag: #838181;
+    --NumberTagBackground: #3c3c3c;
+    --Panel: #1f1f21;
+    --TagBackground: #464646;
+    --TagText: #aaaaaa;
+    --White: #ffffff;
+    --Font: Noto Sans TC;
+    --OnHover: #4d4d4d;
+    --Sidebar-BG: #1d1d1d;
+    --Sidebar-Active: #292929;
+    --Stroke: #3c3c3c;
+  }
 
-.image {
-  width: 100%;
-  object-fit: contain;
-  border-radius: 8px;
+  body {
+    background-color: var(--Background);
+    font-size: 16px;
+  }
+  html {
+    font-size: 13px;
+    scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    min-width: 0px;
+    box-sizing: border-box;
+  }
+
+  .image {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
 }
 
 @layer base {

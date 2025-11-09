@@ -7,7 +7,7 @@ export const ArtistEditButton = () => {
   return (
     <Link
       to={"edit/" + eventData.uuid}
-      className="rounded px-6 py-2 text-tagText bg-tagBackground flex flex-row gap-4 font-bold"
+      className="rounded px-6 py-2 text-tag-text bg-tag-background flex flex-row gap-4 font-bold"
     >
       <Pen /> Edit
     </Link>
