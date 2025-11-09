@@ -14,9 +14,12 @@ import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
 import { verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
+import { auth } from "@/lib/auth";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
+  user: typeof auth.$Infer.Session.user | null;
+  session: typeof auth.$Infer.Session.session | null
 };
 
 export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
@@ -29,6 +32,23 @@ app.use("*", async (c, next) => {
 	c.set("db", initDB(c.env.DATABASE_URL));
 	await next();
 });
+
+app.on(["POST", "GET"], "/api/auth/*", (c) => auth(c.env).handler(c.req.raw));
+
+
+app.use("*", async (c, next) => {
+  const session = await auth(c.env).api.getSession({ headers: c.req.raw.headers });
+  if (!session) {
+    c.set("user", null);
+    c.set("session", null);
+    await next();
+    return;
+  }
+  c.set("user", session.user);
+  c.set("session", session.session);
+  await next();
+});
+
 // app.get(
 // 	"*",
 // 	cache({

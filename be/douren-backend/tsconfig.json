@@ -15,6 +15,7 @@
     },
     "strictPropertyInitialization": false,
     "baseUrl": ".",
+    "types": ["worker-configuration.d.ts"]
   },
   "exclude": [
     "dist",
