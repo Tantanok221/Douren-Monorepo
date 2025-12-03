@@ -11,7 +11,7 @@ function Page() {
   const navigate = useNavigate();
 
   const handleLogin = async (data: { email: string; password: string }) => {
-    const result = await authClient.signIn.email(
+    await authClient.signIn.email(
       {
         email: data.email,
         password: data.password,
