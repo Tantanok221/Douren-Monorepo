@@ -1,4 +1,4 @@
-import { trpc } from "@/lib/trpc"
+import { trpc } from "@/lib/trpc";
 
 export function useFetchTagData() {
   // @ts-expect-error Type error from trpc useQuery Lib

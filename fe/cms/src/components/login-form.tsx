@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useForm } from "react-hook-form"
-import { useState } from "react"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 type LoginFormData = {
   email: string;
@@ -22,11 +22,12 @@ type LoginFormProps = {
   onSubmit?: (data: LoginFormData) => void | Promise<void>;
 };
 
-export function LoginForm({
-  className,
-  onSubmit,
-}: LoginFormProps) {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>();
+export function LoginForm({ className, onSubmit }: LoginFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmitHandler = async (data: LoginFormData) => {
@@ -67,12 +68,14 @@ export function LoginForm({
                     required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address"
-                    }
+                      message: "Invalid email address",
+                    },
                   })}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
+                  <p className="text-sm text-red-600 dark:text-red-400">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
               <div className="grid gap-2">
@@ -93,12 +96,14 @@ export function LoginForm({
                     required: "Password is required",
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters"
-                    }
+                      message: "Password must be at least 8 characters",
+                    },
                   })}
                 />
                 {errors.password && (
-                  <p className="text-sm text-red-600 dark:text-red-400">{errors.password.message}</p>
+                  <p className="text-sm text-red-600 dark:text-red-400">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
               <Button type="submit" className="w-full" disabled={isSubmitting}>
@@ -115,5 +120,5 @@ export function LoginForm({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

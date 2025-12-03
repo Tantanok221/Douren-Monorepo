@@ -7,7 +7,7 @@ import {
   FormStep,
   ENTITY_FORM_KEY,
 } from "../../components/index.ts";
-import { trpc } from "@/lib/trpc"
+import { trpc } from "@/lib/trpc";
 // import { AllProductForm } from "./-components/form/product";
 import { RefreshHelperProvider } from "@lib/ui";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";

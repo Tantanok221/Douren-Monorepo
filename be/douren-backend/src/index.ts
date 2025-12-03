@@ -27,12 +27,15 @@ export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
 const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
-app.use("*", cors({
-	origin: (origin) => origin || "*",
-	credentials: true,
-	allowHeaders: ["Content-Type", "Authorization"],
-	allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-}));
+app.use(
+	"*",
+	cors({
+		origin: (origin) => origin || "*",
+		credentials: true,
+		allowHeaders: ["Content-Type", "Authorization"],
+		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+	}),
+);
 app.use("*", async (c, next) => {
 	c.set("db", initDB(c.env.DATABASE_URL));
 	await next();

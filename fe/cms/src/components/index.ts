@@ -3,6 +3,8 @@
  */
 
 export * from "./ArtistEditButton";
+export * from "./login-form";
+export * from "./AuthContext/index";
 export * from "./DeleteButton/index";
 export * from "./EntityForm/index";
 export * from "./FormDataContext/index";

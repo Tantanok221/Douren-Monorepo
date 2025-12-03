@@ -1,10 +1,10 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { LoginForm } from "@/components/login-form.tsx";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext.ts";
 
-export const Route = createFileRoute('/login')({
-  component: () => <Page/>,
-})
+export const Route = createFileRoute("/login")({
+  component: () => <Page />,
+});
 
 function Page() {
   const authClient = useAuthContext();
@@ -29,7 +29,7 @@ function Page() {
           console.error("Login failed:", ctx.error);
           throw new Error(ctx.error.message || "Login failed");
         },
-      }
+      },
     );
   };
 
@@ -39,5 +39,5 @@ function Page() {
         <LoginForm onSubmit={handleLogin} />
       </div>
     </div>
-  )
+  );
 }
