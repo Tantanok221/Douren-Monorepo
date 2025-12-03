@@ -1,4 +1,5 @@
-import { trpc } from "../../helper";
+import { trpc } from "@/lib/trpc"
+
 import {
   ArtistCard,
   Pagination,

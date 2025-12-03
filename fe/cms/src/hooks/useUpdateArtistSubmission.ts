@@ -1,5 +1,5 @@
-import { trpc } from "../helper";
 import { ArrayTagHelper } from "@lib/ui";
+import { trpc } from "@/lib/trpc"
 import {
   ArtistFormSchema,
   ENTITY_FORM_KEY,

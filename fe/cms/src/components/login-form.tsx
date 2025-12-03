@@ -1,0 +1,119 @@
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
+type LoginFormProps = {
+  className?: string;
+  onSubmit?: (data: LoginFormData) => void | Promise<void>;
+};
+
+export function LoginForm({
+  className,
+  onSubmit,
+}: LoginFormProps) {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>();
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmitHandler = async (data: LoginFormData) => {
+    setError(null);
+    try {
+      if (onSubmit) {
+        await onSubmit(data);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    }
+  };
+  return (
+    <div className={cn("flex flex-col gap-6", className)}>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <div className="flex flex-col gap-6">
+              {error && (
+                <div className="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-400">
+                  {error}
+                </div>
+              )}
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  disabled={isSubmitting}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <a
+                    href="#"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </a>
+                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  disabled={isSubmitting}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters"
+                    }
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-sm text-red-600 dark:text-red-400">{errors.password.message}</p>
+                )}
+              </div>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Logging in..." : "Login"}
+              </Button>
+            </div>
+            <div className="mt-4 text-center text-sm">
+              Don&apos;t have an account?{""}
+              <a href="#" className="underline underline-offset-4">
+                Sign up
+              </a>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}

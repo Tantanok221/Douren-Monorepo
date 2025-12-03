@@ -57,6 +57,27 @@
       "when": 1762659773316,
       "tag": "0007_charming_obadiah_stane",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1764469921109,
+      "tag": "0008_optimal_lady_mastermind",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1764470487279,
+      "tag": "0009_large_mac_gargan",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1764471304141,
+      "tag": "0010_pink_tag",
+      "breakpoints": true
     }
   ]
 }

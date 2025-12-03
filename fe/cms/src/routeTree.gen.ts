@@ -10,104 +10,123 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as NewIndexImport } from "./routes/new/index";
-import { Route as EditArtistIdIndexImport } from "./routes/edit.$artistId/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
+import { Route as IndexImport } from './routes/index'
+import { Route as NewIndexImport } from './routes/new/index'
+import { Route as EditArtistIdIndexImport } from './routes/edit.$artistId/index'
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const IndexRoute = IndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const NewIndexRoute = NewIndexImport.update({
-  id: "/new/",
-  path: "/new/",
+  id: '/new/',
+  path: '/new/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const EditArtistIdIndexRoute = EditArtistIdIndexImport.update({
-  id: "/edit/$artistId/",
-  path: "/edit/$artistId/",
+  id: '/edit/$artistId/',
+  path: '/edit/$artistId/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/new/": {
-      id: "/new/";
-      path: "/new";
-      fullPath: "/new";
-      preLoaderRoute: typeof NewIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/edit/$artistId/": {
-      id: "/edit/$artistId/";
-      path: "/edit/$artistId";
-      fullPath: "/edit/$artistId";
-      preLoaderRoute: typeof EditArtistIdIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/new/': {
+      id: '/new/'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/edit/$artistId/': {
+      id: '/edit/$artistId/'
+      path: '/edit/$artistId'
+      fullPath: '/edit/$artistId'
+      preLoaderRoute: typeof EditArtistIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/new": typeof NewIndexRoute;
-  "/edit/$artistId": typeof EditArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/new": typeof NewIndexRoute;
-  "/edit/$artistId": typeof EditArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/new/": typeof NewIndexRoute;
-  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/new/': typeof NewIndexRoute
+  '/edit/$artistId/': typeof EditArtistIdIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/new" | "/edit/$artistId";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/new" | "/edit/$artistId";
-  id: "__root__" | "/" | "/new/" | "/edit/$artistId/";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/login' | '/new' | '/edit/$artistId'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/login' | '/new' | '/edit/$artistId'
+  id: '__root__' | '/' | '/login' | '/new/' | '/edit/$artistId/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  NewIndexRoute: typeof NewIndexRoute;
-  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
+  IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  NewIndexRoute: typeof NewIndexRoute
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
@@ -118,12 +137,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/login",
         "/new/",
         "/edit/$artistId/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/new/": {
       "filePath": "new/index.tsx"

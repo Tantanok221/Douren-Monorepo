@@ -18,7 +18,9 @@ export const authorMain = pgTable("author_main", {
   myacgLink: text("myacg_link"),
   storeLink: text("store_link"),
   email: text("email"),
-  officialLink: text("official_link")
+  officialLink: text("official_link"),
+  userId: text("user_id")
+    .references(() => user.id, { onDelete: "set null" }),
 });
 
 export const authorMainRelations = relations(authorMain, ({ many }) => ({
@@ -113,6 +115,15 @@ export const user = pgTable("user", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export const userRole = pgTable("user_role",{
+  id: text("id").primaryKey(),
+  name: text("name").notNull().default("user").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+})
+
 
 export const session = pgTable("session", {
   id: text("id").primaryKey(),

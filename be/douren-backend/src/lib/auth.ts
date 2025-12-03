@@ -16,6 +16,7 @@ export const auth = (env: ENV_BINDING): ReturnType<typeof betterAuth> => {
 		emailAndPassword: {
 			enabled: true,
 		},
+		trustedOrigins: [env.CMS_FRONTEND_URL],
 
 		// Additional options that depend on env ...
 	});

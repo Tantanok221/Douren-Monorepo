@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
+@source "**/*.{js,jsx,ts,tsx}";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-*: initial;
   --color-background: #111;
   --color-black: #000000;
   --color-day: #cbc3c3;
@@ -23,7 +24,6 @@
   --color-form-border: #494949;
   --color-highlight-form-border: #a3a0a0;
 
-  --font-*: initial;
   --font-sans: Noto Sans TC, sans-serif;
 
   --radius-lg: var(--radius);

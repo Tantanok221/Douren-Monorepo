@@ -1,8 +1,8 @@
 import { FormImageUploadRef, Forms } from "../Forms";
 import { SelectComponent } from "@lib/ui";
 import { forwardRef } from "react";
-import { trpc } from "../../helper";
 import { useFormContext } from "react-hook-form";
+import { trpc } from "@/lib/trpc"
 
 interface Props {
   label: React.ReactNode;

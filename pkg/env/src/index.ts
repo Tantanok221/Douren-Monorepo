@@ -4,6 +4,7 @@
 export interface ENV_BINDING {
   BETTER_AUTH_SECRET: string;
 	BETTER_AUTH_URL: string;
+  CMS_FRONTEND_URL: string;
 	CLOUDFLARE_ACCOUNT_ID: string;
 	CLOUDFLARE_API_KEY: string;
 	CLOUDFLARE_IMAGE_AUTH_TOKEN: string;

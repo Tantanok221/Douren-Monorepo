@@ -6,7 +6,9 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpLink, loggerLink } from "@trpc/client";
-import { trpc } from "./helper/trpc.ts";
+import { trpc } from "./lib/trpc.ts";
+import { AuthProvider } from "./components/AuthContext/AuthContext";
+import { authClient } from "./lib/auth";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -50,7 +52,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <trpc.Provider queryClient={queryClient} client={trpcClient}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <AuthProvider data={authClient}>
+            <RouterProvider router={router} />
+          </AuthProvider>
         </QueryClientProvider>
       </trpc.Provider>
     </StrictMode>,
