@@ -6,6 +6,7 @@ import { ownerInsertSchema, ownerSelectSchema } from "./owner.js";
 import { tagInsertSchema, tagSelectSchema } from "./tag.js";
 import { authorTagInsertSchema, authorTagSelectSchema } from "./authorTag.js";
 import { userInsertSchema, userSelectSchema } from "./user.js";
+import { userRoleInsertSchema, userRoleSelectSchema } from "./userRole.js";
 import { sessionInsertSchema, sessionSelectSchema } from "./session.js";
 import { accountInsertSchema, accountSelectSchema } from "./account.js";
 import { verificationInsertSchema, verificationSelectSchema } from "./verification.js";
@@ -42,6 +43,10 @@ export const zodSchema = {
           user: {
             InsertSchema: userInsertSchema,
             SelectSchema: userSelectSchema
+          },
+          userRole: {
+            InsertSchema: userRoleInsertSchema,
+            SelectSchema: userRoleSelectSchema
           },
           session: {
             InsertSchema: sessionInsertSchema,
@@ -90,6 +95,10 @@ export type zodSchemaType = {
           user: {
             InsertSchema: userInsertSchema,
             SelectSchema: userSelectSchema
+          },
+          userRole: {
+            InsertSchema: userRoleInsertSchema,
+            SelectSchema: userRoleSelectSchema
           },
           session: {
             InsertSchema: sessionInsertSchema,
