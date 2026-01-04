@@ -1,7 +1,8 @@
 {
   "extends": "@pkg/typescript-config/be.json",
   "include": [
-    "src"
+    "src",
+    "worker-configuration.d.ts"
   ],
   "main": "dist/index.js",
   "compilerOptions": {
@@ -14,8 +15,7 @@
       "@/*": ["src/*"]
     },
     "strictPropertyInitialization": false,
-    "baseUrl": ".",
-    "types": ["worker-configuration.d.ts"]
+    "baseUrl": "."
   },
   "exclude": [
     "dist",

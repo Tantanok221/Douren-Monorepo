@@ -5,7 +5,7 @@ import { betterAuth } from "better-auth";
 import * as schema from "@pkg/database/db";
 import { ENV_BINDING } from "@pkg/env/constant"; // Ensure the schema is imported
 
-export const auth = (env: ENV_BINDING): ReturnType<typeof betterAuth> => {
+export const auth = (env: ENV_BINDING) => {
 	const sql = neon(env.DATABASE_URL);
 	const db = drizzle(sql);
 
@@ -17,7 +17,8 @@ export const auth = (env: ENV_BINDING): ReturnType<typeof betterAuth> => {
 			enabled: true,
 		},
 		trustedOrigins: [env.CMS_FRONTEND_URL],
-
-		// Additional options that depend on env ...
 	});
 };
+
+export type Auth = ReturnType<typeof auth>;
+export type AuthSession = Auth["$Infer"]["Session"]["session"];
