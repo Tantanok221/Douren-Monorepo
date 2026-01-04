@@ -10,4 +10,3 @@ export const trpcAdminRoute = router({
 		return await ArtistDao.FetchByUserId(userId);
 	}),
 });
-

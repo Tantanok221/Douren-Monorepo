@@ -118,7 +118,7 @@ app
 	.route("/artist", ArtistRoute)
 	.route("/tag", TagRoute)
 	.route("/owner", OwnerRoute)
-	.route("/image", imageRoute)
+	.route("/image", imageRoute);
 export { app };
 export default {
 	/** this part manages cronjobs */
