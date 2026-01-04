@@ -100,6 +100,14 @@ class ArtistDao implements BaseDao {
 			.where(eq(s.authorMain.uuid, Number(artistId)))
 			.returning();
 	}
+
+	async FetchByUserId(userId: string) {
+		const data = await this.db
+			.select()
+			.from(s.authorMain)
+			.where(eq(s.authorMain.userId, userId));
+		return data;
+	}
 }
 
 export function NewArtistDao(db: ReturnType<typeof initDB>): ArtistDao {

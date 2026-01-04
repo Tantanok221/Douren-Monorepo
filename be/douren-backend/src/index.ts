@@ -5,7 +5,7 @@ import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
 import EventRoute, { trpcEventRoute } from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
-import AdminRoute, { trpcAdminRoute } from "./routes/admin";
+import { trpcAdminRoute } from "./routes/admin";
 import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { ENV_BINDING } from "@pkg/env/constant";
@@ -119,7 +119,6 @@ app
 	.route("/tag", TagRoute)
 	.route("/owner", OwnerRoute)
 	.route("/image", imageRoute)
-	.route("/admin", AdminRoute);
 export { app };
 export default {
 	/** this part manages cronjobs */
