@@ -2,7 +2,6 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { ENV_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
 import { Context } from "hono";
-import { verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
 
 type HonoContext = {
 	env: ENV_BINDING;
@@ -14,21 +13,21 @@ const t = initTRPC.context<HonoContext>().create();
 export const router = t.router;
 export const publicProcedure = t.procedure;
 
-export const adminProcedure = t.procedure.use(async (opts) => {
-	const verified = verifyAdminUser(opts.ctx.honoContext);
-	if (!verified) {
-		throw new TRPCError({ code: "UNAUTHORIZED" });
+type AuthContext = HonoContext & { user: NonNullable<HonoContext["user"]> , session: NonNullable<HonoContext["session"]> };
+export const authProcedure: ReturnType<typeof t.procedure.use<AuthContext>> = t.procedure.use(async (opts) => {
+	const user = opts.ctx.user;
+  const session = opts.ctx.session;
+	if (!user || !session) {
+		throw new TRPCError({
+			code: "UNAUTHORIZED",
+			message: "You must be logged in to access this resource",
+		});
 	}
-	return opts.next();
-});
-
-export const imageProcedure = t.procedure.use(async (opts) => {
-	const verified = verifyImageUser(opts.ctx.honoContext);
-	if (!verified) {
-		throw new TRPCError({ code: "UNAUTHORIZED" });
-	}
-	return opts.next();
-});
-
-// Keep the old authProcedure for backward compatibility during transition
-export const authProcedure = adminProcedure;
+	return opts.next({
+		ctx: {
+			...opts.ctx,
+      session,
+      user
+		},
+	});
+})

@@ -5,6 +5,7 @@ import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
 import EventRoute, { trpcEventRoute } from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
+import AdminRoute, { trpcAdminRoute } from "./routes/admin";
 import { router } from "./trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { ENV_BINDING } from "@pkg/env/constant";
@@ -13,13 +14,12 @@ import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
-import { verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
-import { auth } from "@/lib/auth";
+import { auth, type Auth, AuthSession } from "@/lib/auth";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
-	user: typeof auth.$Infer.Session.user | null;
-	session: typeof auth.$Infer.Session.session | null;
+	user: Auth["$Infer"]["Session"]["user"] | null;
+	session: AuthSession | null;
 };
 
 export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
@@ -65,46 +65,36 @@ app.use("*", async (c, next) => {
 // 		cacheControl: "max-age=3600",
 // 	}),
 // );
-// Admin authentication middleware
-const adminAuthMiddleware = async (
+/**
+ * Session-based authentication middleware for REST routes
+ * Requires a valid better-auth session
+ */
+const sessionAuthMiddleware = async (
 	c: Context<HonoEnv>,
 	next: () => Promise<void>,
 ) => {
-	const verified = verifyAdminUser(c);
-	if (!verified)
+	const user = c.get("user");
+	if (!user) {
 		return c.json(
-			{ message: "You are not authorized to perform this actions" },
+			{ message: "You must be logged in to access this resource" },
 			401,
 		);
+	}
 	await next();
 };
 
-// Image authentication middleware
-const imageAuthMiddleware = async (
-	c: Context<HonoEnv>,
-	next: () => Promise<void>,
-) => {
-	const verified = verifyImageUser(c);
-	if (!verified)
-		return c.json(
-			{ message: "You are not authorized to perform this actions" },
-			401,
-		);
-	await next();
-};
-
-// Apply admin middleware to admin routes
-app.on(["POST", "PUT", "DELETE"], "/artist/*", adminAuthMiddleware);
-app.on(["POST", "PUT", "DELETE"], "/event/*", adminAuthMiddleware);
-app.on(["POST", "PUT", "DELETE"], "/tag/*", adminAuthMiddleware);
-
-// Apply image middleware to image routes
-app.on(["POST"], "/image/*", imageAuthMiddleware);
+// Apply session-based auth to all protected routes
+app.on(["POST", "PUT", "DELETE"], "/artist/*", sessionAuthMiddleware);
+app.on(["POST", "PUT", "DELETE"], "/event/*", sessionAuthMiddleware);
+app.on(["POST", "PUT", "DELETE"], "/tag/*", sessionAuthMiddleware);
+app.on(["POST", "PUT", "DELETE"], "/admin/*", sessionAuthMiddleware);
+app.on(["POST"], "/image/*", sessionAuthMiddleware);
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
 	tag: trpcTagRoute,
 	owner: trpcOwnerRoute,
+	admin: trpcAdminRoute,
 });
 
 export type AppRouter = typeof appRouter;
@@ -117,6 +107,8 @@ app.use(
 			return {
 				db: initDB(c.env.DATABASE_URL),
 				honoContext: c,
+				user: c.get("user"),
+				session: c.get("session"),
 			};
 		},
 	}),
@@ -126,7 +118,8 @@ app
 	.route("/artist", ArtistRoute)
 	.route("/tag", TagRoute)
 	.route("/owner", OwnerRoute)
-	.route("/image", imageRoute);
+	.route("/image", imageRoute)
+	.route("/admin", AdminRoute);
 export { app };
 export default {
 	/** this part manages cronjobs */
