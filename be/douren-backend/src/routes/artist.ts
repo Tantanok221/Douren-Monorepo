@@ -7,7 +7,7 @@ import {
 	GetArtistByIdSchema,
 	UpdateArtistSchema,
 } from "@/schema/artist.zod";
-import { authProcedure, publicProcedure, router } from "@/trpc";
+import { authProcedure, publicProcedure, router } from "@/lib/trpc";
 import { artistInputParams } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
