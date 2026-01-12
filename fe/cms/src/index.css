@@ -49,26 +49,28 @@
   }
 }
 @layer utilities {
+  /* Legacy CSS variables for backward compatibility */
   :root {
-    --Background: #111;
-    --Day: #cbc3c3;
-    --Link: #cbc3c3;
-    --LinkPanel: #3c3c3c;
-    --NumberTag: #838181;
-    --NumberTagBackground: #3c3c3c;
-    --Panel: #1f1f21;
-    --TagBackground: #464646;
-    --TagText: #aaaaaa;
-    --White: #ffffff;
-    --Font: Noto Sans TC;
-    --OnHover: #4d4d4d;
-    --Sidebar-BG: #1d1d1d;
-    --Sidebar-Active: #292929;
-    --Stroke: #3c3c3c;
+    --Background: var(--color-background);
+    --Black: var(--color-black);
+    --Day: var(--color-day);
+    --Link: var(--color-link);
+    --LinkPanel: var(--color-link-panel);
+    --NumberTag: var(--color-number-tag);
+    --NumberTagBackground: var(--color-number-tag-background);
+    --Panel: var(--color-panel);
+    --TagBackground: var(--color-tag-background);
+    --TagText: var(--color-tag-text);
+    --White: var(--color-white);
+    --OnHover: var(--color-on-hover);
+    --Sidebar-BG: var(--color-sidebar-bg);
+    --Sidebar-Active: var(--color-sidebar-active);
+    --Stroke: var(--color-stroke);
+    --Font: var(--font-sans);
   }
 
   body {
-    background-color: var(--Background);
+    background-color: var(--color-background);
     font-size: 16px;
   }
   html {

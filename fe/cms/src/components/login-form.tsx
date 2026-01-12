@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 type LoginFormData = {
   email: string;
@@ -111,10 +112,10 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{""}
-              <a href="#" className="underline underline-offset-4">
+              Don&apos;t have an account?{" "}
+              <Link to="/register" className="underline underline-offset-4">
                 Sign up
-              </a>
+              </Link>
             </div>
           </form>
         </CardContent>
