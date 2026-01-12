@@ -1,13 +1,12 @@
-import { StrictMode } from "react";
+import { ReactNode, StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import "./index.css";
-// Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpLink, loggerLink } from "@trpc/client";
 import { trpc } from "./lib/trpc.ts";
-import { AuthProvider } from "./components/AuthContext/AuthContext";
+import { AuthProvider } from "@/components";
 import { authClient } from "./lib/auth";
 
 // Create a new router instance
@@ -44,19 +43,27 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const Provider = ({ children }: { children: ReactNode }) => {
+  return (
+    <>
+      <trpc.Provider queryClient={queryClient} client={trpcClient}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider data={authClient}>{children}</AuthProvider>
+        </QueryClientProvider>
+      </trpc.Provider>
+    </>
+  );
+};
+
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <trpc.Provider queryClient={queryClient} client={trpcClient}>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider data={authClient}>
-            <RouterProvider router={router} />
-          </AuthProvider>
-        </QueryClientProvider>
-      </trpc.Provider>
+      <Provider>
+        <RouterProvider router={router} />
+      </Provider>
     </StrictMode>,
   );
 }
