@@ -12,7 +12,6 @@
     "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
   },
   "dependencies": {
-    "@daveyplate/better-auth-ui": "^3.3.12",
     "@lib/ui": "*",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-dialog": "^1.1.2",
