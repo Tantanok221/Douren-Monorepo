@@ -18,7 +18,7 @@ function Page() {
         name: data.email,
       },
       {
-        onSuccess: async (ctx) => {
+        onSuccess: async (_ctx) => {
           await authClient.signIn.email(
             {
               email: data.email,
@@ -26,10 +26,10 @@ function Page() {
               callbackURL: "/",
             },
             {
-              onSuccess: (loginCtx) => {
+              onSuccess: (_loginCtx) => {
                 navigate({ to: "/" });
               },
-              onError: (loginCtx) => {
+              onError: (_loginCtx) => {
                 navigate({ to: "/login" });
               },
             },

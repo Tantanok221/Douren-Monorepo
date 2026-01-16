@@ -3,7 +3,7 @@ import { Navbar } from "./-components/Navbar.tsx";
 import { Toaster } from "@/components/ui/sonner";
 import type { AuthClient } from "@/lib/auth";
 
-interface RouterContext {
+export interface RouterContext {
   authClient: AuthClient;
 }
 

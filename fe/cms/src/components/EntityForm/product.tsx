@@ -43,7 +43,7 @@ const ProductForm = ({ index }: formProps) => {
   const [, setProductHook] = useProductFormContext();
 
   const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = async (
-    data,
+    _data,
   ) => {
     // Form submission logic handled by parent component
   };
