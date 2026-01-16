@@ -6,6 +6,7 @@ import {
 } from "@lib/ui";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 import { useFetchTagData } from "@/hooks";
+import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,6 +22,17 @@ const sortItem = [
 
 function Index() {
   const tag = useFetchTagData();
+  const authClient = useAuthContext();
+  const { data: session } = authClient.useSession();
+
+  if (!session) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-64 text-center">
+        <p className="text-xl text-gray-600">你還沒登入</p>
+      </div>
+    );
+  }
+
   return (
     <div className={"flex flex-col w-full gap-8"}>
       <DataOperationProvider tag={tag}>

@@ -21,7 +21,9 @@ export const Navbar = () => {
     <NavMenu>
       <NavMenu.List>
         <NavMenu.ItemWithLink path={"/"}>首頁</NavMenu.ItemWithLink>
-        <NavMenu.ItemWithLink path={"/new"}>新增</NavMenu.ItemWithLink>
+        {session && (
+          <NavMenu.ItemWithLink path={"/new"}>新增</NavMenu.ItemWithLink>
+        )}
         {session ? (
           <NavMenu.Item>
             <button
