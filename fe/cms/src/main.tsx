@@ -10,7 +10,12 @@ import { AuthProvider } from "@/components";
 import { authClient } from "./lib/auth";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    authClient,
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,14 +28,8 @@ const trpcClient = trpc.createClient({
   links: [
     httpLink({
       url: import.meta.env.VITE_BACKEND_URL,
-      headers: () => {
-        const token = import.meta.env.VITE_ADMIN_AUTH_TOKEN;
-        return token
-          ? {
-              Authorization: `Bearer ${token}`,
-            }
-          : {};
-      },
+      fetch: (url, options) =>
+        fetch(url, { ...options, credentials: "include" }),
     }),
     loggerLink(),
   ],
@@ -40,6 +39,9 @@ const trpcClient = trpc.createClient({
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
+  }
+  interface RouterContext {
+    authClient: typeof authClient;
   }
 }
 

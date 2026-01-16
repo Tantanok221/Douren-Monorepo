@@ -1,6 +1,12 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "./-components/Navbar.tsx";
 import { Toaster } from "@/components/ui/sonner";
+import type { AuthClient } from "@/lib/auth";
+
+interface RouterContext {
+  authClient: AuthClient;
+}
+
 const Root = () => {
   return (
     <>
