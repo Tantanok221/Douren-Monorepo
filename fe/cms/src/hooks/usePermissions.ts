@@ -29,3 +29,13 @@ export function useCanEditArtist(artistId: number): boolean {
 
   return myArtists?.some((a) => a.uuid === artistId) || false;
 }
+
+/**
+ * Hook to check if the current user can delete a specific artist
+ * Uses the same logic as useCanEditArtist since delete permissions match edit permissions
+ * @param artistId - The ID of the artist to check
+ * @returns boolean - true if user can delete, false otherwise
+ */
+export function useCanDeleteArtist(artistId: number): boolean {
+  return useCanEditArtist(artistId);
+}

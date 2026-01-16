@@ -10,7 +10,7 @@ import {
 } from "@lib/ui";
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { ArtistEditButton } from "@/components";
+import { ArtistDeleteButton, ArtistEditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";
 import { useUserRole } from "@/hooks/usePermissions";
 
@@ -61,6 +61,7 @@ export const ArtistContainer = () => {
                 </div>
                 <ArtistCard.LinkContainerWrapper size="s">
                   <ArtistEditButton />
+                  <ArtistDeleteButton />
                 </ArtistCard.LinkContainerWrapper>
               </ArtistCard.RightContainer>
             </ArtistCard>
