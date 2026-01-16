@@ -20,7 +20,6 @@ const sortItem = [
 ];
 
 function Index() {
-  console.log("Hello From Index");
   const tag = useFetchTagData();
   return (
     <div className={"flex flex-col w-full gap-8"}>

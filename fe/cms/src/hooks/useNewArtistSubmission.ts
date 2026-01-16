@@ -9,13 +9,11 @@ import {
 } from "../components";
 
 export const useNewArtistSubmission = () => {
-  console.log("useNewArtistSubmission");
   const createArtist = trpc.artist.createArtist.useMutation();
   const createEventArtist = trpc.eventArtist.createEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
 
   return async () => {
-    console.log("trigger submit");
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
     const TagHelper = new ArrayTagHelper(artistStep.tags);
