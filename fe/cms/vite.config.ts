@@ -4,7 +4,6 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     tailwindcss(),
@@ -16,6 +15,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"),
     },
+  },
+  optimizeDeps: {
+    include: [
+      '@lib/ui',
+      '@phosphor-icons/react',
+    ],
   },
   server: {
     port: 5174
