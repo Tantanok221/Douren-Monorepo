@@ -42,7 +42,7 @@ export const useUpdateArtistSubmission = () => {
         },
       });
     } catch (error: unknown) {
-      if (error && typeof error === 'object' && 'data' in error) {
+      if (error && typeof error === "object" && "data" in error) {
         const errorData = error as { data?: { code?: string } };
         if (errorData?.data?.code === "FORBIDDEN") {
           toast.error("You don't have permission to edit this artist");
