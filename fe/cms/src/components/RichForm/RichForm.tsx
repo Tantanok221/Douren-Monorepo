@@ -1,6 +1,6 @@
 import { FormImageUploadRef, Forms } from "../Forms";
 import { SelectComponent } from "@lib/ui";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { trpc } from "@/lib/trpc";
 
@@ -60,6 +60,14 @@ export const EventField = ({ label, formField }: EventFieldProps) => {
   const { setValue, watch } = useFormContext();
   const { data } = trpc.eventArtist.getAllEvent.useQuery();
   const currentValue = watch(formField);
+
+  // Auto-select first event when data loads and no value is set
+  useEffect(() => {
+    if (data && data.length > 0 && !currentValue) {
+      setValue(formField, data[0].id);
+    }
+  }, [data, currentValue, setValue, formField]);
+
   const onEventFieldChange = (value: string) => {
     setValue(formField, Number(value));
   };
