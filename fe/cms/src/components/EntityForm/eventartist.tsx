@@ -21,7 +21,15 @@ interface EventArtistFormProps {
 export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
-    defaultValues,
+    defaultValues: defaultValues ?? {
+      eventId: 0, // Will be auto-selected by EventField
+      artistId: 0, // Placeholder, will be set during submission
+      boothName: "",
+      dm: "",
+      locationDay01: "",
+      locationDay02: "",
+      locationDay03: "",
+    },
   });
   const uploadImageRef = useUploadImageRef();
   const setData = useFormDataContext((state) => state.setData);
