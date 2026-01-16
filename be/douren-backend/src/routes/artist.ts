@@ -37,7 +37,6 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 
-			// Auto-assign artist to current user
 			const artistData = {
 				...opts.input,
 				userId: opts.ctx.user.id,
@@ -50,7 +49,6 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 
-			// Check authorization
 			const authorized = await canEditArtist(
 				opts.ctx.db,
 				opts.ctx.user.id,
@@ -71,7 +69,6 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 
-			// Check authorization
 			const authorized = await canDeleteArtist(
 				opts.ctx.db,
 				opts.ctx.user.id,

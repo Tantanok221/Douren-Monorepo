@@ -24,10 +24,7 @@ export async function getUserRole(
 /**
  * Checks if a user has admin role
  */
-export async function isAdmin(
-	db: DrizzleDB,
-	userId: string,
-): Promise<boolean> {
+export async function isAdmin(db: DrizzleDB, userId: string): Promise<boolean> {
 	const role = await getUserRole(db, userId);
 	return role === "admin";
 }
@@ -52,18 +49,13 @@ export async function canEditArtist(
 		.where(eq(s.authorMain.uuid, artistId))
 		.limit(1);
 
-	// Wait for both queries to complete
 	const [role, artistResult] = await Promise.all([rolePromise, artistPromise]);
 
-	// Admins can edit all artists
 	if (role === "admin") return true;
 
-	// Check if artist exists
 	const [artist] = artistResult;
 	if (!artist) return false;
 
-	// Allow if artist belongs to user
-	// Deny if artist.userId is null (legacy artists - admin only)
 	return artist.userId === userId;
 }
 

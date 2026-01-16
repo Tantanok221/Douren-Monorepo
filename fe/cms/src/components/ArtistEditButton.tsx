@@ -10,7 +10,6 @@ export const ArtistEditButton = () => {
   const { data: session } = authClient.useSession();
   const canEdit = useCanEditArtist(eventData.uuid);
 
-  // Hide button if not authenticated or unauthorized
   if (!session || !canEdit) return null;
 
   return (

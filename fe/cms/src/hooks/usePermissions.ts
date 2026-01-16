@@ -22,12 +22,10 @@ export function useUserRole() {
 export function useCanEditArtist(artistId: number): boolean {
   const { data: roleData } = useUserRole();
   const { data: myArtists } = trpc.admin.getMyArtists.useQuery(undefined, {
-    enabled: !!roleData && !roleData.isAdmin, // Skip if admin or no role data
+    enabled: !!roleData && !roleData.isAdmin,
   });
 
-  // Admin users can edit all artists
   if (roleData?.isAdmin) return true;
 
-  // Regular users can only edit their own artists
   return myArtists?.some((a) => a.uuid === artistId) || false;
 }

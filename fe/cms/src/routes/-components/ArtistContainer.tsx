@@ -22,7 +22,6 @@ export const ArtistContainer = () => {
   const [page, setPage] = usePaginationContext();
   const { data: roleData } = useUserRole();
 
-  // Query params object
   const queryParams = {
     search: search,
     searchTable: "",
@@ -31,7 +30,6 @@ export const ArtistContainer = () => {
     tag: allTag,
   };
 
-  // Conditionally fetch based on role
   const adminRes = trpc.artist.getArtist.useQuery(queryParams, {
     enabled: roleData?.isAdmin === true,
   });
@@ -40,7 +38,6 @@ export const ArtistContainer = () => {
     enabled: roleData?.isAdmin === false,
   });
 
-  // Use the appropriate result based on role
   const res = roleData?.isAdmin ? adminRes : userRes;
   const pagination = usePagination({
     total: res?.data?.totalPage ?? 20,

@@ -29,13 +29,11 @@ export const useUpdateArtistSubmission = () => {
     };
 
     try {
-      // Update artist with correct mutation format
       const [artistData] = await updateArtist.mutateAsync({
         id,
         data: artistDataWithTags,
       });
 
-      // Update event artist with correct mutation format
       await updateEventArtist.mutateAsync({
         id,
         data: {
@@ -44,13 +42,11 @@ export const useUpdateArtistSubmission = () => {
         },
       });
     } catch (error: any) {
-      // Handle authorization errors
       if (error?.data?.code === "FORBIDDEN") {
         toast.error("You don't have permission to edit this artist");
         navigate({ to: "/" });
         return;
       }
-      // Re-throw other errors
       throw error;
     }
   };
