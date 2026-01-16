@@ -17,6 +17,10 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/components"),
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react/jsx-runtime'],
+    exclude: [],
+  },
   server: {
     port: 5174
   }
