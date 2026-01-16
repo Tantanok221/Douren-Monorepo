@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { SearchContext } from "./SearchContextValue.tsx";
+import React, { createContext, useState } from "react";
+import { ReactUseState } from "@pkg/type";
 
 interface Props {
   children: React.ReactNode;
   defaultValue: string;
 }
+
+export const SearchContext = createContext<null | ReactUseState<string>>(null);
 
 export const SearchContextProvider = ({ children, defaultValue }: Props) => {
   const [sortSelectState, setSortSelectState] = useState(defaultValue);

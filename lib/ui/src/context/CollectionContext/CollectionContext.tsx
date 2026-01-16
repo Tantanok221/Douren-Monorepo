@@ -1,4 +1,4 @@
-import { CollectionContext } from "./CollectionContextValue.tsx";
+import { createContext } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useImmerReducer } from "use-immer";
 import { eventArtistBaseSchemaType } from "@pkg/type";
@@ -12,6 +12,8 @@ interface contextProps {
   collection: eventArtistBaseSchemaType[] | null;
   dispatch: React.Dispatch<ActionType>;
 }
+
+export const CollectionContext = createContext<null | contextProps>(null);
 
 type Props = {
   children: React.ReactNode;

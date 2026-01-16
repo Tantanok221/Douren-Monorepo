@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { SearchColumnContext } from "./SearchColumnContextValue.tsx";
+import React, { createContext, useState } from "react";
+import { ReactUseState } from "@pkg/type";
 
 interface Props {
   children: React.ReactNode;
   defaultValue: string;
 }
+
+export const SearchColumnContext = createContext<null | ReactUseState<string>>(
+  null,
+);
 
 export const SearchColumnContextProvider = ({
   defaultValue,
