@@ -23,6 +23,9 @@ type RegisterFormProps = {
   onSubmit?: (data: RegisterFormData) => void | Promise<void>;
 };
 
+// Hoist RegExp outside component to avoid recreation on every render (Vercel Rule 7.9)
+const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
 export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
   const {
     register,
@@ -68,7 +71,7 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      value: EMAIL_REGEX,
                       message: "Invalid email address",
                     },
                   })}
