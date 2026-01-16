@@ -69,7 +69,7 @@ export const ArtistDeleteButton = () => {
   return (
     <button
       onClick={handleDelete}
-      className="rounded px-6 py-2 text-tag-text bg-tag-background flex flex-row gap-4 font-bold hover:bg-red-100"
+      className="rounded px-6 py-2 text-tag-text bg-tag-background flex flex-row gap-4 font-bold hover:bg-on-hover"
     >
       <Trash /> Delete
     </button>
