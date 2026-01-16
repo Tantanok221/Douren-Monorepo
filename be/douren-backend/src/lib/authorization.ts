@@ -1,8 +1,16 @@
 import { eq } from "drizzle-orm";
 import { s } from "@pkg/database/db";
 import type { HonoVariables } from "@/index";
+import { LRUCache } from "lru-cache";
 
 type DrizzleDB = HonoVariables["db"];
+
+// LRU cache for user roles (Vercel Rule 3.1)
+// Cache persists across requests in Cloudflare Workers' Fluid Compute
+const roleCache = new LRUCache<string, string>({
+	max: 1000,
+	ttl: 5 * 60 * 1000, // 5 minutes
+});
 
 /**
  * Fetches the role name for a given user
@@ -12,13 +20,18 @@ export async function getUserRole(
 	db: DrizzleDB,
 	userId: string,
 ): Promise<string> {
+	const cached = roleCache.get(userId);
+	if (cached) return cached;
+
 	const [role] = await db
 		.select({ name: s.userRole.name })
 		.from(s.userRole)
 		.where(eq(s.userRole.userId, userId))
 		.limit(1);
 
-	return role?.name || "user";
+	const result = role?.name || "user";
+	roleCache.set(userId, result);
+	return result;
 }
 
 /**
@@ -69,4 +82,20 @@ export async function canDeleteArtist(
 	artistId: number,
 ): Promise<boolean> {
 	return canEditArtist(db, userId, artistId);
+}
+
+/**
+ * Clears the role cache for a specific user
+ * Call this when user roles are updated
+ */
+export function clearUserRoleCache(userId: string): void {
+	roleCache.delete(userId);
+}
+
+/**
+ * Clears the entire role cache
+ * Call this for bulk role updates or maintenance
+ */
+export function clearAllRoleCaches(): void {
+	roleCache.clear();
 }
