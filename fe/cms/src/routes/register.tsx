@@ -11,21 +11,14 @@ function Page() {
   const navigate = useNavigate();
 
   const handleRegister = async (data: { email: string; password: string }) => {
-    // First, register the user
     await authClient.signUp.email(
       {
         email: data.email,
         password: data.password,
-        name: data.email, // Use email as name by default
+        name: data.email,
       },
       {
-        onRequest: () => {
-          console.log("Registration request started...");
-        },
         onSuccess: async (ctx) => {
-          console.log("Registration successful:", ctx.data);
-
-          // Auto-login after successful registration
           await authClient.signIn.email(
             {
               email: data.email,
@@ -33,23 +26,16 @@ function Page() {
               callbackURL: "/",
             },
             {
-              onRequest: () => {
-                console.log("Auto-login started...");
-              },
               onSuccess: (loginCtx) => {
-                console.log("Auto-login successful:", loginCtx.data);
                 navigate({ to: "/" });
               },
               onError: (loginCtx) => {
-                console.error("Auto-login failed:", loginCtx.error);
-                // If auto-login fails, redirect to login page
                 navigate({ to: "/login" });
               },
             },
           );
         },
         onError: (ctx) => {
-          console.error("Registration failed:", ctx.error);
           throw new Error(ctx.error.message || "Registration failed");
         },
       },
