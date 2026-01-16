@@ -103,7 +103,6 @@ app.use(
 	trpcServer({
 		router: appRouter,
 		createContext: (_opts, c) => {
-			console.log("init context");
 			return {
 				db: initDB(c.env.DATABASE_URL),
 				honoContext: c,
@@ -126,7 +125,6 @@ export default {
 		const delayedProcessing = async () => {
 			const db = initDB(env.DATABASE_URL);
 			await syncAuthorTag(db);
-			console.log("CRONJOB EXECUTED");
 		};
 		ctx.waitUntil(delayedProcessing());
 	},
