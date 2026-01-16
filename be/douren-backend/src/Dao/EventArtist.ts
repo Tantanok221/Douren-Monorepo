@@ -49,11 +49,11 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
-	async FetchById(eventArtistId: string) {
+	async FetchById(artistId: string) {
 		const [data] = await this.db
 			.select()
 			.from(s.eventDm)
-			.where(eq(s.eventDm.uuid, Number(eventArtistId)));
+			.where(eq(s.eventDm.artistId, Number(artistId)));
 		return data;
 	}
 
