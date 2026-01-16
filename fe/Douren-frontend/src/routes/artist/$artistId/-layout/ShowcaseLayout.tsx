@@ -1,8 +1,8 @@
-import { DMButton, LazyImage, LinkContainer, TagContainer } from "@lib/ui";
+import { DMButton, LazyImage, LinkContainer, TagContainer, processArtistData } from "@lib/ui";
 import React from "react";
 import classNames from "classnames/bind";
 import ArtistStyle from "@lib/ui/src/components/ArtistCard/style.module.css";
-import { processArtistData, useProcessTagData } from "@/helper";
+import { useProcessTagData } from "@/helper";
 import { ArtistPageTypes } from "@/types";
 import style from "@/routes/artist/$artistId/ArtistPage.module.css";
 import useArtistLoader from "@/hooks/useArtistLoader.ts";

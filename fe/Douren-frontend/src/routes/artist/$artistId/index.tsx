@@ -8,7 +8,7 @@ import { Animate } from "@/components/Animate/Animate.tsx";
 import { ShowcaseLayout } from "@/routes/artist/$artistId/-layout/ShowcaseLayout.tsx";
 import useArtistLoader from "@/hooks/useArtistLoader.ts";
 import { useFetchTagData } from "@/hooks";
-import { processArtistData, useProcessTagData } from "@/helper";
+import { useProcessTagData } from "@/helper";
 import { ProductLayout } from "@/routes/artist/$artistId/-layout/ProductLayout.tsx";
 import { ArtistPageProvider } from "@/routes/artist/$artistId/-context/ArtistPageContext/ArtistPageContext.tsx";
 
