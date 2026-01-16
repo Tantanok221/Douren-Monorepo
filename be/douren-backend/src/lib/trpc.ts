@@ -2,6 +2,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { ENV_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
 import { Context } from "hono";
+import { isAdmin } from "@/lib/authorization";
 
 type HonoContext = {
 	env: ENV_BINDING;
@@ -36,3 +37,27 @@ export const authProcedure: ReturnType<typeof t.procedure.use<AuthContext>> =
 			},
 		});
 	});
+
+type AdminContext = AuthContext & {
+	isAdmin: boolean;
+};
+
+export const adminProcedure: ReturnType<
+	typeof authProcedure.use<AdminContext>
+> = authProcedure.use(async (opts) => {
+	const userIsAdmin = await isAdmin(opts.ctx.db, opts.ctx.user.id);
+
+	if (!userIsAdmin) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: "Admin access required",
+		});
+	}
+
+	return opts.next({
+		ctx: {
+			...opts.ctx,
+			isAdmin: true as const,
+		},
+	});
+});
