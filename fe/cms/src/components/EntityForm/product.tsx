@@ -45,7 +45,7 @@ const ProductForm = ({ index }: formProps) => {
   const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = async (
     data,
   ) => {
-    console.log(data);
+    // Form submission logic handled by parent component
   };
   useEffect(() => {
     setProductHook((state) => [
@@ -117,8 +117,6 @@ const ProductFormSubmit = () => {
       item.thumbnail = thumbnailUrl;
       item.preview = previewUrl;
     });
-    console.log("Resolved promises:", resolvedPromises);
-    console.log(validData);
     setProductStep(ENTITY_FORM_KEY.product, validData);
     bumpStep();
   };
