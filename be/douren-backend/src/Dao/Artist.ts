@@ -108,6 +108,30 @@ class ArtistDao implements BaseDao {
 			.where(eq(s.authorMain.userId, userId));
 		return data;
 	}
+
+	async FetchByUserIdWithPagination(userId: string, params: ArtistFetchParams) {
+		const QueryBuilder = NewArtistQueryBuilder(params, this.db);
+		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
+
+		// Add userId filter to both queries
+		SelectQuery.query = SelectQuery.query.where(
+			eq(s.authorMain.userId, userId),
+		);
+		CountQuery.query = CountQuery.query.where(eq(s.authorMain.userId, userId));
+
+		const [data, [counts]] = await Promise.all([
+			SelectQuery.query,
+			CountQuery.query,
+		]);
+
+		const returnObj = createPaginationObject(
+			data,
+			Number(params.page),
+			PAGE_SIZE,
+			counts.totalCount,
+		) as object;
+		return returnObj as artistSchemaType;
+	}
 }
 
 export function NewArtistDao(db: ReturnType<typeof initDB>): ArtistDao {
