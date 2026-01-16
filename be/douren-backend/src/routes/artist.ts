@@ -12,6 +12,8 @@ import { artistInputParams } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
 import { HonoEnv } from "@/index";
+import { canEditArtist, canDeleteArtist } from "@/lib/authorization";
+import { TRPCError } from "@trpc/server";
 
 export const trpcArtistRoute = router({
 	getArtist: publicProcedure.input(artistInputParams).query(async (opts) => {
@@ -34,18 +36,55 @@ export const trpcArtistRoute = router({
 		.input(CreateArtistSchema)
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
-			return await ArtistDao.Create(opts.input);
+
+			// Auto-assign artist to current user
+			const artistData = {
+				...opts.input,
+				userId: opts.ctx.user.id,
+			};
+
+			return await ArtistDao.Create(artistData);
 		}),
 	updateArtist: authProcedure
 		.input(UpdateArtistSchema)
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
+
+			// Check authorization
+			const authorized = await canEditArtist(
+				opts.ctx.db,
+				opts.ctx.user.id,
+				Number(opts.input.id),
+			);
+
+			if (!authorized) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You don't have permission to edit this artist",
+				});
+			}
+
 			return await ArtistDao.Update(opts.input.id, opts.input.data);
 		}),
 	deleteArtist: authProcedure
 		.input(DeleteAristSchema)
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
+
+			// Check authorization
+			const authorized = await canDeleteArtist(
+				opts.ctx.db,
+				opts.ctx.user.id,
+				Number(opts.input.id),
+			);
+
+			if (!authorized) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You don't have permission to delete this artist",
+				});
+			}
+
 			return await ArtistDao.Delete(opts.input.id);
 		}),
 });
