@@ -1,7 +1,6 @@
 import { s } from "@pkg/database/db";
 import type { PgColumn } from "drizzle-orm/pg-core";
 
-// Mapping of table name strings to database columns
 const TABLE_NAME_MAP: Record<string, PgColumn> = {
   "Author_Main(Author)": s.authorMain.author,
   "Author_Main.Author": s.authorMain.author,
@@ -12,7 +11,5 @@ const TABLE_NAME_MAP: Record<string, PgColumn> = {
 };
 
 export function processTableName(table: string) {
-  // sort = "table_name,asc"
-  // The front is the table name and then the sort order
   return TABLE_NAME_MAP[table] ?? s.authorMain.author;
 }
