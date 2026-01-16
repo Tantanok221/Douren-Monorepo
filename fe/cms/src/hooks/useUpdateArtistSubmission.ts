@@ -8,16 +8,17 @@ import {
   useFormDataContext,
 } from "../components";
 import { Route } from "../routes/edit.$artistId";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export const useUpdateArtistSubmission = () => {
-  console.log("useUpdateArtistSubmission");
   const { artistId: id } = Route.useParams();
   const updateArtist = trpc.artist.updateArtist.useMutation();
   const updateEventArtist = trpc.eventArtist.updateEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
+  const navigate = useNavigate();
 
   return async () => {
-    console.log("trigger update submit");
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 
@@ -27,20 +28,31 @@ export const useUpdateArtistSubmission = () => {
       tags: TagHelper.toString(),
     };
 
-    // Update artist with correct mutation format
-    const [artistData] = await updateArtist.mutateAsync({
-      id,
-      data: artistDataWithTags,
-    });
+    try {
+      // Update artist with correct mutation format
+      const [artistData] = await updateArtist.mutateAsync({
+        id,
+        data: artistDataWithTags,
+      });
 
-    // Update event artist with correct mutation format
-    await updateEventArtist.mutateAsync({
-      id,
-      data: {
-        ...eventArtistStep,
-        artistId: artistData.uuid,
-      },
-    });
+      // Update event artist with correct mutation format
+      await updateEventArtist.mutateAsync({
+        id,
+        data: {
+          ...eventArtistStep,
+          artistId: artistData.uuid,
+        },
+      });
+    } catch (error: any) {
+      // Handle authorization errors
+      if (error?.data?.code === "FORBIDDEN") {
+        toast.error("You don't have permission to edit this artist");
+        navigate({ to: "/" });
+        return;
+      }
+      // Re-throw other errors
+      throw error;
+    }
   };
 };
 
