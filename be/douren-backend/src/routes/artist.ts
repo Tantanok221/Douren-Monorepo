@@ -114,7 +114,7 @@ const ArtistRoute = new Hono<HonoEnv>()
 	.delete("/:artistId", async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
 		const { artistId } = c.req.param();
-		const returnResponse = ArtistDao.Delete(artistId);
+		const returnResponse = await ArtistDao.Delete(artistId);
 		return c.json(returnResponse, 200);
 	})
 	.put(
