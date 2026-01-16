@@ -1,14 +1,10 @@
-import React, { createContext, useState } from "react";
-import { ReactUseState } from "@pkg/type";
+import { useState } from "react";
+import { PaginationContext } from "./PaginationContextValue.tsx";
 
 interface Props {
   children: React.ReactNode;
   defaultValue: number;
 }
-
-export const PaginationContext = createContext<null | ReactUseState<number>>(
-  null,
-);
 
 export const PaginationContextProvider = ({
   children,

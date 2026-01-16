@@ -1,13 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { ArtistPageContext } from "doujinbooth/src/routes/artist/$artistId/-context/ArtistPageContext/ArtistPageContext.tsx";
+import { ReactNode, useState } from "react";
+import { RefreshHelperContext } from "./RefreshHelperContext.tsx";
 
 interface Props {
   children: ReactNode;
   uniqueKey: string;
 }
 type RefreshFunc = () => void;
-
-export const RefreshHelperContext = createContext<RefreshFunc | null>(null);
 
 export const RefreshHelperProvider = ({ uniqueKey, children }: Props) => {
   const [resetKey, setResetKey] = useState(0);

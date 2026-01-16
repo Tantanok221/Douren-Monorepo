@@ -1,14 +1,10 @@
-import React, { createContext, useState } from "react";
-import { ReactUseState } from "@pkg/type";
+import { useState } from "react";
+import { SortSelectContext } from "./SortSelectContextValue.tsx";
 
 interface Props {
   children: React.ReactNode;
   defaultValue: string;
 }
-
-export const SortSelectContext = createContext<null | ReactUseState<string>>(
-  null,
-);
 
 export const SortSelectContextProvider = ({
   children,
