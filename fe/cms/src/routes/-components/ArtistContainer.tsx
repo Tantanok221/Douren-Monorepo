@@ -12,6 +12,7 @@ import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { ArtistEditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";
+import { useUserRole } from "@/hooks/usePermissions";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
@@ -19,13 +20,28 @@ export const ArtistContainer = () => {
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
   const [page, setPage] = usePaginationContext();
-  const res = trpc.artist.getArtist.useQuery({
+  const { data: roleData } = useUserRole();
+
+  // Query params object
+  const queryParams = {
     search: search,
     searchTable: "",
     page: String(page),
     sort: sortSelect,
     tag: allTag,
+  };
+
+  // Conditionally fetch based on role
+  const adminRes = trpc.artist.getArtist.useQuery(queryParams, {
+    enabled: roleData?.isAdmin === true,
   });
+
+  const userRes = trpc.admin.getMyArtistsPaginated.useQuery(queryParams, {
+    enabled: roleData?.isAdmin === false,
+  });
+
+  // Use the appropriate result based on role
+  const res = roleData?.isAdmin ? adminRes : userRes;
   const pagination = usePagination({
     total: res?.data?.totalPage ?? 20,
     page,
@@ -33,7 +49,6 @@ export const ArtistContainer = () => {
     onChange: setPage,
   });
   if (!res.data) return null;
-  console.log(res.data);
   return (
     <>
       <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2, 900: 4 }}>

@@ -1,9 +1,18 @@
 import { Pen } from "@phosphor-icons/react";
 import { useEventDataContext } from "@lib/ui";
 import { Link } from "@tanstack/react-router";
+import { useCanEditArtist } from "@/hooks/usePermissions";
+import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 
 export const ArtistEditButton = () => {
   const eventData = useEventDataContext();
+  const authClient = useAuthContext();
+  const { data: session } = authClient.useSession();
+  const canEdit = useCanEditArtist(eventData.uuid);
+
+  // Hide button if not authenticated or unauthorized
+  if (!session || !canEdit) return null;
+
   return (
     <Link
       to={"edit/" + eventData.uuid}
