@@ -18,7 +18,6 @@ on:
 permissions:
   contents: read
   deployments: write
-  pull-requests: write
 
 concurrency:
   group: cms-pages-${{ github.event.pull_request.number || github.ref }}
@@ -157,47 +156,3 @@ jobs:
               description: "Deployed",
             });
 
-      - name: Comment PR with preview URL
-        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '')
-        uses: actions/github-script@v7
-        env:
-          PAGES_BRANCH: ${{ env.PAGES_BRANCH }}
-          PAGES_PREVIEW_URL: ${{ env.PAGES_PREVIEW_URL }}
-          PAGES_PREVIEW_ALIASES: ${{ env.PAGES_PREVIEW_ALIASES }}
-          API_PREVIEW_URL: ${{ env.API_PREVIEW_URL }}
-          PR_NUMBER: ${{ env.PR_NUMBER || github.event.pull_request.number }}
-        with:
-          script: |
-            const marker = "<!-- douren-cms-preview -->";
-            const previewUrl = process.env.PAGES_PREVIEW_URL || "(no URL returned by wrangler)";
-            const body = `${marker}\nCMS preview is ready:\n${previewUrl}\n`;
-
-            const { owner, repo } = context.repo;
-            const issue_number = Number(process.env.PR_NUMBER);
-
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner,
-              repo,
-              issue_number,
-              per_page: 100,
-            });
-
-            const existing = comments.find(
-              (c) => c.user?.type === "Bot" && typeof c.body === "string" && c.body.includes(marker),
-            );
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner,
-                repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
-                body,
-              });
-            }
