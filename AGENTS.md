@@ -1,8 +1,8 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents (OpenAI Codex CLI, etc.) when working with code in this repository.
 
-This guidance is also mirrored for other tools in `AGENTS.md` and `CODEX.md` (plus a few tool-specific rule files). Keep them aligned to avoid instruction drift.
+Keep this file aligned with `CLAUDE.md` (and `CODEX.md` if present) to avoid instruction drift.
 
 ## Development Commands
 
@@ -220,30 +220,13 @@ interface ApiResponse { id: string; name: string; }
 const data: ApiResponse = response;
 ```
 
-### React Best Practices (Vercel Guidelines)
-When writing React code, follow Vercel-style React best practices:
-
-**Component Patterns:**
-- Use functional components with explicit `React.FC` typing
-- Keep components small and focused on a single responsibility
-- Use component composition over prop drilling
+### React Best Practices (Vercel-style)
+- Use functional components and keep them small/single-purpose
+- Prefer component composition over prop drilling
 - Extract reusable logic into custom hooks
-
-**Performance Optimization:**
-- Use `React.memo()` for expensive pure components
-- Use `useMemo()` for expensive calculations
-- Use `useCallback()` for callback functions passed to children
-- Avoid inline object/array creation in render
-
-**State Management:**
-- Prefer local state when possible
-- Use Context API for shared state across component trees
-- Use Zustand for complex global state
-
-**Data Fetching:**
-- Use TanStack Query (via tRPC) for server state
-- Leverage query caching and invalidation patterns
-- Handle loading and error states explicitly
+- Use `React.memo`, `useMemo`, and `useCallback` thoughtfully for performance
+- Use TanStack Query (via tRPC) for server state; handle loading/error states explicitly
+- Prefer local state; use Context for shared tree state; use Zustand for complex global state
 
 ```typescript
 // ✅ GOOD - Proper React patterns
@@ -366,3 +349,4 @@ describe("ArtistCard", () => {
    ```
 
 This ensures no breaking changes prevent the apps from loading before pushing code.
+
