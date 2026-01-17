@@ -4,22 +4,25 @@ import {
   eventArtistBaseSchemaType,
 } from "@pkg/type";
 
+// Configuration for social link processing
+const LINK_CONFIG = [
+  { key: "facebookLink", label: "Facebook", type: "Facebook" },
+  { key: "instagramLink", label: "Instagram", type: "Instagram" },
+  { key: "pixivLink", label: "Pixiv", type: "Pixiv" },
+  { key: "twitchLink", label: "Twitch", type: "Twitch" },
+  { key: "twitterLink", label: "Twitter", type: "Twitter" },
+  { key: "youtubeLink", label: "Youtube", type: "Youtube" },
+  { key: "plurkLink", label: "Plurk", type: "Plurk" },
+  { key: "bahaLink", label: "Baha", type: "Baha" },
+  { key: "officialLink", label: "官網", type: "Other" },
+  { key: "storeLink", label: "商店", type: "Store" },
+  { key: "myacgLink", label: "MYACG", type: "Other" },
+] as const;
+
 export function processArtistData(
   ArtistData: eventArtistBaseSchemaType | artistBaseSchemaWithTagType,
-) {
-  let link: LinkResult[];
-  link = processLink(ArtistData.facebookLink, "Facebook", "Facebook");
-  link = link.concat(
-    processLink(ArtistData.instagramLink, "Instagram", "Instagram"),
+): LinkResult[] {
+  return LINK_CONFIG.flatMap(({ key, label, type }) =>
+    processLink(ArtistData[key], label, type),
   );
-  link = link.concat(processLink(ArtistData.pixivLink, "Pixiv", "Pixiv"));
-  link = link.concat(processLink(ArtistData.twitchLink, "Twitch", "Twitch"));
-  link = link.concat(processLink(ArtistData.twitterLink, "Twitter", "Twitter"));
-  link = link.concat(processLink(ArtistData.youtubeLink, "Youtube", "Youtube"));
-  link = link.concat(processLink(ArtistData.plurkLink, "Plurk", "Plurk"));
-  link = link.concat(processLink(ArtistData.bahaLink, "Baha", "Baha"));
-  link = link.concat(processLink(ArtistData.officialLink, "官網", "Other"));
-  link = link.concat(processLink(ArtistData.storeLink, "商店", "Store"));
-  link = link.concat(processLink(ArtistData.myacgLink, "MYACG", "Other"));
-  return link;
 }

@@ -29,15 +29,6 @@ const EventContainer = () => {
   const [page, setPage] = usePaginationContext();
   const location = useLocation();
 
-  console.log(
-    {
-      page: String(page),
-    sort: sortSelect,
-    search,
-    tag: allTag,
-    searchTable: searchColumn,
-    }
-  )
   const res = trpc.eventArtist.getEvent.useQuery({
     eventName: Route.useParams().eventName,
     page: String(page),
