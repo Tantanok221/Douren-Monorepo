@@ -12,7 +12,6 @@ on:
 permissions:
   contents: read
   deployments: write
-  pull-requests: write
 
 concurrency:
   group: be-preview-${{ github.event.pull_request.number || github.ref }}
@@ -162,44 +161,3 @@ jobs:
               description: "Deployed",
             });
 
-      - name: Comment PR with preview URL
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        env:
-          WORKER_NAME: ${{ env.WORKER_NAME }}
-          API_PREVIEW_URL: ${{ env.API_PREVIEW_URL }}
-          PR_SCHEMA: ${{ env.PR_SCHEMA }}
-        with:
-          script: |
-            const marker = "<!-- douren-be-preview -->";
-            const body = `${marker}\nBackend preview deployed.\n`;
-
-            const { owner, repo } = context.repo;
-            const issue_number = context.payload.pull_request.number;
-
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner,
-              repo,
-              issue_number,
-              per_page: 100,
-            });
-
-            const existing = comments.find(
-              (c) => c.user?.type === "Bot" && typeof c.body === "string" && c.body.includes(marker),
-            );
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner,
-                repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
-                body,
-              });
-            }
