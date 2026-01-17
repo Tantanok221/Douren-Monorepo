@@ -129,7 +129,7 @@ jobs:
           PROJECT_ID: ${{secrets.INFISICAL_PROJECT_ID}}
         run: |
           cd pkg/database
-          DATABASE_URL_BASE="$(infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e 'process.stdout.write(process.env.DATABASE_URL ?? \"\")')"
+          DATABASE_URL_BASE="$(infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e 'process.stdout.write(process.env.DATABASE_URL ?? "")')"
 
           if [[ -z "${DATABASE_URL_BASE:-}" ]]; then
             echo "DATABASE_URL is missing from Infisical staging secrets (cannot create PR schema)."
