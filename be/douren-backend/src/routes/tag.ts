@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "@/trpc";
+import { publicProcedure, router } from "@/lib/trpc";
 import { Hono } from "hono";
 import { fetchTag } from "@/Dao/Tag";
 import { HonoEnv } from "@/index";

@@ -38,8 +38,7 @@ export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
         const active = checked[val.index];
         return (
           <motion.button
-            // TODO: Fix this Math.random() in the future
-            key={val.tag + Math.random()}
+            key={`${val.tag}-${val.index}`}
             onClick={() => handleClick(val)}
             className={sx("tagItem")}
             whileHover={{ scale: 1.1 }}

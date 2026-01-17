@@ -1,7 +1,6 @@
 import { ArtistPageTypes } from "@/types";
-import { createContext, ReactNode } from "react";
-
-export const ArtistPageContext = createContext<ArtistPageTypes | null>(null);
+import { ReactNode } from "react";
+import { ArtistPageContext } from "./context";
 
 type Props = {
   children: ReactNode;
@@ -15,3 +14,6 @@ export const ArtistPageProvider = ({ children, data }: Props) => {
     </ArtistPageContext.Provider>
   );
 };
+
+// Re-export context for convenience
+export { ArtistPageContext } from "./context";

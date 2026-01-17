@@ -10,7 +10,7 @@ import {
 	GetEventArtistByIdSchema,
 	UpdateEventArtistSchema,
 } from "@/schema/event.zod";
-import { authProcedure, publicProcedure, router } from "@/trpc";
+import { authProcedure, publicProcedure, router } from "@/lib/trpc";
 import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
@@ -75,13 +75,13 @@ const EventRoute = new Hono<HonoEnv>()
 	})
 	.get("/", async (c) => {
 		const EventDao = NewEventDao(c.var.db);
-		const data = EventDao.FetchAll();
+		const data = await EventDao.FetchAll();
 		return c.json(data);
 	})
 	.get("/:eventName", async (c) => {
 		const { eventName } = c.req.param();
 		const EventDao = NewEventDao(c.var.db);
-		const data = EventDao.FetchByEventName(eventName);
+		const data = await EventDao.FetchByEventName(eventName);
 		return c.json(data);
 	})
 	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
@@ -94,12 +94,11 @@ const EventRoute = new Hono<HonoEnv>()
 	.post("/", zValidator("json", CreateEventSchema), async (c) => {
 		const EventDao = NewEventDao(c.var.db);
 		const body = await c.req.json();
-		const returnResponse = EventDao.Create(body);
+		const returnResponse = await EventDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
 	.delete("/:eventId/artist/:artistId", async (c) => {
 		const { artistId, eventId } = c.req.param();
-		console.log(artistId, eventId);
 		const db = initDB(c.env.DATABASE_URL);
 		const returnResponse = await db
 			.delete(s.eventDm)
