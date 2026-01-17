@@ -52,7 +52,7 @@ export const trpcEventRoute = router({
 				.where(eq(s.event.name, eventName));
 			return data;
 		}),
-	createEventArtist: publicProcedure
+	createEventArtist: authProcedure
 		.input(CreateEventArtistSchema)
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
