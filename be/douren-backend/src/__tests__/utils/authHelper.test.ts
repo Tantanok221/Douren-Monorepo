@@ -1,12 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
 import { Context } from "hono";
-import { verifyUser, verifyAdminUser, verifyImageUser } from "@/utlis/authHelper";
+import {
+	verifyUser,
+	verifyAdminUser,
+	verifyImageUser,
+} from "@/utlis/authHelper";
 
 describe("verifyUser", () => {
 	const createMockContext = (
 		authHeader?: string,
-		devEnv?: string,
-		basicAuthToken?: string,
+		viteBasicAuthToken?: string,
 		cloudflareImageAuthToken?: string,
 	): Context => {
 		return {
@@ -17,49 +20,23 @@ describe("verifyUser", () => {
 				}),
 			},
 			env: {
-				DEV_ENV: devEnv,
-				basic_auth_token: basicAuthToken,
+				vite_basic_auth_token: viteBasicAuthToken,
 				CLOUDFLARE_IMAGE_AUTH_TOKEN: cloudflareImageAuthToken,
 			},
 		} as unknown as Context;
 	};
 
-	describe("development environment", () => {
-		it("should return true when DEV_ENV is 'dev'", () => {
-			const mockContext = createMockContext(undefined, "dev");
-			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
-		});
-
-		it("should return true when DEV_ENV is 'dev' even with invalid token", () => {
-			const mockContext = createMockContext("Bearer invalid-token", "dev");
-			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
-		});
-
-		it("should return true when DEV_ENV is 'dev' even without auth header", () => {
-			const mockContext = createMockContext(undefined, "dev");
-			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
-		});
-	});
-
-	describe("basic auth token validation", () => {
-		it("should return true when token matches basic_auth_token", () => {
+	describe("vite basic auth token validation", () => {
+		it("should return true when token matches vite_basic_auth_token", () => {
 			const token = "valid-basic-token";
-			const mockContext = createMockContext(
-				`Bearer ${token}`,
-				"production",
-				token,
-			);
+			const mockContext = createMockContext(`Bearer ${token}`, token);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(true);
 		});
 
-		it("should return false when token does not match basic_auth_token", () => {
+		it("should return false when token does not match vite_basic_auth_token", () => {
 			const mockContext = createMockContext(
 				"Bearer wrong-token",
-				"production",
 				"correct-basic-token",
 			);
 			const result = verifyUser(mockContext);
@@ -72,7 +49,6 @@ describe("verifyUser", () => {
 			const token = "valid-cloudflare-token";
 			const mockContext = createMockContext(
 				`Bearer ${token}`,
-				"production",
 				"different-basic-token",
 				token,
 			);
@@ -83,7 +59,6 @@ describe("verifyUser", () => {
 		it("should return false when token does not match CLOUDFLARE_IMAGE_AUTH_TOKEN", () => {
 			const mockContext = createMockContext(
 				"Bearer wrong-token",
-				"production",
 				"different-basic-token",
 				"correct-cloudflare-token",
 			);
@@ -95,11 +70,7 @@ describe("verifyUser", () => {
 	describe("authorization header parsing", () => {
 		it("should correctly parse Bearer token from Authorization header", () => {
 			const token = "correct-token";
-			const mockContext = createMockContext(
-				`Bearer ${token}`,
-				"production",
-				token,
-			);
+			const mockContext = createMockContext(`Bearer ${token}`, token);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(true);
 		});
@@ -107,7 +78,6 @@ describe("verifyUser", () => {
 		it("should reject missing Authorization header", () => {
 			const mockContext = createMockContext(
 				undefined,
-				"production",
 				"some-token",
 				"another-token",
 			);
@@ -116,12 +86,7 @@ describe("verifyUser", () => {
 		});
 
 		it("should reject missing Authorization header even with undefined tokens", () => {
-			const mockContext = createMockContext(
-				undefined,
-				"production",
-				undefined,
-				undefined,
-			);
+			const mockContext = createMockContext(undefined, undefined, undefined);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
@@ -129,7 +94,6 @@ describe("verifyUser", () => {
 		it("should reject malformed Authorization header without Bearer prefix", () => {
 			const mockContext = createMockContext(
 				"just-a-token",
-				"production",
 				"just-a-token",
 				"just-a-token",
 			);
@@ -138,48 +102,47 @@ describe("verifyUser", () => {
 		});
 
 		it("should reject Authorization header with only Bearer keyword", () => {
-			const mockContext = createMockContext("Bearer", "production", "token", "token");
+			const mockContext = createMockContext("Bearer", "token", "token");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject Authorization header with extra spaces after Bearer", () => {
 			const token = "correct-token";
-			const mockContext = createMockContext(
-				`Bearer  ${token}`,
-				"production",
-				token,
-			);
+			const mockContext = createMockContext(`Bearer  ${token}`, token);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject empty Authorization header", () => {
-			const mockContext = createMockContext("", "production", "token", "token");
+			const mockContext = createMockContext("", "token", "token");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject Authorization header with Bearer and empty token", () => {
-			const mockContext = createMockContext("Bearer ", "production", "token", "token");
+			const mockContext = createMockContext("Bearer ", "token", "token");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject non-Bearer authorization schemes", () => {
-			const mockContext = createMockContext("Basic dXNlcjpwYXNz", "production", "token", "token");
+			const mockContext = createMockContext(
+				"Basic dXNlcjpwYXNz",
+				"token",
+				"token",
+			);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 	});
 
 	describe("token precedence", () => {
-		it("should prefer basic_auth_token over CLOUDFLARE_IMAGE_AUTH_TOKEN", () => {
+		it("should check vite_basic_auth_token first", () => {
 			const basicToken = "basic-token";
 			const cloudflareToken = "cloudflare-token";
 			const mockContext = createMockContext(
 				`Bearer ${basicToken}`,
-				"production",
 				basicToken,
 				cloudflareToken,
 			);
@@ -187,11 +150,10 @@ describe("verifyUser", () => {
 			expect(result).toBe(true);
 		});
 
-		it("should fall back to CLOUDFLARE_IMAGE_AUTH_TOKEN when basic_auth_token doesn't match", () => {
+		it("should fall back to CLOUDFLARE_IMAGE_AUTH_TOKEN when vite_basic_auth_token doesn't match", () => {
 			const cloudflareToken = "cloudflare-token";
 			const mockContext = createMockContext(
 				`Bearer ${cloudflareToken}`,
-				"production",
 				"different-basic-token",
 				cloudflareToken,
 			);
@@ -204,7 +166,6 @@ describe("verifyUser", () => {
 		it("should return false when environment tokens are undefined", () => {
 			const mockContext = createMockContext(
 				"Bearer some-token",
-				"production",
 				undefined,
 				undefined,
 			);
@@ -213,37 +174,21 @@ describe("verifyUser", () => {
 		});
 
 		it("should return false when environment tokens are empty strings", () => {
-			const mockContext = createMockContext("Bearer token", "production", "", "");
+			const mockContext = createMockContext("Bearer token", "", "");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
 
-		it("should handle null DEV_ENV securely", () => {
+		it("should return true when token matches vite_basic_auth_token", () => {
 			const token = "valid-token";
-			const mockContext = createMockContext(
-				`Bearer ${token}`,
-				null as any,
-				token,
-			);
+			const mockContext = createMockContext(`Bearer ${token}`, token);
 			const result = verifyUser(mockContext);
 			expect(result).toBe(true);
 		});
 
-		it("should handle undefined DEV_ENV securely", () => {
-			const token = "valid-token";
-			const mockContext = createMockContext(
-				`Bearer ${token}`,
-				undefined,
-				token,
-			);
-			const result = verifyUser(mockContext);
-			expect(result).toBe(true);
-		});
-
-		it("should return false when DEV_ENV is production and no valid tokens", () => {
+		it("should return false when no valid tokens match", () => {
 			const mockContext = createMockContext(
 				"Bearer wrong-token",
-				"production",
 				"correct-basic",
 				"correct-cloudflare",
 			);
@@ -254,7 +199,6 @@ describe("verifyUser", () => {
 		it("should require both valid header format AND matching token", () => {
 			const mockContext = createMockContext(
 				"Bearer valid-token",
-				"production",
 				"different-token",
 				"another-different-token",
 			);
@@ -265,7 +209,6 @@ describe("verifyUser", () => {
 		it("should reject when token is undefined even with proper Bearer format", () => {
 			const mockContext = createMockContext(
 				"Bearer undefined",
-				"production",
 				undefined,
 				undefined,
 			);
@@ -275,16 +218,9 @@ describe("verifyUser", () => {
 	});
 
 	describe("case sensitivity", () => {
-		it("should be case sensitive for dev environment check", () => {
-			const mockContext = createMockContext(undefined, "DEV", "token", "token");
-			const result = verifyUser(mockContext);
-			expect(result).toBe(false);
-		});
-
 		it("should be case sensitive for Bearer keyword", () => {
 			const mockContext = createMockContext(
 				"bearer valid-token",
-				"production",
 				"valid-token",
 			);
 			const result = verifyUser(mockContext);
@@ -292,11 +228,7 @@ describe("verifyUser", () => {
 		});
 
 		it("should be case sensitive for token comparison", () => {
-			const mockContext = createMockContext(
-				"Bearer TOKEN",
-				"production",
-				"token",
-			);
+			const mockContext = createMockContext("Bearer TOKEN", "token");
 			const result = verifyUser(mockContext);
 			expect(result).toBe(false);
 		});
@@ -306,8 +238,7 @@ describe("verifyUser", () => {
 describe("verifyAdminUser", () => {
 	const createMockContext = (
 		authHeader?: string,
-		devEnv?: string,
-		basicAuthToken?: string,
+		viteAdminAuthToken?: string,
 	): Context => {
 		return {
 			req: {
@@ -317,62 +248,50 @@ describe("verifyAdminUser", () => {
 				}),
 			},
 			env: {
-				DEV_ENV: devEnv,
-				basic_auth_token: basicAuthToken,
+				VITE_ADMIN_AUTH_TOKEN: viteAdminAuthToken,
 			},
 		} as unknown as Context;
 	};
 
-	describe("development environment", () => {
-		it("should return true when DEV_ENV is 'dev'", () => {
-			const mockContext = createMockContext(undefined, "dev");
+	describe("admin auth token validation", () => {
+		it("should return true when token matches VITE_ADMIN_AUTH_TOKEN", () => {
+			const token = "valid-admin-token";
+			const mockContext = createMockContext(`Bearer ${token}`, token);
 			const result = verifyAdminUser(mockContext);
 			expect(result).toBe(true);
 		});
 
-		it("should return true when DEV_ENV is 'dev' even with invalid token", () => {
-			const mockContext = createMockContext("Bearer invalid-token", "dev");
-			const result = verifyAdminUser(mockContext);
-			expect(result).toBe(true);
-		});
-	});
-
-	describe("basic auth token validation", () => {
-		it("should return true when token matches basic_auth_token", () => {
-			const token = "valid-basic-token";
-			const mockContext = createMockContext(`Bearer ${token}`, "production", token);
-			const result = verifyAdminUser(mockContext);
-			expect(result).toBe(true);
-		});
-
-		it("should return false when token does not match basic_auth_token", () => {
-			const mockContext = createMockContext("Bearer wrong-token", "production", "correct-basic-token");
+		it("should return false when token does not match VITE_ADMIN_AUTH_TOKEN", () => {
+			const mockContext = createMockContext(
+				"Bearer wrong-token",
+				"correct-admin-token",
+			);
 			const result = verifyAdminUser(mockContext);
 			expect(result).toBe(false);
 		});
 
-		it("should return false when basic_auth_token is undefined", () => {
-			const mockContext = createMockContext("Bearer some-token", "production", undefined);
+		it("should return falsy when VITE_ADMIN_AUTH_TOKEN is undefined", () => {
+			const mockContext = createMockContext("Bearer some-token", undefined);
 			const result = verifyAdminUser(mockContext);
-			expect(result).toBe(false);
+			expect(result).toBeFalsy();
 		});
 	});
 
 	describe("authorization header validation", () => {
 		it("should reject missing Authorization header", () => {
-			const mockContext = createMockContext(undefined, "production", "some-token");
+			const mockContext = createMockContext(undefined, "some-token");
 			const result = verifyAdminUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject malformed Authorization header without Bearer prefix", () => {
-			const mockContext = createMockContext("just-a-token", "production", "just-a-token");
+			const mockContext = createMockContext("just-a-token", "just-a-token");
 			const result = verifyAdminUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject Authorization header with only Bearer keyword", () => {
-			const mockContext = createMockContext("Bearer", "production", "token");
+			const mockContext = createMockContext("Bearer", "token");
 			const result = verifyAdminUser(mockContext);
 			expect(result).toBe(false);
 		});
@@ -382,7 +301,6 @@ describe("verifyAdminUser", () => {
 describe("verifyImageUser", () => {
 	const createMockContext = (
 		authHeader?: string,
-		devEnv?: string,
 		cloudflareImageAuthToken?: string,
 	): Context => {
 		return {
@@ -393,78 +311,72 @@ describe("verifyImageUser", () => {
 				}),
 			},
 			env: {
-				DEV_ENV: devEnv,
 				CLOUDFLARE_IMAGE_AUTH_TOKEN: cloudflareImageAuthToken,
 			},
 		} as unknown as Context;
 	};
 
-	describe("development environment", () => {
-		it("should return true when DEV_ENV is 'dev'", () => {
-			const mockContext = createMockContext(undefined, "dev");
-			const result = verifyImageUser(mockContext);
-			expect(result).toBe(true);
-		});
-
-		it("should return true when DEV_ENV is 'dev' even with invalid token", () => {
-			const mockContext = createMockContext("Bearer invalid-token", "dev");
-			const result = verifyImageUser(mockContext);
-			expect(result).toBe(true);
-		});
-	});
-
 	describe("cloudflare image auth token validation", () => {
 		it("should return true when token matches CLOUDFLARE_IMAGE_AUTH_TOKEN", () => {
 			const token = "valid-cloudflare-token";
-			const mockContext = createMockContext(`Bearer ${token}`, "production", token);
+			const mockContext = createMockContext(`Bearer ${token}`, token);
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(true);
 		});
 
 		it("should return false when token does not match CLOUDFLARE_IMAGE_AUTH_TOKEN", () => {
-			const mockContext = createMockContext("Bearer wrong-token", "production", "correct-cloudflare-token");
+			const mockContext = createMockContext(
+				"Bearer wrong-token",
+				"correct-cloudflare-token",
+			);
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(false);
 		});
 
-		it("should return false when CLOUDFLARE_IMAGE_AUTH_TOKEN is undefined", () => {
-			const mockContext = createMockContext("Bearer some-token", "production", undefined);
+		it("should return falsy when CLOUDFLARE_IMAGE_AUTH_TOKEN is undefined", () => {
+			const mockContext = createMockContext("Bearer some-token", undefined);
 			const result = verifyImageUser(mockContext);
-			expect(result).toBe(false);
+			expect(result).toBeFalsy();
 		});
 	});
 
 	describe("authorization header validation", () => {
 		it("should reject missing Authorization header", () => {
-			const mockContext = createMockContext(undefined, "production", "some-token");
+			const mockContext = createMockContext(undefined, "some-token");
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject malformed Authorization header without Bearer prefix", () => {
-			const mockContext = createMockContext("just-a-token", "production", "just-a-token");
+			const mockContext = createMockContext("just-a-token", "just-a-token");
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should reject Authorization header with only Bearer keyword", () => {
-			const mockContext = createMockContext("Bearer", "production", "token");
+			const mockContext = createMockContext("Bearer", "token");
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(false);
 		});
 	});
 
 	describe("token specificity", () => {
-		it("should NOT accept basic_auth_token even if valid", () => {
+		it("should NOT accept other tokens even if valid format", () => {
 			const basicToken = "basic-token";
-			const mockContext = createMockContext(`Bearer ${basicToken}`, "production", "different-cloudflare-token");
+			const mockContext = createMockContext(
+				`Bearer ${basicToken}`,
+				"different-cloudflare-token",
+			);
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(false);
 		});
 
 		it("should only accept CLOUDFLARE_IMAGE_AUTH_TOKEN", () => {
 			const cloudflareToken = "cloudflare-token";
-			const mockContext = createMockContext(`Bearer ${cloudflareToken}`, "production", cloudflareToken);
+			const mockContext = createMockContext(
+				`Bearer ${cloudflareToken}`,
+				cloudflareToken,
+			);
 			const result = verifyImageUser(mockContext);
 			expect(result).toBe(true);
 		});
