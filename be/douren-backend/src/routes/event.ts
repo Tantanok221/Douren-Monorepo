@@ -75,7 +75,7 @@ const EventRoute = new Hono<HonoEnv>()
 	})
 	.get("/", async (c) => {
 		const EventDao = NewEventDao(c.var.db);
-		const data = EventDao.FetchAll();
+		const data = await EventDao.FetchAll();
 		return c.json(data);
 	})
 	.get("/:eventName", async (c) => {
@@ -86,14 +86,14 @@ const EventRoute = new Hono<HonoEnv>()
 	})
 	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
 		const EventArtistDao = NewEventArtistDao(c.var.db);
-		const body: PutEventArtistSchemaTypes = await c.req.json();
+		const body = c.req.valid("json");
 		const returnResponse = await EventArtistDao.Create(body);
 
 		return c.json(returnResponse, 201);
 	})
 	.post("/", zValidator("json", CreateEventSchema), async (c) => {
 		const EventDao = NewEventDao(c.var.db);
-		const body = await c.req.json();
+		const body = c.req.valid("json");
 		const returnResponse = EventDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
@@ -118,7 +118,7 @@ const EventRoute = new Hono<HonoEnv>()
 		async (c) => {
 			const EventArtistDao = NewEventArtistDao(c.var.db);
 			const { eventArtistId } = c.req.param();
-			const body: PutEventArtistSchemaTypes = await c.req.json();
+			const body: PutEventArtistSchemaTypes = c.req.valid("json");
 			const returnResponse = await EventArtistDao.Update(eventArtistId, body);
 
 			return c.json(returnResponse, 200);
