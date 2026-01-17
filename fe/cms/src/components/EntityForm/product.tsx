@@ -42,9 +42,7 @@ const ProductForm = ({ index }: formProps) => {
   const previewImageRef = useUploadImageRef();
   const [, setProductHook] = useProductFormContext();
 
-  const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = async (
-    _data,
-  ) => {
+  const ProductSubmitHandler: SubmitHandler<ProductFormSchema> = async () => {
     // Form submission logic handled by parent component
   };
   useEffect(() => {
