@@ -3,12 +3,12 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const CreateEventArtistSchema = createInsertSchema(s.eventDm, {
-	uuid: (schema) => schema.uuid.optional(),
+	uuid: (schema) => schema.optional(),
 });
 
 export const PutEventArtistSchema = createInsertSchema(s.eventDm);
 export const CreateEventSchema = createInsertSchema(s.event, {
-	id: (schema) => schema.id.optional(),
+	id: (schema) => schema.optional(),
 });
 export type CreateEventSchemaTypes = z.infer<typeof CreateEventSchema>;
 
