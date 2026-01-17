@@ -16,6 +16,12 @@ class EventArtistDao implements BaseDao {
 		this.db = db;
 	}
 
+	private static assertDefined<T>(value: T): asserts value is NonNullable<T> {
+		if (value === null || value === undefined) {
+			throw new Error("Expected value to be defined");
+		}
+	}
+
 	async Fetch(params: eventInputParamsType) {
 		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.db);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
@@ -32,7 +38,9 @@ class EventArtistDao implements BaseDao {
 		return returnObj as eventArtistSchemaType;
 	}
 
-	async Create(body: CreateEventArtistSchemaTypes) {
+	async Create(
+		body: CreateEventArtistSchemaTypes,
+	): Promise<Array<typeof s.eventDm.$inferSelect>> {
 		// infer as PutEventArtistSchemaTypes to ignore type error meanwhile getting automatic type from zod
 		return this.db
 			.insert(s.eventDm)
@@ -41,7 +49,11 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
-	async Update(eventArtistId: string, body: PutEventArtistSchemaTypes) {
+	async Update(
+		eventArtistId: string,
+		body: PutEventArtistSchemaTypes,
+	): Promise<Array<typeof s.eventDm.$inferSelect>> {
+		EventArtistDao.assertDefined(body);
 		return this.db
 			.update(s.eventDm)
 			.set(body)
