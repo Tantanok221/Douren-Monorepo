@@ -3,6 +3,17 @@ name: Destroy PR Preview Deployments
 on:
   pull_request:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to clean up (e.g. 154)
+        required: true
+        type: string
+      actually_delete:
+        description: Actually delete resources (dangerous)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -20,14 +31,27 @@ jobs:
     env:
       CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
-      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_NUMBER: ${{ github.event.inputs.pr_number || github.event.pull_request.number }}
+      ACTUALLY_DELETE: ${{ github.event.inputs.actually_delete || 'false' }}
     steps:
       - name: Compute preview identifiers
         run: |
           echo "PR_BRANCH=pr-$PR_NUMBER" >> "$GITHUB_ENV"
           echo "WORKER_NAME=douren-backend-pr-$PR_NUMBER" >> "$GITHUB_ENV"
 
+      - name: Summary
+        run: |
+          {
+            echo "## Preview cleanup"
+            echo ""
+            echo "- PR: \`$PR_NUMBER\`"
+            echo "- Pages branch: \`$PR_BRANCH\`"
+            echo "- Backend Worker: \`$WORKER_NAME\`"
+            echo "- Mode: \`$([[ \"$ACTUALLY_DELETE\" == \"true\" || \"${{ github.event_name }}\" == \"pull_request\" ]] && echo delete || echo dry-run)\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Delete Pages deployments for branch
+        if: github.event_name == 'pull_request' || github.event.inputs.actually_delete == 'true'
         env:
           PR_BRANCH: ${{ env.PR_BRANCH }}
         run: |
@@ -72,6 +96,7 @@ jobs:
           delete_pages_branch_deployments "douren-cms"
 
       - name: Delete backend Worker script
+        if: github.event_name == 'pull_request' || github.event.inputs.actually_delete == 'true'
         env:
           WORKER_NAME: ${{ env.WORKER_NAME }}
         run: |
@@ -105,4 +130,3 @@ jobs:
               issue_number,
               body,
             });
-
