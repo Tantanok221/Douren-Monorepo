@@ -84,21 +84,18 @@ jobs:
           else
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run build
           fi
-          wrangler pages deploy dist --branch "$PAGES_BRANCH" --json | tee deploy.json
+          wrangler pages deploy dist --branch "$PAGES_BRANCH"
 
-          PREVIEW_URL="$(node -e 'const fs=require(\"fs\");const o=JSON.parse(fs.readFileSync(\"deploy.json\",\"utf8\"));const url=o.url??o?.deployment?.url??o?.result?.url??\"\";process.stdout.write(url);')"
-          PREVIEW_ALIASES="$(node -e 'const fs=require(\"fs\");const o=JSON.parse(fs.readFileSync(\"deploy.json\",\"utf8\"));const a=o.aliases??o?.deployment?.aliases??o?.result?.aliases??[];process.stdout.write(Array.isArray(a)?a.join(\", \"):String(a??\"\"));')"
-
+          PREVIEW_URL="https://$PAGES_BRANCH.douren-frontend.pages.dev"
           echo "PAGES_PREVIEW_URL=$PREVIEW_URL" >> "$GITHUB_ENV"
-          echo "PAGES_PREVIEW_ALIASES=$PREVIEW_ALIASES" >> "$GITHUB_ENV"
+          echo "PAGES_PREVIEW_ALIASES=" >> "$GITHUB_ENV"
 
           {
             echo "## Frontend Pages deployment"
             echo ""
             echo "- Branch: \`$PAGES_BRANCH\`"
-            if [[ -n "$PREVIEW_URL" ]]; then echo "- URL: $PREVIEW_URL"; fi
+            echo "- URL: $PREVIEW_URL"
             if [[ -n "$FE_CUSTOM_PREVIEW_URL" ]]; then echo "- Custom URL: $FE_CUSTOM_PREVIEW_URL"; fi
-            if [[ -n "$PREVIEW_ALIASES" ]]; then echo "- Aliases: $PREVIEW_ALIASES"; fi
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Comment PR with preview URL
