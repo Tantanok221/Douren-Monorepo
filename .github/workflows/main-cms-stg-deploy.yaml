@@ -67,8 +67,14 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "PAGES_BRANCH=pr-${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
-            echo "CMS_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}-cms-stg.douren.net" >> "$GITHUB_ENV"
-            echo "API_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}-api-stg.douren.net" >> "$GITHUB_ENV"
+            WORKERS_DEV_SUBDOMAIN="${{ vars.WORKERS_DEV_SUBDOMAIN }}"
+            if [[ -z "$WORKERS_DEV_SUBDOMAIN" ]]; then
+              echo "Missing Actions variable WORKERS_DEV_SUBDOMAIN (expected like: you910508)."
+              exit 1
+            fi
+
+            echo "WORKERS_DEV_SUBDOMAIN=$WORKERS_DEV_SUBDOMAIN" >> "$GITHUB_ENV"
+            echo "API_PREVIEW_URL=https://douren-backend-pr-${{ github.event.pull_request.number }}.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
           else
             echo "PAGES_BRANCH=stg" >> "$GITHUB_ENV"
           fi
@@ -80,7 +86,7 @@ jobs:
         run: |
           cd fe/cms
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_CUSTOM_PREVIEW_URL" pnpm run build
+            infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_PREVIEW_URL" pnpm run build
           else
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run build
           fi
@@ -95,7 +101,7 @@ jobs:
             echo ""
             echo "- Branch: \`$PAGES_BRANCH\`"
             echo "- URL: $PREVIEW_URL"
-            if [[ -n "$CMS_CUSTOM_PREVIEW_URL" ]]; then echo "- Custom URL: $CMS_CUSTOM_PREVIEW_URL"; fi
+            if [[ -n "${API_PREVIEW_URL:-}" ]]; then echo "- API: $API_PREVIEW_URL"; fi
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Comment PR with preview URL
@@ -105,18 +111,19 @@ jobs:
           PAGES_BRANCH: ${{ env.PAGES_BRANCH }}
           PAGES_PREVIEW_URL: ${{ env.PAGES_PREVIEW_URL }}
           PAGES_PREVIEW_ALIASES: ${{ env.PAGES_PREVIEW_ALIASES }}
-          CMS_CUSTOM_PREVIEW_URL: ${{ env.CMS_CUSTOM_PREVIEW_URL }}
-          API_CUSTOM_PREVIEW_URL: ${{ env.API_CUSTOM_PREVIEW_URL }}
+          API_PREVIEW_URL: ${{ env.API_PREVIEW_URL }}
         with:
           script: |
             const marker = "<!-- douren-cms-preview -->";
             const previewUrl = process.env.PAGES_PREVIEW_URL || "(no URL returned by wrangler)";
-            const aliases = process.env.PAGES_PREVIEW_ALIASES ? `\nAliases: ${process.env.PAGES_PREVIEW_ALIASES}` : "";
-            const customUrl = process.env.CMS_CUSTOM_PREVIEW_URL
-              ? `\nCustom URL: ${process.env.CMS_CUSTOM_PREVIEW_URL}\n(Custom domain requires wildcard routing; see docs/deployment-previews.md)`
-              : "";
-            const apiUrl = process.env.API_CUSTOM_PREVIEW_URL ? `\nBackend: ${process.env.API_CUSTOM_PREVIEW_URL}` : "";
-            const body = `${marker}\nCMS preview deployed.\nBranch: ${process.env.PAGES_BRANCH}\nURL: ${previewUrl}${aliases}${customUrl}${apiUrl}`;
+            const apiUrl = process.env.API_PREVIEW_URL ? `\nAPI: ${process.env.API_PREVIEW_URL}` : "";
+            const body =
+              `${marker}\nCMS preview deployed.\n` +
+              `Branch: ${process.env.PAGES_BRANCH}\n` +
+              `URL: ${previewUrl}${apiUrl}\n\n` +
+              `Quick commands:\n` +
+              `- curl -I ${previewUrl}\n` +
+              (process.env.API_PREVIEW_URL ? `- curl -I ${process.env.API_PREVIEW_URL}\n` : "");
 
             const { owner, repo } = context.repo;
             const issue_number = context.payload.pull_request.number;
