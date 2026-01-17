@@ -336,3 +336,31 @@ describe("ArtistCard", () => {
   - **Test plan**: Checklist of testing steps
 - Target `main` branch for PRs unless otherwise specified
 - Use `gh pr create` for creating PRs from the command line
+
+### Pre-PR Verification
+**Before creating a PR**, verify that frontend applications render correctly:
+
+1. **Start the dev server**:
+   ```bash
+   npm run devfe
+   ```
+
+2. **Verify frontend rendering** by fetching HTML from both apps:
+   - **Douren-frontend** (port 5173): `curl -s http://localhost:5173 | head -50`
+   - **CMS** (port 5174): `curl -s http://localhost:5174 | head -50`
+
+3. **Check for**:
+   - HTML response contains expected `<div id="root">` mount point
+   - No server errors or blank responses
+   - Vite dev server scripts are injected properly
+
+4. **If using automated verification**, wait for dev server startup (~5 seconds) before fetching:
+   ```bash
+   # Start dev server in background, wait, then verify
+   npm run devfe &
+   sleep 5
+   curl -s http://localhost:5173 | grep -q 'id="root"' && echo "Douren-frontend: OK" || echo "Douren-frontend: FAILED"
+   curl -s http://localhost:5174 | grep -q 'id="root"' && echo "CMS: OK" || echo "CMS: FAILED"
+   ```
+
+This ensures no breaking changes prevent the apps from loading before pushing code.
