@@ -15,8 +15,8 @@
     }
   },
   "devDependencies": {
-    "@pkg/database": "*",
-    "@pkg/typescript-config": "*"
+    "@pkg/database": "workspace:*",
+    "@pkg/typescript-config": "workspace:*"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.1"

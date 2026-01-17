@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@lib/ui": "*",
+    "@lib/ui": "workspace:*",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-form": "^0.1.0",
@@ -48,7 +48,7 @@
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
-    "@be/douren-backend": "*",
+    "@be/douren-backend": "workspace:*",
     "@eslint/js": "^9.11.1",
     "@tanstack/router-devtools": "^1.76.1",
     "@tanstack/router-plugin": "^1.76.0",

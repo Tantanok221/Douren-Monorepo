@@ -1,0 +1,10 @@
+# GitHub Copilot instructions
+
+Use `AGENTS.md` as the canonical source of repository instructions (setup, scripts, architecture, and conventions).
+
+Key constraints to follow:
+- **Node.js 22+** required.
+- Prefer `npm run ...`, `./setup.sh`, and `make ...` over ad-hoc commands.
+- **Never use `any`**, and don’t suppress lint/TypeScript errors without a strong justification.
+- Commit messages must match: `[DR-XX] type: subject` (enforced by `commitlint.config.js`).
+

@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build": "npm run codegen && rimraf dist && tsc",
-    "build:pkg": "npm run codegen && rimraf dist && tsc",
+    "build": "pnpm run codegen && rimraf dist && tsc",
+    "build:pkg": "pnpm run codegen && rimraf dist && tsc",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:introspect": "drizzle-kit introspect --config=drizzle.config.ts",
@@ -26,7 +26,7 @@
     }
   },
   "devDependencies": {
-    "@pkg/typescript-config": "*",
+    "@pkg/typescript-config": "workspace:*",
     "code-block-writer": "^13.0.3",
     "drizzle-kit": "^0.31.8",
     "esbuild": "0.25.0",

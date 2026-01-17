@@ -13,6 +13,6 @@
     }
   },
   "devDependencies": {
-    "@pkg/typescript-config": "*"
+    "@pkg/typescript-config": "workspace:*"
   }
 }
