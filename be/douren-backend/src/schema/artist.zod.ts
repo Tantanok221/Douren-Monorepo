@@ -3,19 +3,19 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const CreateArtistSchema = createInsertSchema(s.authorMain, {
-  uuid: (schema) => schema.optional(),
+	uuid: (schema) => schema.optional(),
 });
 export type CreateArtistSchemaTypes = z.infer<typeof CreateArtistSchema>;
 
 export const DeleteAristSchema = z.object({
-  id: z.string(),
+	id: z.string(),
 });
 
 export const GetArtistByIdSchema = z.object({
-  id: z.string(),
+	id: z.string(),
 });
 
 export const UpdateArtistSchema = z.object({
-  id: z.string(),
-  data: CreateArtistSchema,
+	id: z.string(),
+	data: CreateArtistSchema,
 });

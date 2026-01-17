@@ -1,19 +1,18 @@
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import {
 	CreateArtistSchema,
-	CreateArtistSchemaTypes,
 	DeleteAristSchema,
 	GetArtistByIdSchema,
 	UpdateArtistSchema,
 } from "@/schema/artist.zod";
 import { authProcedure, publicProcedure, router } from "@/lib/trpc";
-import { artistInputParams } from "@pkg/type";
+import { artistInputParams, artistSchema } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
 import { HonoEnv } from "@/index";
 import { canEditArtist, canDeleteArtist } from "@/lib/authorization";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 export const trpcArtistRoute = router({
 	getArtist: publicProcedure.input(artistInputParams).query(async (opts) => {
@@ -86,49 +85,138 @@ export const trpcArtistRoute = router({
 		}),
 });
 
-const ArtistRoute = new Hono<HonoEnv>()
-	.get("/", zValidator("query", artistInputParams), async (c) => {
+const listArtistRoute = createRoute({
+	method: "get",
+	path: "/",
+	tags: ["Artist"],
+	request: {
+		query: artistInputParams,
+	},
+	responses: {
+		200: {
+			description: "Paginated artist list",
+			content: { "application/json": { schema: artistSchema } },
+		},
+	},
+});
+
+const getArtistByIdRoute = createRoute({
+	method: "get",
+	path: "/{artistId}",
+	tags: ["Artist"],
+	request: {
+		params: z.object({ artistId: z.string() }),
+	},
+	responses: {
+		200: {
+			description: "Artist by ID",
+			content: {
+				"application/json": {
+					schema: zodSchema.authorMain.SelectSchema.nullable(),
+				},
+			},
+		},
+	},
+});
+
+const createArtistRoute = createRoute({
+	method: "post",
+	path: "/",
+	tags: ["Artist"],
+	request: {
+		body: {
+			content: {
+				"application/json": { schema: CreateArtistSchema },
+			},
+		},
+	},
+	responses: {
+		200: {
+			description: "Create artist",
+			content: {
+				"application/json": {
+					schema: z.array(zodSchema.authorMain.SelectSchema),
+				},
+			},
+		},
+	},
+});
+
+const deleteArtistRoute = createRoute({
+	method: "delete",
+	path: "/{artistId}",
+	tags: ["Artist"],
+	request: {
+		params: z.object({ artistId: z.string() }),
+	},
+	responses: {
+		200: {
+			description: "Delete artist",
+			content: {
+				"application/json": {
+					schema: z.array(zodSchema.authorMain.SelectSchema),
+				},
+			},
+		},
+	},
+});
+
+const updateArtistRoute = createRoute({
+	method: "put",
+	path: "/{artistId}",
+	tags: ["Artist"],
+	request: {
+		params: z.object({ artistId: z.string() }),
+		body: {
+			content: {
+				"application/json": { schema: zodSchema.authorMain.InsertSchema },
+			},
+		},
+	},
+	responses: {
+		200: {
+			description: "Update artist",
+			content: {
+				"application/json": {
+					schema: z.array(zodSchema.authorMain.SelectSchema),
+				},
+			},
+		},
+	},
+});
+
+const ArtistRoute = new OpenAPIHono<HonoEnv>()
+	.openapi(listArtistRoute, async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
-		const { page, search, tag, sort, searchTable } = c.req.query();
-		const returnObj = await ArtistDao.Fetch({
-			page,
-			search,
-			tag,
-			sort,
-			searchTable,
-		});
+		const query = c.req.valid("query");
+		const returnObj = await ArtistDao.Fetch(query);
 		return c.json(returnObj);
 	})
-	.get("/:artistId", async (c) => {
+	.openapi(getArtistByIdRoute, async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
-		const { artistId } = c.req.param();
+		const { artistId } = c.req.valid("param");
 		const returnObj = await ArtistDao.FetchById(artistId);
-		return c.json(returnObj);
+		return c.json(returnObj ?? null);
 	})
-	.post("/", zValidator("json", CreateArtistSchema), async (c) => {
+	.openapi(createArtistRoute, async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
-		const body: CreateArtistSchemaTypes = await c.req.json();
+		const body = c.req.valid("json");
 		const returnResponse = await ArtistDao.Create(body);
 		return c.json(returnResponse, 200);
 	})
-	.delete("/:artistId", async (c) => {
+	.openapi(deleteArtistRoute, async (c) => {
 		const ArtistDao = NewArtistDao(c.var.db);
-		const { artistId } = c.req.param();
+		const { artistId } = c.req.valid("param");
 		const returnResponse = await ArtistDao.Delete(artistId);
 		return c.json(returnResponse, 200);
 	})
-	.put(
-		"/:artistId",
-		zValidator("json", zodSchema.authorMain.InsertSchema),
-		async (c) => {
-			const ArtistDao = NewArtistDao(c.var.db);
-			const { artistId } = c.req.param();
-			const body: zodSchemaType["authorMain"]["InsertSchema"] =
-				await c.req.json();
-			const returnResponse = await ArtistDao.Update(artistId, body);
-
-			return c.json(returnResponse, 200);
-		},
-	);
+	.openapi(updateArtistRoute, async (c) => {
+		const ArtistDao = NewArtistDao(c.var.db);
+		const { artistId } = c.req.valid("param");
+		const body: zodSchemaType["authorMain"]["InsertSchema"] =
+			c.req.valid("json");
+		const returnResponse = await ArtistDao.Update(artistId, body);
+		return c.json(returnResponse, 200);
+	});
 
 export default ArtistRoute;

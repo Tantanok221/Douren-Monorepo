@@ -1,7 +1,6 @@
-import { Hono } from "hono";
 import { and, eq } from "drizzle-orm";
 import { initDB, s } from "@pkg/database/db";
-import { zValidator } from "@hono/zod-validator";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import {
 	CreateEventArtistSchema,
 	CreateEventSchema,
@@ -11,21 +10,28 @@ import {
 	UpdateEventArtistSchema,
 } from "@/schema/event.zod";
 import { authProcedure, publicProcedure, router } from "@/lib/trpc";
-import { eventInputParams, eventNameInputParams } from "@pkg/type";
+import {
+	artistInputParams,
+	eventArtistSchema,
+	eventNameInputParams,
+} from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
 import { HonoEnv } from "@/index";
+import { z } from "zod";
 
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
 		const EventDao = NewEventDao(opts.ctx.db);
 		return await EventDao.FetchAll();
 	}),
-	getEvent: publicProcedure.input(eventInputParams).query(async (opts) => {
-		const EventArtistDao = NewEventArtistDao(opts.ctx.db);
-		return await EventArtistDao.Fetch(opts.input);
-	}),
+	getEvent: publicProcedure
+		.input(artistInputParams.extend({ eventName: z.string() }))
+		.query(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Fetch(opts.input);
+		}),
 	getEventArtistById: publicProcedure
 		.input(GetEventArtistByIdSchema)
 		.query(async (opts) => {
@@ -58,47 +64,159 @@ export const trpcEventRoute = router({
 		}),
 });
 
-const EventRoute = new Hono<HonoEnv>()
-	.get("/:eventName/artist", async (c) => {
-		const { page, search, tag, sort, searchTable } = c.req.query();
+const getEventArtistRoute = createRoute({
+	method: "get",
+	path: "/{eventName}/artist",
+	tags: ["Event"],
+	request: {
+		params: z.object({ eventName: z.string() }),
+		query: artistInputParams,
+	},
+	responses: {
+		200: {
+			description: "Paginated event artists list",
+			content: { "application/json": { schema: eventArtistSchema } },
+		},
+	},
+});
+
+const listEventRoute = createRoute({
+	method: "get",
+	path: "/",
+	tags: ["Event"],
+	responses: {
+		200: {
+			description: "List events",
+			content: {
+				"application/json": { schema: z.array(zodSchema.event.SelectSchema) },
+			},
+		},
+	},
+});
+
+const getEventByNameRoute = createRoute({
+	method: "get",
+	path: "/{eventName}",
+	tags: ["Event"],
+	request: {
+		params: z.object({ eventName: z.string() }),
+	},
+	responses: {
+		200: {
+			description: "Event by name",
+			content: {
+				"application/json": { schema: zodSchema.event.SelectSchema.nullable() },
+			},
+		},
+	},
+});
+
+const createEventArtistRoute = createRoute({
+	method: "post",
+	path: "/artist",
+	tags: ["Event"],
+	request: {
+		body: {
+			content: { "application/json": { schema: CreateEventArtistSchema } },
+		},
+	},
+	responses: {
+		201: {
+			description: "Create event artist",
+			content: {
+				"application/json": { schema: z.array(zodSchema.eventDm.SelectSchema) },
+			},
+		},
+	},
+});
+
+const createEventRoute = createRoute({
+	method: "post",
+	path: "/",
+	tags: ["Event"],
+	request: {
+		body: { content: { "application/json": { schema: CreateEventSchema } } },
+	},
+	responses: {
+		201: {
+			description: "Create event",
+			content: {
+				"application/json": { schema: z.array(zodSchema.event.SelectSchema) },
+			},
+		},
+	},
+});
+
+const deleteEventArtistRoute = createRoute({
+	method: "delete",
+	path: "/{eventId}/artist/{artistId}",
+	tags: ["Event"],
+	request: {
+		params: z.object({ eventId: z.string(), artistId: z.string() }),
+	},
+	responses: {
+		200: {
+			description: "Delete event artist mapping",
+			content: {
+				"application/json": { schema: z.array(zodSchema.eventDm.SelectSchema) },
+			},
+		},
+	},
+});
+
+const updateEventArtistRoute = createRoute({
+	method: "put",
+	path: "/artist/{eventArtistId}",
+	tags: ["Event"],
+	request: {
+		params: z.object({ eventArtistId: z.string() }),
+		body: {
+			content: { "application/json": { schema: PutEventArtistSchema } },
+		},
+	},
+	responses: {
+		200: {
+			description: "Update event artist mapping",
+			content: {
+				"application/json": { schema: z.array(zodSchema.eventDm.SelectSchema) },
+			},
+		},
+	},
+});
+
+const EventRoute = new OpenAPIHono<HonoEnv>()
+	.openapi(getEventArtistRoute, async (c) => {
+		const query = c.req.valid("query");
+		const { eventName } = c.req.valid("param");
 		const EventArtistDao = NewEventArtistDao(c.var.db);
-		const { eventName } = c.req.param();
-		const returnObj = await EventArtistDao.Fetch({
-			page,
-			search,
-			sort,
-			searchTable,
-			tag,
-			eventName,
-		});
+		const returnObj = await EventArtistDao.Fetch({ ...query, eventName });
 		return c.json(returnObj);
 	})
-	.get("/", async (c) => {
+	.openapi(listEventRoute, async (c) => {
 		const EventDao = NewEventDao(c.var.db);
 		const data = await EventDao.FetchAll();
 		return c.json(data);
 	})
-	.get("/:eventName", async (c) => {
-		const { eventName } = c.req.param();
+	.openapi(getEventByNameRoute, async (c) => {
+		const { eventName } = c.req.valid("param");
 		const EventDao = NewEventDao(c.var.db);
 		const data = await EventDao.FetchByEventName(eventName);
-		return c.json(data);
+		return c.json(data ?? null);
 	})
-	.post("/artist", zValidator("json", CreateEventArtistSchema), async (c) => {
+	.openapi(createEventArtistRoute, async (c) => {
 		const EventArtistDao = NewEventArtistDao(c.var.db);
-		const body: PutEventArtistSchemaTypes = await c.req.json();
+		const body: PutEventArtistSchemaTypes = c.req.valid("json");
 		const returnResponse = await EventArtistDao.Create(body);
-
 		return c.json(returnResponse, 201);
 	})
-	.post("/", zValidator("json", CreateEventSchema), async (c) => {
+	.openapi(createEventRoute, async (c) => {
 		const EventDao = NewEventDao(c.var.db);
-		const body = await c.req.json();
+		const body = c.req.valid("json");
 		const returnResponse = await EventDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
-	.delete("/:eventId/artist/:artistId", async (c) => {
-		const { artistId, eventId } = c.req.param();
+	.openapi(deleteEventArtistRoute, async (c) => {
+		const { artistId, eventId } = c.req.valid("param");
 		const db = initDB(c.env.DATABASE_URL);
 		const returnResponse = await db
 			.delete(s.eventDm)
@@ -111,17 +229,12 @@ const EventRoute = new Hono<HonoEnv>()
 			.returning();
 		return c.json(returnResponse, 200);
 	})
-	.put(
-		"/artist/:eventArtistId",
-		zValidator("json", PutEventArtistSchema),
-		async (c) => {
-			const EventArtistDao = NewEventArtistDao(c.var.db);
-			const { eventArtistId } = c.req.param();
-			const body: PutEventArtistSchemaTypes = await c.req.json();
-			const returnResponse = await EventArtistDao.Update(eventArtistId, body);
-
-			return c.json(returnResponse, 200);
-		},
-	);
+	.openapi(updateEventArtistRoute, async (c) => {
+		const EventArtistDao = NewEventArtistDao(c.var.db);
+		const { eventArtistId } = c.req.valid("param");
+		const body: PutEventArtistSchemaTypes = c.req.valid("json");
+		const returnResponse = await EventArtistDao.Update(eventArtistId, body);
+		return c.json(returnResponse, 200);
+	});
 
 export default EventRoute;
