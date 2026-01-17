@@ -29,26 +29,30 @@ The workflows comment **both**:
 
 ### Proposed preview hostnames
 
-- Frontend (PR): `https://pr-<number>.stg.douren.net`
-- CMS (PR): `https://pr-<number>.stg.cms.douren.net`
-- Backend API (PR): `https://pr-<number>.stg.api.douren.net`
+- Frontend (PR): `https://pr-<number>-stg.douren.net`
+- CMS (PR): `https://pr-<number>-cms-stg.douren.net`
+- Backend API (PR): `https://pr-<number>-api-stg.douren.net`
 
 ### How the `douren.net` previews are expected to work
 
 Cloudflare Pages does not automatically serve unknown hostnames unless they are registered as Pages “custom domains”.
 To avoid adding/removing a custom domain per PR, the expected setup is:
 
-1. Add wildcard DNS records (proxied) for:
-   - `*.stg.douren.net`
-   - `*.stg.cms.douren.net`
-   - `*.stg.api.douren.net`
-2. Point those wildcards at a Cloudflare Worker route that proxies to:
+1. Add a wildcard DNS record (proxied) for:
+   - `*.douren.net`
+2. Point only the PR-preview hostnames at a Cloudflare Worker route that proxies to:
    - Pages branch preview URLs (`https://pr-<n>.douren-frontend.pages.dev`, `https://pr-<n>.douren-cms.pages.dev`)
    - Workers preview URLs for the backend (`douren-backend-pr-<n>` on `workers.dev`)
 
-This repo includes a router worker implementation at `be/preview-router/src/index.ts`. Deploy it via `.github/workflows/main-preview-router-deploy.yaml`, then configure Cloudflare Worker routes for the 3 wildcard hostnames above to point to the deployed `douren-preview-router` script.
+This repo includes a router worker implementation at `be/preview-router/src/index.ts`. Deploy it via `.github/workflows/main-preview-router-deploy.yaml`, then configure Cloudflare Worker routes to point the PR-preview hostnames at the deployed `douren-preview-router` script.
 
 For API routing, the router also needs `WORKERS_DEV_SUBDOMAIN` (your Cloudflare `workers.dev` subdomain) set as a GitHub Actions variable `WORKERS_DEV_SUBDOMAIN`.
+
+## Why the preview hostnames are single-label under `douren.net`
+
+Cloudflare’s Universal SSL for a zone typically covers `douren.net` and `*.douren.net` (one label).
+It does not cover multi-level hostnames like `pr-154.stg.douren.net` unless you provision an additional certificate for `*.stg.douren.net`.
+Using `pr-154-stg.douren.net` keeps the preview within `*.douren.net` so TLS works on the free plan.
 
 ## Cleanup on PR close/merge
 

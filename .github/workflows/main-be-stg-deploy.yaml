@@ -111,7 +111,7 @@ jobs:
             echo "PR_BRANCH=$PR_BRANCH" >> "$GITHUB_ENV"
             echo "PR_SCHEMA=$PR_SCHEMA" >> "$GITHUB_ENV"
             echo "WORKER_NAME=douren-backend-$PR_BRANCH" >> "$GITHUB_ENV"
-            echo "API_PREVIEW_URL=https://$PR_BRANCH.stg.api.douren.net" >> "$GITHUB_ENV"
+            echo "API_PREVIEW_URL=https://pr-$PR_NUMBER-api-stg.douren.net" >> "$GITHUB_ENV"
           else
             echo "DEPLOY_KIND=stg" >> "$GITHUB_ENV"
             echo "API_PREVIEW_URL=https://stg.api.douren.net" >> "$GITHUB_ENV"

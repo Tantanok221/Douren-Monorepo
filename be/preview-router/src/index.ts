@@ -2,28 +2,30 @@ interface Env {
   WORKERS_DEV_SUBDOMAIN?: string;
 }
 
-function parsePrLabel(hostname: string): string | null {
+type PreviewTarget = "frontend" | "cms" | "api";
+
+function parsePreviewHost(hostname: string): { prBranch: string; target: PreviewTarget } | null {
   const firstLabel = hostname.split(".")[0] ?? "";
-  if (!/^pr-\d+$/.test(firstLabel)) return null;
-  return firstLabel;
+
+  const match = firstLabel.match(/^pr-(\d+)(?:-(cms|api))?-stg$/);
+  if (!match) return null;
+
+  const prNumber = match[1];
+  if (!prNumber) return null;
+
+  const kind = match[2];
+  const target: PreviewTarget = kind === "cms" ? "cms" : kind === "api" ? "api" : "frontend";
+
+  return { prBranch: `pr-${prNumber}`, target };
 }
 
-function targetForHost(hostname: string, pr: string, env: Env): string | null {
-  if (hostname.endsWith(".stg.cms.douren.net")) {
-    return `https://${pr}.douren-cms.pages.dev`;
-  }
+function targetForHost(prBranch: string, target: PreviewTarget, env: Env): string | null {
+  if (target === "cms") return `https://${prBranch}.douren-cms.pages.dev`;
+  if (target === "frontend") return `https://${prBranch}.douren-frontend.pages.dev`;
 
-  if (hostname.endsWith(".stg.douren.net")) {
-    return `https://${pr}.douren-frontend.pages.dev`;
-  }
-
-  if (hostname.endsWith(".stg.api.douren.net")) {
-    const subdomain = env.WORKERS_DEV_SUBDOMAIN?.trim();
-    if (!subdomain) return null;
-    return `https://douren-backend-${pr}.${subdomain}.workers.dev`;
-  }
-
-  return null;
+  const subdomain = env.WORKERS_DEV_SUBDOMAIN?.trim();
+  if (!subdomain) return null;
+  return `https://douren-backend-${prBranch}.${subdomain}.workers.dev`;
 }
 
 export default {
@@ -31,10 +33,10 @@ export default {
     const incomingUrl = new URL(request.url);
     const hostname = incomingUrl.hostname.toLowerCase();
 
-    const pr = parsePrLabel(hostname);
-    if (!pr) return new Response("Not found", { status: 404 });
+    const parsed = parsePreviewHost(hostname);
+    if (!parsed) return new Response("Not found", { status: 404 });
 
-    const targetBase = targetForHost(hostname, pr, env);
+    const targetBase = targetForHost(parsed.prBranch, parsed.target, env);
     if (!targetBase) {
       return new Response(
         "Preview router not configured for this hostname",
@@ -50,4 +52,3 @@ export default {
     return fetch(proxyRequest);
   },
 };
-

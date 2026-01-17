@@ -67,8 +67,8 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "PAGES_BRANCH=pr-${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
-            echo "CMS_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}.stg.cms.douren.net" >> "$GITHUB_ENV"
-            echo "API_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}.stg.api.douren.net" >> "$GITHUB_ENV"
+            echo "CMS_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}-cms-stg.douren.net" >> "$GITHUB_ENV"
+            echo "API_CUSTOM_PREVIEW_URL=https://pr-${{ github.event.pull_request.number }}-api-stg.douren.net" >> "$GITHUB_ENV"
           else
             echo "PAGES_BRANCH=stg" >> "$GITHUB_ENV"
           fi
