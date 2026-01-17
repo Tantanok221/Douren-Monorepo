@@ -3,6 +3,14 @@
 ## Purpose
 This document establishes patterns and conventions for designing APIs in the Douren system, covering both tRPC procedures and traditional REST endpoints.
 
+## API Documentation (OpenAPI)
+
+REST endpoints should be documented via OpenAPI generated from Zod schemas (so the docs stay in sync with runtime validation).
+
+- Backend dev server exposes the spec at `/openapi.json` and a viewer at `/docs`.
+- When adding/changing REST routes, prefer `OpenAPIHono` + `createRoute` with explicit request/response schemas.
+- Reuse existing Zod schemas from `@pkg/type` (API-level shapes) and `@pkg/database/zod` (table shapes) where possible.
+
 ## tRPC Design Patterns
 
 ### Procedure Naming Conventions
