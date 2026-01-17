@@ -123,11 +123,149 @@ The application manages artists, products/artworks, events, and tags with many-t
 - Use `npm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
 
+---
+
+## Code Quality Guidelines
+
+### TypeScript Strictness
+- **NEVER use `any` type** - Always use proper types, generics, or `unknown` with type guards
+- **Prefer `unknown` over `any`** - When type is truly unknown, use `unknown` and narrow with type guards
+- **Use explicit return types** for public functions and exported APIs
+- **Leverage path aliases** - Use `@/` for workspace-local imports and `@pkg/` for internal packages
+- **Enable strict mode** - All TypeScript configs extend strict base configurations
+
+```typescript
+// ❌ BAD - Never do this
+const data: any = fetchData();
+function process(input: any) { ... }
+
+// ✅ GOOD - Use proper types
+const data: UserData = fetchData();
+function process(input: unknown): ProcessedData {
+  if (isUserData(input)) { ... }
+}
+```
+
+### Linting Best Practices
+- **NEVER ignore lint errors** - Fix the underlying issue instead
+- **NEVER use `// @ts-ignore` or `// @ts-expect-error`** without a detailed justification comment
+- **NEVER use `eslint-disable` comments** - Fix the code to comply with rules
+- **Run `npm run lint`** before committing to catch issues early
+- **Run `npm run format`** to auto-fix formatting issues
+
+```typescript
+// ❌ BAD - Don't suppress lint
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data: any = response;
+
+// ✅ GOOD - Fix the actual type
+interface ApiResponse { id: string; name: string; }
+const data: ApiResponse = response;
+```
+
+### React Best Practices (Vercel Guidelines)
+When writing React code, follow the `/vercel-react-best-practices` skill guidelines:
+
+**Component Patterns:**
+- Use functional components with explicit `React.FC` typing
+- Keep components small and focused on a single responsibility
+- Use component composition over prop drilling
+- Extract reusable logic into custom hooks
+
+**Performance Optimization:**
+- Use `React.memo()` for expensive pure components
+- Use `useMemo()` for expensive calculations
+- Use `useCallback()` for callback functions passed to children
+- Avoid inline object/array creation in render
+
+**State Management:**
+- Prefer local state when possible
+- Use Context API for shared state across component trees
+- Use Zustand for complex global state
+
+**Data Fetching:**
+- Use TanStack Query (via tRPC) for server state
+- Leverage query caching and invalidation patterns
+- Handle loading and error states explicitly
+
+```typescript
+// ✅ GOOD - Proper React patterns
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
+  const { data, isLoading, error } = trpc.artist.getArtist.useQuery({ id: artist.id });
+
+  const formattedName = useMemo(() => formatArtistName(artist), [artist]);
+
+  if (isLoading) return <Skeleton />;
+  if (error) return <ErrorDisplay error={error} />;
+
+  return <Card data={data} name={formattedName} />;
+};
+```
+
+### Import Conventions
+- Use barrel exports via `@pkg/*` for internal packages
+- Use `@/` alias for workspace-local imports
+- Group imports: external → internal packages → local modules
+- Use `import type` for type-only imports
+
+```typescript
+// ✅ GOOD - Organized imports
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import type { ArtistData } from "@pkg/type";
+import { formatDate } from "@pkg/helper";
+
+import { useArtistContext } from "@/contexts/ArtistContext";
+import styles from "./ArtistCard.module.css";
+```
+
+### Testing Guidelines
+- Write tests using **Vitest** with `describe`, `it`, `expect` patterns
+- Use `vi.mock()` for mocking dependencies (Drizzle ORM, utilities)
+- For React components, use `@testing-library/react`
+- Mock external services and database calls in unit tests
+- Place tests in `__tests__/` directories or use `*.test.ts(x)` naming
+
+```typescript
+// ✅ GOOD - Test pattern
+describe("ArtistCard", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders artist name correctly", () => {
+    const { getByText } = render(<ArtistCard artist={mockArtist} />);
+    expect(getByText(mockArtist.name)).toBeInTheDocument();
+  });
+});
+```
+
+### Styling Guidelines
+- **Frontend (Douren-frontend)**: Use CSS Modules with `classNames/bind`
+- **CMS**: Use Tailwind CSS utility classes
+- Keep styles scoped to components
+- Use semantic class names
+
+### tRPC and API Patterns
+- Define procedures in router files under `src/trpc/`
+- Use `publicProcedure` for public endpoints, `protectedProcedure` for authenticated
+- Validate inputs with Zod schemas
+- Return typed responses for end-to-end type safety
+
+### Database Patterns (Drizzle ORM)
+- Define schemas in `pkg/database/src/db/schema.ts`
+- Use DAOs (Data Access Objects) to abstract database operations
+- Always use parameterized queries (Drizzle handles this)
+- Run `npm run db:generate` after schema changes
+
+---
+
 ## Commit History Notes
 - On DR-90 Jira ticket, remember to update commit history accordingly
 
 ## Development Workflow
-- After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files. 
+- After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files.
 
 ## Development Practices
 - Each time you update your claude.md you should commit it via "[DR-00] dev: update claude.md", a simple commit is enough
