@@ -1,4 +1,8 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import type { initDB } from "@pkg/database/db";
+
+// Type alias for mock database
+type MockDB = ReturnType<typeof initDB>;
 
 // Shared mock result that can be reset
 const createMockBuildQueryResult = () => ({
@@ -175,7 +179,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(builder).toBeDefined();
 				expect(builder.fetchParams).toEqual(params);
@@ -189,7 +193,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(builder.derivedFetchParams.sortBy).toBeDefined();
 			});
@@ -201,7 +205,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(builder.derivedFetchParams.sortBy).toBeDefined();
 			});
@@ -213,7 +217,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				NewArtistQueryBuilder(params, mockDb as any);
+				NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(processTableName).toHaveBeenCalledWith("Author_Main.Author");
 			});
@@ -226,7 +230,7 @@ describe("QueryBuilder", () => {
 					tag: "原創,插畫",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(processTagConditions).toHaveBeenCalledWith("原創,插畫");
 				expect(builder.derivedFetchParams.tagConditions).toHaveLength(2);
@@ -240,7 +244,7 @@ describe("QueryBuilder", () => {
 					tag: undefined,
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(builder.derivedFetchParams.tagConditions).toEqual([]);
 			});
@@ -254,7 +258,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result).toHaveProperty("SelectQuery");
@@ -268,7 +272,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(BuildQuery).toHaveBeenCalled();
@@ -282,7 +286,7 @@ describe("QueryBuilder", () => {
 					tag: "原創",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result.SelectQuery.withAndFilter).toHaveBeenCalled();
@@ -297,7 +301,7 @@ describe("QueryBuilder", () => {
 					search: "test artist",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result.SelectQuery.withIlikeSearchByTable).toHaveBeenCalledWith(
@@ -315,7 +319,7 @@ describe("QueryBuilder", () => {
 					search: "test",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result.SelectQuery.withAndFilter).toHaveBeenCalled();
@@ -330,7 +334,7 @@ describe("QueryBuilder", () => {
 					tag: "",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withAndFilter).not.toHaveBeenCalled();
@@ -343,7 +347,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withPagination).toHaveBeenCalledWith(5, 10);
@@ -356,7 +360,7 @@ describe("QueryBuilder", () => {
 					searchTable: "Author_Main.Author",
 				};
 
-				const builder = NewArtistQueryBuilder(params, mockDb as any);
+				const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withOrderBy).toHaveBeenCalled();
@@ -374,7 +378,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(builder).toBeDefined();
 				expect(builder.fetchParams).toEqual(params);
@@ -389,7 +393,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				NewEventArtistQueryBuilder(params, mockDb as any);
+				NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 				expect(processTableName).toHaveBeenCalledWith("Booth_name");
 			});
@@ -404,7 +408,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result).toHaveProperty("SelectQuery");
@@ -419,7 +423,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withFilterEventName).toHaveBeenCalledWith(
@@ -436,7 +440,7 @@ describe("QueryBuilder", () => {
 					tag: "原創",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result.SelectQuery.withAndFilter).toHaveBeenCalled();
@@ -452,7 +456,7 @@ describe("QueryBuilder", () => {
 					search: "artist name",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
 				expect(result.SelectQuery.withIlikeSearchByTable).toHaveBeenCalledWith(
@@ -469,7 +473,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withPagination).toHaveBeenCalledWith(3, 10);
@@ -483,7 +487,7 @@ describe("QueryBuilder", () => {
 					eventName: "Test Event",
 				};
 
-				const builder = NewEventArtistQueryBuilder(params, mockDb as any);
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
 				expect(mockBuildQueryResult.withOrderBy).toHaveBeenCalled();
@@ -499,7 +503,7 @@ describe("QueryBuilder", () => {
 				searchTable: "Author_Main.Author",
 			};
 
-			const builder = NewArtistQueryBuilder(params, mockDb as any);
+			const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 			expect(builder.derivedFetchParams.sortBy).toBeDefined();
 		});
@@ -511,7 +515,7 @@ describe("QueryBuilder", () => {
 				searchTable: "Author_Main.Author",
 			};
 
-			const builder = NewArtistQueryBuilder(params, mockDb as any);
+			const builder = NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 			expect(builder.derivedFetchParams.sortBy).toBeDefined();
 		});
@@ -523,7 +527,7 @@ describe("QueryBuilder", () => {
 				searchTable: "Author_Main.Author",
 			};
 
-			NewArtistQueryBuilder(params, mockDb as any);
+			NewArtistQueryBuilder(params, mockDb as unknown as MockDB);
 
 			expect(processTableName).toHaveBeenCalledWith("Author_Main.Author");
 		});

@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import type { initDB } from "@pkg/database/db";
 
 // Mock database schema
 vi.mock("@pkg/database/db", () => ({
@@ -7,6 +8,9 @@ vi.mock("@pkg/database/db", () => ({
 		owner: "owner_table",
 	},
 }));
+
+// Type alias for mock database
+type MockDB = ReturnType<typeof initDB>;
 
 // Mock data
 const mockOwnerDbResponse = [
@@ -49,22 +53,22 @@ describe("Owner DAO", () => {
 
 	beforeEach(() => {
 		mockDb = createMockDatabase();
-		ownerDao = NewOwnerDao(mockDb as any);
+		ownerDao = NewOwnerDao(mockDb as unknown as MockDB);
 		vi.clearAllMocks();
 	});
 
 	describe("NewOwnerDao factory function", () => {
 		it("should create a new OwnerDao instance", () => {
-			const dao = NewOwnerDao(mockDb as any);
+			const dao = NewOwnerDao(mockDb as unknown as MockDB);
 
 			expect(dao).toBeDefined();
 			expect(dao.db).toBe(mockDb);
 		});
 
 		it("should create independent instances", () => {
-			const dao1 = NewOwnerDao(mockDb as any);
+			const dao1 = NewOwnerDao(mockDb as unknown as MockDB);
 			const mockDb2 = createMockDatabase();
-			const dao2 = NewOwnerDao(mockDb2 as any);
+			const dao2 = NewOwnerDao(mockDb2 as unknown as MockDB);
 
 			expect(dao1.db).not.toBe(dao2.db);
 		});

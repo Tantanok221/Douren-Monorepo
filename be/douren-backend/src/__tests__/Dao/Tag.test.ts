@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import type { initDB } from "@pkg/database/db";
 
 // Mock database schema
 vi.mock("@pkg/database/db", () => ({
@@ -7,6 +8,9 @@ vi.mock("@pkg/database/db", () => ({
 		tag: "tag_table",
 	},
 }));
+
+// Type alias for mock database
+type MockDB = ReturnType<typeof initDB>;
 
 // Mock data
 const mockTagDbResponse = [
@@ -54,7 +58,7 @@ describe("Tag DAO", () => {
 
 	describe("fetchTag function", () => {
 		it("should fetch all tags successfully", async () => {
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(mockDb.select).toHaveBeenCalled();
 			expect(mockDb.mockFrom).toHaveBeenCalledWith("tag_table");
@@ -64,13 +68,13 @@ describe("Tag DAO", () => {
 		it("should return empty array when no tags exist", async () => {
 			mockDb.mockFrom.mockResolvedValueOnce([]);
 
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result).toEqual([]);
 		});
 
 		it("should return tags with correct structure", async () => {
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result).toHaveLength(3);
 			expect(result[0]).toHaveProperty("tag");
@@ -79,7 +83,7 @@ describe("Tag DAO", () => {
 		});
 
 		it("should return tags in their stored order", async () => {
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result[0].tag).toBe("原創");
 			expect(result[0].index).toBe(1);
@@ -91,20 +95,20 @@ describe("Tag DAO", () => {
 			const dbError = new Error("Database connection failed");
 			mockDb.mockFrom.mockRejectedValueOnce(dbError);
 
-			await expect(fetchTag(mockDb as any)).rejects.toThrow(
+			await expect(fetchTag(mockDb as unknown as MockDB)).rejects.toThrow(
 				"Database connection failed",
 			);
 		});
 
 		it("should call select without any conditions", async () => {
-			await fetchTag(mockDb as any);
+			await fetchTag(mockDb as unknown as MockDB);
 
 			expect(mockDb.select).toHaveBeenCalledTimes(1);
 			expect(mockDb.select).toHaveBeenCalledWith();
 		});
 
 		it("should return tags with count values", async () => {
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result[0].count).toBe(150);
 			expect(result[1].count).toBe(120);
@@ -121,7 +125,7 @@ describe("Tag DAO", () => {
 			];
 			mockDb.mockFrom.mockResolvedValueOnce(singleTagResponse);
 
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result).toHaveLength(1);
 			expect(result[0].tag).toBe("單一標籤");
@@ -137,7 +141,7 @@ describe("Tag DAO", () => {
 			];
 			mockDb.mockFrom.mockResolvedValueOnce(zeroCountResponse);
 
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result[0].count).toBe(0);
 		});
@@ -152,7 +156,7 @@ describe("Tag DAO", () => {
 			];
 			mockDb.mockFrom.mockResolvedValueOnce(specialCharResponse);
 
-			const result = await fetchTag(mockDb as any);
+			const result = await fetchTag(mockDb as unknown as MockDB);
 
 			expect(result[0].tag).toBe("特殊&字元<>");
 		});
