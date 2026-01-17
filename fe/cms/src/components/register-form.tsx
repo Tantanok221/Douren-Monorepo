@@ -41,16 +41,16 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
         await onSubmit(data);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : "發生錯誤");
     }
   };
   return (
     <div className={cn("flex flex-col gap-6", className)}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Register</CardTitle>
+          <CardTitle className="text-2xl">註冊</CardTitle>
           <CardDescription>
-            Create a new account by entering your email and password
+            請輸入您的電子郵件和密碼以建立新帳戶
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -62,17 +62,17 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
                 </div>
               )}
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">電子郵件</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
                   disabled={isSubmitting}
                   {...register("email", {
-                    required: "Email is required",
+                    required: "請輸入電子郵件",
                     pattern: {
                       value: EMAIL_REGEX,
-                      message: "Invalid email address",
+                      message: "電子郵件格式不正確",
                     },
                   })}
                 />
@@ -83,16 +83,16 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">密碼</Label>
                 <Input
                   id="password"
                   type="password"
                   disabled={isSubmitting}
                   {...register("password", {
-                    required: "Password is required",
+                    required: "請輸入密碼",
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters",
+                      message: "密碼長度至少需要 8 個字元",
                     },
                   })}
                 />
@@ -103,13 +103,13 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
                 )}
               </div>
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Creating account..." : "Register"}
+                {isSubmitting ? "建立帳戶中..." : "註冊"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              已經有帳戶了？{" "}
               <Link to="/login" className="underline underline-offset-4">
-                Login
+                登入
               </Link>
             </div>
           </form>

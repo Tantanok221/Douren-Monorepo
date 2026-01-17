@@ -38,16 +38,16 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
         await onSubmit(data);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : "發生錯誤");
     }
   };
   return (
     <div className={cn("flex flex-col gap-6", className)}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">登入</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            請輸入您的電子郵件以登入帳戶
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -59,17 +59,17 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
                 </div>
               )}
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">電子郵件</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
                   disabled={isSubmitting}
                   {...register("email", {
-                    required: "Email is required",
+                    required: "請輸入電子郵件",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
+                      message: "電子郵件格式不正確",
                     },
                   })}
                 />
@@ -81,12 +81,12 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">密碼</Label>
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
-                    Forgot your password?
+                    忘記密碼？
                   </a>
                 </div>
                 <Input
@@ -94,10 +94,10 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
                   type="password"
                   disabled={isSubmitting}
                   {...register("password", {
-                    required: "Password is required",
+                    required: "請輸入密碼",
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters",
+                      message: "密碼長度至少需要 8 個字元",
                     },
                   })}
                 />
@@ -108,13 +108,13 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
                 )}
               </div>
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Logging in..." : "Login"}
+                {isSubmitting ? "登入中..." : "登入"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              還沒有帳戶？{" "}
               <Link to="/register" className="underline underline-offset-4">
-                Sign up
+                註冊
               </Link>
             </div>
           </form>
