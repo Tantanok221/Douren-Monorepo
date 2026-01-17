@@ -34,16 +34,18 @@ jobs:
 
       - name: Deploy router
         env:
-          CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
           WORKERS_DEV_SUBDOMAIN: ${{ vars.WORKERS_DEV_SUBDOMAIN }}
         run: |
           cd be/preview-router
 
-          ARGS=()
-          if [[ -n "$WORKERS_DEV_SUBDOMAIN" ]]; then
-            ARGS+=(--var "WORKERS_DEV_SUBDOMAIN:$WORKERS_DEV_SUBDOMAIN")
+          if [[ -z "${WORKERS_DEV_SUBDOMAIN:-}" ]]; then
+            echo "Missing Actions variable WORKERS_DEV_SUBDOMAIN (expected like: you910508)."
+            exit 1
           fi
 
-          wrangler deploy src/index.ts "${ARGS[@]}"
+          ARGS=()
+          ARGS+=(--var "WORKERS_DEV_SUBDOMAIN:$WORKERS_DEV_SUBDOMAIN")
 
+          wrangler deploy src/index.ts "${ARGS[@]}"
