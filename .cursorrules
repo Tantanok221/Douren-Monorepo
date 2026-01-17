@@ -1,0 +1,14 @@
+# Cursor rules for this repo
+#
+# Canonical guidance lives in `AGENTS.md` (and `CLAUDE.md`).
+#
+# Key reminders:
+# - Use Node.js 22+ and prefer repository scripts (`npm run ...`, `./setup.sh`, `make ...`).
+# - Do not use `any` and do not suppress lint/TypeScript errors.
+# - Commit messages must match: `[DR-XX] type: subject` (see `commitlint.config.js`).
+#
+# Quick commands:
+# - Setup: `./setup.sh` (or `./setup.sh --quick`)
+# - Dev: `npm run dev` (or `npm run devfe`, `npm run devbe`)
+# - Lint/format/test: `npm run lint`, `npm run format`, `npm run test`
+
