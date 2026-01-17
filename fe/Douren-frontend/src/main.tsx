@@ -11,10 +11,14 @@ import { routeTree } from "@/routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 
 const queryClient = new QueryClient();
+const backendBaseUrl = import.meta.env.VITE_BACKEND_URL.replace(/\/+$/, "");
+const trpcUrl = backendBaseUrl.endsWith("/trpc")
+  ? backendBaseUrl
+  : `${backendBaseUrl}/trpc`;
 const trpcClient = trpc.createClient({
   links: [
     httpLink({
-      url: import.meta.env.VITE_BACKEND_URL,
+      url: trpcUrl,
     }),
     loggerLink(),
   ],
