@@ -272,3 +272,12 @@ describe("ArtistCard", () => {
 
 ## Commit Habits
 - Remember to commit via micro commit habits
+
+## PR Workflow
+- After completing a feature or fix, always push and create a PR
+- Use descriptive PR titles following the commit convention: `[DR-XX] type: description`
+- PR descriptions should include:
+  - **Summary**: Brief bullet points of what changed
+  - **Test plan**: Checklist of testing steps
+- Target `main` branch for PRs unless otherwise specified
+- Use `gh pr create` for creating PRs from the command line
