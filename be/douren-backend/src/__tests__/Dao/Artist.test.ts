@@ -70,9 +70,8 @@ describe("Artist DAO", () => {
 
 			expect(mockDb.insert).toHaveBeenCalledWith(expect.anything());
 			expect(mockDb.mockValues).toHaveBeenCalledWith(validArtistData);
-			expect(mockDb.mockOnConflictDoUpdate).toHaveBeenCalledWith({
+			expect(mockDb.mockOnConflictDoNothing).toHaveBeenCalledWith({
 				target: expect.anything(),
-				set: expect.objectContaining(validArtistData),
 			});
 			expect(mockDb.mockReturning).toHaveBeenCalled();
 			expect(result).toEqual(mockArtistDbResponse);
@@ -91,9 +90,8 @@ describe("Artist DAO", () => {
 
 			const result = await artistDao.Create(duplicateData);
 
-			expect(mockDb.mockOnConflictDoUpdate).toHaveBeenCalledWith({
+			expect(mockDb.mockOnConflictDoNothing).toHaveBeenCalledWith({
 				target: expect.anything(),
-				set: expect.objectContaining(duplicateData),
 			});
 			expect(result).toEqual(mockArtistDbResponse);
 		});
@@ -106,7 +104,10 @@ describe("Artist DAO", () => {
 			const result = await artistDao.Update(artistId, updateArtistData);
 
 			expect(mockDb.update).toHaveBeenCalledWith(expect.anything());
-			expect(mockDb.mockSet).toHaveBeenCalledWith(updateArtistData);
+			expect(mockDb.mockSet).toHaveBeenCalledWith({
+				...updateArtistData,
+				uuid: Number(artistId),
+			});
 			expect(result).toEqual(mockArtistDbResponse);
 		});
 
@@ -116,7 +117,10 @@ describe("Artist DAO", () => {
 
 			await artistDao.Update(artistId, testData);
 
-			expect(mockDb.mockSet).toHaveBeenCalledWith(testData);
+			expect(mockDb.mockSet).toHaveBeenCalledWith({
+				...testData,
+				uuid: Number(artistId),
+			});
 		});
 
 		it("should handle non-existent artist ID", async () => {

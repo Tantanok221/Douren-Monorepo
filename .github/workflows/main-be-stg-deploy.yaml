@@ -3,11 +3,20 @@ name: Douren Backend Staging Deployment
 on:
   pull_request:
     paths:
+      - '.github/workflows/main-be-stg-deploy.yaml'
       - 'be/douren-backend/**'
       - 'pkg/**'
 
-
   workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+concurrency:
+  group: be-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   stg-deploy:
@@ -48,7 +57,30 @@ jobs:
       - name: Build Library
         run: infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run lib
 
+      - name: Compute preview settings
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            PR_BRANCH="pr-$PR_NUMBER"
+            PR_SCHEMA="pr_${PR_NUMBER}"
+            WORKERS_DEV_SUBDOMAIN="${{ vars.WORKERS_DEV_SUBDOMAIN }}"
+            if [[ -z "$WORKERS_DEV_SUBDOMAIN" ]]; then
+              echo "Missing Actions variable WORKERS_DEV_SUBDOMAIN (expected like: you910508)."
+              exit 1
+            fi
+
+            echo "DEPLOY_KIND=pr" >> "$GITHUB_ENV"
+            echo "PR_BRANCH=$PR_BRANCH" >> "$GITHUB_ENV"
+            echo "PR_SCHEMA=$PR_SCHEMA" >> "$GITHUB_ENV"
+            echo "WORKER_NAME=douren-backend-$PR_BRANCH" >> "$GITHUB_ENV"
+            echo "API_PREVIEW_URL=https://douren-backend-$PR_BRANCH.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
+          else
+            echo "DEPLOY_KIND=stg" >> "$GITHUB_ENV"
+            echo "API_PREVIEW_URL=https://stg.api.douren.net" >> "$GITHUB_ENV"
+          fi
+
       - name: Deploy Backend
+        id: deploy_worker
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
@@ -67,17 +99,107 @@ jobs:
             # Clean up the key and value
             key=$(echo "$key" | tr -d '\r\n' | xargs)
             value=$(echo "$value" | tr -d '\r\n' | xargs)
+            key="${key#export }"
 
             # Add the key-value pair using colon instead of equals
             WRANGLER_VARS+="--var ${key}:${value} "
             fi
           done < .env
 
-          echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"
-          npm run deploy -- $WRANGLER_VARS --env staging
+          if [[ "$DEPLOY_KIND" == "pr" ]]; then
+            npm run deploy -- $WRANGLER_VARS --name "$WORKER_NAME"
+          else
+            npm run deploy -- $WRANGLER_VARS --env staging
+          fi
+          
+          echo "preview_url=$API_PREVIEW_URL" >> "$GITHUB_OUTPUT"
 
-      - name: Update Database
+      - name: Update Database (staging)
+        if: github.event_name != 'pull_request'
         run: |
           cd pkg/database
           infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=staging > .env
           npm run db:migrate
+
+      - name: Skip Database migration (PR)
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Skipping DB migrations for PR preview (shared staging DB)."
+
+      - name: Create GitHub deployment (Backend)
+        uses: actions/github-script@v7
+        env:
+          API_PREVIEW_URL: ${{ steps.deploy_worker.outputs.preview_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number || '' }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const ref = context.payload.pull_request?.head?.sha ?? context.sha;
+            const prNumber = process.env.PR_NUMBER;
+            const environment = prNumber ? `preview-backend-pr-${prNumber}` : "staging-backend";
+            const url = process.env.API_PREVIEW_URL;
+            if (!url) core.setFailed("Missing API_PREVIEW_URL for deployment.");
+
+            const deployment = await github.rest.repos.createDeployment({
+              owner,
+              repo,
+              ref,
+              environment,
+              description: prNumber ? "Backend preview" : "Backend staging",
+              required_contexts: [],
+              auto_merge: false,
+              transient_environment: Boolean(prNumber),
+              production_environment: false,
+            });
+
+            await github.rest.repos.createDeploymentStatus({
+              owner,
+              repo,
+              deployment_id: deployment.data.id,
+              state: "success",
+              environment_url: url,
+              log_url: `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`,
+              description: "Deployed",
+            });
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          WORKER_NAME: ${{ env.WORKER_NAME }}
+          API_PREVIEW_URL: ${{ env.API_PREVIEW_URL }}
+          PR_SCHEMA: ${{ env.PR_SCHEMA }}
+        with:
+          script: |
+            const marker = "<!-- douren-be-preview -->";
+            const body = `${marker}\nBackend preview deployed.\n`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (c) => c.user?.type === "Bot" && typeof c.body === "string" && c.body.includes(marker),
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }
