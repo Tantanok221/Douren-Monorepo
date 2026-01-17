@@ -342,7 +342,7 @@ describe("ArtistCard", () => {
 
 1. **Start the dev server**:
    ```bash
-   npm run devfe
+   npm run dev
    ```
 
 2. **Verify frontend rendering** by fetching HTML from both apps:
@@ -357,7 +357,7 @@ describe("ArtistCard", () => {
 4. **If using automated verification**, wait for dev server startup (~5 seconds) before fetching:
    ```bash
    # Start dev server in background, wait, then verify
-   npm run devfe &
+   npm run dev &
    sleep 5
    curl -s http://localhost:5173 | grep -q 'id="root"' && echo "Douren-frontend: OK" || echo "Douren-frontend: FAILED"
    curl -s http://localhost:5174 | grep -q 'id="root"' && echo "CMS: OK" || echo "CMS: FAILED"
