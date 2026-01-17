@@ -117,8 +117,6 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			CountQuery.withAndFilter(this.derivedFetchParams.tagConditions);
 		}
 		if (this.fetchParams.search) {
-			console.log(this.fetchParams.search);
-			console.log(this.derivedFetchParams.searchTable);
 			SelectQuery.withIlikeSearchByTable(
 				this.fetchParams.search,
 				this.derivedFetchParams.searchTable,
