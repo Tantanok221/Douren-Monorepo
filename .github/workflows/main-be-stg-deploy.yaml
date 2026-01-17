@@ -110,7 +110,6 @@ jobs:
             fi
           done < .env
 
-          echo "Debug: WRANGLER_VARS=$WRANGLER_VARS"
           if [[ "$DEPLOY_KIND" == "pr" ]]; then
             npm run deploy -- $WRANGLER_VARS --name "$WORKER_NAME"
           else
@@ -130,38 +129,20 @@ jobs:
           PROJECT_ID: ${{secrets.INFISICAL_PROJECT_ID}}
         run: |
           cd pkg/database
-          infisical export --projectId=$PROJECT_ID --env=staging > .env
-
-          DATABASE_URL_BASE="$(node --input-type=module -e '
-            import fs from "node:fs";
-            const envText = fs.readFileSync(".env","utf8");
-            const lines = envText
-              .split(/\\r?\\n/)
-              .map((l) => l.trim())
-              .filter((l) => l.length > 0 && !l.startsWith("#"))
-              .map((l) => (l.startsWith("export ") ? l.slice("export ".length).trim() : l));
-
-            const line = lines.find((l) => l.startsWith("DATABASE_URL=")) ?? "";
-            const raw = line.slice("DATABASE_URL=".length).trim();
-            const value =
-              (raw.startsWith("\"") && raw.endsWith("\"")) || (raw.startsWith("'") && raw.endsWith("'"))
-                ? raw.slice(1, -1)
-                : raw;
-            process.stdout.write(value.trim());
-          ')"
+          DATABASE_URL_BASE="$(infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e 'process.stdout.write(process.env.DATABASE_URL ?? \"\")')"
 
           if [[ -z "${DATABASE_URL_BASE:-}" ]]; then
-            echo "DATABASE_URL not found in Infisical export output for staging (cannot create PR schema)."
+            echo "DATABASE_URL is missing from Infisical staging secrets (cannot create PR schema)."
             exit 1
           fi
 
-          DATABASE_URL_BASE="$DATABASE_URL_BASE" PR_SCHEMA="$PR_SCHEMA" node --input-type=module -e '
+          infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e '
             import { neon } from "@neondatabase/serverless";
-            const sql = neon(process.env.DATABASE_URL_BASE);
+            const sql = neon(process.env.DATABASE_URL);
             const schema = process.env.PR_SCHEMA;
             if (!/^pr_\\d+$/.test(schema)) throw new Error(`Invalid schema: ${schema}`);
             await sql(`CREATE SCHEMA IF NOT EXISTS "${schema}"`);
-          '
+          ' PR_SCHEMA="$PR_SCHEMA"
 
           PR_DATABASE_URL="$(DATABASE_URL_BASE="$DATABASE_URL_BASE" PR_SCHEMA="$PR_SCHEMA" node --input-type=module -e '
             const url = new URL(process.env.DATABASE_URL_BASE);
@@ -172,7 +153,7 @@ jobs:
             process.stdout.write(url.toString());
           ')"
 
-          DATABASE_URL="$PR_DATABASE_URL" npm run db:migrate
+          infisical run --env=staging --projectId=$PROJECT_ID -- env DATABASE_URL="$PR_DATABASE_URL" npm run db:migrate
 
       - name: Comment PR with preview URL
         if: github.event_name == 'pull_request'
