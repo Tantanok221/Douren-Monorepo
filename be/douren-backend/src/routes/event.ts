@@ -10,7 +10,7 @@ import {
 	GetEventArtistByIdSchema,
 	UpdateEventArtistSchema,
 } from "@/schema/event.zod";
-import { authProcedure, publicProcedure, router } from "@/trpc";
+import { authProcedure, publicProcedure, router } from "@/lib/trpc";
 import { eventInputParams, eventNameInputParams } from "@pkg/type";
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";

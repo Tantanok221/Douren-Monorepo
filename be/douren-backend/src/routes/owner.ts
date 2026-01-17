@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { publicProcedure, router } from "@/trpc";
+import { publicProcedure, router } from "@/lib/trpc";
 import { NewOwnerDao } from "@/Dao/Owner";
 import { HonoEnv } from "@/index";
 
