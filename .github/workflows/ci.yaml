@@ -59,5 +59,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build workspace packages
+        run: pnpm turbo build --filter=./pkg/*
+
       - name: Run tests
         run: pnpm run test
