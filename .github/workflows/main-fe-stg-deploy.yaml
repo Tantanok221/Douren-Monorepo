@@ -31,7 +31,7 @@ jobs:
         run: pnpm install
 
       - name: Install Infisical
-        run: pnpm install -g @infisical/cli
+        run: npm install -g @infisical/cli
 
       - name: Authenticate with Infisical
         env:
