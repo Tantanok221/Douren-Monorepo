@@ -94,17 +94,6 @@ jobs:
             value=$(echo "$value" | tr -d '\r\n' | xargs)
             key="${key#export }"
 
-            if [[ "$DEPLOY_KIND" == "pr" && "$key" == "DATABASE_URL" ]]; then
-              value="$(DATABASE_URL="$value" PR_SCHEMA="$PR_SCHEMA" node --input-type=module -e '
-                const url = new URL(process.env.DATABASE_URL);
-                const schema = process.env.PR_SCHEMA;
-                const searchPath = `${schema},public`;
-                const options = `-c search_path=${searchPath}`;
-                url.searchParams.set("options", options);
-                process.stdout.write(url.toString());
-              ')"
-            fi
-
             # Add the key-value pair using colon instead of equals
             WRANGLER_VARS+="--var ${key}:${value} "
             fi
@@ -123,37 +112,10 @@ jobs:
           infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=staging > .env
           npm run db:migrate
 
-      - name: Update Database (PR schema)
+      - name: Skip Database migration (PR)
         if: github.event_name == 'pull_request'
-        env:
-          PROJECT_ID: ${{secrets.INFISICAL_PROJECT_ID}}
         run: |
-          cd pkg/database
-          DATABASE_URL_BASE="$(infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e 'process.stdout.write(process.env.DATABASE_URL ?? "")')"
-
-          if [[ -z "${DATABASE_URL_BASE:-}" ]]; then
-            echo "DATABASE_URL is missing from Infisical staging secrets (cannot create PR schema)."
-            exit 1
-          fi
-
-          infisical run --env=staging --projectId=$PROJECT_ID -- node --input-type=module -e '
-            import { neon } from "@neondatabase/serverless";
-            const sql = neon(process.env.DATABASE_URL);
-            const schema = process.env.PR_SCHEMA;
-            if (!/^pr_\d+$/.test(schema)) throw new Error(`Invalid schema: ${schema}`);
-            await sql(`CREATE SCHEMA IF NOT EXISTS "${schema}"`);
-          ' PR_SCHEMA="$PR_SCHEMA"
-
-          PR_DATABASE_URL="$(DATABASE_URL_BASE="$DATABASE_URL_BASE" PR_SCHEMA="$PR_SCHEMA" node --input-type=module -e '
-            const url = new URL(process.env.DATABASE_URL_BASE);
-            const schema = process.env.PR_SCHEMA;
-            const searchPath = `${schema},public`;
-            const options = `-c search_path=${searchPath}`;
-            url.searchParams.set("options", options);
-            process.stdout.write(url.toString());
-          ')"
-
-          infisical run --env=staging --projectId=$PROJECT_ID -- env DATABASE_URL="$PR_DATABASE_URL" npm run db:migrate
+          echo "Skipping DB migrations for PR preview (shared staging DB)."
 
       - name: Comment PR with preview URL
         if: github.event_name == 'pull_request'

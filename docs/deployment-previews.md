@@ -64,7 +64,9 @@ If you don’t configure this, the `douren.net` preview URLs will 404 even thoug
 ## Backend “isolation” details
 
 - **Compute isolation**: PRs deploy to a unique Worker name: `douren-backend-pr-<number>` (so deployments don’t overwrite each other).
-- **DB isolation**: PRs run migrations into a unique Postgres schema: `pr_<number>` by setting `DATABASE_URL` `search_path` for that PR deploy.
+- **DB isolation**: not enabled by default. PR previews currently use the shared staging database.
 
 Limitations:
-- This isolates per-PR *schemas inside the same database*; it does not create a brand-new database/Neon branch per PR.
+- True per-PR DB isolation would require either:
+  - a **direct/unpooled** Postgres connection string that supports setting `search_path` at startup (Neon pooled connections reject `options=...search_path...`), or
+  - provisioning a **separate database/Neon branch per PR** (requires extra automation + credentials).
