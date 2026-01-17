@@ -45,13 +45,19 @@ class EventArtistDao implements BaseDao {
 		eventArtistId: string,
 		body: PutEventArtistSchemaTypes,
 	): Promise<unknown>;
-	async Update(body: PutEventArtistSchemaTypes & { uuid: number }): Promise<unknown>;
 	async Update(
-		eventArtistIdOrBody: string | (PutEventArtistSchemaTypes & { uuid: number }),
+		body: PutEventArtistSchemaTypes & { uuid: number },
+	): Promise<unknown>;
+	async Update(
+		eventArtistIdOrBody:
+			| string
+			| (PutEventArtistSchemaTypes & { uuid: number }),
 		body?: PutEventArtistSchemaTypes,
 	) {
 		if (typeof eventArtistIdOrBody === "string" && !body) {
-			throw new Error("EventArtistDao.Update requires a body when called with an id");
+			throw new Error(
+				"EventArtistDao.Update requires a body when called with an id",
+			);
 		}
 
 		const eventArtistId =

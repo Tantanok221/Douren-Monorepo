@@ -32,8 +32,11 @@ export function verifyUser(ctx: Context): boolean {
 	const basicAuthToken = asNonEmptyString(env.basic_auth_token);
 	if (basicAuthToken && token === basicAuthToken) return true;
 
-	const cloudflareImageAuthToken = asNonEmptyString(env.CLOUDFLARE_IMAGE_AUTH_TOKEN);
-	if (cloudflareImageAuthToken && token === cloudflareImageAuthToken) return true;
+	const cloudflareImageAuthToken = asNonEmptyString(
+		env.CLOUDFLARE_IMAGE_AUTH_TOKEN,
+	);
+	if (cloudflareImageAuthToken && token === cloudflareImageAuthToken)
+		return true;
 
 	return false;
 }
@@ -58,7 +61,9 @@ export function verifyImageUser(ctx: Context): boolean {
 	const token = getBearerToken(ctx);
 	if (!token) return false;
 
-	const cloudflareImageAuthToken = asNonEmptyString(env.CLOUDFLARE_IMAGE_AUTH_TOKEN);
+	const cloudflareImageAuthToken = asNonEmptyString(
+		env.CLOUDFLARE_IMAGE_AUTH_TOKEN,
+	);
 	if (!cloudflareImageAuthToken) return false;
 
 	return token === cloudflareImageAuthToken;
