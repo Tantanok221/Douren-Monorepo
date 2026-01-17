@@ -3,6 +3,5 @@
  */
 
 export * from "./listAnimation";
-export * from "./processArtistData";
 export * from "./trpc";
 export * from "./useProcessTagData";
