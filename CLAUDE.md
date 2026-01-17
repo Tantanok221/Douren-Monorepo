@@ -4,11 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+### Initial Setup
+```bash
+# Full setup (recommended for fresh clone or new worktree)
+./setup.sh
+
+# Quick setup (skip building packages)
+./setup.sh --quick
+
+# Setup with npm
+npm run setup
+npm run setup:quick
+```
+
 ### Environment Setup
 ```bash
-# Initial setup - copies env files and installs dependencies
-npm run env:pull && make copy-env
-npx husky prepare
+# Login to Infisical (first time only)
+npm run env:login
+
+# Pull environment variables and generate TypeScript bindings
+npm run env:pull
+
+# Or use Makefile
+make copy-env
 ```
 
 ### Common Development Tasks
@@ -122,6 +140,43 @@ The application manages artists, products/artworks, events, and tags with many-t
 - Always run `make copy-env` after environment variable changes
 - Use `npm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
+
+## Git Worktree Workflow
+Git worktrees allow working on multiple branches simultaneously in separate directories.
+
+### Creating a New Worktree
+```bash
+# Using the worktree script (recommended)
+./scripts/worktree.sh create ../my-feature feature/my-feature
+
+# Create with a new branch
+./scripts/worktree.sh create ../my-feature feature/my-feature -b
+
+# Using Makefile
+make worktree-create PATH=../my-feature BRANCH=feature/my-feature
+make worktree-create PATH=../my-feature BRANCH=feature/my-feature NEW=1  # new branch
+```
+
+### Managing Worktrees
+```bash
+# List all worktrees
+./scripts/worktree.sh list
+npm run worktree:list
+make worktree-list
+
+# Remove a worktree
+./scripts/worktree.sh remove ../my-feature
+make worktree-remove PATH=../my-feature
+
+# Clean up all worktrees
+./scripts/worktree.sh clean
+```
+
+### Worktree Tips
+- Each worktree has its own `node_modules` and `.env` files
+- Git hooks are shared with the main repository
+- Run `./setup.sh` after creating a worktree to initialize it
+- Use `--quick` flag for faster setup when you don't need to build packages
 
 ---
 

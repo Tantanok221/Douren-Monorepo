@@ -2,6 +2,10 @@
   "name": "douren-monorepo",
   "private": true,
   "scripts": {
+    "setup": "bash setup.sh",
+    "setup:quick": "bash setup.sh --quick",
+    "worktree": "bash scripts/worktree.sh",
+    "worktree:list": "git worktree list",
     "build": "turbo build",
     "reset": "rimraf --glob node_modules",
     "all": "npm run pkg && npm run lib && npm run be",
