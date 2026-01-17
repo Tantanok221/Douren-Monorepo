@@ -130,14 +130,7 @@ jobs:
           script: |
             const marker = "<!-- douren-fe-preview -->";
             const previewUrl = process.env.PAGES_PREVIEW_URL || "(no URL returned by wrangler)";
-            const apiUrl = process.env.API_PREVIEW_URL ? `\nAPI: ${process.env.API_PREVIEW_URL}` : "";
-            const body =
-              `${marker}\nFrontend preview deployed.\n` +
-              `Branch: ${process.env.PAGES_BRANCH}\n` +
-              `URL: ${previewUrl}${apiUrl}\n\n` +
-              `Quick commands:\n` +
-              `- curl -I ${previewUrl}\n` +
-              (process.env.API_PREVIEW_URL ? `- curl -I ${process.env.API_PREVIEW_URL}\n` : "");
+            const body = `${marker}\nFrontend preview is ready:\n${previewUrl}\n`;
 
             const { owner, repo } = context.repo;
             const issue_number = Number(process.env.PR_NUMBER);

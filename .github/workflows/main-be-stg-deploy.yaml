@@ -132,12 +132,7 @@ jobs:
         with:
           script: |
             const marker = "<!-- douren-be-preview -->";
-            const body =
-              `${marker}\nBackend preview deployed.\n` +
-              `Worker: ${process.env.WORKER_NAME}\n` +
-              `URL: ${process.env.API_PREVIEW_URL}\n\n` +
-              `Quick commands:\n` +
-              `- curl -I ${process.env.API_PREVIEW_URL}\n`;
+            const body = `${marker}\nStaging API preview is ready:\n${process.env.API_PREVIEW_URL}\n`;
 
             const { owner, repo } = context.repo;
             const issue_number = context.payload.pull_request.number;
