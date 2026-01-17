@@ -8,80 +8,80 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as NewIndexRouteImport } from './routes/new/index'
-import { Route as EditArtistIdIndexRouteImport } from './routes/edit.$artistId/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as NewIndexRouteImport } from "./routes/new/index";
+import { Route as EditArtistIdIndexRouteImport } from "./routes/edit.$artistId/index";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const NewIndexRoute = NewIndexRouteImport.update({
-  id: '/new/',
-  path: '/new/',
+  id: "/new/",
+  path: "/new/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
-  id: '/edit/$artistId/',
-  path: '/edit/$artistId/',
+  id: "/edit/$artistId/",
+  path: "/edit/$artistId/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/new': typeof NewIndexRoute
-  '/edit/$artistId': typeof EditArtistIdIndexRoute
+  "/": typeof IndexRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/new': typeof NewIndexRoute
-  '/edit/$artistId': typeof EditArtistIdIndexRoute
+  "/": typeof IndexRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/new/': typeof NewIndexRoute
-  '/edit/$artistId/': typeof EditArtistIdIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/new/": typeof NewIndexRoute;
+  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/new' | '/edit/$artistId'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/new' | '/edit/$artistId'
-  id: '__root__' | '/' | '/new/' | '/edit/$artistId/'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/new" | "/edit/$artistId";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/new" | "/edit/$artistId";
+  id: "__root__" | "/" | "/new/" | "/edit/$artistId/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  NewIndexRoute: typeof NewIndexRoute
-  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
+  IndexRoute: typeof IndexRoute;
+  NewIndexRoute: typeof NewIndexRoute;
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/new/': {
-      id: '/new/'
-      path: '/new'
-      fullPath: '/new'
-      preLoaderRoute: typeof NewIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/edit/$artistId/': {
-      id: '/edit/$artistId/'
-      path: '/edit/$artistId'
-      fullPath: '/edit/$artistId'
-      preLoaderRoute: typeof EditArtistIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/new/": {
+      id: "/new/";
+      path: "/new";
+      fullPath: "/new";
+      preLoaderRoute: typeof NewIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/edit/$artistId/": {
+      id: "/edit/$artistId/";
+      path: "/edit/$artistId";
+      fullPath: "/edit/$artistId";
+      preLoaderRoute: typeof EditArtistIdIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -89,7 +89,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
