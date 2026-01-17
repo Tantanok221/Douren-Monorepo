@@ -117,12 +117,13 @@ else
     log_success "Node.js $(node -v) detected"
 fi
 
-# Check npm version
-if ! command_exists npm; then
-    log_error "npm is not installed."
+# Check pnpm version
+if ! command_exists pnpm; then
+    log_error "pnpm is not installed."
+    log_info "Install pnpm: npm install -g pnpm"
     exit 1
 fi
-log_success "npm $(npm -v) detected"
+log_success "pnpm $(pnpm -v) detected"
 
 # Check Infisical CLI (optional but recommended)
 if ! command_exists infisical; then
@@ -150,12 +151,12 @@ fi
 log_step "Installing dependencies..."
 
 if [ -d "node_modules" ]; then
-    log_info "node_modules exists, running npm install to update..."
+    log_info "node_modules exists, running pnpm install to update..."
 else
     log_info "Installing fresh dependencies..."
 fi
 
-npm install
+pnpm install
 log_success "Dependencies installed"
 
 # ============================================================================
@@ -176,18 +177,18 @@ if [ "$SKIP_ENV" = false ]; then
     # Check if logged into Infisical
     if infisical export --format dotenv --env dev >/dev/null 2>&1; then
         log_info "Pulling environment variables from Infisical..."
-        npm run env:pull
+        pnpm run env:pull
         log_success "Environment variables configured"
     else
         log_warn "Not logged into Infisical or cannot access workspace."
-        log_info "Run 'npm run env:login' to authenticate, then 'npm run env:pull'"
+        log_info "Run 'pnpm run env:login' to authenticate, then 'pnpm run env:pull'"
         log_info "Creating placeholder .env file..."
 
         # Create placeholder .env if it doesn't exist
         if [ ! -f ".env" ]; then
             cat > .env << 'EOF'
 # Placeholder environment file
-# Run 'npm run env:login' followed by 'npm run env:pull' to populate
+# Run 'pnpm run env:login' followed by 'pnpm run env:pull' to populate
 # Or manually configure your environment variables here
 EOF
             log_success "Placeholder .env file created"
@@ -204,13 +205,13 @@ if [ "$SKIP_BUILD" = false ]; then
     log_step "Building packages in dependency order..."
 
     log_info "Building pkg/* packages..."
-    npm run pkg
+    pnpm run pkg
 
     log_info "Building lib/* libraries..."
-    npm run lib
+    pnpm run lib
 
     log_info "Building be/* backend services..."
-    npm run be
+    pnpm run be
 
     log_success "All packages built successfully"
 
@@ -218,11 +219,11 @@ if [ "$SKIP_BUILD" = false ]; then
     # Code Generation
     # ============================================================================
     log_step "Running code generation..."
-    npm run codegen
+    pnpm run codegen
     log_success "Code generation completed"
 else
     log_step "Skipping package builds (--skip-build flag)"
-    log_info "Run 'npm run all' later to build packages"
+    log_info "Run 'pnpm run all' later to build packages"
 fi
 
 # ============================================================================
@@ -238,26 +239,26 @@ echo ""
 
 if [ "$SKIP_ENV" = true ] || ! infisical export --format dotenv --env dev >/dev/null 2>&1; then
     echo "  1. Configure environment variables:"
-    echo "     npm run env:login    # Login to Infisical"
-    echo "     npm run env:pull     # Pull environment variables"
+    echo "     pnpm run env:login    # Login to Infisical"
+    echo "     pnpm run env:pull     # Pull environment variables"
     echo ""
 fi
 
 if [ "$SKIP_BUILD" = true ]; then
     echo "  2. Build packages:"
-    echo "     npm run all          # Build all packages"
-    echo "     npm run codegen      # Generate code/types"
+    echo "     pnpm run all          # Build all packages"
+    echo "     pnpm run codegen      # Generate code/types"
     echo ""
 fi
 
 echo "  Start development:"
-echo "     npm run dev      # Start all services"
-echo "     npm run devfe    # Frontend only"
-echo "     npm run devbe    # Backend only"
+echo "     pnpm run dev      # Start all services"
+echo "     pnpm run devfe    # Frontend only"
+echo "     pnpm run devbe    # Backend only"
 echo ""
 echo "  Database operations:"
-echo "     npm run db:migrate  # Run migrations"
-echo "     npm run db:sync     # Sync production data"
+echo "     pnpm run db:migrate  # Run migrations"
+echo "     pnpm run db:sync     # Sync production data"
 echo ""
 
 if [ "$IS_WORKTREE" = true ]; then
