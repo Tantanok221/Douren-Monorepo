@@ -1,14 +1,20 @@
+import { eq } from "drizzle-orm";
+import { z } from "zod";
+
 import { initDB, s } from "@pkg/database/db";
+import { zodSchema } from "@pkg/database/zod";
+import type { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
+
 import { BaseDao } from "../Dao";
-import { eventArtistSchemaType, eventInputParamsType } from "@pkg/type";
 import { createPaginationObject } from "@/helper/createPaginationObject";
 import { PAGE_SIZE } from "@/helper/constant";
 import { NewEventArtistQueryBuilder } from "@/QueryBuilder";
-import { eq } from "drizzle-orm";
-import {
+import type {
 	CreateEventArtistSchemaTypes,
 	PutEventArtistSchemaTypes,
 } from "@/schema/event.zod";
+
+type EventDmRow = z.infer<typeof zodSchema.eventDm.SelectSchema>;
 
 class EventArtistDao implements BaseDao {
 	db: ReturnType<typeof initDB>;
@@ -32,8 +38,7 @@ class EventArtistDao implements BaseDao {
 		return returnObj as eventArtistSchemaType;
 	}
 
-	async Create(body: CreateEventArtistSchemaTypes) {
-		// infer as PutEventArtistSchemaTypes to ignore type error meanwhile getting automatic type from zod
+	async Create(body: CreateEventArtistSchemaTypes): Promise<EventDmRow[]> {
 		return this.db
 			.insert(s.eventDm)
 			.values(body as PutEventArtistSchemaTypes)
@@ -41,32 +46,27 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
+	async Update(eventArtistId: string, body: PutEventArtistSchemaTypes): Promise<EventDmRow[]>;
+	async Update(body: PutEventArtistSchemaTypes & { uuid: number }): Promise<EventDmRow[]>;
 	async Update(
-		eventArtistId: string,
-		body: PutEventArtistSchemaTypes,
-	): Promise<unknown>;
-	async Update(
-		body: PutEventArtistSchemaTypes & { uuid: number },
-	): Promise<unknown>;
-	async Update(
-		eventArtistIdOrBody:
-			| string
-			| (PutEventArtistSchemaTypes & { uuid: number }),
+		eventArtistIdOrBody: string | (PutEventArtistSchemaTypes & { uuid: number }),
 		body?: PutEventArtistSchemaTypes,
-	) {
-		if (typeof eventArtistIdOrBody === "string" && !body) {
-			throw new Error(
-				"EventArtistDao.Update requires a body when called with an id",
-			);
+	): Promise<EventDmRow[]> {
+		let eventArtistId: string;
+		let updateBody: PutEventArtistSchemaTypes | (PutEventArtistSchemaTypes & { uuid: number });
+
+		if (typeof eventArtistIdOrBody === "string") {
+			if (!body) {
+				throw new Error(
+					"EventArtistDao.Update requires a body when called with an id",
+				);
+			}
+			eventArtistId = eventArtistIdOrBody;
+			updateBody = body;
+		} else {
+			eventArtistId = String(eventArtistIdOrBody.uuid);
+			updateBody = eventArtistIdOrBody;
 		}
-
-		const eventArtistId =
-			typeof eventArtistIdOrBody === "string"
-				? eventArtistIdOrBody
-				: String(eventArtistIdOrBody.uuid);
-		const updateBody =
-			typeof eventArtistIdOrBody === "string" ? body : eventArtistIdOrBody;
-
 		return this.db
 			.update(s.eventDm)
 			.set(updateBody)
@@ -85,8 +85,6 @@ class EventArtistDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventArtistDao(
-	db: ReturnType<typeof initDB>,
-): EventArtistDao {
+export function NewEventArtistDao(db: ReturnType<typeof initDB>): EventArtistDao {
 	return new EventArtistDao(db);
 }
