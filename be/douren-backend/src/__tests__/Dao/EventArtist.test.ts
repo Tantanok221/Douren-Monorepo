@@ -143,7 +143,8 @@ describe("EventArtist DAO", () => {
 
 	describe("Update", () => {
 		it("should update event artist with valid UUID and data", async () => {
-			const result = await eventArtistDao.Update(updateEventArtistData);
+			const eventArtistId = "1";
+			const result = await eventArtistDao.Update(eventArtistId, updateEventArtistData);
 
 			expect(mockDb.update).toHaveBeenCalledOnce();
 			expect(mockDb.update().set).toHaveBeenCalledWith(updateEventArtistData);
@@ -152,21 +153,24 @@ describe("EventArtist DAO", () => {
 		});
 
 		it("should use UUID in WHERE clause correctly", async () => {
-			await eventArtistDao.Update(updateEventArtistData);
+			const eventArtistId = "1";
+			await eventArtistDao.Update(eventArtistId, updateEventArtistData);
 
 			expect(mockDb.update().set().where).toHaveBeenCalledOnce();
 		});
 
 		it("should return updated event artist data", async () => {
-			const result = await eventArtistDao.Update(updateEventArtistData);
+			const eventArtistId = "1";
+			const result = await eventArtistDao.Update(eventArtistId, updateEventArtistData);
 
 			expect(mockDb.update().set().where().returning).toHaveBeenCalledOnce();
 			expect(result).toEqual(mockEventArtistDbResponse);
 		});
 
 		it("should handle non-existent UUID", async () => {
+			const eventArtistId = "999";
 			const nonExistentData = { ...updateEventArtistData, uuid: 999 };
-			const result = await eventArtistDao.Update(nonExistentData);
+			const result = await eventArtistDao.Update(eventArtistId, nonExistentData);
 
 			expect(mockDb.update).toHaveBeenCalledOnce();
 			expect(result).toEqual(mockEventArtistDbResponse);
@@ -248,7 +252,7 @@ describe("EventArtist DAO", () => {
 
 		it("should call initDB methods correctly", async () => {
 			await eventArtistDao.Create(validEventArtistData);
-			await eventArtistDao.Update(updateEventArtistData);
+			await eventArtistDao.Update("1", updateEventArtistData);
 			await eventArtistDao.Fetch(mockEventInputParams);
 
 			expect(mockDb.insert).toHaveBeenCalledTimes(1);

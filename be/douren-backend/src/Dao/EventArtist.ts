@@ -52,12 +52,29 @@ class EventArtistDao implements BaseDao {
 	async Update(
 		eventArtistId: string,
 		body: PutEventArtistSchemaTypes,
+	): Promise<Array<typeof s.eventDm.$inferSelect>>;
+	async Update(
+		body: PutEventArtistSchemaTypes & { uuid: number },
+	): Promise<Array<typeof s.eventDm.$inferSelect>>;
+	async Update(
+		eventArtistIdOrBody:
+			| string
+			| (PutEventArtistSchemaTypes & { uuid: number }),
+		body?: PutEventArtistSchemaTypes,
 	): Promise<Array<typeof s.eventDm.$inferSelect>> {
-		EventArtistDao.assertDefined(body);
+		if (typeof eventArtistIdOrBody === "string") {
+			EventArtistDao.assertDefined(body);
+			return this.db
+				.update(s.eventDm)
+				.set(body)
+				.where(eq(s.eventDm.uuid, Number(eventArtistIdOrBody)))
+				.returning();
+		}
+
 		return this.db
 			.update(s.eventDm)
-			.set(body)
-			.where(eq(s.eventDm.uuid, Number(eventArtistId)))
+			.set(eventArtistIdOrBody)
+			.where(eq(s.eventDm.uuid, Number(eventArtistIdOrBody.uuid)))
 			.returning();
 	}
 

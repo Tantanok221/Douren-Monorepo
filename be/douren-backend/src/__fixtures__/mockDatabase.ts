@@ -8,8 +8,12 @@ export const createMockDatabase = () => {
 	const mockOnConflictDoNothing = vi.fn().mockReturnValue({
 		returning: mockReturning,
 	});
+	const mockOnConflictDoUpdate = vi.fn().mockReturnValue({
+		returning: mockReturning,
+	});
 	const mockValues = vi.fn().mockReturnValue({
 		onConflictDoNothing: mockOnConflictDoNothing,
+		onConflictDoUpdate: mockOnConflictDoUpdate,
 		returning: mockReturning,
 	});
 	const mockSet = vi.fn().mockReturnValue({
@@ -50,6 +54,7 @@ export const createMockDatabase = () => {
 		}),
 		mockReturning,
 		mockOnConflictDoNothing,
+		mockOnConflictDoUpdate,
 		mockValues,
 		mockSet,
 		mockWhere,

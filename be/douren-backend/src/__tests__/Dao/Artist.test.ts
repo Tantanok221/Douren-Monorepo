@@ -70,8 +70,9 @@ describe("Artist DAO", () => {
 
 			expect(mockDb.insert).toHaveBeenCalledWith(expect.anything());
 			expect(mockDb.mockValues).toHaveBeenCalledWith(validArtistData);
-			expect(mockDb.mockOnConflictDoNothing).toHaveBeenCalledWith({
+			expect(mockDb.mockOnConflictDoUpdate).toHaveBeenCalledWith({
 				target: expect.anything(),
+				set: expect.objectContaining(validArtistData),
 			});
 			expect(mockDb.mockReturning).toHaveBeenCalled();
 			expect(result).toEqual(mockArtistDbResponse);
@@ -85,13 +86,14 @@ describe("Artist DAO", () => {
 			expect(result).toEqual(mockArtistDbResponse);
 		});
 
-		it("should handle conflict with onConflictDoNothing", async () => {
+		it("should handle conflict with onConflictDoUpdate", async () => {
 			const duplicateData = { ...validArtistData, uuid: 1 };
 
 			const result = await artistDao.Create(duplicateData);
 
-			expect(mockDb.mockOnConflictDoNothing).toHaveBeenCalledWith({
+			expect(mockDb.mockOnConflictDoUpdate).toHaveBeenCalledWith({
 				target: expect.anything(),
+				set: expect.objectContaining(duplicateData),
 			});
 			expect(result).toEqual(mockArtistDbResponse);
 		});
@@ -100,25 +102,21 @@ describe("Artist DAO", () => {
 	describe("Update method", () => {
 		it("should update artist with valid ID and data", async () => {
 			const artistId = "1";
-			const expectedBody = { ...updateArtistData, uuid: 1 };
 
 			const result = await artistDao.Update(artistId, updateArtistData);
 
 			expect(mockDb.update).toHaveBeenCalledWith(expect.anything());
-			expect(mockDb.mockSet).toHaveBeenCalledWith(expectedBody);
+			expect(mockDb.mockSet).toHaveBeenCalledWith(updateArtistData);
 			expect(result).toEqual(mockArtistDbResponse);
 		});
 
-		it("should convert artistId to number for uuid", async () => {
+		it("should pass body directly to set method", async () => {
 			const artistId = "123";
 			const testData = { author: "Test" };
 
 			await artistDao.Update(artistId, testData);
 
-			expect(mockDb.mockSet).toHaveBeenCalledWith({
-				...testData,
-				uuid: 123,
-			});
+			expect(mockDb.mockSet).toHaveBeenCalledWith(testData);
 		});
 
 		it("should handle non-existent artist ID", async () => {
