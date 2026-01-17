@@ -4,11 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+### Initial Setup
+```bash
+# Full setup (recommended for fresh clone or new worktree)
+./setup.sh
+
+# Quick setup (skip building packages)
+./setup.sh --quick
+
+# Setup with npm
+npm run setup
+npm run setup:quick
+```
+
 ### Environment Setup
 ```bash
-# Initial setup - copies env files and installs dependencies
-npm run env:pull && make copy-env
-npx husky prepare
+# Login to Infisical (first time only)
+npm run env:login
+
+# Pull environment variables and generate TypeScript bindings
+npm run env:pull
+
+# Or use Makefile
+make copy-env
 ```
 
 ### Common Development Tasks
@@ -123,14 +141,198 @@ The application manages artists, products/artworks, events, and tags with many-t
 - Use `npm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
 
+## Git Worktree Workflow
+Git worktrees allow working on multiple branches simultaneously in separate directories.
+
+### Creating a New Worktree
+```bash
+# Using the worktree script (recommended)
+./scripts/worktree.sh create ../my-feature feature/my-feature
+
+# Create with a new branch
+./scripts/worktree.sh create ../my-feature feature/my-feature -b
+
+# Using Makefile
+make worktree-create PATH=../my-feature BRANCH=feature/my-feature
+make worktree-create PATH=../my-feature BRANCH=feature/my-feature NEW=1  # new branch
+```
+
+### Managing Worktrees
+```bash
+# List all worktrees
+./scripts/worktree.sh list
+npm run worktree:list
+make worktree-list
+
+# Remove a worktree
+./scripts/worktree.sh remove ../my-feature
+make worktree-remove PATH=../my-feature
+
+# Clean up all worktrees
+./scripts/worktree.sh clean
+```
+
+### Worktree Tips
+- Each worktree has its own `node_modules` and `.env` files
+- Git hooks are shared with the main repository
+- Run `./setup.sh` after creating a worktree to initialize it
+- Use `--quick` flag for faster setup when you don't need to build packages
+
+---
+
+## Code Quality Guidelines
+
+### TypeScript Strictness
+- **NEVER use `any` type** - Always use proper types, generics, or `unknown` with type guards
+- **Prefer `unknown` over `any`** - When type is truly unknown, use `unknown` and narrow with type guards
+- **Use explicit return types** for public functions and exported APIs
+- **Leverage path aliases** - Use `@/` for workspace-local imports and `@pkg/` for internal packages
+- **Enable strict mode** - All TypeScript configs extend strict base configurations
+
+```typescript
+// ❌ BAD - Never do this
+const data: any = fetchData();
+function process(input: any) { ... }
+
+// ✅ GOOD - Use proper types
+const data: UserData = fetchData();
+function process(input: unknown): ProcessedData {
+  if (isUserData(input)) { ... }
+}
+```
+
+### Linting Best Practices
+- **NEVER ignore lint errors** - Fix the underlying issue instead
+- **NEVER use `// @ts-ignore` or `// @ts-expect-error`** without a detailed justification comment
+- **NEVER use `eslint-disable` comments** - Fix the code to comply with rules
+- **Run `npm run lint`** before committing to catch issues early
+- **Run `npm run format`** to auto-fix formatting issues
+
+```typescript
+// ❌ BAD - Don't suppress lint
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data: any = response;
+
+// ✅ GOOD - Fix the actual type
+interface ApiResponse { id: string; name: string; }
+const data: ApiResponse = response;
+```
+
+### React Best Practices (Vercel Guidelines)
+When writing React code, follow the `/vercel-react-best-practices` skill guidelines:
+
+**Component Patterns:**
+- Use functional components with explicit `React.FC` typing
+- Keep components small and focused on a single responsibility
+- Use component composition over prop drilling
+- Extract reusable logic into custom hooks
+
+**Performance Optimization:**
+- Use `React.memo()` for expensive pure components
+- Use `useMemo()` for expensive calculations
+- Use `useCallback()` for callback functions passed to children
+- Avoid inline object/array creation in render
+
+**State Management:**
+- Prefer local state when possible
+- Use Context API for shared state across component trees
+- Use Zustand for complex global state
+
+**Data Fetching:**
+- Use TanStack Query (via tRPC) for server state
+- Leverage query caching and invalidation patterns
+- Handle loading and error states explicitly
+
+```typescript
+// ✅ GOOD - Proper React patterns
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
+  const { data, isLoading, error } = trpc.artist.getArtist.useQuery({ id: artist.id });
+
+  const formattedName = useMemo(() => formatArtistName(artist), [artist]);
+
+  if (isLoading) return <Skeleton />;
+  if (error) return <ErrorDisplay error={error} />;
+
+  return <Card data={data} name={formattedName} />;
+};
+```
+
+### Import Conventions
+- Use barrel exports via `@pkg/*` for internal packages
+- Use `@/` alias for workspace-local imports
+- Group imports: external → internal packages → local modules
+- Use `import type` for type-only imports
+
+```typescript
+// ✅ GOOD - Organized imports
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import type { ArtistData } from "@pkg/type";
+import { formatDate } from "@pkg/helper";
+
+import { useArtistContext } from "@/contexts/ArtistContext";
+import styles from "./ArtistCard.module.css";
+```
+
+### Testing Guidelines
+- Write tests using **Vitest** with `describe`, `it`, `expect` patterns
+- Use `vi.mock()` for mocking dependencies (Drizzle ORM, utilities)
+- For React components, use `@testing-library/react`
+- Mock external services and database calls in unit tests
+- Place tests in `__tests__/` directories or use `*.test.ts(x)` naming
+
+```typescript
+// ✅ GOOD - Test pattern
+describe("ArtistCard", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders artist name correctly", () => {
+    const { getByText } = render(<ArtistCard artist={mockArtist} />);
+    expect(getByText(mockArtist.name)).toBeInTheDocument();
+  });
+});
+```
+
+### Styling Guidelines
+- **Frontend (Douren-frontend)**: Use CSS Modules with `classNames/bind`
+- **CMS**: Use Tailwind CSS utility classes
+- Keep styles scoped to components
+- Use semantic class names
+
+### tRPC and API Patterns
+- Define procedures in router files under `src/trpc/`
+- Use `publicProcedure` for public endpoints, `protectedProcedure` for authenticated
+- Validate inputs with Zod schemas
+- Return typed responses for end-to-end type safety
+
+### Database Patterns (Drizzle ORM)
+- Define schemas in `pkg/database/src/db/schema.ts`
+- Use DAOs (Data Access Objects) to abstract database operations
+- Always use parameterized queries (Drizzle handles this)
+- Run `npm run db:generate` after schema changes
+
+---
+
 ## Commit History Notes
 - On DR-90 Jira ticket, remember to update commit history accordingly
 
 ## Development Workflow
-- After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files. 
+- After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files.
 
 ## Development Practices
 - Each time you update your claude.md you should commit it via "[DR-00] dev: update claude.md", a simple commit is enough
 
 ## Commit Habits
 - Remember to commit via micro commit habits
+
+## PR Workflow
+- After completing a feature or fix, always push and create a PR
+- Use descriptive PR titles following the commit convention: `[DR-XX] type: description`
+- PR descriptions should include:
+  - **Summary**: Brief bullet points of what changed
+  - **Test plan**: Checklist of testing steps
+- Target `main` branch for PRs unless otherwise specified
+- Use `gh pr create` for creating PRs from the command line
