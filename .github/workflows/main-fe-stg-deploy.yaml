@@ -3,6 +3,7 @@ name: Douren Frontend Staging Deployment
 on:
   pull_request:
     paths:
+      - '.github/workflows/main-fe-stg-deploy.yaml'
       - 'fe/Douren-frontend/**'
       - 'pkg/type'
       - "lib/ui/**"

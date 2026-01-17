@@ -3,6 +3,7 @@ name: Douren Backend Staging Deployment
 on:
   pull_request:
     paths:
+      - '.github/workflows/main-be-stg-deploy.yaml'
       - 'be/douren-backend/**'
       - 'pkg/**'
 

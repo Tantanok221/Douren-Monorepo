@@ -3,6 +3,7 @@ name: Douren CMS Staging Deployment
 on:
   pull_request:
     paths:
+      - '.github/workflows/main-cms-stg-deploy.yaml'
       - 'fe/cms/**'
       - 'pkg/type'
       - "lib/ui/**"
