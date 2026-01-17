@@ -98,7 +98,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
         run: |
           cd fe/cms
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          if [[ -n "${PR_NUMBER:-}" ]]; then
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_PREVIEW_URL" pnpm run build
           else
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run build
