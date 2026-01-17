@@ -18,7 +18,7 @@ There are a config in this repo
 ### Development setup 
 For setting up environment variable
 ```
-npm run onboard
+pnpm run onboard
 ```
 ### Ignore CRLF Line Seperator Changes
 ```

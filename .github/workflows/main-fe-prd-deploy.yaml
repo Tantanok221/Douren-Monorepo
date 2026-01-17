@@ -22,10 +22,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Install Infisical
         run: npm install -g @infisical/cli
@@ -39,16 +40,16 @@ jobs:
           echo "INFISICAL_TOKEN=$INFISICAL_TOKEN" >> $GITHUB_ENV
 
       - name: Build Packages
-        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run pkg
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run pkg
 
       - name: Build Library
-        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run lib
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run lib
 
       - name: Build Backend
-        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run be
+        run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run be
 
       - name: Install Wrangler
-        run: npm install -g wrangler
+        run: pnpm install -g wrangler
 
       - name: Deploy Frontend
         env:
@@ -56,5 +57,5 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
         run: |
           cd fe/Douren-frontend
-          infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- npm run build
+          infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run build
           wrangler pages deploy dist --branch main

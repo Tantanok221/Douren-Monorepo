@@ -1,0 +1,5 @@
+packages:
+  - 'fe/*'
+  - 'be/*'
+  - 'pkg/*'
+  - 'lib/*'
