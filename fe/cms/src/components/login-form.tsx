@@ -46,9 +46,7 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">登入</CardTitle>
-          <CardDescription>
-            請輸入您的電子郵件以登入帳戶
-          </CardDescription>
+          <CardDescription>請輸入您的電子郵件以登入帳戶</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
