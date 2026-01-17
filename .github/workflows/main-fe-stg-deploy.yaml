@@ -129,7 +129,7 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo;
-            const ref = context.sha;
+            const ref = context.payload.pull_request?.head?.sha ?? context.sha;
             const isPr = Boolean(process.env.PR_NUMBER);
             const environment = isPr
               ? `preview-frontend-pr-${process.env.PR_NUMBER}`

@@ -134,7 +134,7 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo;
-            const ref = context.sha;
+            const ref = context.payload.pull_request?.head?.sha ?? context.sha;
             const prNumber = process.env.PR_NUMBER;
             const environment = prNumber ? `preview-backend-pr-${prNumber}` : "staging-backend";
             const url = process.env.API_PREVIEW_URL;
