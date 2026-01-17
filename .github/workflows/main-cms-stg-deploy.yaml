@@ -9,6 +9,11 @@ on:
       - "lib/ui/**"
 
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to deploy preview for (optional)
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -65,8 +70,16 @@ jobs:
 
       - name: Compute Pages branch
         run: |
+          PR_NUMBER=""
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "PAGES_BRANCH=pr-${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ github.event.inputs.pr_number }}" ]]; then
+            PR_NUMBER="${{ github.event.inputs.pr_number }}"
+          fi
+
+          if [[ -n "$PR_NUMBER" ]]; then
+            echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_ENV"
+            echo "PAGES_BRANCH=pr-$PR_NUMBER" >> "$GITHUB_ENV"
             WORKERS_DEV_SUBDOMAIN="${{ vars.WORKERS_DEV_SUBDOMAIN }}"
             if [[ -z "$WORKERS_DEV_SUBDOMAIN" ]]; then
               echo "Missing Actions variable WORKERS_DEV_SUBDOMAIN (expected like: you910508)."
@@ -74,7 +87,7 @@ jobs:
             fi
 
             echo "WORKERS_DEV_SUBDOMAIN=$WORKERS_DEV_SUBDOMAIN" >> "$GITHUB_ENV"
-            echo "API_PREVIEW_URL=https://douren-backend-pr-${{ github.event.pull_request.number }}.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
+            echo "API_PREVIEW_URL=https://douren-backend-pr-$PR_NUMBER.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
           else
             echo "PAGES_BRANCH=stg" >> "$GITHUB_ENV"
           fi
@@ -105,13 +118,14 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Comment PR with preview URL
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '')
         uses: actions/github-script@v7
         env:
           PAGES_BRANCH: ${{ env.PAGES_BRANCH }}
           PAGES_PREVIEW_URL: ${{ env.PAGES_PREVIEW_URL }}
           PAGES_PREVIEW_ALIASES: ${{ env.PAGES_PREVIEW_ALIASES }}
           API_PREVIEW_URL: ${{ env.API_PREVIEW_URL }}
+          PR_NUMBER: ${{ env.PR_NUMBER || github.event.pull_request.number }}
         with:
           script: |
             const marker = "<!-- douren-cms-preview -->";
@@ -126,7 +140,7 @@ jobs:
               (process.env.API_PREVIEW_URL ? `- curl -I ${process.env.API_PREVIEW_URL}\n` : "");
 
             const { owner, repo } = context.repo;
-            const issue_number = context.payload.pull_request.number;
+            const issue_number = Number(process.env.PR_NUMBER);
 
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner,
