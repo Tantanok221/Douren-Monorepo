@@ -34,7 +34,7 @@ class ArtistDao implements BaseDao {
 		return this.db
 			.insert(s.authorMain)
 			.values(body)
-			.onConflictDoUpdate({ target: s.authorMain.uuid, set: body })
+			.onConflictDoNothing({ target: s.authorMain.uuid })
 			.returning();
 	}
 
@@ -44,7 +44,7 @@ class ArtistDao implements BaseDao {
 	) {
 		return await this.db
 			.update(s.authorMain)
-			.set(body)
+			.set({ ...body, uuid: Number(artistId) })
 			.where(eq(s.authorMain.uuid, Number(artistId)))
 			.returning();
 	}
