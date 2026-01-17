@@ -14,18 +14,18 @@ This guidance is also mirrored for other tools in `AGENTS.md` and `CODEX.md` (pl
 # Quick setup (skip building packages)
 ./setup.sh --quick
 
-# Setup with npm
-npm run setup
-npm run setup:quick
+# Setup with pnpm
+pnpm run setup
+pnpm run setup:quick
 ```
 
 ### Environment Setup
 ```bash
 # Login to Infisical (first time only)
-npm run env:login
+pnpm run env:login
 
 # Pull environment variables and generate TypeScript bindings
-npm run env:pull
+pnpm run env:pull
 
 # Or use Makefile
 make copy-env
@@ -34,57 +34,57 @@ make copy-env
 ### Common Development Tasks
 ```bash
 # Start all services in development mode
-npm run dev
+pnpm run dev
 
 # Start specific services
-npm run devfe    # Frontend applications only
-npm run devbe    # Backend services only
-npm run devpkg   # Package development
-npm run devlib   # Library development
+pnpm run devfe    # Frontend applications only
+pnpm run devbe    # Backend services only
+pnpm run devpkg   # Package development
+pnpm run devlib   # Library development
 
 # Build all projects
-npm run build
+pnpm run build
 
 # Lint all projects
-npm run lint
+pnpm run lint
 
 # Format all code
-npm run format
+pnpm run format
 
 # Run tests
-npm run test
+pnpm run test
 
 # Generate code (barrel exports, types)
-npm run codegen
+pnpm run codegen
 ```
 
 ### Database Operations
 ```bash
 # Generate database schema and migrations
-npm run db:generate
+pnpm run db:generate
 
 # Run database migrations
-npm run db:migrate
+pnpm run db:migrate
 
 # Push schema changes to database
-npm run db:push
+pnpm run db:push
 
 # Sync production data to local database
-npm run db:sync
+pnpm run db:sync
 
 # Connect to local database
-npm run dev:db
+pnpm run dev:db
 ```
 
 ### Package Management
 ```bash
 # Build and install packages in correct order
-npm run pkg && npm run lib && npm run be
+pnpm run pkg && pnpm run lib && pnpm run be
 
 # Build specific package types
-npm run pkg     # Build all packages
-npm run lib     # Build shared libraries
-npm run be      # Build backend services
+pnpm run pkg     # Build all packages
+pnpm run lib     # Build shared libraries
+pnpm run be      # Build backend services
 ```
 
 ## Architecture Overview
@@ -129,18 +129,18 @@ The application manages artists, products/artworks, events, and tags with many-t
 
 ### Testing
 - **Vitest** for unit testing
-- Run `npm run test` to execute all tests
+- Run `pnpm run test` to execute all tests
 - Individual packages may have specific test commands
 
 ### Deployment
 - Backend deploys to Cloudflare Workers via `turbo deploy`
 - Frontend applications use static hosting
-- Database migrations are handled separately via `npm run db:migrate`
+- Database migrations are handled separately via `pnpm run db:migrate`
 
 ## Important Notes
 - **Node.js 22+** is required
 - Always run `make copy-env` after environment variable changes
-- Use `npm run codegen` after schema changes to regenerate types
+- Use `pnpm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
 
 ## Git Worktree Workflow
@@ -163,7 +163,7 @@ make worktree-create PATH=../my-feature BRANCH=feature/my-feature NEW=1  # new b
 ```bash
 # List all worktrees
 ./scripts/worktree.sh list
-npm run worktree:list
+pnpm run worktree:list
 make worktree-list
 
 # Remove a worktree
@@ -207,8 +207,8 @@ function process(input: unknown): ProcessedData {
 - **NEVER ignore lint errors** - Fix the underlying issue instead
 - **NEVER use `// @ts-ignore` or `// @ts-expect-error`** without a detailed justification comment
 - **NEVER use `eslint-disable` comments** - Fix the code to comply with rules
-- **Run `npm run lint`** before committing to catch issues early
-- **Run `npm run format`** to auto-fix formatting issues
+- **Run `pnpm run lint`** before committing to catch issues early
+- **Run `pnpm run format`** to auto-fix formatting issues
 
 ```typescript
 // ❌ BAD - Don't suppress lint
@@ -314,7 +314,7 @@ describe("ArtistCard", () => {
 - Define schemas in `pkg/database/src/db/schema.ts`
 - Use DAOs (Data Access Objects) to abstract database operations
 - Always use parameterized queries (Drizzle handles this)
-- Run `npm run db:generate` after schema changes
+- Run `pnpm run db:generate` after schema changes
 
 ---
 
@@ -344,7 +344,7 @@ describe("ArtistCard", () => {
 
 1. **Start the dev server**:
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 2. **Verify frontend rendering** by fetching HTML from both apps:
@@ -359,7 +359,7 @@ describe("ArtistCard", () => {
 4. **If using automated verification**, wait for dev server startup (~5 seconds) before fetching:
    ```bash
    # Start dev server in background, wait, then verify
-   npm run dev &
+   pnpm run dev &
    sleep 5
    curl -s http://localhost:5173 | grep -q 'id="root"' && echo "Douren-frontend: OK" || echo "Douren-frontend: FAILED"
    curl -s http://localhost:5174 | grep -q 'id="root"' && echo "CMS: OK" || echo "CMS: FAILED"

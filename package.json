@@ -8,10 +8,10 @@
     "worktree:list": "git worktree list",
     "build": "turbo build",
     "reset": "rimraf --glob node_modules",
-    "all": "npm run pkg && npm run lib && npm run be",
-    "be": "turbo build --filter=./be/* && npm install",
-    "pkg": "turbo build --filter=./pkg/* && npm install",
-    "lib": "turbo build --filter=./lib/* && npm install",
+    "all": "pnpm run pkg && pnpm run lib && pnpm run be",
+    "be": "turbo build --filter=./be/* && pnpm install",
+    "pkg": "turbo build --filter=./pkg/* && pnpm install",
+    "lib": "turbo build --filter=./lib/* && pnpm install",
     "dev": "turbo dev",
     "preview": "turbo preview",
     "deploy": "turbo deploy",
@@ -23,19 +23,19 @@
     "previewbe": "turbo preview --filter=./be/*",
     "previewfe": "turbo preview --filter=./fe/*",
     "test": "turbo test",
-    "codegen": "turbo codegen && npm run pkg",
+    "codegen": "turbo codegen && pnpm run pkg",
     "db:generate": "turbo db:generate",
     "db:migrate": "infisical export > pkg/database/.env && turbo db:migrate",
     "db:introspect": "turbo db:introspect",
     "db:push": "turbo db:push",
     "lint": "turbo lint",
     "env:push": "node scripts/sync-env-to-infisical.js",
-    "env:pull": "node scripts/generate-env-binding.js && npm run pkg",
+    "env:pull": "node scripts/generate-env-binding.js && pnpm run pkg",
     "env:login": "infisical login",
     "dev:db": "infisical run --env=dev -- psql %LOCAL_DATABASE_URL",
     "db:sync": "make db_sync",
     "prepare": "husky",
-    "reinstall": "rimraf --glob ./**/node_modules && rimraf --glob ./**/dist && rimraf --glob ./**/.turbo && npm install && npm run pkg && npm run lib && npm run be "
+    "reinstall": "rimraf --glob ./**/node_modules && rimraf --glob ./**/dist && rimraf --glob ./**/.turbo && pnpm install && pnpm run pkg && pnpm run lib && pnpm run be "
   },
   "devDependencies": {
     "@babel/types": "^7.25.6",
@@ -63,5 +63,5 @@
     "pkg/*",
     "lib/*"
   ],
-  "packageManager": "npm@9.8.1"
+  "packageManager": "pnpm@10.28.0"
 }

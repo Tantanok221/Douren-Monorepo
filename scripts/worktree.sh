@@ -143,7 +143,7 @@ cmd_create() {
     echo ""
     echo "To start working:"
     echo "  cd $WORKTREE_PATH"
-    echo "  npm run dev"
+    echo "  pnpm run dev"
     echo ""
 }
 
