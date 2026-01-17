@@ -5,7 +5,6 @@ import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
 import EventRoute, { trpcEventRoute } from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
-import { trpcAdminRoute } from "./routes/admin";
 import { router } from "./lib/trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { ENV_BINDING } from "@pkg/env/constant";
@@ -87,14 +86,12 @@ const sessionAuthMiddleware = async (
 app.on(["POST", "PUT", "DELETE"], "/artist/*", sessionAuthMiddleware);
 app.on(["POST", "PUT", "DELETE"], "/event/*", sessionAuthMiddleware);
 app.on(["POST", "PUT", "DELETE"], "/tag/*", sessionAuthMiddleware);
-app.on(["POST", "PUT", "DELETE"], "/admin/*", sessionAuthMiddleware);
 app.on(["POST"], "/image/*", sessionAuthMiddleware);
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
 	tag: trpcTagRoute,
 	owner: trpcOwnerRoute,
-	admin: trpcAdminRoute,
 });
 
 export type AppRouter = typeof appRouter;
