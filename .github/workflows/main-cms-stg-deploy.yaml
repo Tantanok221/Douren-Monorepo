@@ -101,7 +101,7 @@ jobs:
         run: |
           cd fe/cms
           if [[ -n "${PR_NUMBER:-}" ]]; then
-            infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_PREVIEW_URL" pnpm run build
+            infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_PREVIEW_URL" VITE_API_URL="$API_PREVIEW_URL" pnpm run build
           else
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run build
           fi
