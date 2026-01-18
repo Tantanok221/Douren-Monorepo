@@ -34,6 +34,10 @@ export const auth = (env: ENV_BINDING) => {
 		) as string[],
 		advanced: {
 			useSecureCookies: env.DEV_ENV !== "true",
+			defaultCookieAttributes: {
+				sameSite: "none",
+				secure: true,
+			},
 		},
 		rateLimit: {
 			enabled: true,
