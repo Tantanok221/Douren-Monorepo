@@ -31,7 +31,10 @@ const app = new OpenAPIHono<HonoEnv>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
 app.use("*", async (c, next) => {
-	const allowedOrigins = [c.env.CMS_FRONTEND_URL].filter(Boolean);
+	const allowedOrigins = [
+		c.env.CMS_FRONTEND_URL,
+		c.env.MAIN_FRONTEND_URL,
+	].filter(Boolean);
 
 	// Add localhost origins for development
 	if (c.env.DEV_ENV === "development") {
