@@ -71,9 +71,11 @@ jobs:
 
             echo "DEPLOY_KIND=pr" >> "$GITHUB_ENV"
             echo "PR_BRANCH=$PR_BRANCH" >> "$GITHUB_ENV"
+            echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_ENV"
             echo "PR_SCHEMA=$PR_SCHEMA" >> "$GITHUB_ENV"
             echo "WORKER_NAME=douren-backend-$PR_BRANCH" >> "$GITHUB_ENV"
             echo "API_PREVIEW_URL=https://douren-backend-$PR_BRANCH.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
+            echo "CMS_PREVIEW_URL=https://pr-$PR_NUMBER.douren-cms.pages.dev" >> "$GITHUB_ENV"
           else
             echo "DEPLOY_KIND=stg" >> "$GITHUB_ENV"
             echo "API_PREVIEW_URL=https://stg.api.douren.net" >> "$GITHUB_ENV"
@@ -106,7 +108,9 @@ jobs:
             fi
           done < .env
 
+          # For PR previews, override CMS_FRONTEND_URL with the dynamic preview URL
           if [[ "$DEPLOY_KIND" == "pr" ]]; then
+            WRANGLER_VARS+="--var CMS_FRONTEND_URL:$CMS_PREVIEW_URL "
             npm run deploy -- $WRANGLER_VARS --name "$WORKER_NAME"
           else
             npm run deploy -- $WRANGLER_VARS --env staging
