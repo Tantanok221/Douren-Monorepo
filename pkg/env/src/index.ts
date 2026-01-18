@@ -5,6 +5,8 @@ export interface ENV_BINDING {
   BETTER_AUTH_SECRET: string;
   BETTER_AUTH_URL: string;
   CLOUDFLARE_ACCOUNT_ID: string;
+  RESEND_API_KEY: string;
+  RESEND_FROM_EMAIL: string;
   CLOUDFLARE_API_KEY: string;
   CLOUDFLARE_IMAGE_AUTH_TOKEN: string;
   CLOUDFLARE_IMAGE_ENDPOINT: string;
