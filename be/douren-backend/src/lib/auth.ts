@@ -17,6 +17,9 @@ export const auth = (env: ENV_BINDING) => {
 			enabled: true,
 		},
 		trustedOrigins: [env.CMS_FRONTEND_URL],
+		advanced: {
+			useSecureCookies: env.DEV_ENV !== "true", // or just true if always HTTPS
+		},
 	});
 };
 
