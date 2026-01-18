@@ -30,7 +30,11 @@ export async function validateInviteCode(
 	db: DrizzleDB,
 	inviteCode: string,
 	masterInviteCode: string,
-): Promise<{ isValid: boolean; inviterId: string | null; isMasterCode: boolean }> {
+): Promise<{
+	isValid: boolean;
+	inviterId: string | null;
+	isMasterCode: boolean;
+}> {
 	// Check if it's the master invite code
 	if (inviteCode === masterInviteCode) {
 		return { isValid: true, inviterId: null, isMasterCode: true };
@@ -63,7 +67,11 @@ export async function validateInviteCode(
 		return { isValid: false, inviterId: null, isMasterCode: false };
 	}
 
-	return { isValid: true, inviterId: inviteSettings.userId, isMasterCode: false };
+	return {
+		isValid: true,
+		inviterId: inviteSettings.userId,
+		isMasterCode: false,
+	};
 }
 
 /**

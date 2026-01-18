@@ -8,12 +8,7 @@ import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 import { useFetchTagData } from "@/hooks";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import { trpc } from "@/lib/trpc";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const Route = createFileRoute("/")({
   component: Index,

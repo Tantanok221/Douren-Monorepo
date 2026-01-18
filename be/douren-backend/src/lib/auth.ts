@@ -42,7 +42,7 @@ export const auth = (env: ENV_BINDING) => {
 
 						if (!validation.isValid) {
 							throw new APIError("BAD_REQUEST", {
-								message: "Invalid or expired invite code",
+								message: "邀請碼無效或已過期",
 							});
 						}
 

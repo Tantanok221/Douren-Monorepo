@@ -19,7 +19,11 @@ function Page() {
   const authClient = useAuthContext();
   const [registeredEmail, setRegisteredEmail] = useState<string | null>(null);
 
-  const handleRegister = async (data: { email: string; password: string; inviteCode: string }) => {
+  const handleRegister = async (data: {
+    email: string;
+    password: string;
+    inviteCode: string;
+  }) => {
     await authClient.signUp.email(
       {
         email: data.email,

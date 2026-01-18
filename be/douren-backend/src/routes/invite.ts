@@ -1,9 +1,6 @@
 import { z } from "zod";
 import { router, publicProcedure, authProcedure } from "@/lib/trpc";
-import {
-	validateInviteCode,
-	getUserInviteSettings,
-} from "@/lib/invite";
+import { validateInviteCode, getUserInviteSettings } from "@/lib/invite";
 
 export const trpcInviteRoute = router({
 	/**
