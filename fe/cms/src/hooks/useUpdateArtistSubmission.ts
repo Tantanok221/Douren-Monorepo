@@ -1,5 +1,5 @@
-import { trpc } from "../helper";
 import { ArrayTagHelper } from "@lib/ui";
+import { trpc } from "@/lib/trpc";
 import {
   ArtistFormSchema,
   ENTITY_FORM_KEY,
@@ -8,16 +8,17 @@ import {
   useFormDataContext,
 } from "../components";
 import { Route } from "../routes/edit.$artistId";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export const useUpdateArtistSubmission = () => {
-  console.log("useUpdateArtistSubmission");
   const { artistId: id } = Route.useParams();
   const updateArtist = trpc.artist.updateArtist.useMutation();
   const updateEventArtist = trpc.eventArtist.updateEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
+  const navigate = useNavigate();
 
   return async () => {
-    console.log("trigger update submit");
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 
@@ -27,20 +28,30 @@ export const useUpdateArtistSubmission = () => {
       tags: TagHelper.toString(),
     };
 
-    // Update artist with correct mutation format
-    const [artistData] = await updateArtist.mutateAsync({
-      id,
-      data: artistDataWithTags,
-    });
+    try {
+      const [artistData] = await updateArtist.mutateAsync({
+        id,
+        data: artistDataWithTags,
+      });
 
-    // Update event artist with correct mutation format
-    await updateEventArtist.mutateAsync({
-      id,
-      data: {
-        ...eventArtistStep,
-        artistId: artistData.uuid,
-      },
-    });
+      await updateEventArtist.mutateAsync({
+        id,
+        data: {
+          ...eventArtistStep,
+          artistId: artistData.uuid,
+        },
+      });
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "data" in error) {
+        const errorData = error as { data?: { code?: string } };
+        if (errorData?.data?.code === "FORBIDDEN") {
+          toast.error("You don't have permission to edit this artist");
+          navigate({ to: "/" });
+          return;
+        }
+      }
+      throw error;
+    }
   };
 };
 

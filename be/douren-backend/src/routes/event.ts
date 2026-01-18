@@ -21,6 +21,8 @@ import { NewEventDao } from "@/Dao/Event";
 import { HonoEnv } from "@/index";
 import { z } from "zod";
 
+type EventDmSelect = z.infer<typeof zodSchema.eventDm.SelectSchema>;
+
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
 		const EventDao = NewEventDao(opts.ctx.db);
@@ -50,7 +52,7 @@ export const trpcEventRoute = router({
 				.where(eq(s.event.name, eventName));
 			return data;
 		}),
-	createEventArtist: publicProcedure
+	createEventArtist: authProcedure
 		.input(CreateEventArtistSchema)
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
@@ -206,7 +208,7 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 	.openapi(createEventArtistRoute, async (c) => {
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = c.req.valid("json");
-		const returnResponse = await EventArtistDao.Create(body);
+		const returnResponse: EventDmSelect[] = await EventArtistDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
 	.openapi(createEventRoute, async (c) => {
@@ -218,7 +220,7 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 	.openapi(deleteEventArtistRoute, async (c) => {
 		const { artistId, eventId } = c.req.valid("param");
 		const db = initDB(c.env.DATABASE_URL);
-		const returnResponse = await db
+		const returnResponse: EventDmSelect[] = await db
 			.delete(s.eventDm)
 			.where(
 				and(
@@ -233,7 +235,10 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const { eventArtistId } = c.req.valid("param");
 		const body: PutEventArtistSchemaTypes = c.req.valid("json");
-		const returnResponse = await EventArtistDao.Update(eventArtistId, body);
+		const returnResponse: EventDmSelect[] = await EventArtistDao.Update(
+			eventArtistId,
+			body,
+		);
 		return c.json(returnResponse, 200);
 	});
 

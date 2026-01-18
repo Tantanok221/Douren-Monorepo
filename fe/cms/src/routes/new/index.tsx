@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import {
   MultiStepFormProvider,
   ArtistForm,
@@ -13,6 +13,13 @@ import { FormDataProvider } from "../../components/FormDataContext/FormDataConte
 import { useNewArtistSubmission } from "../../hooks/useNewArtistSubmission.ts";
 
 export const Route = createFileRoute("/new/")({
+  beforeLoad: async ({ context }) => {
+    const session = await context.authClient.getSession();
+
+    if (!session) {
+      throw redirect({ to: "/login" });
+    }
+  },
   component: () => <Form />,
 });
 

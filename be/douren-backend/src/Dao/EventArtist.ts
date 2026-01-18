@@ -22,6 +22,12 @@ class EventArtistDao implements BaseDao {
 		this.db = db;
 	}
 
+	private static assertDefined<T>(value: T): asserts value is NonNullable<T> {
+		if (value === null || value === undefined) {
+			throw new Error("Expected value to be defined");
+		}
+	}
+
 	async Fetch(params: eventInputParamsType) {
 		const QueryBuilder = NewEventArtistQueryBuilder({ ...params }, this.db);
 		const { SelectQuery, CountQuery } = QueryBuilder.BuildQuery();
@@ -59,23 +65,16 @@ class EventArtistDao implements BaseDao {
 			| (PutEventArtistSchemaTypes & { uuid: number }),
 		body?: PutEventArtistSchemaTypes,
 	): Promise<EventDmRow[]> {
-		let eventArtistId: string;
-		let updateBody:
-			| PutEventArtistSchemaTypes
-			| (PutEventArtistSchemaTypes & { uuid: number });
+		const eventArtistId =
+			typeof eventArtistIdOrBody === "string"
+				? eventArtistIdOrBody
+				: String(eventArtistIdOrBody.uuid);
 
-		if (typeof eventArtistIdOrBody === "string") {
-			if (!body) {
-				throw new Error(
-					"EventArtistDao.Update requires a body when called with an id",
-				);
-			}
-			eventArtistId = eventArtistIdOrBody;
-			updateBody = body;
-		} else {
-			eventArtistId = String(eventArtistIdOrBody.uuid);
-			updateBody = eventArtistIdOrBody;
-		}
+		const updateBody =
+			typeof eventArtistIdOrBody === "string" ? body : eventArtistIdOrBody;
+
+		EventArtistDao.assertDefined(updateBody);
+
 		return this.db
 			.update(s.eventDm)
 			.set(updateBody)
@@ -83,11 +82,11 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
-	async FetchById(eventArtistId: string) {
+	async FetchById(artistId: string) {
 		const [data] = await this.db
 			.select()
 			.from(s.eventDm)
-			.where(eq(s.eventDm.uuid, Number(eventArtistId)));
+			.where(eq(s.eventDm.artistId, Number(artistId)));
 		return data;
 	}
 

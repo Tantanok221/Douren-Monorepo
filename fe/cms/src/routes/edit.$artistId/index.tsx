@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import {
   MultiStepFormProvider,
   ArtistForm,
@@ -7,16 +7,23 @@ import {
   FormStep,
   ENTITY_FORM_KEY,
 } from "../../components/index.ts";
+import { trpc } from "@/lib/trpc";
 // import { AllProductForm } from "./-components/form/product";
 import { RefreshHelperProvider } from "@lib/ui";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";
 import { useUpdateArtistSubmission } from "../../hooks/useUpdateArtistSubmission.ts";
-import { trpc } from "../../helper/index.ts";
 import {
   transformArtistToFormData,
   transformEventArtistToFormData,
 } from "../../utils/transformData.ts";
 export const Route = createFileRoute("/edit/$artistId/")({
+  beforeLoad: async ({ context }) => {
+    const session = await context.authClient.getSession();
+
+    if (!session) {
+      throw redirect({ to: "/login" });
+    }
+  },
   component: () => <Form />,
 });
 
@@ -40,9 +47,6 @@ function FormWithProviders() {
   const transformedEventArtistData = transformEventArtistToFormData(
     eventArtistData.data,
   );
-
-  console.log("transformedArtistData", transformedArtistData);
-  console.log("transformedEventArtistData", transformedEventArtistData);
 
   if (!transformedArtistData) return null;
 
