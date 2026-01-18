@@ -28,6 +28,7 @@ export const auth = (env: ENV_BINDING) => {
 			},
 			sendOnSignUp: true,
 			autoSignInAfterVerification: true,
+			callbackURL: env.CMS_FRONTEND_URL,
 		},
 		trustedOrigins: [env.CMS_FRONTEND_URL, env.MAIN_FRONTEND_URL].filter(
 			Boolean,
