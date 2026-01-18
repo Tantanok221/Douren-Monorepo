@@ -41,7 +41,10 @@ app.use("*", async (c, next) => {
 	const corsMiddleware = cors({
 		origin: (origin) => {
 			if (!origin) return null;
-			return allowedOrigins.includes(origin) ? origin : null;
+			if (allowedOrigins.includes(origin)) return origin;
+			// Allow Cloudflare Pages preview deployments
+			if (origin.endsWith(".douren-cms.pages.dev")) return origin;
+			return null;
 		},
 		credentials: true,
 		allowHeaders: ["Content-Type", "Authorization"],
