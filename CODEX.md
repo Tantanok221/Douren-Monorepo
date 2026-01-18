@@ -184,6 +184,31 @@ make worktree-remove PATH=../my-feature
 - Run `./setup.sh` after creating a worktree to initialize it
 - Use `--quick` flag for faster setup when you don't need to build packages
 
+### Dynamic Port Configuration
+When running multiple worktrees simultaneously, configure different ports to avoid conflicts.
+
+**Environment Variables:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DEV_BACKEND_PORT` | 2000 | Backend (Wrangler) dev server port |
+| `DEV_FRONTEND_PORT` | 5173 | Douren-frontend Vite dev server port |
+| `DEV_CMS_PORT` | 5174 | CMS Vite dev server port |
+
+**Setup for a new worktree:**
+```bash
+# Copy the example file
+cp .env.local.example .env.local
+
+# Edit with your preferred ports (e.g., increment by 100)
+# DEV_BACKEND_PORT=2100
+# DEV_FRONTEND_PORT=5273
+# DEV_CMS_PORT=5274
+# VITE_BACKEND_URL=http://localhost:2100
+# VITE_API_URL=http://localhost:2100
+```
+
+**Important:** `VITE_BACKEND_URL` and `VITE_API_URL` must match `DEV_BACKEND_PORT` for frontend apps to connect to the correct backend.
+
 ---
 
 ## Code Quality Guidelines
