@@ -25,6 +25,7 @@ function Page() {
         email: data.email,
         password: data.password,
         name: data.email,
+        callbackURL: window.location.origin,
       },
       {
         onSuccess: async () => {
@@ -44,9 +45,7 @@ function Page() {
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">驗證您的電子郵件</CardTitle>
-              <CardDescription>
-                我們已經發送驗證郵件到您的信箱
-              </CardDescription>
+              <CardDescription>我們已經發送驗證郵件到您的信箱</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div className="rounded-md bg-green-50 p-4 text-sm text-green-800 dark:bg-green-900/20 dark:text-green-400">
