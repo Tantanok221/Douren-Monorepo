@@ -161,9 +161,8 @@ export const axiomLogger = (): MiddlewareHandler<HonoEnv> => {
 		const axiom = hasAxiom ? new Axiom({ token: c.env.AXIOM_TOKEN }) : null;
 		const dataset = c.env.AXIOM_DATASET ?? "logs";
 
-		// FORCE CONSOLE FOR DEBUGGING
-		const useConsole = true;
-		console.log(`[DEBUG] DEV_ENV=${c.env.DEV_ENV}, hasAxiom=${hasAxiom}, dataset=${dataset}`);
+		// Use console logging in non-production environments (staging, PRs, local)
+		const useConsole = !hasAxiom || c.env.DEV_ENV !== "prod";
 
 		const logger = new Logger(axiom, dataset, requestId, useConsole);
 
