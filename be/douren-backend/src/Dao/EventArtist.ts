@@ -93,6 +93,8 @@ class EventArtistDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventArtistDao(db: ReturnType<typeof initDB>): EventArtistDao {
+export function NewEventArtistDao(
+	db: ReturnType<typeof initDB>,
+): EventArtistDao {
 	return new EventArtistDao(db);
 }

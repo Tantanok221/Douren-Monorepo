@@ -66,7 +66,9 @@ export const createEmailService = (env: ENV_BINDING) => {
 
 			if (error) {
 				console.error("Failed to send password reset email:", error);
-				throw new Error(`Failed to send password reset email: ${error.message}`);
+				throw new Error(
+					`Failed to send password reset email: ${error.message}`,
+				);
 			}
 		},
 	};
