@@ -6,7 +6,9 @@
     "DEV_FRONTEND_PORT",
     "DEV_CMS_PORT",
     "VITE_BACKEND_URL",
-    "VITE_API_URL"
+    "VITE_API_URL",
+    "VITE_BACKEND_URL_OVERRIDE",
+    "VITE_API_URL_OVERRIDE"
   ],
   "tasks": {
    "build": {

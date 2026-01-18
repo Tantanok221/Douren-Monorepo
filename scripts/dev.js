@@ -10,6 +10,11 @@ if (fs.existsSync(envLocalPath)) {
   const envConfig = dotenv.parse(fs.readFileSync(envLocalPath));
   for (const k in envConfig) {
     process.env[k] = envConfig[k];
+    // Create override variables for Infisical-managed keys
+    // This allows us to restore them after "infisical run" overwrites the originals
+    if (['VITE_BACKEND_URL', 'VITE_API_URL'].includes(k)) {
+      process.env[`${k}_OVERRIDE`] = envConfig[k];
+    }
   }
 } else {
   console.log('.env.local not found, using default environment');

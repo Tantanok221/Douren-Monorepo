@@ -12,6 +12,9 @@ export interface ENV_BINDING {
   CMS_FRONTEND_URL: string;
   DATABASE_URL: string;
   DEV_ENV: string;
+  MASTER_INVITE_CODE: string;
+  RESEND_API_KEY: string;
+  RESEND_FROM_EMAIL: string;
   TURBO_TOKEN: string;
   VITE_ADMIN_AUTH_TOKEN: string;
   VITE_API_URL: string;
