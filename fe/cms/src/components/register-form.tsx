@@ -16,6 +16,7 @@ import { Link } from "@tanstack/react-router";
 type RegisterFormData = {
   email: string;
   password: string;
+  inviteCode: string;
 };
 
 type RegisterFormProps = {
@@ -50,7 +51,7 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
         <CardHeader>
           <CardTitle className="text-2xl">註冊</CardTitle>
           <CardDescription>
-            請輸入您的電子郵件和密碼以建立新帳戶
+            請輸入您的電子郵件、密碼和邀請碼以建立新帳戶
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -61,6 +62,23 @@ export function RegisterForm({ className, onSubmit }: RegisterFormProps) {
                   {error}
                 </div>
               )}
+              <div className="grid gap-2">
+                <Label htmlFor="inviteCode">邀請碼</Label>
+                <Input
+                  id="inviteCode"
+                  type="text"
+                  placeholder="DOUREN-XXXXXXXX"
+                  disabled={isSubmitting}
+                  {...register("inviteCode", {
+                    required: "請輸入邀請碼",
+                  })}
+                />
+                {errors.inviteCode && (
+                  <p className="text-sm text-red-600 dark:text-red-400">
+                    {errors.inviteCode.message}
+                  </p>
+                )}
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">電子郵件</Label>
                 <Input

@@ -12,6 +12,7 @@ import { ENV_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
+import { trpcInviteRoute } from "./routes/invite";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
 import { auth, type Auth, AuthSession } from "@/lib/auth";
@@ -32,7 +33,6 @@ app.use("*", trimTrailingSlash());
 app.use("*", async (c, next) => {
 	const allowedOrigins = [
 		c.env.CMS_FRONTEND_URL,
-		c.env.MAIN_FRONTEND_URL,
 	].filter(Boolean);
 
 	// Add localhost origins for development
@@ -120,6 +120,7 @@ const appRouter = router({
 	tag: trpcTagRoute,
 	owner: trpcOwnerRoute,
 	admin: trpcAdminRoute,
+	invite: trpcInviteRoute,
 });
 
 export type AppRouter = typeof appRouter;
