@@ -13,6 +13,7 @@ export interface ENV_BINDING {
   CLOUDFLARE_IMAGE_TOKEN: string;
   CMS_FRONTEND_URL: string;
   DATABASE_URL: string;
+  MAIN_FRONTEND_URL: string;
   DEV_ENV: string;
   TURBO_TOKEN: string;
   VITE_ADMIN_AUTH_TOKEN: string;

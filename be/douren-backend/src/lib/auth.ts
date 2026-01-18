@@ -29,7 +29,21 @@ export const auth = (env: ENV_BINDING) => {
 			sendOnSignUp: true,
 			autoSignInAfterVerification: true,
 		},
-		trustedOrigins: [env.CMS_FRONTEND_URL],
+		trustedOrigins: [env.CMS_FRONTEND_URL, env.MAIN_FRONTEND_URL].filter(
+			Boolean,
+		) as string[],
+		advanced: {
+			useSecureCookies: env.DEV_ENV !== "true",
+		},
+		rateLimit: {
+			enabled: true,
+			window: 60, // 60 second window
+			max: 100, // 100 requests per window for general endpoints
+			customRules: {
+				"/sign-in/*": { window: 60, max: 10 }, // Stricter for login
+				"/sign-up/*": { window: 60, max: 5 }, // Stricter for signup
+			},
+		},
 	});
 };
 
