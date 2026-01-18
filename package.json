@@ -12,7 +12,7 @@
     "be": "turbo build --filter=./be/* && pnpm install",
     "pkg": "turbo build --filter=./pkg/* && pnpm install",
     "lib": "turbo build --filter=./lib/* && pnpm install",
-    "dev": "turbo dev",
+    "dev": "node scripts/dev.js",
     "preview": "turbo preview",
     "deploy": "turbo deploy",
     "format": "turbo format",
