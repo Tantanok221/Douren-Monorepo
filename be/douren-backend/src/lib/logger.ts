@@ -161,8 +161,8 @@ export const axiomLogger = (): MiddlewareHandler<HonoEnv> => {
 		const axiom = hasAxiom ? new Axiom({ token: c.env.AXIOM_TOKEN }) : null;
 		const dataset = c.env.AXIOM_DATASET ?? "logs";
 
-		// Use console logging when Axiom is not configured (local dev)
-		const useConsole = !hasAxiom;
+		// Use console logging when Axiom is not configured (local dev) or in staging for debugging
+		const useConsole = !hasAxiom || c.env.DEV_ENV === "stg";
 
 		const logger = new Logger(axiom, dataset, requestId, useConsole);
 
@@ -208,7 +208,11 @@ export const axiomLogger = (): MiddlewareHandler<HonoEnv> => {
 
 			if (axiom) {
 				axiom.ingest(dataset, [event]);
-				c.executionCtx.waitUntil(axiom.flush());
+				c.executionCtx.waitUntil(
+					axiom.flush().catch((err) => {
+						console.error("Axiom flush failed:", err);
+					}),
+				);
 			}
 		}
 	};
