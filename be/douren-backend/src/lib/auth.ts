@@ -19,6 +19,9 @@ export const auth = (env: ENV_BINDING) => {
 		trustedOrigins: [env.CMS_FRONTEND_URL, env.MAIN_FRONTEND_URL].filter(
 			Boolean,
 		) as string[],
+		advanced: {
+			useSecureCookies: env.DEV_ENV !== "true",
+		},
 		rateLimit: {
 			enabled: true,
 			window: 60, // 60 second window
