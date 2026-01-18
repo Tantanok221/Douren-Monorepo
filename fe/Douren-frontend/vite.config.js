@@ -11,4 +11,7 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/components"),
     },
   },
+  server: {
+    port: parseInt(process.env.DEV_FRONTEND_PORT || "5173", 10),
+  },
 });
