@@ -33,71 +33,81 @@ export const auth = (env: ENV_BINDING) => {
 			user: {
 				create: {
 					before: async (user, ctx) => {
-						const inviteCode = user.inviteCode as string;
+						try {
+							const inviteCode = user.inviteCode as string;
 
-						if (!inviteCode) {
-							throw new APIError("BAD_REQUEST", {
-								message: "DEBUG: No invite code received",
-							});
-						}
-
-						const validation = await validateInviteCode(
-							db,
-							inviteCode,
-							env.MASTER_INVITE_CODE,
-						);
-
-						if (!validation.isValid) {
-							throw new APIError("BAD_REQUEST", {
-								message: `邀請碼無效或已過期 (${inviteCode})`,
-							});
-						}
-
-						// Pass validation result to 'after' hook using context if possible,
-						// or fallback to attaching to user but we suspect user object is recreated.
-						// We'll use a WeakMap or similar if we could, but here we'll try attaching to ctx.
-						// @ts-ignore
-						ctx.inviteValidation = validation;
-						// @ts-ignore
-						ctx.originalInviteCode = inviteCode;
-
-						// Don't save inviteCode to the user table
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						const { inviteCode: _, ...userData } = user;
-						return { data: userData };
-					},
-					after: async (user, ctx) => {
-						// @ts-ignore
-						const validation = ctx.inviteValidation as {
-							isValid: boolean;
-							inviterId: string | null;
-							isMasterCode: boolean;
-						};
-						// @ts-ignore
-						const inviteCode = ctx.originalInviteCode as string;
-
-						if (validation && inviteCode) {
-							// 1. Create invite settings for the new user
-							await createUserInviteSettings(db, user.id);
-
-							// 2. Record usage if not master code
-							if (!validation.isMasterCode && validation.inviterId) {
-								await recordInviteUsage(
-									db,
-									validation.inviterId,
-									user.id,
-									inviteCode,
-								);
-							}
-
-							// 3. Assign admin role if master code
-							if (validation.isMasterCode) {
-								await db.insert(schema.s.userRole).values({
-									id: crypto.randomUUID(),
-									userId: user.id,
-									name: "admin",
+							if (!inviteCode) {
+								throw new APIError("BAD_REQUEST", {
+									message: "DEBUG: No invite code received",
 								});
 							}
+
+							const validation = await validateInviteCode(
+								db,
+								inviteCode,
+								env.MASTER_INVITE_CODE,
+							);
+
+							if (!validation.isValid) {
+								throw new APIError("BAD_REQUEST", {
+									message: `邀請碼無效或已過期 (${inviteCode})`,
+								});
+							}
+
+							// @ts-ignore
+							ctx.inviteValidation = validation;
+							// @ts-ignore
+							ctx.originalInviteCode = inviteCode;
+
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							const { inviteCode: _, ...userData } = user;
+							return { data: userData };
+						} catch (e) {
+							if (e instanceof APIError) throw e;
+							console.error("Error in before hook:", e);
+							throw new APIError("INTERNAL_SERVER_ERROR", {
+								message: "Internal server error during validation",
+							});
+						}
+					},
+					after: async (user, ctx) => {
+						try {
+							// @ts-ignore
+							const validation = ctx.inviteValidation as {
+								isValid: boolean;
+								inviterId: string | null;
+								isMasterCode: boolean;
+							};
+							// @ts-ignore
+							const inviteCode = ctx.originalInviteCode as string;
+
+							if (validation && inviteCode) {
+								// 1. Create invite settings for the new user
+								await createUserInviteSettings(db, user.id);
+
+								// 2. Record usage if not master code
+								if (!validation.isMasterCode && validation.inviterId) {
+									await recordInviteUsage(
+										db,
+										validation.inviterId,
+										user.id,
+										inviteCode,
+									);
+								}
+
+								// 3. Assign admin role if master code
+								if (validation.isMasterCode) {
+									await db.insert(schema.s.userRole).values({
+										id: crypto.randomUUID(),
+										userId: user.id,
+										name: "admin",
+									});
+								}
+							}
+						} catch (e) {
+							console.error("Error in after hook:", e);
+							// Don't throw here to avoid failing the whole signup if just post-processing fails
+							// But maybe we want to know?
 						}
 					},
 				},
