@@ -16,7 +16,9 @@ export const auth = (env: ENV_BINDING) => {
 		emailAndPassword: {
 			enabled: true,
 		},
-		trustedOrigins: [env.CMS_FRONTEND_URL],
+		trustedOrigins: [env.CMS_FRONTEND_URL, env.MAIN_FRONTEND_URL].filter(
+			Boolean,
+		) as string[],
 		rateLimit: {
 			enabled: true,
 			window: 60, // 60 second window
