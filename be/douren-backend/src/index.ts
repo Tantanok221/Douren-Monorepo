@@ -12,6 +12,7 @@ import { ENV_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
+import { trpcInviteRoute } from "./routes/invite";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
 import { auth, type Auth, AuthSession } from "@/lib/auth";
@@ -120,6 +121,7 @@ const appRouter = router({
 	tag: trpcTagRoute,
 	owner: trpcOwnerRoute,
 	admin: trpcAdminRoute,
+	invite: trpcInviteRoute,
 });
 
 export type AppRouter = typeof appRouter;
