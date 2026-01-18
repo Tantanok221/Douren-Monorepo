@@ -46,14 +46,23 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
-	async Update(eventArtistId: string, body: PutEventArtistSchemaTypes): Promise<EventDmRow[]>;
-	async Update(body: PutEventArtistSchemaTypes & { uuid: number }): Promise<EventDmRow[]>;
 	async Update(
-		eventArtistIdOrBody: string | (PutEventArtistSchemaTypes & { uuid: number }),
+		eventArtistId: string,
+		body: PutEventArtistSchemaTypes,
+	): Promise<EventDmRow[]>;
+	async Update(
+		body: PutEventArtistSchemaTypes & { uuid: number },
+	): Promise<EventDmRow[]>;
+	async Update(
+		eventArtistIdOrBody:
+			| string
+			| (PutEventArtistSchemaTypes & { uuid: number }),
 		body?: PutEventArtistSchemaTypes,
 	): Promise<EventDmRow[]> {
 		let eventArtistId: string;
-		let updateBody: PutEventArtistSchemaTypes | (PutEventArtistSchemaTypes & { uuid: number });
+		let updateBody:
+			| PutEventArtistSchemaTypes
+			| (PutEventArtistSchemaTypes & { uuid: number });
 
 		if (typeof eventArtistIdOrBody === "string") {
 			if (!body) {
@@ -85,6 +94,8 @@ class EventArtistDao implements BaseDao {
 	async Delete() {}
 }
 
-export function NewEventArtistDao(db: ReturnType<typeof initDB>): EventArtistDao {
+export function NewEventArtistDao(
+	db: ReturnType<typeof initDB>,
+): EventArtistDao {
 	return new EventArtistDao(db);
 }
