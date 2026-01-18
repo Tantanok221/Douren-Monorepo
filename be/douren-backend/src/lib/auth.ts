@@ -148,6 +148,14 @@ export const auth = (env: ENV_BINDING) => {
 				"/sign-up/*": { window: 60, max: 5 }, // Stricter for signup
 			},
 		},
+		session: {
+			expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+			updateAge: 60 * 60 * 24, // Update session every 24 hours
+			cookieCache: {
+				enabled: true,
+				maxAge: 60 * 5, // Cache for 5 minutes
+			},
+		},
 	});
 };
 
