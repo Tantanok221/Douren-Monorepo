@@ -17,6 +17,6 @@ export default defineConfig({
 		exclude: [],
 	},
 	server: {
-		port: 5174,
+		port: parseInt(process.env.DEV_CMS_PORT || "5174", 10),
 	},
 });
