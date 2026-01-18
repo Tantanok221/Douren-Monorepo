@@ -17,6 +17,14 @@ export const auth = (env: ENV_BINDING) => {
 			enabled: true,
 		},
 		trustedOrigins: [env.CMS_FRONTEND_URL],
+		session: {
+			expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+			updateAge: 60 * 60 * 24, // Update session every 24 hours
+			cookieCache: {
+				enabled: true,
+				maxAge: 60 * 5, // Cache for 5 minutes
+			},
+		},
 	});
 };
 
