@@ -109,10 +109,11 @@ jobs:
             fi
           done < .env
 
-          # For PR previews, override CMS_FRONTEND_URL with the dynamic preview URL
+          # For PR previews, override URLs with dynamic preview URLs
           if [[ "$DEPLOY_KIND" == "pr" ]]; then
             WRANGLER_VARS+="--var CMS_FRONTEND_URL:$CMS_FRONTEND_URL "
             WRANGLER_VARS+="--var MAIN_FRONTEND_URL:$MAIN_FRONTEND_URL "
+            WRANGLER_VARS+="--var BETTER_AUTH_URL:$API_PREVIEW_URL "
             npm run deploy -- $WRANGLER_VARS --name "$WORKER_NAME"
           else
             npm run deploy -- $WRANGLER_VARS --env staging
