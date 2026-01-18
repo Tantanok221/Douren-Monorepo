@@ -32,8 +32,15 @@ export const auth = (env: ENV_BINDING) => {
 		databaseHooks: {
 			user: {
 				create: {
-					before: async (user) => {
+					before: async (user, ctx) => {
 						const inviteCode = user.inviteCode as string;
+
+						if (!inviteCode) {
+							throw new APIError("BAD_REQUEST", {
+								message: "DEBUG: No invite code received",
+							});
+						}
+
 						const validation = await validateInviteCode(
 							db,
 							inviteCode,
@@ -42,31 +49,32 @@ export const auth = (env: ENV_BINDING) => {
 
 						if (!validation.isValid) {
 							throw new APIError("BAD_REQUEST", {
-								message: "邀請碼無效或已過期",
+								message: `邀請碼無效或已過期 (${inviteCode})`,
 							});
 						}
 
-						// Store validation result in the user object temporarily to pass to 'after' hook
-						// We'll remove inviteCode before saving to DB
-						// @ts-ignore - attaching temporary data
-						user.inviteValidation = validation;
-						// @ts-ignore - attaching temporary data
-						user.originalInviteCode = inviteCode;
+						// Pass validation result to 'after' hook using context if possible,
+						// or fallback to attaching to user but we suspect user object is recreated.
+						// We'll use a WeakMap or similar if we could, but here we'll try attaching to ctx.
+						// @ts-ignore
+						ctx.inviteValidation = validation;
+						// @ts-ignore
+						ctx.originalInviteCode = inviteCode;
 
 						// Don't save inviteCode to the user table
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						const { inviteCode: _, ...userData } = user;
 						return { data: userData };
 					},
-					after: async (user) => {
-						// @ts-ignore - retrieving temporary data attached in 'before' hook
-						const validation = user.inviteValidation as {
+					after: async (user, ctx) => {
+						// @ts-ignore
+						const validation = ctx.inviteValidation as {
 							isValid: boolean;
 							inviterId: string | null;
 							isMasterCode: boolean;
 						};
-						// @ts-ignore - retrieving temporary data
-						const inviteCode = user.originalInviteCode as string;
+						// @ts-ignore
+						const inviteCode = ctx.originalInviteCode as string;
 
 						if (validation && inviteCode) {
 							// 1. Create invite settings for the new user
