@@ -21,20 +21,17 @@ export const auth = (env: ENV_BINDING) => {
 		baseURL: env.BETTER_AUTH_URL,
 		secret: env.BETTER_AUTH_SECRET,
 		user: {
-			additionalFields: {
-				inviteCode: {
-					type: "string",
-					required: true,
-					input: true,
-				},
-			},
+			additionalFields: {},
 		},
 		databaseHooks: {
 			user: {
 				create: {
 					before: async (user, ctx) => {
 						try {
-							const inviteCode = user.inviteCode as string;
+							// Try to get inviteCode from request if possible
+							// @ts-ignore
+							const inviteCode =
+								(user.inviteCode as string) || ctx?.body?.inviteCode;
 
 							if (!inviteCode) {
 								throw new APIError("BAD_REQUEST", {
