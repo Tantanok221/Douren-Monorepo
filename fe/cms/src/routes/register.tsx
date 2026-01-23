@@ -37,7 +37,12 @@ function Page() {
           setRegisteredEmail(data.email);
         },
         onError: (ctx) => {
-          throw new Error(ctx.error.message || "Registration failed");
+          const raw = ctx.error.message || "Registration failed";
+          // better-auth may return generic English messages; map to our desired UX
+          if (/user already exists/i.test(raw)) {
+            throw new Error("使用者已存在");
+          }
+          throw new Error(raw);
         },
       },
     );

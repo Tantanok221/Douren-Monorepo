@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth, APIError } from "better-auth";
+import { eq } from "drizzle-orm";
 import * as schema from "@pkg/database/db";
 import type { ENV_BINDING } from "@pkg/env/constant";
 import { createEmailService } from "./email";
@@ -28,6 +29,18 @@ export const auth = (env: ENV_BINDING) => {
 				create: {
 					before: async (user, ctx) => {
 						try {
+							const [existingUser] = await db
+								.select({ id: schema.s.user.id })
+								.from(schema.s.user)
+								.where(eq(schema.s.user.email, user.email))
+								.limit(1);
+
+							if (existingUser) {
+								throw new APIError("CONFLICT", {
+									message: "使用者已存在",
+								});
+							}
+
 							// Try to get inviteCode from request if possible
 							// @ts-ignore
 							const inviteCode =
