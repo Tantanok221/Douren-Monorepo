@@ -10,6 +10,13 @@ const INVITE_CODE_LENGTH = 8;
 const INVITE_CODE_PREFIX = "DOUREN-";
 
 /**
+ * Normalizes invite codes for consistent comparisons and lookups.
+ */
+export function normalizeInviteCode(inviteCode: string): string {
+	return inviteCode.trim().toUpperCase();
+}
+
+/**
  * Generates a random invite code in format: DOUREN-XXXXXXXX
  * Uses unambiguous characters to avoid confusion
  */
@@ -35,8 +42,11 @@ export async function validateInviteCode(
 	inviterId: string | null;
 	isMasterCode: boolean;
 }> {
+	const normalizedInviteCode = normalizeInviteCode(inviteCode);
+	const normalizedMasterInviteCode = normalizeInviteCode(masterInviteCode);
+
 	// Check if it's the master invite code
-	if (inviteCode === masterInviteCode) {
+	if (normalizedInviteCode === normalizedMasterInviteCode) {
 		return { isValid: true, inviterId: null, isMasterCode: true };
 	}
 
@@ -48,7 +58,7 @@ export async function validateInviteCode(
 			isActive: s.userInviteSettings.isActive,
 		})
 		.from(s.userInviteSettings)
-		.where(eq(s.userInviteSettings.inviteCode, inviteCode))
+		.where(eq(s.userInviteSettings.inviteCode, normalizedInviteCode))
 		.limit(1);
 
 	if (!inviteSettings || !inviteSettings.isActive) {

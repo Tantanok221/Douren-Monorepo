@@ -10,7 +10,60 @@ import {
 	validateInviteCode,
 	createUserInviteSettings,
 	recordInviteUsage,
+	normalizeInviteCode,
 } from "./invite";
+
+type InviteValidation = {
+	isValid: boolean;
+	inviterId: string | null;
+	isMasterCode: boolean;
+};
+
+type InviteContext = {
+	body?: {
+		inviteCode?: string;
+		invite_code?: string;
+	};
+	inviteValidation?: InviteValidation;
+	originalInviteCode?: string;
+};
+
+const getInviteCodeFromContext = (ctx: unknown): string | null => {
+	if (!ctx || typeof ctx !== "object") return null;
+	const context = ctx as InviteContext;
+	if (typeof context.originalInviteCode === "string") {
+		return normalizeInviteCode(context.originalInviteCode);
+	}
+	const body = context.body;
+	if (!body || typeof body !== "object") return null;
+	if (typeof body.inviteCode === "string") {
+		return normalizeInviteCode(body.inviteCode);
+	}
+	if (typeof body.invite_code === "string") {
+		return normalizeInviteCode(body.invite_code);
+	}
+	return null;
+};
+
+const getInviteValidationFromContext = (ctx: unknown): InviteValidation | null => {
+	if (!ctx || typeof ctx !== "object") return null;
+	const context = ctx as InviteContext;
+	return context.inviteValidation ?? null;
+};
+
+const setInviteContext = (
+	ctx: unknown,
+	inviteCode: string,
+	validation: InviteValidation,
+): void => {
+	if (!ctx || typeof ctx !== "object") return;
+	const context = ctx as InviteContext;
+	context.inviteValidation = validation;
+	context.originalInviteCode = inviteCode;
+};
+
+const getMasterInviteCode = (env: ENV_BINDING): string =>
+	env.MASTER_INVITE_CODE ?? "";
 
 export const auth = (env: ENV_BINDING) => {
 	const sql = neon(env.DATABASE_URL);
@@ -41,10 +94,12 @@ export const auth = (env: ENV_BINDING) => {
 								});
 							}
 
-							// Try to get inviteCode from request if possible
-							// @ts-ignore
+							const inviteCodeFromUser = (user as { inviteCode?: unknown })
+								.inviteCode;
 							const inviteCode =
-								(user.inviteCode as string) || ctx?.body?.inviteCode;
+								typeof inviteCodeFromUser === "string"
+									? normalizeInviteCode(inviteCodeFromUser)
+									: getInviteCodeFromContext(ctx);
 
 							if (!inviteCode) {
 								throw new APIError("BAD_REQUEST", {
@@ -52,10 +107,11 @@ export const auth = (env: ENV_BINDING) => {
 								});
 							}
 
+							const masterInviteCode = getMasterInviteCode(env);
 							const validation = await validateInviteCode(
 								db,
 								inviteCode,
-								env.MASTER_INVITE_CODE,
+								masterInviteCode,
 							);
 
 							if (!validation.isValid) {
@@ -67,10 +123,7 @@ export const auth = (env: ENV_BINDING) => {
 							// Pass validation result to 'after' hook using context if possible,
 							// or fallback to attaching to user but we suspect user object is recreated.
 							// We'll use a WeakMap or similar if we could, but here we'll try attaching to ctx.
-							// @ts-ignore
-							ctx.inviteValidation = validation;
-							// @ts-ignore
-							ctx.originalInviteCode = inviteCode;
+							setInviteContext(ctx, inviteCode, validation);
 
 							// Don't save inviteCode to the user table
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -86,16 +139,22 @@ export const auth = (env: ENV_BINDING) => {
 					},
 					after: async (user, ctx) => {
 						try {
-							// @ts-ignore
-							const validation = ctx.inviteValidation as {
-								isValid: boolean;
-								inviterId: string | null;
-								isMasterCode: boolean;
-							};
-							// @ts-ignore
-							const inviteCode = ctx.originalInviteCode as string;
+							const inviteCode = getInviteCodeFromContext(ctx);
+							let validation = getInviteValidationFromContext(ctx);
 
-							if (validation && inviteCode) {
+							if (!inviteCode) {
+								return;
+							}
+							const masterInviteCode = getMasterInviteCode(env);
+							if (!validation) {
+								validation = await validateInviteCode(
+									db,
+									inviteCode,
+									masterInviteCode,
+								);
+							}
+
+							if (validation?.isValid) {
 								// 1. Create invite settings for the new user
 								await createUserInviteSettings(db, user.id);
 
