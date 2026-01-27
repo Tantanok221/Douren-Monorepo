@@ -5,6 +5,7 @@ import {
   Pagination,
   usePaginationContext,
   useSearchContext,
+  useSearchColumnContext,
   useSortSelectContext,
   useTagFilterContext,
 } from "@lib/ui";
@@ -16,6 +17,7 @@ import { useUserRole } from "@/hooks/usePermissions";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
+  const [searchColumn] = useSearchColumnContext();
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
@@ -24,7 +26,7 @@ export const ArtistContainer = () => {
 
   const queryParams = {
     search: search,
-    searchTable: "",
+    searchTable: searchColumn,
     page: String(page),
     sort: sortSelect,
     tag: allTag,

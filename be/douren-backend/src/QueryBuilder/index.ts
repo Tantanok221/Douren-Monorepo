@@ -1,5 +1,5 @@
 import { initDB, s } from "@pkg/database/db";
-import { asc, count, desc, eq } from "drizzle-orm";
+import { asc, count, countDistinct, desc, eq } from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
 import { PAGE_SIZE } from "@/helper/constant";
@@ -41,8 +41,10 @@ class ArtistQueryBuilder extends IQueryBuilder<ArtistFetchParams> {
 			.groupBy(s.authorMain.uuid)
 			.$dynamic();
 		const countQuery = this.db
-			.select({ totalCount: count(s.authorMain.uuid) })
+			.select({ totalCount: countDistinct(s.authorMain.uuid) })
 			.from(s.authorMain)
+			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
+			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
 			.$dynamic();
 		const CountQuery = BuildQuery(countQuery).withTableIsNot(
 			s.authorMain.author,
@@ -96,10 +98,12 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			)
 			.$dynamic();
 		const countQuery = this.db
-			.select({ totalCount: count(s.eventDm.artistId) })
+			.select({ totalCount: countDistinct(s.eventDm.artistId) })
 			.from(s.eventDm)
 			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
+			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
+			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
 			.$dynamic();
 		const CountQuery = BuildQuery(countQuery)
 			.withFilterEventName(this.fetchParams.eventName)
