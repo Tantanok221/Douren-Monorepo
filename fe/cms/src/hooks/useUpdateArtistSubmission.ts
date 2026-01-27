@@ -22,25 +22,10 @@ export const useUpdateArtistSubmission = () => {
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 
-    // Get upload refs from form context
-    const artistUploadRef = getFormData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
-    const eventUploadRef = getFormData(`${ENTITY_FORM_KEY.eventArtist}_uploadRef`);
-
-    // Upload images now (only at final submission)
-    let photoLink = artistStep.photo;
-    if (artistUploadRef?.current) {
-      photoLink = await artistUploadRef.current.uploadImage();
-    }
-
-    let dmLink = eventArtistStep.dm;
-    if (eventUploadRef?.current) {
-      dmLink = await eventUploadRef.current.uploadImage();
-    }
-
+    // Images were already uploaded in step transitions
     const TagHelper = new ArrayTagHelper(artistStep.tags);
     const artistDataWithTags = {
       ...artistStep,
-      photo: photoLink,
       tags: TagHelper.toString(),
     };
 
@@ -53,7 +38,6 @@ export const useUpdateArtistSubmission = () => {
       // Use upsert to create or update event_dm record
       await upsertEventArtist.mutateAsync({
         ...eventArtistStep,
-        dm: dmLink,
         artistId: artistData.uuid,
       });
     } catch (error: unknown) {

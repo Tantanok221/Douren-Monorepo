@@ -28,9 +28,10 @@ export function ArtistForm({ defaultValues }: artistFormProps) {
   const bumpStep = useFormStep().onNext;
   const stepId = useFormStep().stepId;
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
-    // Just save form data, upload will happen at final submission
-    setData(stepId, data);
-    setData(`${stepId}_uploadRef`, uploadImageRef);
+    // Upload photo before moving to next step
+    if (!uploadImageRef.current) return;
+    const photoLink = await uploadImageRef.current.uploadImage();
+    setData(stepId, { ...data, photo: photoLink });
     bumpStep();
   };
   return (
