@@ -117,7 +117,7 @@ export function EventArtistForm({
         <InputTextField formField={"locationDay03"} label={"第三天攤位位置"} />
         <EventField formField={"eventId"} label={"選擇活動"} />
         <ImageField
-          formField={"DM"}
+          formField={"dm"}
           label={"DM"}
           title={"DM"}
           multiple
