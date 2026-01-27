@@ -56,7 +56,10 @@ function FormWithProviders() {
         <ArtistForm defaultValues={transformedArtistData} />
       </FormStep>
       <FormStep activeStep={2} stepId={ENTITY_FORM_KEY.eventArtist}>
-        <EventArtistForm defaultValues={transformedEventArtistData} />
+        <EventArtistForm
+          defaultValues={transformedEventArtistData}
+          allEventData={eventArtistData.data}
+        />
       </FormStep>
       <FormStep activeStep={3} stepId={"completeStep"}>
         <CompleteStep />

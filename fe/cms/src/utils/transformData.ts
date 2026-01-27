@@ -48,10 +48,11 @@ export function transformArtistToFormData(
   };
 }
 
-// Transform database eventArtist record to form schema
+// Transform database eventArtist records to form schema
+// Returns the first event if multiple exist, or undefined if none exist
 export function transformEventArtistToFormData(
   eventArtistData:
-    | {
+    | Array<{
         uuid?: number;
         eventId?: number | null;
         artistId?: number;
@@ -60,18 +61,21 @@ export function transformEventArtistToFormData(
         locationDay01?: string | null;
         locationDay02?: string | null;
         locationDay03?: string | null;
-      }
+      }>
     | undefined,
 ): EventArtistSchema | undefined {
-  if (!eventArtistData) return undefined;
+  if (!eventArtistData || eventArtistData.length === 0) return undefined;
+
+  // Use the first event for now (form only handles one event at a time)
+  const firstEvent = eventArtistData[0];
 
   return {
-    eventId: eventArtistData.eventId || 1,
-    artistId: eventArtistData.artistId || 1,
-    boothName: eventArtistData.boothName || "",
-    dm: eventArtistData.dm || undefined,
-    locationDay01: eventArtistData.locationDay01 || undefined,
-    locationDay02: eventArtistData.locationDay02 || undefined,
-    locationDay03: eventArtistData.locationDay03 || undefined,
+    eventId: firstEvent.eventId || 1,
+    artistId: firstEvent.artistId || 1,
+    boothName: firstEvent.boothName || "",
+    dm: firstEvent.dm || undefined,
+    locationDay01: firstEvent.locationDay01 || undefined,
+    locationDay02: firstEvent.locationDay02 || undefined,
+    locationDay03: firstEvent.locationDay03 || undefined,
   };
 }

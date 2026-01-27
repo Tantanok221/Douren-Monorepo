@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { initDB, s } from "@pkg/database/db";
@@ -82,8 +82,36 @@ class EventArtistDao implements BaseDao {
 			.returning();
 	}
 
+	// Upsert: Create or update event_dm record based on artistId + eventId
+	async Upsert(body: PutEventArtistSchemaTypes): Promise<EventDmRow[]> {
+		EventArtistDao.assertDefined(body.artistId);
+		EventArtistDao.assertDefined(body.eventId);
+
+		// Find existing record for this artistId + eventId combination
+		const existing = await this.db
+			.select()
+			.from(s.eventDm)
+			.where(
+				and(
+					eq(s.eventDm.artistId, body.artistId),
+					eq(s.eventDm.eventId, body.eventId),
+				),
+			);
+
+		if (existing.length > 0) {
+			// Update existing record
+			return this.db
+				.update(s.eventDm)
+				.set(body)
+				.where(eq(s.eventDm.uuid, existing[0].uuid))
+				.returning();
+		}
+		// Create new record
+		return this.Create(body);
+	}
+
 	async FetchById(artistId: string) {
-		const [data] = await this.db
+		const data = await this.db
 			.select()
 			.from(s.eventDm)
 			.where(eq(s.eventDm.artistId, Number(artistId)));

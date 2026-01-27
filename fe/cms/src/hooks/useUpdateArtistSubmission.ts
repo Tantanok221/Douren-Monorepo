@@ -14,7 +14,7 @@ import { toast } from "sonner";
 export const useUpdateArtistSubmission = () => {
   const { artistId: id } = Route.useParams();
   const updateArtist = trpc.artist.updateArtist.useMutation();
-  const updateEventArtist = trpc.eventArtist.updateEventArtist.useMutation();
+  const upsertEventArtist = trpc.eventArtist.upsertEventArtist.useMutation();
   const getFormData = useFormDataContext((state) => state.getData);
   const navigate = useNavigate();
 
@@ -34,12 +34,10 @@ export const useUpdateArtistSubmission = () => {
         data: artistDataWithTags,
       });
 
-      await updateEventArtist.mutateAsync({
-        id,
-        data: {
-          ...eventArtistStep,
-          artistId: artistData.uuid,
-        },
+      // Use upsert to create or update event_dm record
+      await upsertEventArtist.mutateAsync({
+        ...eventArtistStep,
+        artistId: artistData.uuid,
       });
     } catch (error: unknown) {
       if (error && typeof error === "object" && "data" in error) {

@@ -64,6 +64,12 @@ export const trpcEventRoute = router({
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 			return await EventArtistDao.Update(opts.input.id, opts.input.data);
 		}),
+	upsertEventArtist: authProcedure
+		.input(PutEventArtistSchema)
+		.mutation(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Upsert(opts.input);
+		}),
 });
 
 const getEventArtistRoute = createRoute({
