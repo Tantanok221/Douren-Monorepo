@@ -84,12 +84,27 @@ export function EventArtistForm({
   }, [selectedEventId, allEventData, reset, defaultValues?.artistId]);
   const uploadImageRef = useUploadImageRef();
   const setData = useFormDataContext((state) => state.setData);
+  const getData = useFormDataContext((state) => state.getData);
   const bumpStep = useFormStep().onNext;
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
-    // Upload images before moving to completion step
-    if (!uploadImageRef.current) return;
-    const dmLink = await uploadImageRef.current.uploadImage();
+    // Upload ALL images before moving to completion step (step 3)
+    // Upload artist photo from step 1
+    const artistUploadRef = getData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
+    let photoLink = getData(ENTITY_FORM_KEY.artist)?.photo;
+    if (artistUploadRef?.current) {
+      photoLink = await artistUploadRef.current.uploadImage();
+      // Update artist data with uploaded photo URL
+      const artistData = getData(ENTITY_FORM_KEY.artist);
+      setData(ENTITY_FORM_KEY.artist, { ...artistData, photo: photoLink });
+    }
+
+    // Upload event DM from step 2
+    let dmLink = data.dm;
+    if (uploadImageRef.current) {
+      dmLink = await uploadImageRef.current.uploadImage();
+    }
+
     setData(ENTITY_FORM_KEY.eventArtist, { ...data, dm: dmLink });
     bumpStep();
   };
