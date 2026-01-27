@@ -1,0 +1,1 @@
+export { ArtistTable } from "./CMSArtistCard";

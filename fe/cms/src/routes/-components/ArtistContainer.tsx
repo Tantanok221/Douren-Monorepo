@@ -1,7 +1,5 @@
 import { trpc } from "@/lib/trpc";
-
 import {
-  ArtistCard,
   Pagination,
   usePaginationContext,
   useSearchContext,
@@ -9,11 +7,9 @@ import {
   useSortSelectContext,
   useTagFilterContext,
 } from "@lib/ui";
-import React from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { ArtistDeleteButton, ArtistEditButton } from "@/components";
 import { usePagination } from "@mantine/hooks";
 import { useUserRole } from "@/hooks/usePermissions";
+import { ArtistTable } from "@/components/ArtistCard";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
@@ -47,32 +43,26 @@ export const ArtistContainer = () => {
     siblings: 2,
     onChange: setPage,
   });
+
+  // Get my artists for permission checking (only for non-admins)
+  const { data: myArtists } = trpc.admin.getMyArtists.useQuery(undefined, {
+    enabled: roleData?.isAdmin === false,
+  });
+
   if (!res.data) return null;
+
+  const myArtistIds = myArtists?.map((a) => a.uuid) ?? [];
+
   return (
-    <>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 700: 2, 900: 4 }}>
-        <Masonry gutter="32px">
-          {res.data.data?.map((item, index) => (
-            <ArtistCard key={index} data={item}>
-              <ArtistCard.RightContainer>
-                <ArtistCard.ImageContainer />
-                {/*<div className={sx("rightHeaderContainer")}>*/}
-                <div>
-                  <ArtistCard.HeaderContainer />
-                  <ArtistCard.TagContainer size="s" activeButton />
-                </div>
-                <ArtistCard.LinkContainerWrapper size="s">
-                  <ArtistEditButton />
-                  <ArtistDeleteButton />
-                </ArtistCard.LinkContainerWrapper>
-              </ArtistCard.RightContainer>
-            </ArtistCard>
-          ))}
-        </Masonry>
-      </ResponsiveMasonry>
-      <div className={"w-full flex justify-center"}>
+    <div className="flex flex-col gap-4">
+      <ArtistTable
+        artists={res.data.data ?? []}
+        isAdmin={roleData?.isAdmin ?? false}
+        myArtistIds={myArtistIds}
+      />
+      <div className="w-full flex justify-center">
         <Pagination pagination={pagination} />
       </div>
-    </>
+    </div>
   );
 };

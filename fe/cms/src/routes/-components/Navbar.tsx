@@ -46,7 +46,10 @@ export const Navbar = () => {
         </Link>
 
         {/* Navigation Links - Centered */}
-        <NavigationMenu viewport={false} className="absolute left-1/2 -translate-x-1/2">
+        <NavigationMenu
+          viewport={false}
+          className="absolute left-1/2 -translate-x-1/2"
+        >
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
