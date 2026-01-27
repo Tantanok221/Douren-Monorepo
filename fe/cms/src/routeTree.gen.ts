@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NewIndexRouteImport } from './routes/new/index'
+import { Route as AdminEventsRouteImport } from './routes/admin/events'
 import { Route as EditArtistIdIndexRouteImport } from './routes/edit.$artistId/index'
 
 const RegisterRoute = RegisterRouteImport.update({
@@ -35,6 +36,11 @@ const NewIndexRoute = NewIndexRouteImport.update({
   path: '/new/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: '/admin/events',
+  path: '/admin/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
   id: '/edit/$artistId/',
   path: '/edit/$artistId/',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/events': typeof AdminEventsRoute
   '/new': typeof NewIndexRoute
   '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/events': typeof AdminEventsRoute
   '/new': typeof NewIndexRoute
   '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
@@ -60,21 +68,42 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/events': typeof AdminEventsRoute
   '/new/': typeof NewIndexRoute
   '/edit/$artistId/': typeof EditArtistIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/new' | '/edit/$artistId'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/admin/events'
+    | '/new'
+    | '/edit/$artistId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/new' | '/edit/$artistId'
-  id: '__root__' | '/' | '/login' | '/register' | '/new/' | '/edit/$artistId/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/admin/events'
+    | '/new'
+    | '/edit/$artistId'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/register'
+    | '/admin/events'
+    | '/new/'
+    | '/edit/$artistId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  AdminEventsRoute: typeof AdminEventsRoute
   NewIndexRoute: typeof NewIndexRoute
   EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
 }
@@ -109,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/admin/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/edit/$artistId/': {
       id: '/edit/$artistId/'
       path: '/edit/$artistId'
@@ -123,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  AdminEventsRoute: AdminEventsRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
 }

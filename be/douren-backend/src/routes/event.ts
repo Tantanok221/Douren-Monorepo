@@ -8,8 +8,11 @@ import {
 	PutEventArtistSchemaTypes,
 	GetEventArtistByIdSchema,
 	UpdateEventArtistSchema,
+	UpdateEventSchema,
+	DeleteEventSchema,
+	SetDefaultEventSchema,
 } from "@/schema/event.zod";
-import { authProcedure, publicProcedure, router } from "@/lib/trpc";
+import { adminProcedure, authProcedure, publicProcedure, router } from "@/lib/trpc";
 import {
 	artistInputParams,
 	eventArtistSchema,
@@ -69,6 +72,43 @@ export const trpcEventRoute = router({
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 			return await EventArtistDao.Upsert(opts.input);
+		}),
+});
+
+// Admin-only event management routes
+export const trpcEventAdminRoute = router({
+	getDefaultEvent: publicProcedure.query(async (opts) => {
+		const EventDao = NewEventDao(opts.ctx.db);
+		return await EventDao.GetDefault();
+	}),
+	createEvent: adminProcedure
+		.input(CreateEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Create(opts.input);
+		}),
+	updateEvent: adminProcedure
+		.input(
+			z.object({
+				id: z.number(),
+				data: UpdateEventSchema,
+			}),
+		)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Update(opts.input.id, opts.input.data);
+		}),
+	deleteEvent: adminProcedure
+		.input(DeleteEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Delete(opts.input.id);
+		}),
+	setDefaultEvent: adminProcedure
+		.input(SetDefaultEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.SetDefault(opts.input.id);
 		}),
 });
 

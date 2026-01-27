@@ -46,7 +46,8 @@ export const authorProductRelations = relations(authorProduct, ({ one }) => ({
 
 export const event = pgTable("event", {
   id: integer("id").primaryKey().notNull().generatedAlwaysAsIdentity({ startWith: 5 }),
-  name: text("name").notNull()
+  name: text("name").notNull(),
+  isDefault: boolean("is_default").notNull().default(false)
 });
 
 export const eventRelations = relations(event, ({ many }) => ({

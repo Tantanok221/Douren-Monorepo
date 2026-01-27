@@ -14,9 +14,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const sortItem = [
-  { text: "排序: 作者名稱", value: "Author_Main(Author)" },
-];
+const sortItem = [{ text: "排序: 作者名稱", value: "Author_Main(Author)" }];
 
 function InviteCodeDisplay() {
   const { data: inviteSettings } = trpc.invite.getMyInviteSettings.useQuery();
@@ -24,13 +22,13 @@ function InviteCodeDisplay() {
   if (!inviteSettings) return null;
 
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">邀請代碼</CardTitle>
+    <Card className="py-4">
+      <CardHeader className="pb-2 pt-0">
+        <CardTitle className="text-base">邀請代碼</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap items-center gap-3">
+      <CardContent className="pb-0">
+        <div className="flex flex-col gap-1">
+          <div className="flex flex-wrap items-center gap-2">
             <code className="relative rounded bg-muted px-[0.5rem] py-[0.3rem] font-mono text-xl font-semibold">
               {inviteSettings.inviteCode}
             </code>
