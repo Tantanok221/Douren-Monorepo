@@ -89,14 +89,20 @@ export function EventArtistForm({
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     // Upload ALL images before moving to completion step (step 3)
+    
     // Upload artist photo from step 1
-    const artistUploadRef = getData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
-    let photoLink = getData(ENTITY_FORM_KEY.artist)?.photo;
-    if (artistUploadRef?.current) {
-      photoLink = await artistUploadRef.current.uploadImage();
-      // Update artist data with uploaded photo URL
+    try {
+      const artistUploadRef = getData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
       const artistData = getData(ENTITY_FORM_KEY.artist);
-      setData(ENTITY_FORM_KEY.artist, { ...artistData, photo: photoLink });
+      
+      if (artistUploadRef?.current) {
+        const photoLink = await artistUploadRef.current.uploadImage();
+        // Update artist data with uploaded photo URL
+        setData(ENTITY_FORM_KEY.artist, { ...artistData, photo: photoLink });
+      }
+    } catch (error) {
+      // No artist data or upload ref found, skip artist photo upload
+      console.warn("No artist upload ref found, skipping artist photo upload");
     }
 
     // Upload event DM from step 2
