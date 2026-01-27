@@ -1,10 +1,12 @@
 import { Button, useRefreshHelperContext } from "@lib/ui";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext";
 import { CircleNotch, CheckCircle, XCircle } from "@phosphor-icons/react";
+import { useNavigate } from "@tanstack/react-router";
 
 export function CompleteStep() {
   const handleReset = useRefreshHelperContext();
   const status = useFormDataContext((state) => state.submissionStatus);
+  const navigate = useNavigate();
 
   const getStatusIcon = () => {
     switch (status.stage) {
@@ -18,7 +20,9 @@ export function CompleteStep() {
           />
         );
       case "complete":
-        return <CheckCircle size={48} className="text-green-400" weight="fill" />;
+        return (
+          <CheckCircle size={48} className="text-green-400" weight="fill" />
+        );
       case "error":
         return <XCircle size={48} className="text-red-400" weight="fill" />;
       default:
@@ -40,17 +44,25 @@ export function CompleteStep() {
   const isComplete = status.stage === "complete";
   const isError = status.stage === "error";
 
+  const handleEditArtist = () => {
+    if (status.stage === "complete") {
+      navigate({ to: "/edit/$artistId", params: { artistId: status.artistId } });
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-12">
       {getStatusIcon()}
       <div className="text-2xl font-sans font-semibold text-white">
         {getMessage()}
       </div>
-      {(isComplete || isError) && (
-        <Button onClick={handleReset}>
-          {isComplete ? "新增另一位作者" : "重試"}
-        </Button>
+      {isComplete && (
+        <div className="flex gap-4">
+          <Button onClick={handleReset}>新增另一位作者</Button>
+          <Button onClick={handleEditArtist}>編輯此作者</Button>
+        </div>
       )}
+      {isError && <Button onClick={handleReset}>重試</Button>}
     </div>
   );
 }

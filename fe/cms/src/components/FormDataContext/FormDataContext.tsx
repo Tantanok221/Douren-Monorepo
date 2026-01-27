@@ -8,7 +8,7 @@ export type SubmissionStatus =
   | { stage: "idle" }
   | { stage: "uploading"; message: string }
   | { stage: "submitting"; message: string }
-  | { stage: "complete"; message: string }
+  | { stage: "complete"; message: string; artistId: string }
   | { stage: "error"; message: string };
 
 export interface FormDataState {

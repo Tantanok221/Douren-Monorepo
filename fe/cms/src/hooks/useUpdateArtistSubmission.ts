@@ -31,9 +31,7 @@ export const useUpdateArtistSubmission = () => {
       // Upload artist photo from step 1
       setStatus({ stage: "uploading", message: "上傳頭像中..." });
       try {
-        const artistFiles = getData<File[]>(
-          `${ENTITY_FORM_KEY.artist}_files`,
-        );
+        const artistFiles = getData<File[]>(`${ENTITY_FORM_KEY.artist}_files`);
         if (artistFiles && artistFiles.length > 0) {
           const photoLink = await uploadImages(artistFiles);
           artistStep.photo = photoLink;
@@ -46,9 +44,7 @@ export const useUpdateArtistSubmission = () => {
       // Upload event DM from step 2
       setStatus({ stage: "uploading", message: "上傳 DM 中..." });
       try {
-        const dmFiles = getData<File[]>(
-          `${ENTITY_FORM_KEY.eventArtist}_files`,
-        );
+        const dmFiles = getData<File[]>(`${ENTITY_FORM_KEY.eventArtist}_files`);
         if (dmFiles && dmFiles.length > 0) {
           const dmLink = await uploadImages(dmFiles);
           eventArtistStep.dm = dmLink;
@@ -77,7 +73,11 @@ export const useUpdateArtistSubmission = () => {
         artistId: artistData.uuid,
       });
 
-      setStatus({ stage: "complete", message: "完成！" });
+      setStatus({
+        stage: "complete",
+        message: "完成！",
+        artistId: String(artistData.uuid),
+      });
     } catch (error: unknown) {
       if (error && typeof error === "object" && "data" in error) {
         const errorData = error as { data?: { code?: string } };
