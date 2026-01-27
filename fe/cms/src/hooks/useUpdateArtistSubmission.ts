@@ -5,7 +5,7 @@ import {
   ENTITY_FORM_KEY,
   EventArtistSchema,
   ProductFormSchema,
-  useFormDataContext,
+  useFormDataStore,
 } from "../components";
 import { Route } from "../routes/edit.$artistId";
 import { useNavigate } from "@tanstack/react-router";
@@ -15,10 +15,13 @@ export const useUpdateArtistSubmission = () => {
   const { artistId: id } = Route.useParams();
   const updateArtist = trpc.artist.updateArtist.useMutation();
   const upsertEventArtist = trpc.eventArtist.upsertEventArtist.useMutation();
-  const getFormData = useFormDataContext((state) => state.getData);
+  // Use raw store access to ensure we read fresh state at execution time
+  const store = useFormDataStore();
   const navigate = useNavigate();
 
   return async () => {
+    // Get fresh getData from store at execution time (not from stale closure)
+    const getFormData = store.getState().getData;
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 

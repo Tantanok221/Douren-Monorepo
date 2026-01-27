@@ -22,12 +22,13 @@ export async function uploadImage(file: File | null): Promise<string> {
   if (!file) throw new Error("No file provided");
   const formData = new FormData();
   formData.append("image", file);
-  
+
   // Use backend endpoint which handles authentication via session
   // Strip /trpc suffix if present since image is a REST endpoint, not tRPC
-  const backendUrl = import.meta.env.VITE_BACKEND_URL
-    .replace(/\/+$/, "")
-    .replace(/\/trpc$/, "");
+  const backendUrl = import.meta.env.VITE_BACKEND_URL.replace(
+    /\/+$/,
+    "",
+  ).replace(/\/trpc$/, "");
   const imageEndpoint = `${backendUrl}/image`;
 
   const { link } = await ky
@@ -37,4 +38,13 @@ export async function uploadImage(file: File | null): Promise<string> {
     })
     .json();
   return link;
+}
+
+export async function uploadImages(files: File[]): Promise<string> {
+  if (files.length === 0) return "";
+  const allLinks: string[] = [];
+  for (const file of files) {
+    allLinks.push(await uploadImage(file));
+  }
+  return allLinks.join("\n");
 }

@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { useUploadImageRef } from "@/hooks";
+import { useUploadImageRef, uploadImages } from "@/hooks";
 import { useEffect } from "react";
 import {
   EventField,
@@ -90,19 +90,19 @@ export function EventArtistForm({
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
     // Upload ALL images before moving to completion step (step 3)
 
-    // Upload artist photo from step 1
+    // Upload artist photo from step 1 using stored File objects
     try {
-      const artistUploadRef = getData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
+      const artistFiles = getData<File[]>(`${ENTITY_FORM_KEY.artist}_files`);
       const artistData = getData(ENTITY_FORM_KEY.artist);
 
-      if (artistUploadRef?.current) {
-        const photoLink = await artistUploadRef.current.uploadImage();
+      if (artistFiles && artistFiles.length > 0) {
+        const photoLink = await uploadImages(artistFiles);
         // Update artist data with uploaded photo URL
         setData(ENTITY_FORM_KEY.artist, { ...artistData, photo: photoLink });
       }
     } catch {
-      // No artist data or upload ref found, skip artist photo upload
-      console.warn("No artist upload ref found, skipping artist photo upload");
+      // No artist files found, skip artist photo upload (might be using existing photo)
+      console.warn("No artist files found, skipping artist photo upload");
     }
 
     // Upload event DM from step 2

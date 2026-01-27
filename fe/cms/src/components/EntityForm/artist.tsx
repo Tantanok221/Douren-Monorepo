@@ -28,9 +28,11 @@ export function ArtistForm({ defaultValues }: artistFormProps) {
   const bumpStep = useFormStep().onNext;
   const stepId = useFormStep().stepId;
   const onSubmit: SubmitHandler<ArtistFormSchema> = async (data) => {
-    // Don't upload yet, just save form data and ref
+    // Don't upload yet, just save form data and files
+    // Store actual File objects instead of ref (ref becomes stale when component unmounts)
+    const files = uploadImageRef.current?.getFiles() ?? [];
     setData(stepId, data);
-    setData(`${stepId}_uploadRef`, uploadImageRef);
+    setData(`${stepId}_files`, files);
     bumpStep();
   };
   return (
