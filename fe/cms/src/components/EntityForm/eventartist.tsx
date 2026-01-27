@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { useUploadImageRef, uploadImages } from "@/hooks";
+import { useUploadImageRef } from "@/hooks";
 import { useEffect } from "react";
 import {
   EventField,
@@ -84,34 +84,20 @@ export function EventArtistForm({
   }, [selectedEventId, allEventData, reset, defaultValues?.artistId]);
   const uploadImageRef = useUploadImageRef();
   const setData = useFormDataContext((state) => state.setData);
-  const getData = useFormDataContext((state) => state.getData);
   const bumpStep = useFormStep().onNext;
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
-    // Upload ALL images before moving to completion step (step 3)
+    // Save form data and files, then immediately go to step 3
+    // Actual uploads will happen in step 3 (submission hooks) for better UX
 
-    // Upload artist photo from step 1 using stored File objects
-    try {
-      const artistFiles = getData<File[]>(`${ENTITY_FORM_KEY.artist}_files`);
-      const artistData = getData(ENTITY_FORM_KEY.artist);
+    // Save step 2 files for later upload
+    const dmFiles = uploadImageRef.current?.getFiles() ?? [];
+    setData(`${ENTITY_FORM_KEY.eventArtist}_files`, dmFiles);
 
-      if (artistFiles && artistFiles.length > 0) {
-        const photoLink = await uploadImages(artistFiles);
-        // Update artist data with uploaded photo URL
-        setData(ENTITY_FORM_KEY.artist, { ...artistData, photo: photoLink });
-      }
-    } catch {
-      // No artist files found, skip artist photo upload (might be using existing photo)
-      console.warn("No artist files found, skipping artist photo upload");
-    }
+    // Save form data (without uploaded URLs yet)
+    setData(ENTITY_FORM_KEY.eventArtist, data);
 
-    // Upload event DM from step 2
-    let dmLink = data.dm;
-    if (uploadImageRef.current) {
-      dmLink = await uploadImageRef.current.uploadImage();
-    }
-
-    setData(ENTITY_FORM_KEY.eventArtist, { ...data, dm: dmLink });
+    // Immediately go to step 3 - uploads will happen there
     bumpStep();
   };
 

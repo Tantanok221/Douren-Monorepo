@@ -7,6 +7,7 @@ import {
   ProductFormSchema,
   useFormDataStore,
 } from "../components";
+import { uploadImages } from "./useUploadImage";
 
 export const useNewArtistSubmission = () => {
   const createArtist = trpc.artist.createArtist.useMutation();
@@ -15,18 +16,62 @@ export const useNewArtistSubmission = () => {
   const store = useFormDataStore();
 
   return async () => {
-    // Get fresh getData from store at execution time (not from stale closure)
-    const getFormData = store.getState().getData;
-    const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
-    if (!artistStep || !eventArtistStep) return;
-    const TagHelper = new ArrayTagHelper(artistStep.tags);
-    const artistDataWithTags = {
-      ...artistStep,
-      tags: TagHelper.toString(),
-    };
-    const [artistData] = await createArtist.mutateAsync(artistDataWithTags);
-    eventArtistStep.artistId = artistData.uuid;
-    createEventArtist.mutate(eventArtistStep);
+    const setStatus = store.getState().setSubmissionStatus;
+    try {
+      // Get fresh state from store at execution time
+      const { getData, setData } = store.getState();
+      const { artistStep, eventArtistStep } = getEntityFormData(getData);
+      if (!artistStep || !eventArtistStep) return;
+
+      // Upload artist photo from step 1
+      setStatus({ stage: "uploading", message: "上傳頭像中..." });
+      try {
+        const artistFiles = getData<File[]>(
+          `${ENTITY_FORM_KEY.artist}_files`,
+        );
+        if (artistFiles && artistFiles.length > 0) {
+          const photoLink = await uploadImages(artistFiles);
+          artistStep.photo = photoLink;
+          setData(ENTITY_FORM_KEY.artist, artistStep);
+        }
+      } catch {
+        // No artist files, use existing photo value
+      }
+
+      // Upload event DM from step 2
+      setStatus({ stage: "uploading", message: "上傳 DM 中..." });
+      try {
+        const dmFiles = getData<File[]>(
+          `${ENTITY_FORM_KEY.eventArtist}_files`,
+        );
+        if (dmFiles && dmFiles.length > 0) {
+          const dmLink = await uploadImages(dmFiles);
+          eventArtistStep.dm = dmLink;
+          setData(ENTITY_FORM_KEY.eventArtist, eventArtistStep);
+        }
+      } catch {
+        // No DM files, use existing dm value
+      }
+
+      // Submit to backend
+      setStatus({ stage: "submitting", message: "提交資料中..." });
+      const TagHelper = new ArrayTagHelper(artistStep.tags);
+      const artistDataWithTags = {
+        ...artistStep,
+        tags: TagHelper.toString(),
+      };
+      const [artistData] = await createArtist.mutateAsync(artistDataWithTags);
+      eventArtistStep.artistId = artistData.uuid;
+      await createEventArtist.mutateAsync(eventArtistStep);
+
+      setStatus({ stage: "complete", message: "完成！" });
+    } catch (error) {
+      setStatus({
+        stage: "error",
+        message: error instanceof Error ? error.message : "發生錯誤",
+      });
+      throw error;
+    }
   };
 };
 
