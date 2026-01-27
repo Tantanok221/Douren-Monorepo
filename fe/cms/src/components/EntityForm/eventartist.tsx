@@ -87,8 +87,9 @@ export function EventArtistForm({
   const bumpStep = useFormStep().onNext;
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
-    // Store upload ref for final submission, don't upload yet
-    setData(ENTITY_FORM_KEY.eventArtist, { ...data, uploadImageRef });
+    // Just save form data, upload will happen at final submission
+    setData(ENTITY_FORM_KEY.eventArtist, data);
+    setData(`${ENTITY_FORM_KEY.eventArtist}_uploadRef`, uploadImageRef);
     bumpStep();
   };
 

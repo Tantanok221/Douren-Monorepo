@@ -22,15 +22,19 @@ export const useUpdateArtistSubmission = () => {
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 
+    // Get upload refs from form context
+    const artistUploadRef = getFormData(`${ENTITY_FORM_KEY.artist}_uploadRef`);
+    const eventUploadRef = getFormData(`${ENTITY_FORM_KEY.eventArtist}_uploadRef`);
+
     // Upload images now (only at final submission)
     let photoLink = artistStep.photo;
-    if (artistStep.uploadImageRef?.current) {
-      photoLink = await artistStep.uploadImageRef.current.uploadImage();
+    if (artistUploadRef?.current) {
+      photoLink = await artistUploadRef.current.uploadImage();
     }
 
     let dmLink = eventArtistStep.dm;
-    if (eventArtistStep.uploadImageRef?.current) {
-      dmLink = await eventArtistStep.uploadImageRef.current.uploadImage();
+    if (eventUploadRef?.current) {
+      dmLink = await eventUploadRef.current.uploadImage();
     }
 
     const TagHelper = new ArrayTagHelper(artistStep.tags);
@@ -38,7 +42,6 @@ export const useUpdateArtistSubmission = () => {
       ...artistStep,
       photo: photoLink,
       tags: TagHelper.toString(),
-      uploadImageRef: undefined, // Remove ref before sending to API
     };
 
     try {
@@ -52,7 +55,6 @@ export const useUpdateArtistSubmission = () => {
         ...eventArtistStep,
         dm: dmLink,
         artistId: artistData.uuid,
-        uploadImageRef: undefined, // Remove ref before sending to API
       });
     } catch (error: unknown) {
       if (error && typeof error === "object" && "data" in error) {
