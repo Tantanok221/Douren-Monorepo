@@ -22,10 +22,23 @@ export const useUpdateArtistSubmission = () => {
     const { artistStep, eventArtistStep } = getEntityFormData(getFormData);
     if (!artistStep || !eventArtistStep) return;
 
+    // Upload images now (only at final submission)
+    let photoLink = artistStep.photo;
+    if (artistStep.uploadImageRef?.current) {
+      photoLink = await artistStep.uploadImageRef.current.uploadImage();
+    }
+
+    let dmLink = eventArtistStep.dm;
+    if (eventArtistStep.uploadImageRef?.current) {
+      dmLink = await eventArtistStep.uploadImageRef.current.uploadImage();
+    }
+
     const TagHelper = new ArrayTagHelper(artistStep.tags);
     const artistDataWithTags = {
       ...artistStep,
+      photo: photoLink,
       tags: TagHelper.toString(),
+      uploadImageRef: undefined, // Remove ref before sending to API
     };
 
     try {
@@ -37,7 +50,9 @@ export const useUpdateArtistSubmission = () => {
       // Use upsert to create or update event_dm record
       await upsertEventArtist.mutateAsync({
         ...eventArtistStep,
+        dm: dmLink,
         artistId: artistData.uuid,
+        uploadImageRef: undefined, // Remove ref before sending to API
       });
     } catch (error: unknown) {
       if (error && typeof error === "object" && "data" in error) {
