@@ -1,12 +1,10 @@
 import { Button, useRefreshHelperContext } from "@lib/ui";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext";
 import { CircleNotch, CheckCircle, XCircle } from "@phosphor-icons/react";
-import { useNavigate } from "@tanstack/react-router";
 
 export function CompleteStep() {
   const handleReset = useRefreshHelperContext();
   const status = useFormDataContext((state) => state.submissionStatus);
-  const navigate = useNavigate();
 
   const getStatusIcon = () => {
     switch (status.stage) {
@@ -44,9 +42,13 @@ export function CompleteStep() {
   const isComplete = status.stage === "complete";
   const isError = status.stage === "error";
 
+  const handleAddNewArtist = () => {
+    window.location.href = "/new";
+  };
+
   const handleEditArtist = () => {
     if (status.stage === "complete") {
-      navigate({ to: "/edit/$artistId", params: { artistId: status.artistId } });
+      window.location.href = `/edit/${status.artistId}`;
     }
   };
 
@@ -58,7 +60,7 @@ export function CompleteStep() {
       </div>
       {isComplete && (
         <div className="flex gap-4">
-          <Button onClick={handleReset}>新增另一位作者</Button>
+          <Button onClick={handleAddNewArtist}>新增另一位作者</Button>
           <Button onClick={handleEditArtist}>編輯此作者</Button>
         </div>
       )}
