@@ -45,27 +45,45 @@ export const FormImageUpload = forwardRef<FormImageUploadRef, Props>(
       <ImageUpload setValue={setImage} multiple={multiple}>
         <div className="flex flex-col gap-4">
           <ImageUpload.UploadBox title={title} />
-          {/* Show existing images if no new images uploaded */}
-          {image.length === 0 && existingUrls.length > 0 && (
+          
+          {/* Show existing images (always visible if they exist) */}
+          {existingUrls.length > 0 && (
             <div className="grid gap-4 mt-4">
-              <div className="text-sm text-gray-400">目前的圖片:</div>
-              <div className="grid gap-2">
+              <div className="flex items-center gap-2">
+                <div className="text-sm font-semibold text-gray-300">
+                  原本的圖片:
+                </div>
+                {image.length > 0 && (
+                  <div className="text-xs text-yellow-400">
+                    (將會被替換)
+                  </div>
+                )}
+              </div>
+              <div className="grid gap-2 p-3 bg-gray-800/50 rounded border border-gray-700">
                 {existingUrls.map((url: string, index: number) => (
                   <img
                     key={index}
                     src={url}
                     alt={`Existing ${title}`}
-                    className="w-full max-w-md rounded border border-gray-700"
+                    className="w-full max-w-md rounded"
                   />
                 ))}
               </div>
             </div>
           )}
+          
           {/* Show newly uploaded images */}
           {image.length > 0 && (
             <div className="grid gap-4 mt-4">
-              <div className="text-sm text-gray-400">已上傳的圖片:</div>
-              <div className="grid gap-2">
+              <div className="flex items-center gap-2">
+                <div className="text-sm font-semibold text-green-400">
+                  新上傳的圖片:
+                </div>
+                <div className="text-xs text-green-300">
+                  (點擊提交後套用)
+                </div>
+              </div>
+              <div className="grid gap-2 p-3 bg-green-900/20 rounded border border-green-700">
                 <ImageUpload.ResultBox />
               </div>
             </div>
