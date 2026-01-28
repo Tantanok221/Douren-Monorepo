@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DataOperationProvider } from "@lib/ui";
+import {
+  DataOperationProvider,
+  FilterContainer,
+  SearchContainer,
+} from "@lib/ui";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 import { useFetchTagData } from "@/hooks";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SearchBar } from "@/components/SearchBar";
-import { SearchColumnSelect } from "@/components/SearchColumnSelect";
-import { SortSelect } from "@/components/SortSelect";
-import { TagFilterPopover } from "@/components/TagFilterPopover";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -63,15 +63,9 @@ function Index() {
     <div className={"flex flex-col w-full gap-8"}>
       <InviteCodeDisplay />
       <DataOperationProvider tag={tag}>
-        <div className={"flex flex-col w-full gap-4"}>
-          <div className="flex gap-4 items-center">
-            <SearchColumnSelect />
-            <SearchBar />
-          </div>
-          <div className="flex gap-4 items-center">
-            <SortSelect sortItems={sortItem} />
-            <TagFilterPopover />
-          </div>
+        <div className={"flex flex-col w-full gap-6"}>
+          <SearchContainer />
+          <FilterContainer sortItem={sortItem} />
         </div>
         <div>
           <ArtistContainer />
