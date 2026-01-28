@@ -40,7 +40,7 @@ app.use("*", async (c, next) => {
 	].filter(Boolean);
 
 	// Add localhost origins for development
-	if (c.env.DEV_ENV === "development") {
+	if (c.env.DEV_ENV === "dev") {
 		allowedOrigins.push("http://localhost:5173", "http://localhost:5174");
 	}
 
