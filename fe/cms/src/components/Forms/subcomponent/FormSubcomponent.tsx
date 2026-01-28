@@ -36,7 +36,7 @@ export const FormMessage = () => {
   } = useFormContext();
   const { name } = useFormFieldContext();
   return errors[name] ? (
-    <Form.Message className={"text-tagText font-sans w-full text-right"}>
+    <Form.Message className={"text-tag-text font-sans w-full text-right"}>
       {" "}
       {String(errors[name]?.message)}{" "}
     </Form.Message>
@@ -68,7 +68,7 @@ export const FormControl = ({ ...props }: FormControlProps) => {
   return (
     <input
       className={
-        "border text-tagText px-2 border-formBorder bg-transparent rounded"
+        "border text-tag-text px-2 border-form-border bg-transparent rounded"
       }
       {...props}
       {...control.register(name)}

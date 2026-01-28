@@ -14,10 +14,10 @@ export const DataOperationProvider = ({ tag, children }: Prop) => {
   if (!tag) return null;
   return (
     <SortSelectContextProvider defaultValue="Author_Main(Author),asc">
-      <SearchColumnContextProvider defaultValue="Booth_name">
+      <SearchColumnContextProvider defaultValue="Author_Main.Author">
         <TagFilterContextProvider allFilter={tag}>
           <PaginationContextProvider defaultValue={1}>
-            <SearchContextProvider defaultValue={""}>
+            <SearchContextProvider defaultValue="">
               {children}
             </SearchContextProvider>
           </PaginationContextProvider>

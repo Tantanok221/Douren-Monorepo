@@ -9,10 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
+import { Route as RegisterRouteImport } from "./routes/register";
+import { Route as LoginRouteImport } from "./routes/login";
 import { Route as IndexRouteImport } from "./routes/index";
 import { Route as NewIndexRouteImport } from "./routes/new/index";
+import { Route as AdminEventsRouteImport } from "./routes/admin/events";
 import { Route as EditArtistIdIndexRouteImport } from "./routes/edit.$artistId/index";
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: "/register",
+  path: "/register",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const LoginRoute = LoginRouteImport.update({
+  id: "/login",
+  path: "/login",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
@@ -23,6 +36,11 @@ const NewIndexRoute = NewIndexRouteImport.update({
   path: "/new/",
   getParentRoute: () => rootRouteImport,
 } as any);
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: "/admin/events",
+  path: "/admin/events",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
   id: "/edit/$artistId/",
   path: "/edit/$artistId/",
@@ -31,36 +49,81 @@ const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
   "/new": typeof NewIndexRoute;
   "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
   "/new": typeof NewIndexRoute;
   "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
   "/new/": typeof NewIndexRoute;
   "/edit/$artistId/": typeof EditArtistIdIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/new" | "/edit/$artistId";
+  fullPaths:
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/new"
+    | "/edit/$artistId";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/new" | "/edit/$artistId";
-  id: "__root__" | "/" | "/new/" | "/edit/$artistId/";
+  to:
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/new"
+    | "/edit/$artistId";
+  id:
+    | "__root__"
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/new/"
+    | "/edit/$artistId/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  LoginRoute: typeof LoginRoute;
+  RegisterRoute: typeof RegisterRoute;
+  AdminEventsRoute: typeof AdminEventsRoute;
   NewIndexRoute: typeof NewIndexRoute;
   EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
+    "/register": {
+      id: "/register";
+      path: "/register";
+      fullPath: "/register";
+      preLoaderRoute: typeof RegisterRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/": {
       id: "/";
       path: "/";
@@ -75,6 +138,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof NewIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/admin/events": {
+      id: "/admin/events";
+      path: "/admin/events";
+      fullPath: "/admin/events";
+      preLoaderRoute: typeof AdminEventsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/edit/$artistId/": {
       id: "/edit/$artistId/";
       path: "/edit/$artistId";
@@ -87,6 +157,9 @@ declare module "@tanstack/react-router" {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  AdminEventsRoute: AdminEventsRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
 };

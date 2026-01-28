@@ -1,14 +1,23 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "./-components/Navbar.tsx";
+import { Toaster } from "@/components/ui/sonner";
+import type { AuthClient } from "@/lib/auth";
+
+export interface RouterContext {
+  authClient: AuthClient;
+}
 
 const Root = () => {
   return (
-    <div className={"flex flex-col items-center w-full h-screen dark"}>
-      <Navbar />
-      <div className={"w-full pt-20 py-4 px-40"}>
-        <Outlet />
+    <>
+      <Toaster />
+      <div className={"flex flex-col items-center w-full h-screen dark"}>
+        <Navbar />
+        <div className={"w-full pt-20 py-4 px-40"}>
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

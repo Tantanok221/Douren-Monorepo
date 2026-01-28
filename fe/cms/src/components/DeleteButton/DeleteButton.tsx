@@ -11,6 +11,16 @@ export const DeleteButton = () => {
     }
   };
 
-  if (!confirmation) return <Button onClick={deleteArtist}>刪除</Button>;
-  return <Button onClick={deleteArtist}> 你要確也 </Button>;
+  if (!confirmation)
+    return (
+      <Button variant="destructive" onClick={deleteArtist}>
+        刪除
+      </Button>
+    );
+  return (
+    <Button variant="destructive" onClick={deleteArtist}>
+      {" "}
+      你要確也{" "}
+    </Button>
+  );
 };

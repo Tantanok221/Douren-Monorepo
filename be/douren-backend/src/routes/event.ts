@@ -8,8 +8,16 @@ import {
 	PutEventArtistSchemaTypes,
 	GetEventArtistByIdSchema,
 	UpdateEventArtistSchema,
+	UpdateEventSchema,
+	DeleteEventSchema,
+	SetDefaultEventSchema,
 } from "@/schema/event.zod";
-import { authProcedure, publicProcedure, router } from "@/lib/trpc";
+import {
+	adminProcedure,
+	authProcedure,
+	publicProcedure,
+	router,
+} from "@/lib/trpc";
 import {
 	artistInputParams,
 	eventArtistSchema,
@@ -20,6 +28,8 @@ import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
 import { HonoEnv } from "@/index";
 import { z } from "zod";
+
+type EventDmSelect = z.infer<typeof zodSchema.eventDm.SelectSchema>;
 
 export const trpcEventRoute = router({
 	getAllEvent: publicProcedure.query(async (opts) => {
@@ -50,7 +60,7 @@ export const trpcEventRoute = router({
 				.where(eq(s.event.name, eventName));
 			return data;
 		}),
-	createEventArtist: publicProcedure
+	createEventArtist: authProcedure
 		.input(CreateEventArtistSchema)
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
@@ -61,6 +71,49 @@ export const trpcEventRoute = router({
 		.mutation(async (opts) => {
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 			return await EventArtistDao.Update(opts.input.id, opts.input.data);
+		}),
+	upsertEventArtist: authProcedure
+		.input(PutEventArtistSchema)
+		.mutation(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Upsert(opts.input);
+		}),
+});
+
+// Admin-only event management routes
+export const trpcEventAdminRoute = router({
+	getDefaultEvent: publicProcedure.query(async (opts) => {
+		const EventDao = NewEventDao(opts.ctx.db);
+		return await EventDao.GetDefault();
+	}),
+	createEvent: adminProcedure
+		.input(CreateEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Create(opts.input);
+		}),
+	updateEvent: adminProcedure
+		.input(
+			z.object({
+				id: z.number(),
+				data: UpdateEventSchema,
+			}),
+		)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Update(opts.input.id, opts.input.data);
+		}),
+	deleteEvent: adminProcedure
+		.input(DeleteEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.Delete(opts.input.id);
+		}),
+	setDefaultEvent: adminProcedure
+		.input(SetDefaultEventSchema)
+		.mutation(async (opts) => {
+			const EventDao = NewEventDao(opts.ctx.db);
+			return await EventDao.SetDefault(opts.input.id);
 		}),
 });
 
@@ -206,7 +259,7 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 	.openapi(createEventArtistRoute, async (c) => {
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const body: PutEventArtistSchemaTypes = c.req.valid("json");
-		const returnResponse = await EventArtistDao.Create(body);
+		const returnResponse: EventDmSelect[] = await EventArtistDao.Create(body);
 		return c.json(returnResponse, 201);
 	})
 	.openapi(createEventRoute, async (c) => {
@@ -218,7 +271,7 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 	.openapi(deleteEventArtistRoute, async (c) => {
 		const { artistId, eventId } = c.req.valid("param");
 		const db = initDB(c.env.DATABASE_URL);
-		const returnResponse = await db
+		const returnResponse: EventDmSelect[] = await db
 			.delete(s.eventDm)
 			.where(
 				and(
@@ -233,7 +286,10 @@ const EventRoute = new OpenAPIHono<HonoEnv>()
 		const EventArtistDao = NewEventArtistDao(c.var.db);
 		const { eventArtistId } = c.req.valid("param");
 		const body: PutEventArtistSchemaTypes = c.req.valid("json");
-		const returnResponse = await EventArtistDao.Update(eventArtistId, body);
+		const returnResponse: EventDmSelect[] = await EventArtistDao.Update(
+			eventArtistId,
+			body,
+		);
 		return c.json(returnResponse, 200);
 	});
 

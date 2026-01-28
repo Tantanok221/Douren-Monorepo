@@ -99,28 +99,15 @@ describe("Event DAO", () => {
 
 			expect(mockDb.insert).toHaveBeenCalledOnce();
 			expect(mockDb.insert().values).toHaveBeenCalledWith(validEventData);
-			expect(mockDb.insert().values().onConflictDoNothing).toHaveBeenCalledWith({
-				target: {
-					id: "id",
-					name: "name",
-					startDate: "startDate",
-					endDate: "endDate",
-				}.id,
-			});
+			expect(mockDb.insert().values().returning).toHaveBeenCalled();
 			expect(result).toEqual(mockEventDbResponse);
 		});
 
-		it("should handle duplicate ID with onConflictDoNothing", async () => {
+		it("should handle duplicate ID", async () => {
 			const result = await eventDao.Create(duplicateEventData);
 
-			expect(mockDb.insert().values().onConflictDoNothing).toHaveBeenCalledWith({
-				target: {
-					id: "id",
-					name: "name",
-					startDate: "startDate",
-					endDate: "endDate",
-				}.id,
-			});
+			expect(mockDb.insert).toHaveBeenCalledOnce();
+			expect(mockDb.insert().values).toHaveBeenCalledWith(duplicateEventData);
 			expect(result).toEqual(mockEventDbResponse);
 		});
 
@@ -135,7 +122,7 @@ describe("Event DAO", () => {
 		it("should return created event data", async () => {
 			const result = await eventDao.Create(validEventData);
 
-			expect(mockDb.insert().values().onConflictDoNothing().returning).toHaveBeenCalledOnce();
+			expect(mockDb.insert().values().returning).toHaveBeenCalledOnce();
 			expect(result).toEqual(mockEventDbResponse);
 		});
 	});

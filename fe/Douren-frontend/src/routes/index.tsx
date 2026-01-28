@@ -1,5 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { trpc } from "@/helper/trpc";
 
 export const Route = createFileRoute("/")({
   component: () => <Navigate />,
@@ -7,15 +8,17 @@ export const Route = createFileRoute("/")({
 
 const Navigate = () => {
   const navigate = Route.useNavigate();
-  useEffect(
-    () => {
-      navigate({
-        to: "/event/$eventName",
-        // mask: "/",
-        params: {
-          eventName: "FF45",
-        },
-      });
-    }, [])
+  const { data: defaultEvent, isLoading } = trpc.event.getDefaultEvent.useQuery();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    const eventName = defaultEvent?.name ?? "FF45";
+    navigate({
+      to: "/event/$eventName",
+      params: { eventName },
+    });
+  }, [defaultEvent, isLoading, navigate]);
+
   return <div />;
 };

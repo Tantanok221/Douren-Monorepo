@@ -74,11 +74,7 @@ export const createMockQueryBuilder = () => {
 
 export const createEventMockDatabase = () => {
 	const mockEventReturning = vi.fn().mockResolvedValue(mockEventDbResponse);
-	const mockEventOnConflictDoNothing = vi.fn().mockReturnValue({
-		returning: mockEventReturning,
-	});
 	const mockEventValues = vi.fn().mockReturnValue({
-		onConflictDoNothing: mockEventOnConflictDoNothing,
 		returning: mockEventReturning,
 	});
 
@@ -93,7 +89,6 @@ export const createEventMockDatabase = () => {
 			values: mockEventValues,
 		}),
 		mockEventReturning,
-		mockEventOnConflictDoNothing,
 		mockEventValues,
 	};
 };

@@ -3,14 +3,15 @@ import { processTagConditions } from "@/helper/processTagConditions";
 
 // Mock drizzle-orm
 vi.mock("drizzle-orm", () => ({
-	ilike: vi.fn((column, pattern) => ({ column, pattern, type: "ilike" })),
+	eq: vi.fn((column, value) => ({ column, value, type: "eq" })),
+	inArray: vi.fn((column, values) => ({ column, values, type: "inArray" })),
 }));
 
 // Mock database schema
 vi.mock("@pkg/database/db", () => ({
 	s: {
-		authorMain: {
-			tags: "authorMain.tags",
+		tag: {
+			tag: "tag.tag",
 		},
 	},
 }));
@@ -21,9 +22,9 @@ describe("processTagConditions", () => {
 
 		expect(result).toHaveLength(1);
 		expect(result[0]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%原創%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "原創",
+			type: "eq",
 		});
 	});
 
@@ -32,19 +33,19 @@ describe("processTagConditions", () => {
 
 		expect(result).toHaveLength(3);
 		expect(result[0]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%原創%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "原創",
+			type: "eq",
 		});
 		expect(result[1]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%插畫%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "插畫",
+			type: "eq",
 		});
 		expect(result[2]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%設計%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "設計",
+			type: "eq",
 		});
 	});
 
@@ -60,24 +61,24 @@ describe("processTagConditions", () => {
 		expect(result).toEqual([]);
 	});
 
-	it("should handle tags with spaces", () => {
+	it("should handle tags with spaces (trimmed)", () => {
 		const result = processTagConditions("原創, 插畫, 設計");
 
 		expect(result).toHaveLength(3);
 		expect(result[0]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%原創%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "原創",
+			type: "eq",
 		});
 		expect(result[1]).toEqual({
-			column: "authorMain.tags",
-			pattern: "% 插畫%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "插畫",
+			type: "eq",
 		});
 		expect(result[2]).toEqual({
-			column: "authorMain.tags",
-			pattern: "% 設計%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "設計",
+			type: "eq",
 		});
 	});
 
@@ -86,20 +87,25 @@ describe("processTagConditions", () => {
 
 		expect(result).toHaveLength(3);
 		expect(result[0]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%A%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "A",
+			type: "eq",
 		});
 	});
 
-	it("should handle empty tags in comma-separated list", () => {
+	it("should filter out empty tags in comma-separated list", () => {
 		const result = processTagConditions("原創,,插畫");
 
-		expect(result).toHaveLength(3);
+		expect(result).toHaveLength(2);
+		expect(result[0]).toEqual({
+			column: "tag.tag",
+			value: "原創",
+			type: "eq",
+		});
 		expect(result[1]).toEqual({
-			column: "authorMain.tags",
-			pattern: "%%",
-			type: "ilike",
+			column: "tag.tag",
+			value: "插畫",
+			type: "eq",
 		});
 	});
 });
