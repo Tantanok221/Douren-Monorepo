@@ -6,6 +6,7 @@ export * from "./ArtistDeleteButton";
 export * from "./ArtistEditButton";
 export * from "./login-form";
 export * from "./register-form";
+export * from "./ArtistCard/index";
 export * from "./AuthContext/index";
 export * from "./DeleteButton/index";
 export * from "./EntityForm/index";
