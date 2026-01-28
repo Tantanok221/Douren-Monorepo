@@ -16,6 +16,14 @@ vi.mock("@pkg/database/db", () => ({
 			author: "author",
 			tags: "tags",
 		},
+		authorTag: {
+			authorId: "authorTag.authorId",
+			tagId: "authorTag.tagId",
+		},
+		tag: {
+			id: "tag.id",
+			tag: "tag.tag",
+		},
 	},
 }));
 

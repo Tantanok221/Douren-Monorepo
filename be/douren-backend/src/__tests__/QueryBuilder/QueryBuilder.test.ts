@@ -24,6 +24,7 @@ vi.mock("drizzle-orm", () => ({
 	asc: vi.fn((column) => ({ column, direction: "asc" })),
 	desc: vi.fn((column) => ({ column, direction: "desc" })),
 	count: vi.fn((column) => ({ column, type: "count" })),
+	countDistinct: vi.fn((column) => ({ column, type: "countDistinct" })),
 	eq: vi.fn((a, b) => ({ a, b, type: "eq" })),
 }));
 

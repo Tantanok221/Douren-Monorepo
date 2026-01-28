@@ -6,6 +6,10 @@ vi.mock("@pkg/database/db", () => ({
 	initDB: vi.fn(),
 	s: {
 		tag: "tag_table",
+		authorTag: {
+			authorId: "authorTag.authorId",
+			tagId: "authorTag.tagId",
+		},
 	},
 }));
 
@@ -33,7 +37,16 @@ const mockTagDbResponse = [
 
 // Create mock database
 const createMockDatabase = () => {
-	const mockFrom = vi.fn().mockResolvedValue(mockTagDbResponse);
+	const mockOrderBy = vi.fn().mockResolvedValue(mockTagDbResponse);
+	const mockGroupBy = vi.fn().mockReturnValue({
+		orderBy: mockOrderBy,
+	});
+	const mockLeftJoin = vi.fn().mockReturnValue({
+		groupBy: mockGroupBy,
+	});
+	const mockFrom = vi.fn().mockReturnValue({
+		leftJoin: mockLeftJoin,
+	});
 	const mockSelect = vi.fn().mockReturnValue({
 		from: mockFrom,
 	});
@@ -42,6 +55,9 @@ const createMockDatabase = () => {
 		select: mockSelect,
 		mockSelect,
 		mockFrom,
+		mockLeftJoin,
+		mockGroupBy,
+		mockOrderBy,
 	};
 };
 
@@ -62,11 +78,13 @@ describe("Tag DAO", () => {
 
 			expect(mockDb.select).toHaveBeenCalled();
 			expect(mockDb.mockFrom).toHaveBeenCalledWith("tag_table");
+			expect(mockDb.mockLeftJoin).toHaveBeenCalled();
+			expect(mockDb.mockGroupBy).toHaveBeenCalled();
 			expect(result).toEqual(mockTagDbResponse);
 		});
 
 		it("should return empty array when no tags exist", async () => {
-			mockDb.mockFrom.mockResolvedValueOnce([]);
+			mockDb.mockOrderBy.mockResolvedValueOnce([]);
 
 			const result = await fetchTag(mockDb as unknown as MockDB);
 
@@ -93,18 +111,18 @@ describe("Tag DAO", () => {
 
 		it("should handle database errors", async () => {
 			const dbError = new Error("Database connection failed");
-			mockDb.mockFrom.mockRejectedValueOnce(dbError);
+			mockDb.mockOrderBy.mockRejectedValueOnce(dbError);
 
 			await expect(fetchTag(mockDb as unknown as MockDB)).rejects.toThrow(
 				"Database connection failed",
 			);
 		});
 
-		it("should call select without any conditions", async () => {
+		it("should call select with selection object", async () => {
 			await fetchTag(mockDb as unknown as MockDB);
 
 			expect(mockDb.select).toHaveBeenCalledTimes(1);
-			expect(mockDb.select).toHaveBeenCalledWith();
+			expect(mockDb.select).toHaveBeenCalledWith(expect.any(Object));
 		});
 
 		it("should return tags with count values", async () => {
@@ -123,7 +141,7 @@ describe("Tag DAO", () => {
 					index: 1,
 				},
 			];
-			mockDb.mockFrom.mockResolvedValueOnce(singleTagResponse);
+			mockDb.mockOrderBy.mockResolvedValueOnce(singleTagResponse);
 
 			const result = await fetchTag(mockDb as unknown as MockDB);
 
@@ -139,7 +157,7 @@ describe("Tag DAO", () => {
 					index: 1,
 				},
 			];
-			mockDb.mockFrom.mockResolvedValueOnce(zeroCountResponse);
+			mockDb.mockOrderBy.mockResolvedValueOnce(zeroCountResponse);
 
 			const result = await fetchTag(mockDb as unknown as MockDB);
 
@@ -154,7 +172,7 @@ describe("Tag DAO", () => {
 					index: 1,
 				},
 			];
-			mockDb.mockFrom.mockResolvedValueOnce(specialCharResponse);
+			mockDb.mockOrderBy.mockResolvedValueOnce(specialCharResponse);
 
 			const result = await fetchTag(mockDb as unknown as MockDB);
 
