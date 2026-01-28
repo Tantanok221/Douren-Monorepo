@@ -2,7 +2,7 @@
 
 @source "**/*.{js,jsx,ts,tsx}";
 
-@custom-variant dark (:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-background: #111;
