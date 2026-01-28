@@ -12,7 +12,12 @@ import {
 	DeleteEventSchema,
 	SetDefaultEventSchema,
 } from "@/schema/event.zod";
-import { adminProcedure, authProcedure, publicProcedure, router } from "@/lib/trpc";
+import {
+	adminProcedure,
+	authProcedure,
+	publicProcedure,
+	router,
+} from "@/lib/trpc";
 import {
 	artistInputParams,
 	eventArtistSchema,

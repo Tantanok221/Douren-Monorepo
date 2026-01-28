@@ -45,7 +45,9 @@ const getInviteCodeFromContext = (ctx: unknown): string | null => {
 	return null;
 };
 
-const getInviteValidationFromContext = (ctx: unknown): InviteValidation | null => {
+const getInviteValidationFromContext = (
+	ctx: unknown,
+): InviteValidation | null => {
 	if (!ctx || typeof ctx !== "object") return null;
 	const context = ctx as InviteContext;
 	return context.inviteValidation ?? null;

@@ -7,12 +7,14 @@ export async function fetchTag(db: ReturnType<typeof initDB>) {
 		.select({
 			tag: s.tag.tag,
 			index: s.tag.index,
-			count: sql<number>`CAST(COUNT(${s.authorTag.authorId}) AS INTEGER)`.as('count')
+			count: sql<number>`CAST(COUNT(${s.authorTag.authorId}) AS INTEGER)`.as(
+				"count",
+			),
 		})
 		.from(s.tag)
 		.leftJoin(s.authorTag, sql`${s.authorTag.tagId} = ${s.tag.tag}`)
 		.groupBy(s.tag.tag, s.tag.index)
 		.orderBy(s.tag.index);
-	
+
 	return tagCounts;
 }

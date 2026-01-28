@@ -68,25 +68,20 @@ class ArtistDao implements BaseDao {
 		// Parse CSV tags
 		const tagNames = tagsCSV
 			.split(",")
-			.map(t => t.trim())
-			.filter(t => t.length > 0);
+			.map((t) => t.trim())
+			.filter((t) => t.length > 0);
 
 		// Delete existing tag associations for this artist
-		await this.db
-			.delete(s.authorTag)
-			.where(eq(s.authorTag.authorId, artistId));
+		await this.db.delete(s.authorTag).where(eq(s.authorTag.authorId, artistId));
 
 		// Insert new tag associations (only for tags that exist in tag table)
 		if (tagNames.length > 0) {
-			const values = tagNames.map(tagName => ({
+			const values = tagNames.map((tagName) => ({
 				authorId: artistId,
 				tagId: tagName,
 			}));
 
-			await this.db
-				.insert(s.authorTag)
-				.values(values)
-				.onConflictDoNothing(); // Ignore if tag doesn't exist in tag table
+			await this.db.insert(s.authorTag).values(values).onConflictDoNothing(); // Ignore if tag doesn't exist in tag table
 		}
 	}
 

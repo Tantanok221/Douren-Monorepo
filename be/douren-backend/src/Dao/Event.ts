@@ -54,10 +54,7 @@ class EventDao implements BaseDao {
 	}
 
 	async Delete(id: number) {
-		return await this.db
-			.delete(s.event)
-			.where(eq(s.event.id, id))
-			.returning();
+		return await this.db.delete(s.event).where(eq(s.event.id, id)).returning();
 	}
 
 	async SetDefault(id: number) {

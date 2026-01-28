@@ -3,7 +3,10 @@ import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
-import EventRoute, { trpcEventRoute, trpcEventAdminRoute } from "./routes/event";
+import EventRoute, {
+	trpcEventRoute,
+	trpcEventAdminRoute,
+} from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
 import { trpcAdminRoute } from "./routes/admin";
 import { router } from "./lib/trpc";
