@@ -10,6 +10,9 @@ import {
 import { usePagination } from "@mantine/hooks";
 import { useUserRole } from "@/hooks/usePermissions";
 import { ArtistTable } from "@/components/ArtistCard";
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Plus } from "@phosphor-icons/react";
 
 export const ArtistContainer = () => {
   const [search] = useSearchContext();
@@ -53,6 +56,28 @@ export const ArtistContainer = () => {
 
   const myArtistIds = myArtists?.map((a) => a.uuid) ?? [];
 
+  const totalPages = res.data.totalPage ?? 1;
+  const hasArtists = res.data.data && res.data.data.length > 0;
+
+  if (!hasArtists) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-center">
+        <p className="text-gray-500 text-lg">
+          您尚未上傳任何藝術家資料。
+        </p>
+        <p className="text-gray-400 text-sm mt-2">
+          請新增您的第一位藝術家以開始使用。
+        </p>
+        <Button asChild size="lg" className="mt-6">
+          <Link to="/new">
+            <Plus size={20} />
+            新增藝術家
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <ArtistTable
@@ -60,9 +85,11 @@ export const ArtistContainer = () => {
         isAdmin={roleData?.isAdmin ?? false}
         myArtistIds={myArtistIds}
       />
-      <div className="w-full flex justify-center">
-        <Pagination pagination={pagination} />
-      </div>
+      {totalPages > 1 && (
+        <div className="w-full flex justify-center">
+          <Pagination pagination={pagination} />
+        </div>
+      )}
     </div>
   );
 };
