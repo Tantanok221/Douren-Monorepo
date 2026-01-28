@@ -96,7 +96,10 @@ function TableCaption({
   return (
     <caption
       data-slot="table-caption"
-      className={cn("text-stone-500 mt-4 text-sm dark:text-stone-400", className)}
+      className={cn(
+        "text-stone-500 mt-4 text-sm dark:text-stone-400",
+        className,
+      )}
       {...props}
     />
   );

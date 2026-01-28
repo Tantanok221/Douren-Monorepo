@@ -65,7 +65,10 @@ export function CompleteStep() {
       if (isOnEditPage) {
         window.location.href = `/edit/${status.artistId}`;
       } else {
-        navigate({ to: "/edit/$artistId", params: { artistId: status.artistId } });
+        navigate({
+          to: "/edit/$artistId",
+          params: { artistId: status.artistId },
+        });
       }
     }
   };

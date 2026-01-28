@@ -4,8 +4,7 @@ import { useStore } from "zustand";
 
 export function useFormDataContext<U>(selector: (state: FormDataState) => U) {
   const store = useContext(FormDataContext);
-  if (!store)
-    throw new Error("useFormDataContext must be used within context");
+  if (!store) throw new Error("useFormDataContext must be used within context");
   return useStore(store, selector);
 }
 
