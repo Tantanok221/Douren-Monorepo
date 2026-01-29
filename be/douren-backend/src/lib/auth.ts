@@ -162,8 +162,9 @@ export const auth = (env: ENV_BINDING) => {
 							const userWithInvite = user as typeof user & {
 								inviteCode?: unknown;
 							};
-							const { inviteCode, ...userData } = userWithInvite;
-							void inviteCode;
+							const { inviteCode: inviteCodeToOmit, ...userData } =
+								userWithInvite;
+							void inviteCodeToOmit;
 							return { data: userData };
 						} catch (e) {
 							if (e instanceof APIError) throw e;
