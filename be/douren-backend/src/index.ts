@@ -21,6 +21,7 @@ import { cache } from "hono/cache";
 import { auth, type Auth, AuthSession } from "@/lib/auth";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
+import { requireAuthenticatedUser } from "@/lib/auth/guards";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
@@ -102,13 +103,8 @@ const sessionAuthMiddleware = async (
 	c: Context<HonoEnv>,
 	next: () => Promise<void>,
 ) => {
-	const user = c.get("user");
-	if (!user) {
-		return c.json(
-			{ message: "You must be logged in to access this resource" },
-			401,
-		);
-	}
+	const userOrResponse = requireAuthenticatedUser(c);
+	if (userOrResponse instanceof Response) return userOrResponse;
 	await next();
 };
 
