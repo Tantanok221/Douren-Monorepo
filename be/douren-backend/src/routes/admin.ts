@@ -29,35 +29,33 @@ export const trpcAdminRoute = router({
 		.input(z.object({ search: z.string().optional() }))
 		.query(async (opts) => {
 			const search = opts.input.search?.trim();
-				const query = opts.ctx.db
-					.select({
-						id: s.user.id,
-						name: s.user.name,
-						email: s.user.email,
-						emailVerified: s.user.emailVerified,
+			const query = opts.ctx.db
+				.select({
+					id: s.user.id,
+					name: s.user.name,
+					email: s.user.email,
+					emailVerified: s.user.emailVerified,
 					createdAt: s.user.createdAt,
-					role: sql<string>`COALESCE(${s.userRole.name}, 'user')`.as(
-						"role",
-					),
+					role: sql<string>`COALESCE(${s.userRole.name}, 'user')`.as("role"),
 				})
-					.from(s.user)
-					.leftJoin(s.userRole, eq(s.userRole.userId, s.user.id))
-					.$dynamic();
+				.from(s.user)
+				.leftJoin(s.userRole, eq(s.userRole.userId, s.user.id))
+				.$dynamic();
 
-				const conditions = [eq(s.user.emailVerified, true)];
+			const conditions = [eq(s.user.emailVerified, true)];
 
-				if (search) {
-					const searchCondition = or(
-						ilike(s.user.name, `%${search}%`),
-						ilike(s.user.email, `%${search}%`),
-					);
+			if (search) {
+				const searchCondition = or(
+					ilike(s.user.name, `%${search}%`),
+					ilike(s.user.email, `%${search}%`),
+				);
 
-					if (searchCondition) {
-						conditions.push(searchCondition);
-					}
+				if (searchCondition) {
+					conditions.push(searchCondition);
 				}
+			}
 
-				query.where(and(...conditions));
+			query.where(and(...conditions));
 
 			return await query.orderBy(desc(s.user.createdAt));
 		}),
@@ -91,9 +89,7 @@ export const trpcAdminRoute = router({
 				});
 			}
 
-			await opts.ctx.db
-				.delete(s.userRole)
-				.where(eq(s.userRole.userId, userId));
+			await opts.ctx.db.delete(s.userRole).where(eq(s.userRole.userId, userId));
 
 			if (role === "admin") {
 				await opts.ctx.db.insert(s.userRole).values({

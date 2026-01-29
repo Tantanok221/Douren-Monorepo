@@ -60,11 +60,10 @@ function AdminUsersPage() {
     isLoading: isUsersLoading,
     isError: isUsersError,
     error: usersError,
-  } =
-    trpc.admin.getUsers.useQuery(
-      { search: search || undefined },
-      { enabled: !!session && !!roleData?.isAdmin },
-    );
+  } = trpc.admin.getUsers.useQuery(
+    { search: search || undefined },
+    { enabled: !!session && !!roleData?.isAdmin },
+  );
 
   const updateRoleMutation = trpc.admin.updateUserRole.useMutation({
     onMutate: ({ userId }) => {
@@ -127,9 +126,7 @@ function AdminUsersPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <CardTitle className="text-2xl">使用者管理</CardTitle>
-              <CardDescription>
-                搜尋使用者並調整管理員權限
-              </CardDescription>
+              <CardDescription>搜尋使用者並調整管理員權限</CardDescription>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <Input
@@ -158,7 +155,10 @@ function AdminUsersPage() {
               <p className="text-xs text-muted-foreground">
                 {usersError.message}
               </p>
-              <Button variant="outline" onClick={() => utils.admin.getUsers.invalidate()}>
+              <Button
+                variant="outline"
+                onClick={() => utils.admin.getUsers.invalidate()}
+              >
                 重新載入
               </Button>
             </div>
@@ -176,8 +176,7 @@ function AdminUsersPage() {
                 {users.map((user) => {
                   const isSelf = session.user?.id === user.id;
                   const isPending =
-                    updateRoleMutation.isPending &&
-                    pendingUserId === user.id;
+                    updateRoleMutation.isPending && pendingUserId === user.id;
                   const nextRole: UserRole =
                     user.role === "admin" ? "user" : "admin";
                   const actionLabel =
@@ -193,7 +192,9 @@ function AdminUsersPage() {
                       <TableCell>{user.email}</TableCell>
                       <TableCell>
                         <Badge
-                          variant={user.role === "admin" ? "default" : "secondary"}
+                          variant={
+                            user.role === "admin" ? "default" : "secondary"
+                          }
                         >
                           {user.role === "admin" ? "管理員" : "一般使用者"}
                         </Badge>
@@ -216,7 +217,9 @@ function AdminUsersPage() {
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>確認變更角色</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  確認變更角色
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
                                   你確定要將「{user.name || user.email}」變更為
                                   {confirmLabel}嗎？
@@ -225,7 +228,9 @@ function AdminUsersPage() {
                               <AlertDialogFooter>
                                 <AlertDialogCancel>取消</AlertDialogCancel>
                                 <AlertDialogAction
-                                  onClick={() => handleUpdateRole(user.id, nextRole)}
+                                  onClick={() =>
+                                    handleUpdateRole(user.id, nextRole)
+                                  }
                                   className="bg-stone-900 hover:bg-stone-800"
                                 >
                                   確認

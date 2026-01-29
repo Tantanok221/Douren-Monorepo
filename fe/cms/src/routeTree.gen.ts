@@ -8,170 +8,170 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegisterRouteImport } from './routes/register'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as NewIndexRouteImport } from './routes/new/index'
-import { Route as AdminUsersRouteImport } from './routes/admin/users'
-import { Route as AdminEventsRouteImport } from './routes/admin/events'
-import { Route as EditArtistIdIndexRouteImport } from './routes/edit.$artistId/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as RegisterRouteImport } from "./routes/register";
+import { Route as LoginRouteImport } from "./routes/login";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as NewIndexRouteImport } from "./routes/new/index";
+import { Route as AdminUsersRouteImport } from "./routes/admin/users";
+import { Route as AdminEventsRouteImport } from "./routes/admin/events";
+import { Route as EditArtistIdIndexRouteImport } from "./routes/edit.$artistId/index";
 
 const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
+  id: "/register",
+  path: "/register",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const NewIndexRoute = NewIndexRouteImport.update({
-  id: '/new/',
-  path: '/new/',
+  id: "/new/",
+  path: "/new/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
+  id: "/admin/users",
+  path: "/admin/users",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AdminEventsRoute = AdminEventsRouteImport.update({
-  id: '/admin/events',
-  path: '/admin/events',
+  id: "/admin/events",
+  path: "/admin/events",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
-  id: '/edit/$artistId/',
-  path: '/edit/$artistId/',
+  id: "/edit/$artistId/",
+  path: "/edit/$artistId/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
-  '/admin/events': typeof AdminEventsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/new': typeof NewIndexRoute
-  '/edit/$artistId': typeof EditArtistIdIndexRoute
+  "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
-  '/admin/events': typeof AdminEventsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/new': typeof NewIndexRoute
-  '/edit/$artistId': typeof EditArtistIdIndexRoute
+  "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/new": typeof NewIndexRoute;
+  "/edit/$artistId": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
-  '/admin/events': typeof AdminEventsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/new/': typeof NewIndexRoute
-  '/edit/$artistId/': typeof EditArtistIdIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/register": typeof RegisterRoute;
+  "/admin/events": typeof AdminEventsRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/new/": typeof NewIndexRoute;
+  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/login'
-    | '/register'
-    | '/admin/events'
-    | '/admin/users'
-    | '/new'
-    | '/edit/$artistId'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/admin/users"
+    | "/new"
+    | "/edit/$artistId";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/login'
-    | '/register'
-    | '/admin/events'
-    | '/admin/users'
-    | '/new'
-    | '/edit/$artistId'
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/admin/users"
+    | "/new"
+    | "/edit/$artistId";
   id:
-    | '__root__'
-    | '/'
-    | '/login'
-    | '/register'
-    | '/admin/events'
-    | '/admin/users'
-    | '/new/'
-    | '/edit/$artistId/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/login"
+    | "/register"
+    | "/admin/events"
+    | "/admin/users"
+    | "/new/"
+    | "/edit/$artistId/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  LoginRoute: typeof LoginRoute
-  RegisterRoute: typeof RegisterRoute
-  AdminEventsRoute: typeof AdminEventsRoute
-  AdminUsersRoute: typeof AdminUsersRoute
-  NewIndexRoute: typeof NewIndexRoute
-  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
+  IndexRoute: typeof IndexRoute;
+  LoginRoute: typeof LoginRoute;
+  RegisterRoute: typeof RegisterRoute;
+  AdminEventsRoute: typeof AdminEventsRoute;
+  AdminUsersRoute: typeof AdminUsersRoute;
+  NewIndexRoute: typeof NewIndexRoute;
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/new/': {
-      id: '/new/'
-      path: '/new'
-      fullPath: '/new'
-      preLoaderRoute: typeof NewIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/admin/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/events': {
-      id: '/admin/events'
-      path: '/admin/events'
-      fullPath: '/admin/events'
-      preLoaderRoute: typeof AdminEventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/edit/$artistId/': {
-      id: '/edit/$artistId/'
-      path: '/edit/$artistId'
-      fullPath: '/edit/$artistId'
-      preLoaderRoute: typeof EditArtistIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/register": {
+      id: "/register";
+      path: "/register";
+      fullPath: "/register";
+      preLoaderRoute: typeof RegisterRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/new/": {
+      id: "/new/";
+      path: "/new";
+      fullPath: "/new";
+      preLoaderRoute: typeof NewIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/admin/users": {
+      id: "/admin/users";
+      path: "/admin/users";
+      fullPath: "/admin/users";
+      preLoaderRoute: typeof AdminUsersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/admin/events": {
+      id: "/admin/events";
+      path: "/admin/events";
+      fullPath: "/admin/events";
+      preLoaderRoute: typeof AdminEventsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/edit/$artistId/": {
+      id: "/edit/$artistId/";
+      path: "/edit/$artistId";
+      fullPath: "/edit/$artistId";
+      preLoaderRoute: typeof EditArtistIdIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -183,7 +183,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminUsersRoute: AdminUsersRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
