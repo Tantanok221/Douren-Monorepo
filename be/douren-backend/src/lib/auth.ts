@@ -67,6 +67,25 @@ const setInviteContext = (
 const getMasterInviteCode = (env: ENV_BINDING): string =>
 	env.MASTER_INVITE_CODE ?? "";
 
+const getCmsResetPasswordUrl = (
+	env: ENV_BINDING,
+	token: string,
+	fallbackUrl: string,
+	authBaseUrl?: string,
+): string => {
+	const isLocalDev = env.DEV_ENV === "dev" || env.DEV_ENV === "development";
+	const cmsBaseUrl =
+		env.CMS_FRONTEND_URL ?? (isLocalDev ? "http://localhost:5174" : "");
+	if (!cmsBaseUrl) return fallbackUrl;
+	const trimmedBaseUrl = cmsBaseUrl.replace(/\/+$/, "");
+	const authBaseQuery = authBaseUrl
+		? `&apiBase=${encodeURIComponent(authBaseUrl)}`
+		: "";
+	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(
+		token,
+	)}${authBaseQuery}`;
+};
+
 export const auth = (env: ENV_BINDING) => {
 	const sql = neon(env.DATABASE_URL);
 	const db = drizzle(sql, { schema: schema.s });
@@ -191,8 +210,10 @@ export const auth = (env: ENV_BINDING) => {
 		emailAndPassword: {
 			enabled: true,
 			requireEmailVerification: true,
-			async sendResetPassword({ user, url }) {
-				await emailService.sendPasswordResetEmail(user.email, url);
+			async sendResetPassword({ user, url, token }) {
+				const authBaseUrl = url.split("/reset-password/")[0];
+				const resetUrl = getCmsResetPasswordUrl(env, token, url, authBaseUrl);
+				await emailService.sendPasswordResetEmail(user.email, resetUrl);
 			},
 		},
 		emailVerification: {
@@ -202,7 +223,13 @@ export const auth = (env: ENV_BINDING) => {
 			sendOnSignUp: true,
 			autoSignInAfterVerification: true,
 		},
-		trustedOrigins: [env.CMS_FRONTEND_URL].filter(Boolean) as string[],
+		trustedOrigins: (() => {
+			const origins = [env.CMS_FRONTEND_URL].filter(Boolean) as string[];
+			if (env.DEV_ENV === "dev" || env.DEV_ENV === "development") {
+				origins.push("http://localhost:5174");
+			}
+			return origins;
+		})(),
 		advanced: {
 			useSecureCookies: env.DEV_ENV !== "true",
 			defaultCookieAttributes: {

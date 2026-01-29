@@ -80,12 +80,12 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">密碼</Label>
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgot-password"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     忘記密碼？
-                  </a>
+                  </Link>
                 </div>
                 <Input
                   id="password"
