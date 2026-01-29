@@ -86,7 +86,21 @@ const getCmsResetPasswordUrl = (
 	)}${authBaseQuery}`;
 };
 
-export const getAuthCookieConfig = (env: ENV_BINDING) => {
+type AuthCookieSameSite =
+	| "none"
+	| "lax"
+	| "strict"
+	| "None"
+	| "Lax"
+	| "Strict";
+
+type AuthCookieConfig = {
+	useSecureCookies: boolean;
+	sameSite: AuthCookieSameSite;
+	secure: boolean;
+};
+
+export const getAuthCookieConfig = (env: ENV_BINDING): AuthCookieConfig => {
 	const isProduction = env.DEV_ENV === "prod";
 	return {
 		useSecureCookies: isProduction,
