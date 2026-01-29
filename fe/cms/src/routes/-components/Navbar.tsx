@@ -5,6 +5,7 @@ import {
   LogOutIcon,
   LogInIcon,
   UserIcon,
+  UsersIcon,
 } from "lucide-react";
 
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
@@ -67,20 +68,36 @@ export const Navbar = () => {
             </NavigationMenuItem>
 
             {session && roleData?.isAdmin && (
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/admin/events"
-                    className={cn(
-                      navigationMenuTriggerStyle,
-                      "gap-2 text-stone-300",
-                    )}
-                  >
-                    <CalendarIcon className="h-4 w-4" />
-                    活動管理
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+              <>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/admin/events"
+                      className={cn(
+                        navigationMenuTriggerStyle,
+                        "gap-2 text-stone-300",
+                      )}
+                    >
+                      <CalendarIcon className="h-4 w-4" />
+                      活動管理
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/admin/users"
+                      className={cn(
+                        navigationMenuTriggerStyle,
+                        "gap-2 text-stone-300",
+                      )}
+                    >
+                      <UsersIcon className="h-4 w-4" />
+                      使用者管理
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </>
             )}
 
             {session && (
