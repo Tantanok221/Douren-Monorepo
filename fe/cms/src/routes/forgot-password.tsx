@@ -54,9 +54,7 @@ function Page() {
                   我們已將重設連結寄送至{" "}
                   <span className="font-semibold">{sentEmail}</span>
                 </p>
-                <p className="mt-2">
-                  請檢查您的收件匣或垃圾郵件資料夾。
-                </p>
+                <p className="mt-2">請檢查您的收件匣或垃圾郵件資料夾。</p>
               </div>
               <div className="text-center text-sm text-muted-foreground">
                 已經重設完成？{" "}

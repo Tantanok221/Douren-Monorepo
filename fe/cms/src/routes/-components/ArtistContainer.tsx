@@ -62,9 +62,7 @@ export const ArtistContainer = () => {
   if (!hasArtists) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-gray-500 text-lg">
-          您尚未上傳任何藝術家資料。
-        </p>
+        <p className="text-gray-500 text-lg">您尚未上傳任何藝術家資料。</p>
         <p className="text-gray-400 text-sm mt-2">
           請新增您的第一位藝術家以開始使用。
         </p>

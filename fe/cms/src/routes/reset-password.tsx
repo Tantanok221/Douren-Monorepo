@@ -62,7 +62,9 @@ function Page() {
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">連結已失效</CardTitle>
-              <CardDescription>連結已失效或不存在，請重新申請重設</CardDescription>
+              <CardDescription>
+                連結已失效或不存在，請重新申請重設
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div className="text-center text-sm text-muted-foreground">
