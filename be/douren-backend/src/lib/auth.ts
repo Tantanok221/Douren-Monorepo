@@ -158,14 +158,13 @@ export const auth = (env: ENV_BINDING) => {
 							// We'll use a WeakMap or similar if we could, but here we'll try attaching to ctx.
 							setInviteContext(ctx, inviteCode, validation);
 
-							// Don't save inviteCode to the user table
-							const userData = { ...user } as typeof user & {
-								inviteCode?: unknown;
-							};
-							if ("inviteCode" in userData) {
-								delete userData.inviteCode;
-							}
-							return { data: userData };
+						// Don't save inviteCode to the user table
+						const userWithInvite = user as typeof user & {
+							inviteCode?: unknown;
+						};
+						const { inviteCode, ...userData } = userWithInvite;
+						void inviteCode;
+						return { data: userData };
 						} catch (e) {
 							if (e instanceof APIError) throw e;
 							console.error("Error in before hook:", e);
