@@ -12,6 +12,7 @@ import { accountInsertSchema, accountSelectSchema } from "./account.js";
 import { verificationInsertSchema, verificationSelectSchema } from "./verification.js";
 import { userInviteSettingsInsertSchema, userInviteSettingsSelectSchema } from "./userInviteSettings.js";
 import { inviteHistoryInsertSchema, inviteHistorySelectSchema } from "./inviteHistory.js";
+import { masterInviteUsageInsertSchema, masterInviteUsageSelectSchema } from "./masterInviteUsage.js";
 
 export const zodSchema = { 
           authorMain: {
@@ -69,6 +70,10 @@ export const zodSchema = {
           inviteHistory: {
             InsertSchema: inviteHistoryInsertSchema,
             SelectSchema: inviteHistorySelectSchema
+          },
+          masterInviteUsage: {
+            InsertSchema: masterInviteUsageInsertSchema,
+            SelectSchema: masterInviteUsageSelectSchema
           }
         };
 
@@ -129,5 +134,9 @@ export type zodSchemaType = {
           inviteHistory: {
             InsertSchema: inviteHistoryInsertSchema,
             SelectSchema: inviteHistorySelectSchema
+          },
+          masterInviteUsage: {
+            InsertSchema: masterInviteUsageInsertSchema,
+            SelectSchema: masterInviteUsageSelectSchema
           }
       };
