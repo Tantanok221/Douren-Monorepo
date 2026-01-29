@@ -86,13 +86,7 @@ const getCmsResetPasswordUrl = (
 	)}${authBaseQuery}`;
 };
 
-type AuthCookieSameSite =
-	| "none"
-	| "lax"
-	| "strict"
-	| "None"
-	| "Lax"
-	| "Strict";
+type AuthCookieSameSite = "none" | "lax" | "strict" | "None" | "Lax" | "Strict";
 
 type AuthCookieConfig = {
 	useSecureCookies: boolean;
