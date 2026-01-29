@@ -68,12 +68,16 @@ app.use("*", async (c, next) => {
 app.on(["POST"], "/api/auth/reset-password", async (c) => {
 	const url = new URL(c.req.url);
 	const tokenFromQuery = url.searchParams.get("token");
-	const body = (await c.req.raw.clone().json().catch(() => ({}))) as {
+	const body = (await c.req.raw
+		.clone()
+		.json()
+		.catch(() => ({}))) as {
 		token?: unknown;
 		newPassword?: unknown;
 	};
 	const token = typeof body.token === "string" ? body.token : tokenFromQuery;
-	const newPassword = typeof body.newPassword === "string" ? body.newPassword : "";
+	const newPassword =
+		typeof body.newPassword === "string" ? body.newPassword : "";
 
 	if (!token) {
 		return c.json({ code: "INVALID_TOKEN", message: "Invalid token" }, 400);
