@@ -14,6 +14,10 @@ export const trpcInviteRoute = router({
 				ctx.db,
 				input.inviteCode,
 				ctx.honoContext.env.MASTER_INVITE_CODE,
+				{
+					isProduction: ctx.honoContext.env.DEV_ENV === "prod",
+					consumeMasterCode: false,
+				},
 			);
 			return {
 				isValid: result.isValid,

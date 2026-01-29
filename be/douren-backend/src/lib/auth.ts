@@ -71,6 +71,7 @@ export const auth = (env: ENV_BINDING) => {
 	const sql = neon(env.DATABASE_URL);
 	const db = drizzle(sql, { schema: schema.s });
 	const emailService = createEmailService(env);
+	const isProduction = env.DEV_ENV === "prod";
 
 	return betterAuth({
 		database: drizzleAdapter(db, { provider: "pg", schema: schema.s }),
@@ -114,6 +115,7 @@ export const auth = (env: ENV_BINDING) => {
 								db,
 								inviteCode,
 								masterInviteCode,
+								{ isProduction, consumeMasterCode: true },
 							);
 
 							if (!validation.isValid) {
@@ -153,6 +155,7 @@ export const auth = (env: ENV_BINDING) => {
 									db,
 									inviteCode,
 									masterInviteCode,
+									{ isProduction, consumeMasterCode: false },
 								);
 							}
 
