@@ -1,4 +1,6 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { z } from "zod";
+
 import {
 	CreateArtistSchema,
 	DeleteAristSchema,
@@ -9,10 +11,14 @@ import { authProcedure, publicProcedure, router } from "@/lib/trpc";
 import { artistInputParams, artistSchema } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
-import { HonoEnv } from "@/index";
-import { canEditArtist, canDeleteArtist } from "@/lib/authorization";
-import { TRPCError } from "@trpc/server";
-import { z } from "zod";
+import type { HonoEnv, HonoVariables } from "@/index";
+import {
+	ARTIST_FORBIDDEN_MESSAGES,
+	assertCanDeleteArtist,
+	assertCanEditArtist,
+	canDeleteArtist,
+	canEditArtist,
+} from "@/lib/authorization";
 
 export const trpcArtistRoute = router({
 	getArtist: publicProcedure.input(artistInputParams).query(async (opts) => {
@@ -48,18 +54,11 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 
-			const authorized = await canEditArtist(
+			await assertCanEditArtist(
 				opts.ctx.db,
 				opts.ctx.user.id,
 				Number(opts.input.id),
 			);
-
-			if (!authorized) {
-				throw new TRPCError({
-					code: "FORBIDDEN",
-					message: "You don't have permission to edit this artist",
-				});
-			}
 
 			return await ArtistDao.Update(opts.input.id, opts.input.data);
 		}),
@@ -68,18 +67,11 @@ export const trpcArtistRoute = router({
 		.mutation(async (opts) => {
 			const ArtistDao = NewArtistDao(opts.ctx.db);
 
-			const authorized = await canDeleteArtist(
+			await assertCanDeleteArtist(
 				opts.ctx.db,
 				opts.ctx.user.id,
 				Number(opts.input.id),
 			);
-
-			if (!authorized) {
-				throw new TRPCError({
-					code: "FORBIDDEN",
-					message: "You don't have permission to delete this artist",
-				});
-			}
 
 			return await ArtistDao.Delete(opts.input.id);
 		}),
@@ -217,14 +209,7 @@ const ArtistRoute = new OpenAPIHono<HonoEnv>()
 		return c.json(returnObj ?? null);
 	})
 	.openapi(createArtistRoute, async (c) => {
-		const user = c.get("user");
-		// sessionAuthMiddleware guarantees user exists for POST requests
-		if (!user) {
-			return c.json(
-				[] as z.infer<typeof zodSchema.authorMain.SelectSchema>[],
-				200,
-			);
-		}
+		const user = c.get("user") as NonNullable<HonoVariables["user"]>;
 
 		const ArtistDao = NewArtistDao(c.var.db);
 		const body = c.req.valid("json");
@@ -239,14 +224,7 @@ const ArtistRoute = new OpenAPIHono<HonoEnv>()
 		return c.json(returnResponse, 200);
 	})
 	.openapi(deleteArtistRoute, async (c) => {
-		const user = c.get("user");
-		// sessionAuthMiddleware guarantees user exists for DELETE requests
-		if (!user) {
-			return c.json(
-				[] as z.infer<typeof zodSchema.authorMain.SelectSchema>[],
-				200,
-			);
-		}
+		const user = c.get("user") as NonNullable<HonoVariables["user"]>;
 
 		const { artistId } = c.req.valid("param");
 
@@ -256,12 +234,8 @@ const ArtistRoute = new OpenAPIHono<HonoEnv>()
 			user.id,
 			Number(artistId),
 		);
-
 		if (!authorized) {
-			return c.json(
-				{ message: "You don't have permission to delete this artist" },
-				403,
-			);
+			return c.json({ message: ARTIST_FORBIDDEN_MESSAGES.delete }, 403);
 		}
 
 		const ArtistDao = NewArtistDao(c.var.db);
@@ -269,25 +243,14 @@ const ArtistRoute = new OpenAPIHono<HonoEnv>()
 		return c.json(returnResponse, 200);
 	})
 	.openapi(updateArtistRoute, async (c) => {
-		const user = c.get("user");
-		// sessionAuthMiddleware guarantees user exists for PUT requests
-		if (!user) {
-			return c.json(
-				[] as z.infer<typeof zodSchema.authorMain.SelectSchema>[],
-				200,
-			);
-		}
+		const user = c.get("user") as NonNullable<HonoVariables["user"]>;
 
 		const { artistId } = c.req.valid("param");
 
 		// Check if user is authorized to edit this artist
 		const authorized = await canEditArtist(c.var.db, user.id, Number(artistId));
-
 		if (!authorized) {
-			return c.json(
-				{ message: "You don't have permission to edit this artist" },
-				403,
-			);
+			return c.json({ message: ARTIST_FORBIDDEN_MESSAGES.edit }, 403);
 		}
 
 		const ArtistDao = NewArtistDao(c.var.db);
