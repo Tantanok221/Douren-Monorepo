@@ -10,7 +10,7 @@ export interface EmailOptions {
 const getEnvPrefix = (devEnv: string | undefined): string => {
 	if (!devEnv || devEnv === "production") return "";
 	if (devEnv === "staging") return "[測試環境] ";
-	if (devEnv === "development") return "[開發環境] ";
+	if (devEnv === "dev") return "[開發環境] ";
 	return `[${devEnv}] `;
 };
 

@@ -73,7 +73,7 @@ const getCmsResetPasswordUrl = (
 	fallbackUrl: string,
 	authBaseUrl?: string,
 ): string => {
-	const isLocalDev = env.DEV_ENV === "dev" || env.DEV_ENV === "development";
+	const isLocalDev = env.DEV_ENV === "dev";
 	const cmsBaseUrl =
 		env.CMS_FRONTEND_URL ?? (isLocalDev ? "http://localhost:5174" : "");
 	if (!cmsBaseUrl) return fallbackUrl;
@@ -86,11 +86,21 @@ const getCmsResetPasswordUrl = (
 	)}${authBaseQuery}`;
 };
 
+export const getAuthCookieConfig = (env: ENV_BINDING) => {
+	const isProduction = env.DEV_ENV === "prod";
+	return {
+		useSecureCookies: isProduction,
+		sameSite: isProduction ? "none" : "lax",
+		secure: isProduction,
+	};
+};
+
 export const auth = (env: ENV_BINDING) => {
 	const sql = neon(env.DATABASE_URL);
 	const db = drizzle(sql, { schema: schema.s });
 	const emailService = createEmailService(env);
 	const isProduction = env.DEV_ENV === "prod";
+	const cookieConfig = getAuthCookieConfig(env);
 
 	return betterAuth({
 		database: drizzleAdapter(db, { provider: "pg", schema: schema.s }),
@@ -149,8 +159,12 @@ export const auth = (env: ENV_BINDING) => {
 							setInviteContext(ctx, inviteCode, validation);
 
 							// Don't save inviteCode to the user table
-							// eslint-disable-next-line @typescript-eslint/no-unused-vars
-							const { inviteCode: _, ...userData } = user;
+							const userData = { ...user } as typeof user & {
+								inviteCode?: unknown;
+							};
+							if ("inviteCode" in userData) {
+								delete userData.inviteCode;
+							}
 							return { data: userData };
 						} catch (e) {
 							if (e instanceof APIError) throw e;
@@ -228,16 +242,16 @@ export const auth = (env: ENV_BINDING) => {
 		},
 		trustedOrigins: (() => {
 			const origins = [env.CMS_FRONTEND_URL].filter(Boolean) as string[];
-			if (env.DEV_ENV === "dev" || env.DEV_ENV === "development") {
+			if (env.DEV_ENV === "dev") {
 				origins.push("http://localhost:5174");
 			}
 			return origins;
 		})(),
 		advanced: {
-			useSecureCookies: env.DEV_ENV !== "true",
+			useSecureCookies: cookieConfig.useSecureCookies,
 			defaultCookieAttributes: {
-				sameSite: "none",
-				secure: true,
+				sameSite: cookieConfig.sameSite,
+				secure: cookieConfig.secure,
 			},
 		},
 		rateLimit: {
