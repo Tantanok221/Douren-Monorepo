@@ -118,7 +118,6 @@ export async function assertCanDeleteArtist(
 	}
 }
 
-
 /**
  * Clears the role cache for a specific user
  * Call this when user roles are updated
