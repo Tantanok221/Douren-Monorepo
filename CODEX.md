@@ -6,7 +6,7 @@ Keep this file aligned with `CLAUDE.md` and `AGENTS.md` to avoid instruction dri
 
 ## Codex-specific Notes
 - Prefer repository scripts (`pnpm run ...`, `make ...`, `./setup.sh`) over ad-hoc commands.
-- Follow the commit convention enforced by commitlint: `[DR-XX] type: subject` (see “PR Workflow” below).
+- Follow the commit convention enforced by commitlint: `type: subject` (see “PR Workflow” below).
 
 ## Development Commands
 
@@ -243,21 +243,18 @@ make worktree-remove PATH=../my-feature
 
 ---
 
-## Commit History Notes
-- On DR-90 Jira ticket, remember to update commit history accordingly
-
 ## Development Workflow
 - After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files.
 
 ## Development Practices
-- Each time you update any agent instruction files (`CLAUDE.md`, `AGENTS.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`), commit via `[DR-00] dev: update agent docs`.
+- Each time you update any agent instruction files (`CLAUDE.md`, `AGENTS.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`), commit via `dev: update agent docs`.
 
 ## Commit Habits
 - Remember to commit via micro commit habits
 
 ## PR Workflow
 - After completing a feature or fix, always push and create a PR
-- Use descriptive PR titles following the commit convention: `[DR-XX] type: description`
+- Use descriptive PR titles following the commit convention: `type: description`
 - PR descriptions should include:
   - **Summary**: Brief bullet points of what changed
   - **Test plan**: Checklist of testing steps
