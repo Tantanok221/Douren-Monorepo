@@ -122,16 +122,10 @@ jobs:
           echo "preview_url=$API_PREVIEW_URL" >> "$GITHUB_OUTPUT"
 
       - name: Update Database (staging)
-        if: github.event_name != 'pull_request'
         run: |
           cd pkg/database
           infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=staging > .env
           npm run db:migrate
-
-      - name: Skip Database migration (PR)
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "Skipping DB migrations for PR preview (shared staging DB)."
 
       - name: Create GitHub deployment (Backend)
         uses: actions/github-script@v7
