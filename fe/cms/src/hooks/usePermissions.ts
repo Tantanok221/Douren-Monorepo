@@ -20,9 +20,11 @@ export function useUserRole() {
  * @returns boolean - true if user can edit, false otherwise
  */
 export function useCanEditArtist(artistId: number): boolean {
+  const authClient = useAuthContext();
+  const { data: session } = authClient.useSession();
   const { data: roleData } = useUserRole();
   const { data: myArtists } = trpc.admin.getMyArtists.useQuery(undefined, {
-    enabled: !!roleData && !roleData.isAdmin,
+    enabled: !!session,
   });
 
   if (roleData?.isAdmin) return true;

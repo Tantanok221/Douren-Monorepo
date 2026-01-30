@@ -62,7 +62,7 @@ function AdminUsersPage() {
     error: usersError,
   } = trpc.admin.getUsers.useQuery(
     { search: search || undefined },
-    { enabled: !!session && !!roleData?.isAdmin },
+    { enabled: !!session },
   );
 
   const updateRoleMutation = trpc.admin.updateUserRole.useMutation({
