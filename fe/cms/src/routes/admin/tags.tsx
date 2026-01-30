@@ -48,8 +48,7 @@ function AdminTagsPage() {
 
   const utils = trpc.useUtils();
 
-  const { data: tags, isLoading: isTagsLoading } =
-    trpc.tag.getTag.useQuery();
+  const { data: tags, isLoading: isTagsLoading } = trpc.tag.getTag.useQuery();
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newTagName, setNewTagName] = useState("");

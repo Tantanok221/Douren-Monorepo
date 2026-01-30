@@ -19,7 +19,10 @@ export async function fetchTag(db: ReturnType<typeof initDB>) {
 	return tagCounts;
 }
 
-export async function createTag(db: ReturnType<typeof initDB>, tagName: string) {
+export async function createTag(
+	db: ReturnType<typeof initDB>,
+	tagName: string,
+) {
 	const [row] = await db
 		.select({
 			maxIndex: sql<number | null>`MAX(${s.tag.index})`.as("maxIndex"),
