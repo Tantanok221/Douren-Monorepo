@@ -45,6 +45,12 @@ jobs:
       - name: Build Library
         run: infisical run --env=prod --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- pnpm run lib
 
+      - name: Update Database
+        run: |
+          cd pkg/database
+          infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=prod > .env
+          npm run db:migrate
+
       - name: Deploy Backend
         env:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
@@ -72,9 +78,3 @@ jobs:
           
           echo "Debug: WRANGLER_VARS=$WRANGLER_VARS" 
           npm run deploy -- $WRANGLER_VARS --env production 
-
-      - name: Update Database
-        run: |
-          cd pkg/database
-          infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=prod > .env
-          npm run db:migrate
