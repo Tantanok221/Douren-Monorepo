@@ -2,7 +2,13 @@ import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ResetPasswordForm } from "@/components/reset-password-form";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export const Route = createFileRoute("/reset-password")({
   component: () => <Page />,
