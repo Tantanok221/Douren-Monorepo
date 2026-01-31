@@ -3,6 +3,7 @@ import { ENV_BINDING } from "@pkg/env/constant";
 import { HonoVariables } from "@/index";
 import { Context } from "hono";
 import { isAdmin } from "@/lib/authorization";
+import { assertAuthenticatedSession } from "@/lib/auth/guards";
 
 type HonoContext = {
 	env: ENV_BINDING;
@@ -21,14 +22,7 @@ type AuthContext = HonoContext & {
 
 export const authProcedure: ReturnType<typeof t.procedure.use<AuthContext>> =
 	t.procedure.use(async (opts) => {
-		const user = opts.ctx.user;
-		const session = opts.ctx.session;
-		if (!user || !session) {
-			throw new TRPCError({
-				code: "UNAUTHORIZED",
-				message: "You must be logged in to access this resource",
-			});
-		}
+		const { user, session } = assertAuthenticatedSession(opts.ctx);
 		return opts.next({
 			ctx: {
 				...opts.ctx,

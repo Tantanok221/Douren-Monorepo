@@ -3,19 +3,25 @@ import { logger } from "hono/logger";
 import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
-import EventRoute, { trpcEventRoute } from "./routes/event";
+import EventRoute, {
+	trpcEventRoute,
+	trpcEventAdminRoute,
+} from "./routes/event";
 import OwnerRoute, { trpcOwnerRoute } from "./routes/owner";
+import { trpcAdminRoute } from "./routes/admin";
 import { router } from "./lib/trpc";
 import { trpcServer } from "@hono/trpc-server";
 import { ENV_BINDING } from "@pkg/env/constant";
 import { syncAuthorTag } from "./helper/migrate";
 import { cors } from "hono/cors";
 import { TagRoute, trpcTagRoute } from "./routes/tag";
+import { trpcInviteRoute } from "./routes/invite";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
 import { auth, type Auth, AuthSession } from "@/lib/auth";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
+import { requireAuthenticatedUser } from "@/lib/auth/guards";
 
 export type HonoVariables = {
 	db: ReturnType<typeof initDB>;
@@ -28,15 +34,29 @@ export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
 const app = new OpenAPIHono<HonoEnv>();
 app.use("*", logger());
 app.use("*", trimTrailingSlash());
-app.use(
-	"*",
-	cors({
-		origin: (origin) => origin || "*",
+app.use("*", async (c, next) => {
+	const allowedOrigins = [
+		c.env.CMS_FRONTEND_URL,
+		c.env.MAIN_FRONTEND_URL,
+	].filter(Boolean);
+
+	// Add localhost origins for development
+	if (c.env.DEV_ENV === "dev") {
+		allowedOrigins.push("http://localhost:5173", "http://localhost:5174");
+	}
+
+	const corsMiddleware = cors({
+		origin: (origin) => {
+			if (!origin) return null;
+			return allowedOrigins.includes(origin) ? origin : null;
+		},
 		credentials: true,
 		allowHeaders: ["Content-Type", "Authorization"],
 		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	}),
-);
+	});
+
+	return corsMiddleware(c, next);
+});
 app.use("*", async (c, next) => {
 	c.set("db", initDB(c.env.DATABASE_URL));
 	await next();
@@ -83,13 +103,8 @@ const sessionAuthMiddleware = async (
 	c: Context<HonoEnv>,
 	next: () => Promise<void>,
 ) => {
-	const user = c.get("user");
-	if (!user) {
-		return c.json(
-			{ message: "You must be logged in to access this resource" },
-			401,
-		);
-	}
+	const userOrResponse = requireAuthenticatedUser(c);
+	if (userOrResponse instanceof Response) return userOrResponse;
 	await next();
 };
 
@@ -97,12 +112,16 @@ const sessionAuthMiddleware = async (
 app.on(["POST", "PUT", "DELETE"], "/artist/*", sessionAuthMiddleware);
 app.on(["POST", "PUT", "DELETE"], "/event/*", sessionAuthMiddleware);
 app.on(["POST", "PUT", "DELETE"], "/tag/*", sessionAuthMiddleware);
+app.on(["POST", "PUT", "DELETE"], "/admin/*", sessionAuthMiddleware);
 app.on(["POST"], "/image/*", sessionAuthMiddleware);
 const appRouter = router({
 	artist: trpcArtistRoute,
 	eventArtist: trpcEventRoute,
+	event: trpcEventAdminRoute,
 	tag: trpcTagRoute,
 	owner: trpcOwnerRoute,
+	admin: trpcAdminRoute,
+	invite: trpcInviteRoute,
 });
 
 export type AppRouter = typeof appRouter;

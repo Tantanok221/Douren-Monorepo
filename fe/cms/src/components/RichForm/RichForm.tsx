@@ -47,10 +47,18 @@ export const TagFilterField = ({ label, formField }: Props) => {
 
 export const ImageField = forwardRef<FormImageUploadRef, ImageFieldProps>(
   ({ label, formField, title, multiple }: ImageFieldProps, ref) => {
+    const { register } = useFormContext();
     return (
       <Forms.Field name={formField}>
         <Forms.Label>{label}</Forms.Label>
-        <Forms.ImageUpload title={title} multiple={multiple} ref={ref} />
+        {/* Hidden input to register field with react-hook-form */}
+        <input type="hidden" {...register(formField)} />
+        <Forms.ImageUpload
+          title={title}
+          multiple={multiple}
+          formField={formField}
+          ref={ref}
+        />
       </Forms.Field>
     );
   },

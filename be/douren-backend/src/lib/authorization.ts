@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 import { s } from "@pkg/database/db";
 import type { HonoVariables } from "@/index";
 import { LRUCache } from "lru-cache";
@@ -82,6 +83,39 @@ export async function canDeleteArtist(
 	artistId: number,
 ): Promise<boolean> {
 	return canEditArtist(db, userId, artistId);
+}
+
+export const ARTIST_FORBIDDEN_MESSAGES = {
+	edit: "You don't have permission to edit this artist",
+	delete: "You don't have permission to delete this artist",
+} as const;
+
+export async function assertCanEditArtist(
+	db: DrizzleDB,
+	userId: string,
+	artistId: number,
+): Promise<void> {
+	const authorized = await canEditArtist(db, userId, artistId);
+	if (!authorized) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: ARTIST_FORBIDDEN_MESSAGES.edit,
+		});
+	}
+}
+
+export async function assertCanDeleteArtist(
+	db: DrizzleDB,
+	userId: string,
+	artistId: number,
+): Promise<void> {
+	const authorized = await canDeleteArtist(db, userId, artistId);
+	if (!authorized) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: ARTIST_FORBIDDEN_MESSAGES.delete,
+		});
+	}
 }
 
 /**

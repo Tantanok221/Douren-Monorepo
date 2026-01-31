@@ -1,4 +1,4 @@
-import { pgTable, text, primaryKey, integer,timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, primaryKey, integer,timestamp, boolean, uniqueIndex } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const authorMain = pgTable("author_main", {
@@ -46,7 +46,8 @@ export const authorProductRelations = relations(authorProduct, ({ one }) => ({
 
 export const event = pgTable("event", {
   id: integer("id").primaryKey().notNull().generatedAlwaysAsIdentity({ startWith: 5 }),
-  name: text("name").notNull()
+  name: text("name").notNull(),
+  isDefault: boolean("is_default").notNull().default(false)
 });
 
 export const eventRelations = relations(event, ({ many }) => ({
@@ -164,10 +165,71 @@ export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
-  expiresAt: timestamp("expires_at").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+// Invite system tables
+export const userInviteSettings = pgTable("user_invite_settings", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .unique()
+    .references(() => user.id, { onDelete: "cascade" }),
+  inviteCode: text("invite_code").notNull().unique(),
+  maxInvites: integer("max_invites").notNull().default(10),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export const inviteHistory = pgTable("invite_history", {
+  id: text("id").primaryKey(),
+  inviterId: text("inviter_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  invitedUserId: text("invited_user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  inviteCodeUsed: text("invite_code_used").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const masterInviteUsage = pgTable(
+  "master_invite_usage",
+  {
+    id: text("id").primaryKey(),
+    inviteCodeUsed: text("invite_code_used").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    inviteCodeUsedUnique: uniqueIndex(
+      "master_invite_usage_invite_code_used_unique",
+    ).on(table.inviteCodeUsed),
+  }),
+);
+
+export const userInviteSettingsRelations = relations(userInviteSettings, ({ one }) => ({
+  user: one(user, {
+    fields: [userInviteSettings.userId],
+    references: [user.id],
+  }),
+}));
+
+export const inviteHistoryRelations = relations(inviteHistory, ({ one }) => ({
+  inviter: one(user, {
+    fields: [inviteHistory.inviterId],
+    references: [user.id],
+  }),
+  invitedUser: one(user, {
+    fields: [inviteHistory.invitedUserId],
+    references: [user.id],
+  }),
+}));

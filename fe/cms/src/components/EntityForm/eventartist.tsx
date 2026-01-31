@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { useUploadImageRef } from "@/hooks";
+import { useEffect } from "react";
 import {
   EventField,
   Forms,
@@ -16,9 +17,22 @@ import { useFormStep } from "../FormStep";
 
 interface EventArtistFormProps {
   defaultValues?: EventArtistSchema;
+  allEventData?: Array<{
+    uuid?: number;
+    eventId?: number | null;
+    artistId?: number;
+    boothName?: string | null;
+    dm?: string | null;
+    locationDay01?: string | null;
+    locationDay02?: string | null;
+    locationDay03?: string | null;
+  }>;
 }
 
-export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
+export function EventArtistForm({
+  defaultValues,
+  allEventData = [],
+}: EventArtistFormProps = {}) {
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
     defaultValues: defaultValues ?? {
@@ -31,14 +45,59 @@ export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
       locationDay03: "",
     },
   });
+
+  const { watch, reset } = formHook;
+  const selectedEventId = watch("eventId");
+
+  // Update form when selected event changes
+  useEffect(() => {
+    if (!selectedEventId || allEventData.length === 0) return;
+
+    // Find data for selected event
+    const eventData = allEventData.find(
+      (event) => event.eventId === selectedEventId,
+    );
+
+    if (eventData) {
+      // Populate form with existing event data
+      reset({
+        eventId: eventData.eventId || selectedEventId,
+        artistId: eventData.artistId || 0,
+        boothName: eventData.boothName || "",
+        dm: eventData.dm || "",
+        locationDay01: eventData.locationDay01 || "",
+        locationDay02: eventData.locationDay02 || "",
+        locationDay03: eventData.locationDay03 || "",
+      });
+    } else {
+      // Reset to empty form for new event
+      reset({
+        eventId: selectedEventId,
+        artistId: defaultValues?.artistId || 0,
+        boothName: "",
+        dm: "",
+        locationDay01: "",
+        locationDay02: "",
+        locationDay03: "",
+      });
+    }
+  }, [selectedEventId, allEventData, reset, defaultValues?.artistId]);
   const uploadImageRef = useUploadImageRef();
   const setData = useFormDataContext((state) => state.setData);
   const bumpStep = useFormStep().onNext;
   const goBack = useMultiStepFormContext((state) => state.goBackStep);
   const onSubmit: SubmitHandler<EventArtistSchema> = async (data) => {
-    if (!uploadImageRef.current) return;
-    const link = await uploadImageRef.current.uploadImage();
-    setData(ENTITY_FORM_KEY.eventArtist, { ...data, dm: link });
+    // Save form data and files, then immediately go to step 3
+    // Actual uploads will happen in step 3 (submission hooks) for better UX
+
+    // Save step 2 files for later upload
+    const dmFiles = uploadImageRef.current?.getFiles() ?? [];
+    setData(`${ENTITY_FORM_KEY.eventArtist}_files`, dmFiles);
+
+    // Save form data (without uploaded URLs yet)
+    setData(ENTITY_FORM_KEY.eventArtist, data);
+
+    // Immediately go to step 3 - uploads will happen there
     bumpStep();
   };
 
@@ -66,7 +125,7 @@ export function EventArtistForm({ defaultValues }: EventArtistFormProps = {}) {
         <InputTextField formField={"locationDay03"} label={"第三天攤位位置"} />
         <EventField formField={"eventId"} label={"選擇活動"} />
         <ImageField
-          formField={"DM"}
+          formField={"dm"}
           label={"DM"}
           title={"DM"}
           multiple

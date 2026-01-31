@@ -21,12 +21,15 @@ export const FETCH_ARTIST_BASE_OBJECT = {
 };
 
 export const FETCH_TAG_OBJECT = {
-  tags: sql`jsonb_agg(
-    jsonb_build_object(
-      'tag', ${s.tag.tag},
-      'count', ${s.tag.count},
-      'index', ${s.tag.index}
-    )
+  tags: sql`COALESCE(
+    jsonb_agg(
+      jsonb_build_object(
+        'tag', ${s.tag.tag},
+        'count', ${s.tag.count},
+        'index', ${s.tag.index}
+      ) ORDER BY ${s.tag.index}
+    ) FILTER (WHERE ${s.tag.tag} IS NOT NULL),
+    '[]'::jsonb
   )`.as("tags"),
 };
 
@@ -92,7 +95,7 @@ const innerTagSchema = z.object({
   index: z.number()
 })
 
-const innerTagSchemaArray = z.array(innerTagSchema).nullable()
+const innerTagSchemaArray = z.array(innerTagSchema)
 
 export type InnerTagSchema = z.infer<typeof innerTagSchemaArray>
 

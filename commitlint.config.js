@@ -1,29 +1,4 @@
 ﻿module.exports = {
-    parserPreset: {
-        parserOpts: {
-            headerPattern: /^\[DR-(\d+)\]\s(\w+):\s(.+)$/,
-            headerCorrespondence: ['ticket', 'type', 'subject']
-        }
-    },
-    plugins: [
-        {
-            rules: {
-                'header-match-team-pattern': (parsed) => {
-                    const { ticket, type, subject } = parsed;
-                    if (ticket === null) {
-                        return [false, 'header must start with [DR-<number>]'];
-                    }
-                    if (!/^\d+$/.test(ticket)) {
-                        return [false, 'ticket must be a number'];
-                    }
-                    if (!subject || subject.trim().length === 0) {
-                        return [false, 'subject is required'];
-                    }
-                    return [true];
-                }
-            }
-        }
-    ],
     rules: {
         'body-leading-blank': [1, 'always'],
         'footer-leading-blank': [1, 'always'],
@@ -45,11 +20,10 @@
             'style',
             'refactor',
             'perf',
-            "dev",
+            'dev',
             'test',
             'chore',
             'revert'
-        ]],
-        'header-match-team-pattern': [2, 'always']
+        ]]
     }
 };

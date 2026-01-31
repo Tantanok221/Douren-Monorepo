@@ -1,14 +1,21 @@
-import { StrictMode } from "react";
+import { ReactNode, StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { httpLink, loggerLink } from "@trpc/client";
 
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
-import { trpc } from "./helper/trpc.ts";
+import { AuthProvider } from "@/components";
+import { authClient } from "./lib/auth";
+import { trpc } from "./lib/trpc.ts";
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    authClient,
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +38,8 @@ const trpcClient = trpc.createClient({
         const token = import.meta.env.VITE_ADMIN_AUTH_TOKEN;
         return token ? { Authorization: `Bearer ${token}` } : {};
       },
+      fetch: (url, options) =>
+        fetch(url, { ...options, credentials: "include" }),
     }),
     loggerLink(),
   ],
@@ -40,18 +49,29 @@ declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+  interface RouterContext {
+    authClient: typeof authClient;
+  }
 }
+
+const Provider = ({ children }: { children: ReactNode }) => {
+  return (
+    <trpc.Provider queryClient={queryClient} client={trpcClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider data={authClient}>{children}</AuthProvider>
+      </QueryClientProvider>
+    </trpc.Provider>
+  );
+};
 
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <trpc.Provider queryClient={queryClient} client={trpcClient}>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </trpc.Provider>
+      <Provider>
+        <RouterProvider router={router} />
+      </Provider>
     </StrictMode>,
   );
 }

@@ -78,6 +78,27 @@
       "when": 1764471304141,
       "tag": "0010_pink_tag",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1768719856691,
+      "tag": "0011_early_forgotten_one",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1769537376046,
+      "tag": "0012_stale_prima",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1769829003952,
+      "tag": "0013_graceful_firelord",
+      "breakpoints": true
     }
   ]
 }
