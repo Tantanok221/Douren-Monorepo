@@ -1,0 +1,1 @@
+DROP TABLE "master_invite_usage" CASCADE;
