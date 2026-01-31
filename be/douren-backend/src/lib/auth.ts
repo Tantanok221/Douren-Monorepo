@@ -77,9 +77,7 @@ export const getCmsResetPasswordUrl = (
 		env.CMS_FRONTEND_URL ?? (isLocalDev ? "http://localhost:5174" : "");
 	if (!cmsBaseUrl) return fallbackUrl;
 	const trimmedBaseUrl = cmsBaseUrl.replace(/\/+$/, "");
-	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(
-		token,
-	)}`;
+	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(token)}`;
 };
 
 type AuthCookieSameSite = "none" | "lax" | "strict" | "None" | "Lax" | "Strict";
