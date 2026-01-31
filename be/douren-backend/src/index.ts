@@ -62,7 +62,25 @@ app.use("*", async (c, next) => {
 	await next();
 });
 
-app.on(["POST", "GET"], "/api/auth/*", (c) => auth(c.env).handler(c.req.raw));
+app.on(["POST", "GET"], "/api/auth/*", async (c) => {
+	const start = performance.now();
+	console.log(`[auth] start ${c.req.method} ${c.req.path}`);
+	try {
+		const response = await auth(c.env).handler(c.req.raw);
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(
+			`[auth] end ${c.req.method} ${c.req.path} ${elapsedMs}ms`,
+		);
+		return response;
+	} catch (error) {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.error(
+			`[auth] error ${c.req.method} ${c.req.path} ${elapsedMs}ms`,
+			error,
+		);
+		throw error;
+	}
+});
 
 app.doc("/openapi.json", {
 	openapi: "3.0.0",
