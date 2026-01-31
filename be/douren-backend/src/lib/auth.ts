@@ -104,6 +104,11 @@ export const auth = (env: ENV_BINDING) => {
 	const isProduction = env.DEV_ENV === "prod";
 	const cookieConfig = getAuthCookieConfig(env);
 
+	const logSignupTiming = (label: string, start: number) => {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(`[auth-signup] ${label} ${elapsedMs}ms`);
+	};
+
 	return betterAuth({
 		database: drizzleAdapter(db, { provider: "pg", schema: schema.s }),
 		baseURL: env.BETTER_AUTH_URL,
@@ -115,12 +120,16 @@ export const auth = (env: ENV_BINDING) => {
 			user: {
 				create: {
 					before: async (user, ctx) => {
+						const beforeStart = performance.now();
+						console.log("[auth-signup] before.start");
 						try {
+							const existingUserStart = performance.now();
 							const [existingUser] = await db
 								.select({ id: schema.s.user.id })
 								.from(schema.s.user)
 								.where(eq(schema.s.user.email, user.email))
 								.limit(1);
+							logSignupTiming("before.existingUser", existingUserStart);
 
 							if (existingUser) {
 								throw new APIError("CONFLICT", {
@@ -142,12 +151,14 @@ export const auth = (env: ENV_BINDING) => {
 							}
 
 							const masterInviteCode = getMasterInviteCode(env);
+							const inviteValidationStart = performance.now();
 							const validation = await validateInviteCode(
 								db,
 								inviteCode,
 								masterInviteCode,
 								{ isProduction, consumeMasterCode: true },
 							);
+							logSignupTiming("before.validateInvite", inviteValidationStart);
 
 							if (!validation.isValid) {
 								throw new APIError("BAD_REQUEST", {
@@ -167,8 +178,10 @@ export const auth = (env: ENV_BINDING) => {
 							const { inviteCode: inviteCodeToOmit, ...userData } =
 								userWithInvite;
 							void inviteCodeToOmit;
+							logSignupTiming("before.done", beforeStart);
 							return { data: userData };
 						} catch (e) {
+							logSignupTiming("before.error", beforeStart);
 							if (e instanceof APIError) throw e;
 							console.error("Error in before hook:", e);
 							throw new APIError("INTERNAL_SERVER_ERROR", {
@@ -177,47 +190,68 @@ export const auth = (env: ENV_BINDING) => {
 						}
 					},
 					after: async (user, ctx) => {
+						const afterStart = performance.now();
+						console.log("[auth-signup] after.start");
 						try {
+							const inviteLookupStart = performance.now();
 							const inviteCode = getInviteCodeFromContext(ctx);
 							let validation = getInviteValidationFromContext(ctx);
+							logSignupTiming("after.getInviteContext", inviteLookupStart);
 
 							if (!inviteCode) {
+								logSignupTiming("after.done.noInvite", afterStart);
 								return;
 							}
 							const masterInviteCode = getMasterInviteCode(env);
 							if (!validation) {
+								const inviteValidationStart = performance.now();
 								validation = await validateInviteCode(
 									db,
 									inviteCode,
 									masterInviteCode,
 									{ isProduction, consumeMasterCode: false },
 								);
+								logSignupTiming(
+									"after.validateInvite",
+									inviteValidationStart,
+								);
 							}
 
 							if (validation?.isValid) {
 								// 1. Create invite settings for the new user
+								const createInviteStart = performance.now();
 								await createUserInviteSettings(db, user.id);
+								logSignupTiming(
+									"after.createInviteSettings",
+									createInviteStart,
+								);
 
 								// 2. Record usage if not master code
 								if (!validation.isMasterCode && validation.inviterId) {
+									const recordUsageStart = performance.now();
 									await recordInviteUsage(
 										db,
 										validation.inviterId,
 										user.id,
 										inviteCode,
 									);
+									logSignupTiming("after.recordInviteUsage", recordUsageStart);
 								}
 
 								// 3. Assign admin role if master code
 								if (validation.isMasterCode) {
+									const assignRoleStart = performance.now();
 									await db.insert(schema.s.userRole).values({
 										id: crypto.randomUUID(),
 										userId: user.id,
 										name: "admin",
 									});
+									logSignupTiming("after.assignAdminRole", assignRoleStart);
 								}
 							}
+							logSignupTiming("after.done", afterStart);
 						} catch (e) {
+							logSignupTiming("after.error", afterStart);
 							console.error("Error in after hook:", e);
 							// Don't throw here to avoid failing the whole signup if just post-processing fails
 							// But maybe we want to know?
