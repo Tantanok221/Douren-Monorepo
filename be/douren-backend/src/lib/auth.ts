@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth, APIError } from "better-auth";
+import { hashPassword, verifyPassword } from "better-auth/crypto";
 import { eq } from "drizzle-orm";
 import * as schema from "@pkg/database/db";
 import type { ENV_BINDING } from "@pkg/env/constant";
@@ -74,26 +75,28 @@ const setInviteContext = (
 const getMasterInviteCode = (env: ENV_BINDING): string =>
 	env.MASTER_INVITE_CODE ?? "";
 
-const getCmsResetPasswordUrl = (
+export const getCmsResetPasswordUrl = (
 	env: ENV_BINDING,
 	token: string,
 	fallbackUrl: string,
-	authBaseUrl?: string,
 ): string => {
 	const isLocalDev = env.DEV_ENV === "dev";
 	const cmsBaseUrl =
 		env.CMS_FRONTEND_URL ?? (isLocalDev ? "http://localhost:5174" : "");
 	if (!cmsBaseUrl) return fallbackUrl;
 	const trimmedBaseUrl = cmsBaseUrl.replace(/\/+$/, "");
-	const authBaseQuery = authBaseUrl
-		? `&apiBase=${encodeURIComponent(authBaseUrl)}`
-		: "";
-	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(
-		token,
-	)}${authBaseQuery}`;
+	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(token)}`;
 };
 
-export const getAuthCookieConfig = (env: ENV_BINDING) => {
+type AuthCookieSameSite = "none" | "lax" | "strict" | "None" | "Lax" | "Strict";
+
+type AuthCookieConfig = {
+	useSecureCookies: boolean;
+	sameSite: AuthCookieSameSite;
+	secure: boolean;
+};
+
+export const getAuthCookieConfig = (env: ENV_BINDING): AuthCookieConfig => {
 	const isProduction = env.DEV_ENV === "prod";
 	return {
 		useSecureCookies: isProduction,
@@ -109,6 +112,15 @@ export const auth = (env: ENV_BINDING) => {
 	const isProduction = env.DEV_ENV === "prod";
 	const cookieConfig = getAuthCookieConfig(env);
 
+	const logSignupTiming = (label: string, start: number) => {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(`[auth-signup] ${label} ${elapsedMs}ms`);
+	};
+	const logPasswordTiming = (label: string, start: number) => {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(`[auth-password] ${label} ${elapsedMs}ms`);
+	};
+
 	return betterAuth({
 		database: drizzleAdapter(db, { provider: "pg", schema: schema.s }),
 		baseURL: env.BETTER_AUTH_URL,
@@ -120,12 +132,16 @@ export const auth = (env: ENV_BINDING) => {
 			user: {
 				create: {
 					before: async (user, ctx) => {
+						const beforeStart = performance.now();
+						console.log("[auth-signup] before.start");
 						try {
+							const existingUserStart = performance.now();
 							const [existingUser] = await db
 								.select({ id: schema.s.user.id })
 								.from(schema.s.user)
 								.where(eq(schema.s.user.email, user.email))
 								.limit(1);
+							logSignupTiming("before.existingUser", existingUserStart);
 
 							if (existingUser) {
 								throw createSignupError();
@@ -143,12 +159,14 @@ export const auth = (env: ENV_BINDING) => {
 							}
 
 							const masterInviteCode = getMasterInviteCode(env);
+							const inviteValidationStart = performance.now();
 							const validation = await validateInviteCode(
 								db,
 								inviteCode,
 								masterInviteCode,
 								{ isProduction, consumeMasterCode: true },
 							);
+							logSignupTiming("before.validateInvite", inviteValidationStart);
 
 							if (!validation.isValid) {
 								throw createSignupError();
@@ -166,8 +184,10 @@ export const auth = (env: ENV_BINDING) => {
 							const { inviteCode: inviteCodeToOmit, ...userData } =
 								userWithInvite;
 							void inviteCodeToOmit;
+							logSignupTiming("before.done", beforeStart);
 							return { data: userData };
 						} catch (e) {
+							logSignupTiming("before.error", beforeStart);
 							if (e instanceof APIError) throw e;
 							console.error("Error in before hook:", e);
 							throw new APIError("INTERNAL_SERVER_ERROR", {
@@ -176,47 +196,65 @@ export const auth = (env: ENV_BINDING) => {
 						}
 					},
 					after: async (user, ctx) => {
+						const afterStart = performance.now();
+						console.log("[auth-signup] after.start");
 						try {
+							const inviteLookupStart = performance.now();
 							const inviteCode = getInviteCodeFromContext(ctx);
 							let validation = getInviteValidationFromContext(ctx);
+							logSignupTiming("after.getInviteContext", inviteLookupStart);
 
 							if (!inviteCode) {
+								logSignupTiming("after.done.noInvite", afterStart);
 								return;
 							}
 							const masterInviteCode = getMasterInviteCode(env);
 							if (!validation) {
+								const inviteValidationStart = performance.now();
 								validation = await validateInviteCode(
 									db,
 									inviteCode,
 									masterInviteCode,
 									{ isProduction, consumeMasterCode: false },
 								);
+								logSignupTiming("after.validateInvite", inviteValidationStart);
 							}
 
 							if (validation?.isValid) {
 								// 1. Create invite settings for the new user
+								const createInviteStart = performance.now();
 								await createUserInviteSettings(db, user.id);
+								logSignupTiming(
+									"after.createInviteSettings",
+									createInviteStart,
+								);
 
 								// 2. Record usage if not master code
 								if (!validation.isMasterCode && validation.inviterId) {
+									const recordUsageStart = performance.now();
 									await recordInviteUsage(
 										db,
 										validation.inviterId,
 										user.id,
 										inviteCode,
 									);
+									logSignupTiming("after.recordInviteUsage", recordUsageStart);
 								}
 
 								// 3. Assign admin role if master code
 								if (validation.isMasterCode) {
+									const assignRoleStart = performance.now();
 									await db.insert(schema.s.userRole).values({
 										id: crypto.randomUUID(),
 										userId: user.id,
 										name: "admin",
 									});
+									logSignupTiming("after.assignAdminRole", assignRoleStart);
 								}
 							}
+							logSignupTiming("after.done", afterStart);
 						} catch (e) {
+							logSignupTiming("after.error", afterStart);
 							console.error("Error in after hook:", e);
 							// Don't throw here to avoid failing the whole signup if just post-processing fails
 							// But maybe we want to know?
@@ -228,9 +266,30 @@ export const auth = (env: ENV_BINDING) => {
 		emailAndPassword: {
 			enabled: true,
 			requireEmailVerification: true,
+			password: {
+				hash: async (password: string) => {
+					const hashStart = performance.now();
+					console.log("[auth-password] hash.start");
+					const result = await hashPassword(password);
+					logPasswordTiming("hash.done", hashStart);
+					return result;
+				},
+				verify: async ({
+					password,
+					hash,
+				}: {
+					password: string;
+					hash: string;
+				}) => {
+					const verifyStart = performance.now();
+					console.log("[auth-password] verify.start");
+					const result = await verifyPassword({ password, hash });
+					logPasswordTiming("verify.done", verifyStart);
+					return result;
+				},
+			},
 			async sendResetPassword({ user, url, token }) {
-				const authBaseUrl = url.split("/reset-password/")[0];
-				const resetUrl = getCmsResetPasswordUrl(env, token, url, authBaseUrl);
+				const resetUrl = getCmsResetPasswordUrl(env, token, url);
 				await emailService.sendPasswordResetEmail(user.email, resetUrl);
 			},
 		},

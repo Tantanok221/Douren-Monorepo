@@ -1,4 +1,4 @@
-import { pgTable, text, primaryKey, integer,timestamp, boolean, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, text, primaryKey, integer, timestamp, boolean } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const authorMain = pgTable("author_main", {
@@ -165,7 +165,7 @@ export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
-  expiresAt: timestamp("expires_at").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
@@ -201,20 +201,6 @@ export const inviteHistory = pgTable("invite_history", {
   inviteCodeUsed: text("invite_code_used").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
-
-export const masterInviteUsage = pgTable(
-  "master_invite_usage",
-  {
-    id: text("id").primaryKey(),
-    inviteCodeUsed: text("invite_code_used").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-  },
-  (table) => ({
-    inviteCodeUsedUnique: uniqueIndex(
-      "master_invite_usage_invite_code_used_unique",
-    ).on(table.inviteCodeUsed),
-  }),
-);
 
 export const userInviteSettingsRelations = relations(userInviteSettings, ({ one }) => ({
   user: one(user, {

@@ -52,38 +52,6 @@ export async function validateInviteCode(
 
 	// Check if it's the master invite code
 	if (normalizedInviteCode === normalizedMasterInviteCode) {
-		if (!options.isProduction) {
-			return { isValid: true, inviterId: null, isMasterCode: true };
-		}
-
-		if (options.consumeMasterCode) {
-			const inserted = await db
-				.insert(s.masterInviteUsage)
-				.values({
-					id: crypto.randomUUID(),
-					inviteCodeUsed: normalizedInviteCode,
-				})
-				.onConflictDoNothing({
-					target: s.masterInviteUsage.inviteCodeUsed,
-				})
-				.returning({ id: s.masterInviteUsage.id });
-
-			if (inserted.length === 0) {
-				return { isValid: false, inviterId: null, isMasterCode: true };
-			}
-			return { isValid: true, inviterId: null, isMasterCode: true };
-		}
-
-		const [existingUsage] = await db
-			.select({ id: s.masterInviteUsage.id })
-			.from(s.masterInviteUsage)
-			.where(eq(s.masterInviteUsage.inviteCodeUsed, normalizedInviteCode))
-			.limit(1);
-
-		if (existingUsage) {
-			return { isValid: false, inviterId: null, isMasterCode: true };
-		}
-
 		return { isValid: true, inviterId: null, isMasterCode: true };
 	}
 

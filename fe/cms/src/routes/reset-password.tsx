@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ResetPasswordForm } from "@/components/reset-password-form";
+import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import {
   Card,
   CardContent,
@@ -16,13 +17,13 @@ export const Route = createFileRoute("/reset-password")({
 function Page() {
   const [isSuccess, setIsSuccess] = useState(false);
   const { search } = useLocation();
+  const authClient = useAuthContext();
 
-  const { token, error, apiBase } = useMemo(() => {
+  const { token, error } = useMemo(() => {
     const params = new URLSearchParams(search);
     return {
       token: params.get("token"),
       error: params.get("error"),
-      apiBase: params.get("apiBase"),
     };
   }, [search]);
 
@@ -34,22 +35,14 @@ function Page() {
     if (!token) {
       throw new Error("連結已失效或不存在");
     }
-    const resolvedBaseUrl = resolveAuthBaseUrl(apiBase);
-    const response = await fetch(
-      `${resolvedBaseUrl}/reset-password?token=${encodeURIComponent(token)}`,
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ newPassword: data.password, token }),
-      },
-    );
+    const { error: resetError } = await authClient.resetPassword({
+      token,
+      newPassword: data.password,
+    });
 
-    if (!response.ok) {
-      const payload = await response
-        .json()
-        .catch(() => ({ message: "重設失敗" }));
-      console.error("Password reset failed:", payload);
-      throw new Error(payload.message || "重設失敗");
+    if (resetError) {
+      console.error("Password reset failed:", resetError);
+      throw new Error(resetError.message || "重設失敗");
     }
 
     setIsSuccess(true);
@@ -116,18 +109,3 @@ function Page() {
     </div>
   );
 }
-
-const resolveAuthBaseUrl = (apiBase: string | null): string => {
-  if (apiBase) return apiBase.replace(/\/+$/, "");
-  const fallbackBaseUrl =
-    import.meta.env.VITE_API_URL || "http://localhost:2000";
-  try {
-    const parsed = new URL(fallbackBaseUrl);
-    if (parsed.pathname && parsed.pathname !== "/") {
-      return fallbackBaseUrl.replace(/\/+$/, "");
-    }
-  } catch {
-    return "http://localhost:2000/api/auth";
-  }
-  return `${fallbackBaseUrl.replace(/\/+$/, "")}/api/auth`;
-};

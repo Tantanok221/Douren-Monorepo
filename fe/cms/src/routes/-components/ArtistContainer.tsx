@@ -1,4 +1,7 @@
-import { trpc } from "@/lib/trpc";
+import { usePagination } from "@mantine/hooks";
+import { Plus } from "@phosphor-icons/react";
+import { Link } from "@tanstack/react-router";
+
 import {
   Pagination,
   usePaginationContext,
@@ -7,21 +10,23 @@ import {
   useSortSelectContext,
   useTagFilterContext,
 } from "@lib/ui";
-import { usePagination } from "@mantine/hooks";
-import { useUserRole } from "@/hooks/usePermissions";
+
+import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import { ArtistTable } from "@/components/ArtistCard";
-import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Plus } from "@phosphor-icons/react";
+import { useUserRole } from "@/hooks/usePermissions";
+import { trpc } from "@/lib/trpc";
 
 export const ArtistContainer = () => {
+  const authClient = useAuthContext();
+  const { data: session } = authClient.useSession();
   const [search] = useSearchContext();
   const [searchColumn] = useSearchColumnContext();
   const tagFilter = useTagFilterContext((state) => state.tagFilter);
   const allTag = tagFilter.map((val) => val.tag).join(",");
   const [sortSelect] = useSortSelectContext();
   const [page, setPage] = usePaginationContext();
-  const { data: roleData } = useUserRole();
+  const { data: roleData, isLoading: isRoleLoading } = useUserRole();
 
   const queryParams = {
     search: search,
@@ -32,11 +37,11 @@ export const ArtistContainer = () => {
   };
 
   const adminRes = trpc.artist.getArtist.useQuery(queryParams, {
-    enabled: roleData?.isAdmin === true,
+    enabled: !!session,
   });
 
   const userRes = trpc.admin.getMyArtistsPaginated.useQuery(queryParams, {
-    enabled: roleData?.isAdmin === false,
+    enabled: !!session,
   });
 
   const res = roleData?.isAdmin ? adminRes : userRes;
@@ -47,11 +52,12 @@ export const ArtistContainer = () => {
     onChange: setPage,
   });
 
-  // Get my artists for permission checking (only for non-admins)
+  // Get my artists for permission checking
   const { data: myArtists } = trpc.admin.getMyArtists.useQuery(undefined, {
-    enabled: roleData?.isAdmin === false,
+    enabled: !!session,
   });
 
+  if (isRoleLoading || !roleData) return null;
   if (!res.data) return null;
 
   const myArtistIds = myArtists?.map((a) => a.uuid) ?? [];

@@ -1,6 +1,6 @@
 import { Context, Env } from "hono";
 import { logger } from "hono/logger";
-import { initDB, s as dbSchema } from "@pkg/database/db";
+import { initDB } from "@pkg/database/db";
 import { trimTrailingSlash } from "hono/trailing-slash";
 import ArtistRoute, { trpcArtistRoute } from "./routes/artist";
 import EventRoute, {
@@ -21,9 +21,6 @@ import { cache } from "hono/cache";
 import { auth, type Auth, AuthSession } from "@/lib/auth";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
-import { and, eq } from "drizzle-orm";
-import { generateId } from "better-auth";
-import { hashPassword } from "better-auth/crypto";
 import { requireAuthenticatedUser } from "@/lib/auth/guards";
 
 export type HonoVariables = {
@@ -65,84 +62,23 @@ app.use("*", async (c, next) => {
 	await next();
 });
 
-app.on(["POST"], "/api/auth/reset-password", async (c) => {
-	const url = new URL(c.req.url);
-	const tokenFromQuery = url.searchParams.get("token");
-	const body = (await c.req.raw
-		.clone()
-		.json()
-		.catch(() => ({}))) as {
-		token?: unknown;
-		newPassword?: unknown;
-	};
-	const token = typeof body.token === "string" ? body.token : tokenFromQuery;
-	const newPassword =
-		typeof body.newPassword === "string" ? body.newPassword : "";
-
-	if (!token) {
-		return c.json({ code: "INVALID_TOKEN", message: "Invalid token" }, 400);
-	}
-	if (!newPassword || newPassword.length < 8) {
-		return c.json(
-			{ code: "PASSWORD_TOO_SHORT", message: "Password too short" },
-			400,
+app.on(["POST", "GET"], "/api/auth/*", async (c) => {
+	const start = performance.now();
+	console.log(`[auth] start ${c.req.method} ${c.req.path}`);
+	try {
+		const response = await auth(c.env).handler(c.req.raw);
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(`[auth] end ${c.req.method} ${c.req.path} ${elapsedMs}ms`);
+		return response;
+	} catch (error) {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.error(
+			`[auth] error ${c.req.method} ${c.req.path} ${elapsedMs}ms`,
+			error,
 		);
+		throw error;
 	}
-
-	const db = initDB(c.env.DATABASE_URL);
-	const [verification] = await db
-		.select()
-		.from(dbSchema.verification)
-		.where(eq(dbSchema.verification.identifier, `reset-password:${token}`))
-		.limit(1);
-
-	if (!verification || verification.expiresAt < new Date()) {
-		return c.json({ code: "INVALID_TOKEN", message: "Invalid token" }, 400);
-	}
-
-	const userId = verification.value;
-	const passwordHash = await hashPassword(newPassword);
-	const [account] = await db
-		.select()
-		.from(dbSchema.account)
-		.where(
-			and(
-				eq(dbSchema.account.userId, userId),
-				eq(dbSchema.account.providerId, "credential"),
-			),
-		)
-		.limit(1);
-
-	if (!account) {
-		await db.insert(dbSchema.account).values({
-			id: generateId(),
-			accountId: userId,
-			providerId: "credential",
-			userId,
-			password: passwordHash,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		});
-	} else {
-		await db
-			.update(dbSchema.account)
-			.set({ password: passwordHash, updatedAt: new Date() })
-			.where(eq(dbSchema.account.id, account.id));
-	}
-
-	await db
-		.delete(dbSchema.verification)
-		.where(eq(dbSchema.verification.id, verification.id));
-
-	await db
-		.update(dbSchema.user)
-		.set({ emailVerified: true, updatedAt: new Date() })
-		.where(eq(dbSchema.user.id, userId));
-
-	return c.json({ status: true });
 });
-
-app.on(["POST", "GET"], "/api/auth/*", (c) => auth(c.env).handler(c.req.raw));
 
 app.doc("/openapi.json", {
 	openapi: "3.0.0",
