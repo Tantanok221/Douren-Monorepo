@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { PlusIcon, TrashIcon, StarIcon } from "lucide-react";
 
@@ -51,7 +51,6 @@ export const Route = createFileRoute("/admin/events")({
 
 function AdminEventsPage() {
   const authClient = useAuthContext();
-  const navigate = useNavigate();
   const { data: session } = authClient.useSession();
   const { data: roleData, isLoading: isRoleLoading } =
     trpc.admin.getMyRole.useQuery(undefined, {
@@ -121,8 +120,8 @@ function AdminEventsPage() {
     return (
       <div className="flex flex-col items-center justify-center w-full h-64 text-center gap-4">
         <p className="text-xl text-gray-600">你沒有權限訪問此頁面</p>
-        <Button variant="outline" onClick={() => navigate({ to: "/" })}>
-          返回首頁
+        <Button variant="outline" asChild>
+          <Link to="/">返回首頁</Link>
         </Button>
       </div>
     );

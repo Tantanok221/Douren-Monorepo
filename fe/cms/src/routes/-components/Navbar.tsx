@@ -158,11 +158,13 @@ export const Navbar = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate({ to: "/login" })}
               className="gap-2 text-stone-300 hover:text-stone-50"
+              asChild
             >
-              <LogInIcon className="h-4 w-4" />
-              登入
+              <Link to="/login">
+                <LogInIcon className="h-4 w-4" />
+                登入
+              </Link>
             </Button>
           )}
         </div>
