@@ -17,4 +17,9 @@
   gap: 0.5rem;
   cursor: pointer;
   min-width: 100px;
+  transition: background-color 0.2s ease;
+}
+
+.linkButton:hover {
+  background: #4d4d4d;
 }
