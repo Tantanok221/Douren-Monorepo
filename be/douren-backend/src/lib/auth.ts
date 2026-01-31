@@ -67,23 +67,19 @@ const setInviteContext = (
 const getMasterInviteCode = (env: ENV_BINDING): string =>
 	env.MASTER_INVITE_CODE ?? "";
 
-const getCmsResetPasswordUrl = (
+export const getCmsResetPasswordUrl = (
 	env: ENV_BINDING,
 	token: string,
 	fallbackUrl: string,
-	authBaseUrl?: string,
 ): string => {
 	const isLocalDev = env.DEV_ENV === "dev";
 	const cmsBaseUrl =
 		env.CMS_FRONTEND_URL ?? (isLocalDev ? "http://localhost:5174" : "");
 	if (!cmsBaseUrl) return fallbackUrl;
 	const trimmedBaseUrl = cmsBaseUrl.replace(/\/+$/, "");
-	const authBaseQuery = authBaseUrl
-		? `&apiBase=${encodeURIComponent(authBaseUrl)}`
-		: "";
 	return `${trimmedBaseUrl}/reset-password?token=${encodeURIComponent(
 		token,
-	)}${authBaseQuery}`;
+	)}`;
 };
 
 type AuthCookieSameSite = "none" | "lax" | "strict" | "None" | "Lax" | "Strict";
@@ -236,8 +232,7 @@ export const auth = (env: ENV_BINDING) => {
 			enabled: true,
 			requireEmailVerification: true,
 			async sendResetPassword({ user, url, token }) {
-				const authBaseUrl = url.split("/reset-password/")[0];
-				const resetUrl = getCmsResetPasswordUrl(env, token, url, authBaseUrl);
+				const resetUrl = getCmsResetPasswordUrl(env, token, url);
 				await emailService.sendPasswordResetEmail(user.email, resetUrl);
 			},
 		},
