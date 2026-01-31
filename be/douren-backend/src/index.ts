@@ -68,9 +68,7 @@ app.on(["POST", "GET"], "/api/auth/*", async (c) => {
 	try {
 		const response = await auth(c.env).handler(c.req.raw);
 		const elapsedMs = Math.round(performance.now() - start);
-		console.log(
-			`[auth] end ${c.req.method} ${c.req.path} ${elapsedMs}ms`,
-		);
+		console.log(`[auth] end ${c.req.method} ${c.req.path} ${elapsedMs}ms`);
 		return response;
 	} catch (error) {
 		const elapsedMs = Math.round(performance.now() - start);

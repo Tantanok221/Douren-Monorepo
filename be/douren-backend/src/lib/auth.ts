@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth, APIError } from "better-auth";
+import { hashPassword, verifyPassword } from "better-auth/crypto";
 import { eq } from "drizzle-orm";
 import * as schema from "@pkg/database/db";
 import type { ENV_BINDING } from "@pkg/env/constant";
@@ -108,6 +109,10 @@ export const auth = (env: ENV_BINDING) => {
 		const elapsedMs = Math.round(performance.now() - start);
 		console.log(`[auth-signup] ${label} ${elapsedMs}ms`);
 	};
+	const logPasswordTiming = (label: string, start: number) => {
+		const elapsedMs = Math.round(performance.now() - start);
+		console.log(`[auth-password] ${label} ${elapsedMs}ms`);
+	};
 
 	return betterAuth({
 		database: drizzleAdapter(db, { provider: "pg", schema: schema.s }),
@@ -211,10 +216,7 @@ export const auth = (env: ENV_BINDING) => {
 									masterInviteCode,
 									{ isProduction, consumeMasterCode: false },
 								);
-								logSignupTiming(
-									"after.validateInvite",
-									inviteValidationStart,
-								);
+								logSignupTiming("after.validateInvite", inviteValidationStart);
 							}
 
 							if (validation?.isValid) {
@@ -263,6 +265,28 @@ export const auth = (env: ENV_BINDING) => {
 		emailAndPassword: {
 			enabled: true,
 			requireEmailVerification: true,
+			password: {
+				hash: async (password: string) => {
+					const hashStart = performance.now();
+					console.log("[auth-password] hash.start");
+					const result = await hashPassword(password);
+					logPasswordTiming("hash.done", hashStart);
+					return result;
+				},
+				verify: async ({
+					password,
+					hash,
+				}: {
+					password: string;
+					hash: string;
+				}) => {
+					const verifyStart = performance.now();
+					console.log("[auth-password] verify.start");
+					const result = await verifyPassword({ password, hash });
+					logPasswordTiming("verify.done", verifyStart);
+					return result;
+				},
+			},
 			async sendResetPassword({ user, url, token }) {
 				const resetUrl = getCmsResetPasswordUrl(env, token, url);
 				await emailService.sendPasswordResetEmail(user.email, resetUrl);
