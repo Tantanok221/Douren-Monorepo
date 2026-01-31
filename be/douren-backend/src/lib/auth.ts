@@ -13,6 +13,13 @@ import {
 	normalizeInviteCode,
 } from "./invite";
 
+export const SIGNUP_ERROR_MESSAGE = "無效的憑證或邀請碼";
+
+export const createSignupError = (): APIError =>
+	new APIError("BAD_REQUEST", {
+		message: SIGNUP_ERROR_MESSAGE,
+	});
+
 type InviteValidation = {
 	isValid: boolean;
 	inviterId: string | null;
@@ -121,9 +128,7 @@ export const auth = (env: ENV_BINDING) => {
 								.limit(1);
 
 							if (existingUser) {
-								throw new APIError("CONFLICT", {
-									message: "使用者已存在",
-								});
+								throw createSignupError();
 							}
 
 							const inviteCodeFromUser = (user as { inviteCode?: unknown })
@@ -134,9 +139,7 @@ export const auth = (env: ENV_BINDING) => {
 									: getInviteCodeFromContext(ctx);
 
 							if (!inviteCode) {
-								throw new APIError("BAD_REQUEST", {
-									message: "DEBUG: No invite code received",
-								});
+								throw createSignupError();
 							}
 
 							const masterInviteCode = getMasterInviteCode(env);
@@ -148,9 +151,7 @@ export const auth = (env: ENV_BINDING) => {
 							);
 
 							if (!validation.isValid) {
-								throw new APIError("BAD_REQUEST", {
-									message: `邀請碼無效或已過期 (${inviteCode})`,
-								});
+								throw createSignupError();
 							}
 
 							// Pass validation result to 'after' hook using context if possible,
@@ -259,8 +260,8 @@ export const auth = (env: ENV_BINDING) => {
 			window: 60, // 60 second window
 			max: 100, // 100 requests per window for general endpoints
 			customRules: {
-				"/sign-in/*": { window: 60, max: 10 }, // Stricter for login
-				"/sign-up/*": { window: 60, max: 5 }, // Stricter for signup
+				"/sign-in/email": { window: 60, max: 10 }, // Stricter for login
+				"/sign-up/email": { window: 60, max: 5 }, // Stricter for signup
 			},
 		},
 		session: {
