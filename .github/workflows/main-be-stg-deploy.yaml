@@ -81,6 +81,12 @@ jobs:
             echo "API_PREVIEW_URL=https://stg.api.douren.net" >> "$GITHUB_ENV"
           fi
 
+      - name: Update Database (staging)
+        run: |
+          cd pkg/database
+          infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=staging > .env
+          npm run db:migrate
+
       - name: Deploy Backend
         id: deploy_worker
         env:
@@ -120,12 +126,6 @@ jobs:
           
           echo "preview_url=$API_PREVIEW_URL" >> "$GITHUB_OUTPUT"
 
-      - name: Update Database (staging)
-        run: |
-          cd pkg/database
-          infisical export --projectId=${{secrets.INFISICAL_PROJECT_ID}} --env=staging > .env
-          npm run db:migrate
-
       - name: Create GitHub deployment (Backend)
         uses: actions/github-script@v7
         env:
@@ -161,4 +161,3 @@ jobs:
               log_url: `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`,
               description: "Deployed",
             });
-
