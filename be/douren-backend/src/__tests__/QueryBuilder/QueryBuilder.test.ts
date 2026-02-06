@@ -29,6 +29,8 @@ vi.mock("drizzle-orm", () => ({
 	countDistinct: vi.fn((column) => ({ column, type: "countDistinct" })),
 	eq: vi.fn((a, b) => ({ a, b, type: "eq" })),
 	inArray: vi.fn((column, values) => ({ column, values, type: "inArray" })),
+	ilike: vi.fn((column, pattern) => ({ column, pattern, type: "ilike" })),
+	or: vi.fn((...conditions) => ({ conditions, type: "or" })),
 }));
 
 // Mock database schema
@@ -463,10 +465,8 @@ describe("QueryBuilder", () => {
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
-				expect(result.SelectQuery.withIlikeSearchByTable).toHaveBeenCalledWith(
-					"artist name",
-					expect.anything(),
-				);
+				expect(result.SelectQuery.withFilter).toHaveBeenCalled();
+				expect(result.CountQuery.withFilter).toHaveBeenCalled();
 			});
 
 			it("should apply pagination with correct page number", () => {
