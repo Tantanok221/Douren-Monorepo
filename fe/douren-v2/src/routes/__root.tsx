@@ -1,10 +1,14 @@
 import { createRootRoute, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RouteSeoMeta } from "@/components/seo/RouteSeoMeta";
 import { useDarkMode } from "@/hooks/useDarkMode";
 import { trpc } from "@/helper/trpc";
 import { toEventViewModel } from "@/data/adapters";
 import type { EventViewModel } from "@/types/models";
+
+const SHOW_BANNER = false;
 
 const RootLayout = () => {
   const { isDark, toggle } = useDarkMode();
@@ -34,16 +38,20 @@ const RootLayout = () => {
 
   return (
     <Layout.Root>
-      <Layout.Banner
-        imageUrl="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=2000&auto=format&fit=crop"
-        alt="同人展會活動"
-        overlay={{
-          title: selectedEvent?.name ?? "活動",
-          subtitle: selectedEvent
-            ? `活動檔案 • ${selectedEvent.code}`
-            : "創作者名錄",
-        }}
-      />
+      <RouteSeoMeta />
+      <BreadcrumbJsonLd />
+      {SHOW_BANNER ? (
+        <Layout.Banner
+          imageUrl="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=2000&auto=format&fit=crop"
+          alt="同人展會活動"
+          overlay={{
+            title: selectedEvent?.name ?? "活動",
+            subtitle: selectedEvent
+              ? `活動檔案 • ${selectedEvent.code}`
+              : "創作者名錄",
+          }}
+        />
+      ) : null}
       <Layout.Header
         events={events}
         selectedEvent={selectedEvent}
