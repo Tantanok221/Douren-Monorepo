@@ -7,6 +7,8 @@ import {
 	desc,
 	eq,
 	inArray,
+	ilike,
+	or,
 } from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
@@ -138,14 +140,12 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			CountQuery.withAndFilter(this.derivedFetchParams.tagConditions);
 		}
 		if (this.fetchParams.search) {
-			SelectQuery.withIlikeSearchByTable(
-				this.fetchParams.search,
-				this.derivedFetchParams.searchTable,
+			const searchCondition = or(
+				ilike(s.authorMain.author, `%${this.fetchParams.search}%`),
+				ilike(s.eventDm.boothName, `%${this.fetchParams.search}%`),
 			);
-			CountQuery.withIlikeSearchByTable(
-				this.fetchParams.search,
-				this.derivedFetchParams.searchTable,
-			);
+			SelectQuery.withFilter(searchCondition);
+			CountQuery.withFilter(searchCondition);
 		}
 		const dayLocationColumn = getDayLocationColumn(this.fetchParams.day);
 		if (dayLocationColumn) {
