@@ -144,8 +144,10 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 				ilike(s.authorMain.author, `%${this.fetchParams.search}%`),
 				ilike(s.eventDm.boothName, `%${this.fetchParams.search}%`),
 			);
-			SelectQuery.withFilter(searchCondition);
-			CountQuery.withFilter(searchCondition);
+			if (searchCondition) {
+				SelectQuery.withFilter(searchCondition);
+				CountQuery.withFilter(searchCondition);
+			}
 		}
 		const dayLocationColumn = getDayLocationColumn(this.fetchParams.day);
 		if (dayLocationColumn) {

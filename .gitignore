@@ -46,3 +46,4 @@ yarn-error.log*
 *storybook.log
 tsconfig.tsbuildinfo
 douren-v2-ref
+*.pyc
