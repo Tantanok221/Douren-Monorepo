@@ -8,7 +8,7 @@
     "build": "pnpm run sitemap:generate:auto && vite build",
     "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format": "prettier ./src",
+    "format": "prettier ./src --write --single-quote false --semi true",
     "test": "vitest run",
     "sitemap:generate:auto": "if [ \"$CI\" = \"true\" ]; then pnpm run sitemap:generate:ci; else pnpm run sitemap:generate; fi",
     "sitemap:generate": "infisical run --env=prod -- node ./scripts/generate-sitemap.mjs",

@@ -8,81 +8,81 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as EventsEventNameIndexRouteImport } from './routes/events/$eventName/index'
-import { Route as EventsEventNameBookmarksRouteImport } from './routes/events/$eventName/bookmarks'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as EventsEventNameIndexRouteImport } from "./routes/events/$eventName/index";
+import { Route as EventsEventNameBookmarksRouteImport } from "./routes/events/$eventName/bookmarks";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const EventsEventNameIndexRoute = EventsEventNameIndexRouteImport.update({
-  id: '/events/$eventName/',
-  path: '/events/$eventName/',
+  id: "/events/$eventName/",
+  path: "/events/$eventName/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const EventsEventNameBookmarksRoute =
   EventsEventNameBookmarksRouteImport.update({
-    id: '/events/$eventName/bookmarks',
-    path: '/events/$eventName/bookmarks',
+    id: "/events/$eventName/bookmarks",
+    path: "/events/$eventName/bookmarks",
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/events/$eventName/bookmarks': typeof EventsEventNameBookmarksRoute
-  '/events/$eventName': typeof EventsEventNameIndexRoute
+  "/": typeof IndexRoute;
+  "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
+  "/events/$eventName": typeof EventsEventNameIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/events/$eventName/bookmarks': typeof EventsEventNameBookmarksRoute
-  '/events/$eventName': typeof EventsEventNameIndexRoute
+  "/": typeof IndexRoute;
+  "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
+  "/events/$eventName": typeof EventsEventNameIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/events/$eventName/bookmarks': typeof EventsEventNameBookmarksRoute
-  '/events/$eventName/': typeof EventsEventNameIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
+  "/events/$eventName/": typeof EventsEventNameIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/events/$eventName/bookmarks' | '/events/$eventName'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/events/$eventName/bookmarks' | '/events/$eventName'
-  id: '__root__' | '/' | '/events/$eventName/bookmarks' | '/events/$eventName/'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/events/$eventName/bookmarks" | "/events/$eventName";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/events/$eventName/bookmarks" | "/events/$eventName";
+  id: "__root__" | "/" | "/events/$eventName/bookmarks" | "/events/$eventName/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  EventsEventNameBookmarksRoute: typeof EventsEventNameBookmarksRoute
-  EventsEventNameIndexRoute: typeof EventsEventNameIndexRoute
+  IndexRoute: typeof IndexRoute;
+  EventsEventNameBookmarksRoute: typeof EventsEventNameBookmarksRoute;
+  EventsEventNameIndexRoute: typeof EventsEventNameIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events/$eventName/': {
-      id: '/events/$eventName/'
-      path: '/events/$eventName'
-      fullPath: '/events/$eventName'
-      preLoaderRoute: typeof EventsEventNameIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events/$eventName/bookmarks': {
-      id: '/events/$eventName/bookmarks'
-      path: '/events/$eventName/bookmarks'
-      fullPath: '/events/$eventName/bookmarks'
-      preLoaderRoute: typeof EventsEventNameBookmarksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/events/$eventName/": {
+      id: "/events/$eventName/";
+      path: "/events/$eventName";
+      fullPath: "/events/$eventName";
+      preLoaderRoute: typeof EventsEventNameIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/events/$eventName/bookmarks": {
+      id: "/events/$eventName/bookmarks";
+      path: "/events/$eventName/bookmarks";
+      fullPath: "/events/$eventName/bookmarks";
+      preLoaderRoute: typeof EventsEventNameBookmarksRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -90,7 +90,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EventsEventNameBookmarksRoute: EventsEventNameBookmarksRoute,
   EventsEventNameIndexRoute: EventsEventNameIndexRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
