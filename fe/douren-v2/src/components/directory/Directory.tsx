@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
+import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { StoreApi } from "zustand";
 import { useStore } from "zustand";
 import type { DirectoryFilters } from "@/types/models";
 import { createDirectoryStore, type DirectoryState } from "./directoryStore";
+import {
+  Pagination as PaginationComponent,
+  type PaginationParams,
+} from "./pagination";
 
 interface DirectoryRootProps {
   children: ReactNode;
@@ -14,14 +18,11 @@ interface DirectoryRootProps {
 }
 
 interface DirectoryPaginationProps {
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage: number;
+  pagination: PaginationParams;
 }
 
 interface DirectoryMiniPaginationProps {
-  totalPages: number;
-  disabled?: boolean;
+  pagination: PaginationParams;
 }
 
 const DirectoryContext = createContext<StoreApi<DirectoryState> | null>(null);
@@ -119,41 +120,16 @@ const DirectoryDayTabs = () => {
 };
 
 const DirectoryMiniPagination = ({
-  totalPages,
-  disabled = false,
+  pagination,
 }: DirectoryMiniPaginationProps) => {
-  const currentPage = useDirectoryStore((state) => state.filters.page);
   const setPage = useDirectoryStore((state) => state.setPage);
-  const safeTotalPages = Math.max(totalPages, 1);
-  const isPrevDisabled = disabled || currentPage <= 1;
-  const isNextDisabled = disabled || currentPage >= safeTotalPages;
 
   return (
-    <div className="pb-4 flex items-center gap-2 md:gap-3 font-mono cursor-pointer">
-      <button
-        type="button"
-        onClick={() => setPage(currentPage - 1)}
-        disabled={isPrevDisabled}
-        className="group p-1.5 text-archive-text/45 hover:text-archive-text disabled:text-archive-text/20 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
-        aria-label="Previous page"
-      >
-        <ChevronLeftIcon className="h-5 w-5" />
-      </button>
-
-      <span className="text-xs tracking-[0.15em] text-archive-text font-sans">
-        {Math.min(currentPage, safeTotalPages)} / {safeTotalPages}
-      </span>
-
-      <button
-        type="button"
-        onClick={() => setPage(currentPage + 1)}
-        disabled={isNextDisabled}
-        className="group p-1.5 text-archive-text/45 hover:text-archive-text disabled:text-archive-text/20 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
-        aria-label="Next page"
-      >
-        <ChevronRightIcon className="h-5 w-5" />
-      </button>
-    </div>
+    <PaginationComponent
+      pagination={pagination}
+      onPageChange={setPage}
+      variant="mini"
+    />
   );
 };
 
@@ -246,113 +222,10 @@ const DirectoryList = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const DirectoryPagination = ({
-  totalPages,
-  totalItems,
-  itemsPerPage,
-}: DirectoryPaginationProps) => {
-  const currentPage = useDirectoryStore((state) => state.filters.page);
+const DirectoryPagination = ({ pagination }: DirectoryPaginationProps) => {
   const setPage = useDirectoryStore((state) => state.setPage);
-  if (totalPages <= 1) return null;
 
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
-
-  const getPageNumbers = () => {
-    const pages: (number | string)[] = [];
-    const maxVisible = 7;
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i += 1) pages.push(i);
-    } else if (currentPage <= 3) {
-      for (let i = 1; i <= 5; i += 1) pages.push(i);
-      pages.push("...");
-      pages.push(totalPages);
-    } else if (currentPage >= totalPages - 2) {
-      pages.push(1);
-      pages.push("...");
-      for (let i = totalPages - 4; i <= totalPages; i += 1) pages.push(i);
-    } else {
-      pages.push(1);
-      pages.push("...");
-      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) pages.push(i);
-      pages.push("...");
-      pages.push(totalPages);
-    }
-    return pages;
-  };
-
-  return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 pb-4 border-t border-archive-border">
-      <div className="text-sm font-mono text-archive-text/60">
-        顯示第 <span className="text-archive-text">{startItem}</span> 至{" "}
-        <span className="text-archive-text">{endItem}</span> 筆，共{" "}
-        <span className="text-archive-text">{totalItems}</span> 位創作者
-      </div>
-
-      <div className="flex items-center gap-2 cursor-pointer">
-        <button
-          onClick={() => setPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300 cursor-pointer"
-          aria-label="Previous page"
-        >
-          <ChevronLeftIcon
-            size={16}
-            className="text-archive-text group-hover:text-archive-text group-hover:-translate-x-0.5 transition-all duration-300"
-          />
-        </button>
-
-        <div className="flex items-center gap-1">
-          {getPageNumbers().map((page, index) => {
-            if (page === "...") {
-              return (
-                <span
-                  key={`ellipsis-${index}`}
-                  className="px-3 py-2 text-sm font-mono text-archive-text/40"
-                >
-                  ...
-                </span>
-              );
-            }
-            const pageNum = page as number;
-            const isActive = pageNum === currentPage;
-            return (
-              <button
-                key={pageNum}
-                onClick={() => setPage(pageNum)}
-                className={`relative px-3 py-2 text-sm font-mono rounded-sm transition-all duration-300 cursor-pointer ${
-                  isActive
-                    ? "text-archive-text bg-archive-accent/10"
-                    : "text-archive-text/60 hover:text-archive-text hover:bg-archive-hover/50"
-                }`}
-              >
-                {pageNum}
-                {isActive ? (
-                  <motion.div
-                    layoutId="activePage"
-                    className="absolute inset-0 border border-archive-accent rounded-sm"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
-
-        <button
-          onClick={() => setPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300 cursor-pointer"
-          aria-label="Next page"
-        >
-          <ChevronRightIcon
-            size={16}
-            className="text-archive-text group-hover:text-archive-text group-hover:translate-x-0.5 transition-all duration-300"
-          />
-        </button>
-      </div>
-    </div>
-  );
+  return <PaginationComponent pagination={pagination} onPageChange={setPage} />;
 };
 
 const DirectoryEmptyState = ({
