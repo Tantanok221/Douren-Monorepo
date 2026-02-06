@@ -1,5 +1,13 @@
 import { initDB, s } from "@pkg/database/db";
-import { AnyColumn, asc, count, countDistinct, desc, eq, inArray } from "drizzle-orm";
+import {
+	AnyColumn,
+	asc,
+	count,
+	countDistinct,
+	desc,
+	eq,
+	inArray,
+} from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
 import { PAGE_SIZE } from "@/helper/constant";
@@ -8,7 +16,9 @@ import { processTagConditions } from "@/helper/processTagConditions";
 import { ArtistFetchParams, EventArtistFetchParams } from "@/utlis/fetchHelper";
 import { DerivedFetchParams } from "@/utlis/paramHelper";
 
-function getDayLocationColumn(day?: "day1" | "day2" | "day3"): AnyColumn | undefined {
+function getDayLocationColumn(
+	day?: "day1" | "day2" | "day3",
+): AnyColumn | undefined {
 	if (day === "day1") return s.eventDm.locationDay01;
 	if (day === "day2") return s.eventDm.locationDay02;
 	if (day === "day3") return s.eventDm.locationDay03;
@@ -149,7 +159,10 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			);
 		}
 		if (this.fetchParams.artistIds?.length) {
-			const artistIdsFilter = inArray(s.eventDm.artistId, this.fetchParams.artistIds);
+			const artistIdsFilter = inArray(
+				s.eventDm.artistId,
+				this.fetchParams.artistIds,
+			);
 			SelectQuery.withFilter(artistIdsFilter);
 			CountQuery.withFilter(artistIdsFilter);
 		}
