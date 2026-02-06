@@ -8,6 +8,7 @@ import {
   PlusIcon,
   TwitterIcon,
 } from "lucide-react";
+import { SiPixiv, SiPlurk } from "react-icons/si";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { ArtistViewModel } from "@/types/models";
 import { ImageLightbox } from "./ImageLightbox";
@@ -83,7 +84,7 @@ const ArtistCardSummary = () => {
   return (
     <button
       onClick={toggle}
-      className="w-full py-5 flex items-start gap-4 text-left transition-colors duration-300 hover:bg-archive-hover/50 px-2 -mx-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-archive-accent"
+      className="w-full py-5 flex items-start gap-4 text-left transition-colors duration-300 hover:bg-archive-hover/50 px-2 -mx-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-archive-accent cursor-pointer"
     >
       <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-sm overflow-hidden bg-archive-border/30">
         <img
@@ -96,7 +97,7 @@ const ArtistCardSummary = () => {
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex justify-between items-start gap-4">
           <div className="flex flex-col">
-            <span className="text-lg md:text-xl font-sans font-medium text-archive-text group-hover:text-archive-accent transition-colors duration-300 leading-tight">
+            <span className="text-lg md:text-xl font-sans font-medium text-archive-text group-hover:text-archive-text/80 transition-colors duration-300 leading-tight">
               {artist.name}
             </span>
             <span className="text-sm font-mono text-archive-text/60 mt-1">
@@ -107,7 +108,7 @@ const ArtistCardSummary = () => {
           <div className="flex items-center gap-3">
             <div
               onClick={handleBookmark}
-              className="text-archive-text/40 hover:text-archive-accent transition-colors p-1"
+              className="text-archive-text/40 hover:text-archive-text transition-colors p-1 cursor-pointer"
             >
               <BookmarkIcon
                 size={18}
@@ -117,7 +118,7 @@ const ArtistCardSummary = () => {
                 }
               />
             </div>
-            <span className="text-archive-accent">
+            <span className="text-archive-text">
               {isOpen ? <MinusIcon size={18} /> : <PlusIcon size={18} />}
             </span>
           </div>
@@ -170,7 +171,7 @@ const ArtistCardSummary = () => {
               href={artist.socials.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-[#1DA1F2] transition-colors"
+              className="text-archive-text/40 hover:text-[#1DA1F2] transition-colors cursor-pointer"
               aria-label="Twitter"
             >
               <TwitterIcon size={18} />
@@ -181,7 +182,7 @@ const ArtistCardSummary = () => {
               href={artist.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-[#E1306C] transition-colors"
+              className="text-archive-text/40 hover:text-[#E1306C] transition-colors cursor-pointer"
               aria-label="Instagram"
             >
               <InstagramIcon size={18} />
@@ -192,7 +193,7 @@ const ArtistCardSummary = () => {
               href={artist.socials.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-[#1877F2] transition-colors"
+              className="text-archive-text/40 hover:text-[#1877F2] transition-colors cursor-pointer"
               aria-label="Facebook"
             >
               <FacebookIcon size={18} />
@@ -203,7 +204,7 @@ const ArtistCardSummary = () => {
               href={artist.socials.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-archive-accent transition-colors"
+              className="text-archive-text/40 hover:text-archive-text transition-colors cursor-pointer"
               aria-label="Website"
             >
               <GlobeIcon size={18} />
@@ -214,10 +215,10 @@ const ArtistCardSummary = () => {
               href={artist.socials.pixiv}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-archive-accent transition-colors text-xs font-mono"
+              className="text-archive-text/40 hover:text-archive-text transition-colors text-xs font-mono cursor-pointer"
               aria-label="Pixiv"
             >
-              PX
+              <SiPixiv size={16} />
             </a>
           ) : null}
           {artist.socials.plurk ? (
@@ -225,10 +226,10 @@ const ArtistCardSummary = () => {
               href={artist.socials.plurk}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-archive-text/40 hover:text-archive-accent transition-colors text-xs font-mono"
+              className="text-archive-text/40 hover:text-archive-text transition-colors text-xs font-mono cursor-pointer"
               aria-label="Plurk"
             >
-              PL
+              <SiPlurk size={16} />
             </a>
           ) : null}
         </div>
@@ -330,7 +331,7 @@ const ArtistCardDetails = () => {
                           href={artist.socials.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-[#1DA1F2] transition-colors"
+                          className="text-archive-text/60 hover:text-[#1DA1F2] transition-colors cursor-pointer"
                         >
                           <TwitterIcon size={24} />
                         </a>
@@ -340,7 +341,7 @@ const ArtistCardDetails = () => {
                           href={artist.socials.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-[#E1306C] transition-colors"
+                          className="text-archive-text/60 hover:text-[#E1306C] transition-colors cursor-pointer"
                         >
                           <InstagramIcon size={24} />
                         </a>
@@ -350,7 +351,7 @@ const ArtistCardDetails = () => {
                           href={artist.socials.facebook}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-[#1877F2] transition-colors"
+                          className="text-archive-text/60 hover:text-[#1877F2] transition-colors cursor-pointer"
                         >
                           <FacebookIcon size={24} />
                         </a>
@@ -360,7 +361,7 @@ const ArtistCardDetails = () => {
                           href={artist.socials.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-archive-accent transition-colors"
+                          className="text-archive-text/60 hover:text-archive-text transition-colors cursor-pointer"
                         >
                           <GlobeIcon size={24} />
                         </a>
@@ -370,9 +371,9 @@ const ArtistCardDetails = () => {
                           href={artist.socials.pixiv}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-archive-accent transition-colors text-sm font-mono flex items-center"
+                          className="text-archive-text/60 hover:text-archive-text transition-colors text-sm font-mono flex items-center cursor-pointer"
                         >
-                          Pixiv
+                          <SiPixiv size={20} />
                         </a>
                       ) : null}
                       {artist.socials.plurk ? (
@@ -380,9 +381,9 @@ const ArtistCardDetails = () => {
                           href={artist.socials.plurk}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-archive-text/60 hover:text-archive-accent transition-colors text-sm font-mono flex items-center"
+                          className="text-archive-text/60 hover:text-archive-text transition-colors text-sm font-mono flex items-center cursor-pointer"
                         >
-                          Plurk
+                          <SiPlurk size={20} />
                         </a>
                       ) : null}
                     </div>

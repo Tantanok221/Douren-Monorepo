@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronDownIcon, SearchIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { StoreApi } from "zustand";
@@ -17,6 +17,11 @@ interface DirectoryPaginationProps {
   totalPages: number;
   totalItems: number;
   itemsPerPage: number;
+}
+
+interface DirectoryMiniPaginationProps {
+  totalPages: number;
+  disabled?: boolean;
 }
 
 const DirectoryContext = createContext<StoreApi<DirectoryState> | null>(null);
@@ -45,11 +50,21 @@ const DirectoryRoot = ({
   }, [availableTags, store]);
 
   return (
-    <DirectoryContext.Provider value={store}>{children}</DirectoryContext.Provider>
+    <DirectoryContext.Provider value={store}>
+      {children}
+    </DirectoryContext.Provider>
   );
 };
 
 const DAYS = ["全部", "第一天", "第二天", "第三天"];
+
+const DirectoryDayBar = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="mb-8 border-b border-archive-border flex items-end justify-between gap-4">
+      {children}
+    </div>
+  );
+};
 
 const DirectoryDayTabs = () => {
   const day = useDirectoryStore((state) => state.filters.day);
@@ -69,7 +84,7 @@ const DirectoryDayTabs = () => {
   }, [day]);
 
   return (
-    <div className="relative flex gap-4 mb-8 border-b border-archive-border overflow-x-auto">
+    <div className="relative flex gap-4 overflow-x-auto flex-1 min-w-0">
       <div className="flex gap-4 pb-4">
         {DAYS.map((tabDay, index) => {
           const isActive = day === tabDay;
@@ -80,10 +95,10 @@ const DirectoryDayTabs = () => {
                 buttonRefs.current[index] = el;
               }}
               onClick={() => setDay(tabDay)}
-              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-2 px-4 rounded-sm whitespace-nowrap ${
+              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-2 px-4 whitespace-nowrap cursor-pointer ${
                 isActive
-                  ? "text-archive-text bg-archive-accent/15"
-                  : "text-archive-text/40 hover:text-archive-text/70 hover:bg-archive-hover/50"
+                  ? "text-archive-text"
+                  : "text-archive-text/80 hover:text-archive-text/95"
               }`}
             >
               {tabDay}
@@ -92,13 +107,52 @@ const DirectoryDayTabs = () => {
         })}
       </div>
       <motion.div
-        className="absolute bottom-0 h-0.5 bg-archive-accent"
+        className="absolute bottom-0 h-0.5 bg-archive-text"
         animate={{
           left: indicatorStyle.left,
           width: indicatorStyle.width,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       />
+    </div>
+  );
+};
+
+const DirectoryMiniPagination = ({
+  totalPages,
+  disabled = false,
+}: DirectoryMiniPaginationProps) => {
+  const currentPage = useDirectoryStore((state) => state.filters.page);
+  const setPage = useDirectoryStore((state) => state.setPage);
+  const safeTotalPages = Math.max(totalPages, 1);
+  const isPrevDisabled = disabled || currentPage <= 1;
+  const isNextDisabled = disabled || currentPage >= safeTotalPages;
+
+  return (
+    <div className="pb-4 flex items-center gap-2 md:gap-3 font-mono cursor-pointer">
+      <button
+        type="button"
+        onClick={() => setPage(currentPage - 1)}
+        disabled={isPrevDisabled}
+        className="group p-1.5 text-archive-text/45 hover:text-archive-text disabled:text-archive-text/20 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
+        aria-label="Previous page"
+      >
+        <ChevronLeftIcon className="h-5 w-5" />
+      </button>
+
+      <span className="text-xs tracking-[0.15em] text-archive-text font-sans">
+        {Math.min(currentPage, safeTotalPages)} / {safeTotalPages}
+      </span>
+
+      <button
+        type="button"
+        onClick={() => setPage(currentPage + 1)}
+        disabled={isNextDisabled}
+        className="group p-1.5 text-archive-text/45 hover:text-archive-text disabled:text-archive-text/20 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
+        aria-label="Next page"
+      >
+        <ChevronRightIcon className="h-5 w-5" />
+      </button>
     </div>
   );
 };
@@ -119,13 +173,13 @@ const DirectorySearch = () => {
   return (
     <div className="col-span-1 md:col-span-6 relative group">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <SearchIcon className="h-4 w-4 text-archive-text/40 group-focus-within:text-archive-accent transition-colors duration-300" />
+        <SearchIcon className="h-4 w-4 text-archive-text/40 group-focus-within:text-archive-text transition-colors duration-300" />
       </div>
       <input
         type="text"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
-        placeholder="Search artist..."
+        placeholder="搜尋創作者或攤位..."
         className="block w-full pl-10 pr-3 py-2 border-b border-archive-border bg-transparent text-archive-text placeholder-archive-text/40 focus:outline-none focus:border-archive-accent transition-colors duration-300 font-mono text-sm"
       />
     </div>
@@ -146,11 +200,11 @@ const DirectorySortSelect = () => {
           }
           className="block w-full pl-3 pr-10 py-2 border-b border-archive-border bg-transparent text-archive-text focus:outline-none focus:border-archive-accent transition-colors duration-300 font-mono text-sm appearance-none cursor-pointer hover:bg-archive-hover/30"
         >
-          <option value="asc">Name (A-Z)</option>
-          <option value="desc">Name (Z-A)</option>
+          <option value="asc">名稱（A-Z）</option>
+          <option value="desc">名稱（Z-A）</option>
         </select>
         <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-          <ChevronDownIcon className="h-4 w-4 text-archive-text/40 group-hover:text-archive-accent group-hover:translate-y-0.5 transition-all duration-300" />
+          <ChevronDownIcon className="h-4 w-4 text-archive-text/40 group-hover:text-archive-text group-hover:translate-y-0.5 transition-all duration-300" />
         </div>
       </div>
     </div>
@@ -177,7 +231,7 @@ const DirectoryTagSelect = () => {
           ))}
         </select>
         <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-          <ChevronDownIcon className="h-4 w-4 text-archive-text/40 group-hover:text-archive-accent group-hover:translate-y-0.5 transition-all duration-300" />
+          <ChevronDownIcon className="h-4 w-4 text-archive-text/40 group-hover:text-archive-text group-hover:translate-y-0.5 transition-all duration-300" />
         </div>
       </div>
     </div>
@@ -230,19 +284,22 @@ const DirectoryPagination = ({
   return (
     <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 pb-4 border-t border-archive-border">
       <div className="text-sm font-mono text-archive-text/60">
-        Showing <span className="text-archive-text">{startItem}</span> to{" "}
-        <span className="text-archive-text">{endItem}</span> of{" "}
-        <span className="text-archive-text">{totalItems}</span> artists
+        顯示第 <span className="text-archive-text">{startItem}</span> 至{" "}
+        <span className="text-archive-text">{endItem}</span> 筆，共{" "}
+        <span className="text-archive-text">{totalItems}</span> 位創作者
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 cursor-pointer">
         <button
           onClick={() => setPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300"
+          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300 cursor-pointer"
           aria-label="Previous page"
         >
-          <ChevronDownIcon className="h-4 w-4 text-archive-text rotate-90 group-hover:-translate-x-0.5 transition-all duration-300" />
+          <ChevronLeftIcon
+            size={16}
+            className="text-archive-text group-hover:text-archive-text group-hover:-translate-x-0.5 transition-all duration-300"
+          />
         </button>
 
         <div className="flex items-center gap-1">
@@ -263,7 +320,7 @@ const DirectoryPagination = ({
               <button
                 key={pageNum}
                 onClick={() => setPage(pageNum)}
-                className={`relative px-3 py-2 text-sm font-mono rounded-sm transition-all duration-300 ${
+                className={`relative px-3 py-2 text-sm font-mono rounded-sm transition-all duration-300 cursor-pointer ${
                   isActive
                     ? "text-archive-text bg-archive-accent/10"
                     : "text-archive-text/60 hover:text-archive-text hover:bg-archive-hover/50"
@@ -285,17 +342,26 @@ const DirectoryPagination = ({
         <button
           onClick={() => setPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300"
+          className="group p-2 rounded-sm border border-archive-border hover:border-archive-accent hover:bg-archive-hover/50 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-archive-border disabled:hover:bg-transparent transition-all duration-300 cursor-pointer"
           aria-label="Next page"
         >
-          <ChevronDownIcon className="h-4 w-4 text-archive-text -rotate-90 group-hover:translate-x-0.5 transition-all duration-300" />
+          <ChevronRightIcon
+            size={16}
+            className="text-archive-text group-hover:text-archive-text group-hover:translate-x-0.5 transition-all duration-300"
+          />
         </button>
       </div>
     </div>
   );
 };
 
-const DirectoryEmptyState = ({ title, subtitle }: { title: string; subtitle: string }) => {
+const DirectoryEmptyState = ({
+  title,
+  subtitle,
+}: {
+  title: string;
+  subtitle: string;
+}) => {
   return (
     <div className="py-20 text-center flex flex-col items-center justify-center text-archive-text/40">
       <span className="font-sans text-lg mb-2">{title}</span>
@@ -306,7 +372,9 @@ const DirectoryEmptyState = ({ title, subtitle }: { title: string; subtitle: str
 
 export const Directory = {
   Root: DirectoryRoot,
+  DayBar: DirectoryDayBar,
   DayTabs: DirectoryDayTabs,
+  MiniPagination: DirectoryMiniPagination,
   FilterBar: DirectoryFilterBar,
   Search: DirectorySearch,
   SortSelect: DirectorySortSelect,

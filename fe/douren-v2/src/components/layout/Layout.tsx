@@ -151,12 +151,12 @@ const LayoutHeader = ({
               同人檔案館
             </Link>
           </h1>
-          <p
+          <h2
             className="text-sm text-archive-text/70 max-w-md leading-relaxed"
             style={{ fontFamily: "'Noto Serif TC', serif" }}
           >
             動漫展會與同人活動的創作者名錄。瀏覽、搜尋並收藏您喜愛的創作者。
-          </p>
+          </h2>
           {selectedEvent ? (
             <span className="text-xs font-mono text-archive-text/40 mt-1">
               活動檔案 • {selectedEvent.code}
@@ -175,11 +175,11 @@ const LayoutHeader = ({
           >
             {events.map((event) => (
               <option key={event.id} value={event.id}>
-                {event.name} ({event.code})
+                {event.code || event.name}
               </option>
             ))}
           </select>
-          <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/40 group-hover:text-archive-accent group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
+          <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/40 group-hover:text-archive-text group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
         </div>
       </div>
 
@@ -199,7 +199,7 @@ const LayoutHeader = ({
               {!isBookmarks ? (
                 <motion.div
                   layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-accent"
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               ) : null}
@@ -223,7 +223,7 @@ const LayoutHeader = ({
               {isBookmarks ? (
                 <motion.div
                   layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-accent"
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               ) : null}
@@ -246,7 +246,9 @@ const LayoutHeader = ({
 const LayoutFooter = ({ eventCode }: LayoutFooterProps) => {
   return (
     <footer className="mt-20 py-8 border-t border-archive-border flex flex-col md:flex-row justify-between items-center text-xs font-sans text-archive-text/40 gap-4 md:gap-0">
-      <div>© 2024 同人檔案館 • {eventCode ?? "活動"}</div>
+      <div>
+        © 2026 同人檔案館 • {eventCode ? `${eventCode} 活動` : "活動"}
+      </div>
       <div className="flex gap-6">
         <a href="#" className="hover:text-archive-text transition-colors">
           關於
