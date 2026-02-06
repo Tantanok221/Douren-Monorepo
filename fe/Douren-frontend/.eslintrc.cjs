@@ -11,7 +11,12 @@ module.exports = {
     "prettier",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs", "template", "routeTree.gen.ts"],
-  parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: "./tsconfig.json",
+    tsconfigRootDir: __dirname,
+  },
   settings: { react: { version: "18.2" } },
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh", "react", "react-hooks", "@typescript-eslint"],
