@@ -29,6 +29,17 @@ interface LayoutFooterProps {
   eventCode?: string;
 }
 
+export const DAY_FILTER_COLOR_CLASSES = {
+  active: "text-archive-text",
+  inactive: "text-archive-text/80 hover:text-archive-text/95",
+} as const;
+
+export const getEventNavLinkColorClass = (isActive: boolean): string =>
+  isActive ? DAY_FILTER_COLOR_CLASSES.active : DAY_FILTER_COLOR_CLASSES.inactive;
+
+export const getEventSelectorColorClass = (): string =>
+  `${DAY_FILTER_COLOR_CLASSES.inactive} focus:text-archive-text`;
+
 const LayoutRoot = ({ children }: LayoutRootProps) => {
   return (
     <div className="min-h-screen w-full bg-archive-bg text-archive-text px-4 md:px-8 lg:px-12 py-8">
@@ -171,7 +182,7 @@ const LayoutHeader = ({
               const next = events.find((item) => item.id === Number(event.target.value));
               if (next) onEventChange(next);
             }}
-            className="appearance-none bg-transparent text-sm font-mono text-archive-text/60 hover:text-archive-text pr-8 py-1.5 cursor-pointer focus:outline-none transition-colors duration-300 border border-archive-border hover:border-archive-accent rounded-sm px-3"
+            className={`appearance-none bg-transparent text-sm font-mono ${getEventSelectorColorClass()} pr-8 py-1.5 cursor-pointer focus:outline-none transition-all duration-300 border border-archive-border hover:border-archive-accent focus:border-archive-accent rounded-sm px-3`}
           >
             {events.map((event) => (
               <option key={event.id} value={event.id}>
@@ -179,7 +190,7 @@ const LayoutHeader = ({
               </option>
             ))}
           </select>
-          <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/40 group-hover:text-archive-text group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
+          <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/80 group-hover:text-archive-text/95 group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
         </div>
       </div>
 
@@ -189,11 +200,7 @@ const LayoutHeader = ({
             <Link
               to="/events/$eventName"
               params={{ eventName: selectedEvent.name }}
-              className={`relative text-sm font-sans tracking-wider transition-colors duration-300 py-1 ${
-                !isBookmarks
-                  ? "text-archive-text"
-                  : "text-archive-text/40 hover:text-archive-text/70"
-              }`}
+              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(!isBookmarks)}`}
             >
               所有創作者
               {!isBookmarks ? (
@@ -205,7 +212,7 @@ const LayoutHeader = ({
               ) : null}
             </Link>
           ) : (
-            <span className="text-sm font-sans tracking-wider text-archive-text/40">
+            <span className="text-sm font-sans tracking-wider text-archive-text/80">
               所有創作者
             </span>
           )}
@@ -213,11 +220,7 @@ const LayoutHeader = ({
             <Link
               to="/events/$eventName/bookmarks"
               params={{ eventName: selectedEvent.name }}
-              className={`relative text-sm font-sans tracking-wider transition-colors duration-300 py-1 ${
-                isBookmarks
-                  ? "text-archive-text"
-                  : "text-archive-text/40 hover:text-archive-text/70"
-              }`}
+              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(isBookmarks)}`}
             >
               我的收藏
               {isBookmarks ? (
@@ -229,7 +232,7 @@ const LayoutHeader = ({
               ) : null}
             </Link>
           ) : (
-            <span className="text-sm font-sans tracking-wider text-archive-text/40">
+            <span className="text-sm font-sans tracking-wider text-archive-text/80">
               我的收藏
             </span>
           )}

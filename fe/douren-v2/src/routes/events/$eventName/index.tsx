@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import { Directory, useDirectoryStore } from "@/components/directory/Directory";
+import { toPaginationParams } from "@/components/directory/pagination";
 import { ArtistCard } from "@/components/artist/ArtistCard";
 import { trpc } from "@/helper/trpc";
 import { useBookmarks } from "@/hooks/useBookmarks";
@@ -11,16 +12,30 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
   const filters = useDirectoryStore((state) => state.filters);
   const { bookmarks, toggle } = useBookmarks();
   const queryParams = useDirectoryQueryParams(filters);
-  const artistsQuery = trpc.eventArtist.getEvent.useQuery({
-    eventName,
-    ...queryParams,
-  }, {
-    placeholderData: (previousData) => previousData,
-  });
+  const artistsQuery = trpc.eventArtist.getEvent.useQuery(
+    {
+      eventName,
+      ...queryParams,
+    },
+    {
+      placeholderData: (previousData) => previousData,
+    },
+  );
 
   const artists = useMemo(() => {
     return artistsQuery.data?.data.map(toArtistViewModel) ?? [];
   }, [artistsQuery.data]);
+  const pagination = useMemo(
+    () =>
+      toPaginationParams({
+        currentPage: filters.page,
+        totalPage: artistsQuery.data?.totalPage ?? 1,
+        totalCount: artistsQuery.data?.totalCount ?? 0,
+        pageSize: artistsQuery.data?.pageSize ?? 1,
+        disabled: artistsQuery.isPending || !artistsQuery.data,
+      }),
+    [artistsQuery.data, artistsQuery.isPending, filters.page],
+  );
 
   if (artistsQuery.isError) {
     return (
@@ -35,10 +50,7 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
     <>
       <Directory.DayBar>
         <Directory.DayTabs />
-        <Directory.MiniPagination
-          totalPages={artistsQuery.data?.totalPage ?? 1}
-          disabled={artistsQuery.isPending || !artistsQuery.data}
-        />
+        <Directory.MiniPagination pagination={pagination} />
       </Directory.DayBar>
       <Directory.FilterBar />
       <Directory.List>
@@ -67,11 +79,7 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
         )}
       </Directory.List>
       {artistsQuery.data ? (
-        <Directory.Pagination
-          totalPages={artistsQuery.data.totalPage}
-          totalItems={artistsQuery.data.totalCount}
-          itemsPerPage={artistsQuery.data.pageSize}
-        />
+        <Directory.Pagination pagination={pagination} />
       ) : null}
     </>
   );
