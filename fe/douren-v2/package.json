@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "infisical run --env=dev -- vite",
-    "build": "vite build",
+    "build": "pnpm run sitemap:generate && vite build",
     "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier ./src",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sitemap:generate": "infisical run --env=prod -- node ./scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@mantine/hooks": "^7.12.2",
