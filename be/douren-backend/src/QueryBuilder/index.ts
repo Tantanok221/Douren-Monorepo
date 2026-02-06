@@ -1,5 +1,5 @@
 import { initDB, s } from "@pkg/database/db";
-import { asc, count, countDistinct, desc, eq } from "drizzle-orm";
+import { AnyColumn, asc, count, countDistinct, desc, eq, inArray } from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
 import { PAGE_SIZE } from "@/helper/constant";
@@ -7,6 +7,13 @@ import { processTableName } from "@/helper/processTableName";
 import { processTagConditions } from "@/helper/processTagConditions";
 import { ArtistFetchParams, EventArtistFetchParams } from "@/utlis/fetchHelper";
 import { DerivedFetchParams } from "@/utlis/paramHelper";
+
+function getDayLocationColumn(day?: "day1" | "day2" | "day3"): AnyColumn | undefined {
+	if (day === "day1") return s.eventDm.locationDay01;
+	if (day === "day2") return s.eventDm.locationDay02;
+	if (day === "day3") return s.eventDm.locationDay03;
+	return undefined;
+}
 
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;
@@ -129,6 +136,22 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 				this.fetchParams.search,
 				this.derivedFetchParams.searchTable,
 			);
+		}
+		const dayLocationColumn = getDayLocationColumn(this.fetchParams.day);
+		if (dayLocationColumn) {
+			SelectQuery.withTableIsNotNull(dayLocationColumn).withTableIsNot(
+				dayLocationColumn,
+				"",
+			);
+			CountQuery.withTableIsNotNull(dayLocationColumn).withTableIsNot(
+				dayLocationColumn,
+				"",
+			);
+		}
+		if (this.fetchParams.artistIds?.length) {
+			const artistIdsFilter = inArray(s.eventDm.artistId, this.fetchParams.artistIds);
+			SelectQuery.withFilter(artistIdsFilter);
+			CountQuery.withFilter(artistIdsFilter);
 		}
 		return { SelectQuery, CountQuery };
 	}
