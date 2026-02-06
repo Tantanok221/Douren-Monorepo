@@ -106,7 +106,7 @@ jobs:
           fi
           wrangler pages deploy dist --branch "$PAGES_BRANCH"
 
-          PREVIEW_URL="https://$PAGES_BRANCH.douren-v2.pages.dev"
+          PREVIEW_URL="https://$PAGES_BRANCH.douren-frontend.pages.dev"
           echo "PAGES_PREVIEW_URL=$PREVIEW_URL" >> "$GITHUB_ENV"
           echo "PAGES_PREVIEW_ALIASES=" >> "$GITHUB_ENV"
           echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
