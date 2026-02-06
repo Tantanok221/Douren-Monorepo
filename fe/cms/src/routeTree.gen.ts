@@ -8,230 +8,230 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as ResetPasswordRouteImport } from "./routes/reset-password";
-import { Route as RegisterRouteImport } from "./routes/register";
-import { Route as LoginRouteImport } from "./routes/login";
-import { Route as ForgotPasswordRouteImport } from "./routes/forgot-password";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as NewIndexRouteImport } from "./routes/new/index";
-import { Route as AdminUsersRouteImport } from "./routes/admin/users";
-import { Route as AdminTagsRouteImport } from "./routes/admin/tags";
-import { Route as AdminEventsRouteImport } from "./routes/admin/events";
-import { Route as EditArtistIdIndexRouteImport } from "./routes/edit.$artistId/index";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as NewIndexRouteImport } from './routes/new/index'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminTagsRouteImport } from './routes/admin/tags'
+import { Route as AdminEventsRouteImport } from './routes/admin/events'
+import { Route as EditArtistIdIndexRouteImport } from './routes/edit.$artistId/index'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: "/reset-password",
-  path: "/reset-password",
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
-  id: "/register",
-  path: "/register",
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LoginRoute = LoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: "/forgot-password",
-  path: "/forgot-password",
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const NewIndexRoute = NewIndexRouteImport.update({
-  id: "/new/",
-  path: "/new/",
+  id: '/new/',
+  path: '/new/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: "/admin/users",
-  path: "/admin/users",
+  id: '/admin/users',
+  path: '/admin/users',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminTagsRoute = AdminTagsRouteImport.update({
-  id: "/admin/tags",
-  path: "/admin/tags",
+  id: '/admin/tags',
+  path: '/admin/tags',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminEventsRoute = AdminEventsRouteImport.update({
-  id: "/admin/events",
-  path: "/admin/events",
+  id: '/admin/events',
+  path: '/admin/events',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
-  id: "/edit/$artistId/",
-  path: "/edit/$artistId/",
+  id: '/edit/$artistId/',
+  path: '/edit/$artistId/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/forgot-password": typeof ForgotPasswordRoute;
-  "/login": typeof LoginRoute;
-  "/register": typeof RegisterRoute;
-  "/reset-password": typeof ResetPasswordRoute;
-  "/admin/events": typeof AdminEventsRoute;
-  "/admin/tags": typeof AdminTagsRoute;
-  "/admin/users": typeof AdminUsersRoute;
-  "/new": typeof NewIndexRoute;
-  "/edit/$artistId": typeof EditArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/tags': typeof AdminTagsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/forgot-password": typeof ForgotPasswordRoute;
-  "/login": typeof LoginRoute;
-  "/register": typeof RegisterRoute;
-  "/reset-password": typeof ResetPasswordRoute;
-  "/admin/events": typeof AdminEventsRoute;
-  "/admin/tags": typeof AdminTagsRoute;
-  "/admin/users": typeof AdminUsersRoute;
-  "/new": typeof NewIndexRoute;
-  "/edit/$artistId": typeof EditArtistIdIndexRoute;
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/tags': typeof AdminTagsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/new': typeof NewIndexRoute
+  '/edit/$artistId': typeof EditArtistIdIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/forgot-password": typeof ForgotPasswordRoute;
-  "/login": typeof LoginRoute;
-  "/register": typeof RegisterRoute;
-  "/reset-password": typeof ResetPasswordRoute;
-  "/admin/events": typeof AdminEventsRoute;
-  "/admin/tags": typeof AdminTagsRoute;
-  "/admin/users": typeof AdminUsersRoute;
-  "/new/": typeof NewIndexRoute;
-  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/tags': typeof AdminTagsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/new/': typeof NewIndexRoute
+  '/edit/$artistId/': typeof EditArtistIdIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/forgot-password"
-    | "/login"
-    | "/register"
-    | "/reset-password"
-    | "/admin/events"
-    | "/admin/tags"
-    | "/admin/users"
-    | "/new"
-    | "/edit/$artistId";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/admin/events'
+    | '/admin/tags'
+    | '/admin/users'
+    | '/new'
+    | '/edit/$artistId'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/forgot-password"
-    | "/login"
-    | "/register"
-    | "/reset-password"
-    | "/admin/events"
-    | "/admin/tags"
-    | "/admin/users"
-    | "/new"
-    | "/edit/$artistId";
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/admin/events'
+    | '/admin/tags'
+    | '/admin/users'
+    | '/new'
+    | '/edit/$artistId'
   id:
-    | "__root__"
-    | "/"
-    | "/forgot-password"
-    | "/login"
-    | "/register"
-    | "/reset-password"
-    | "/admin/events"
-    | "/admin/tags"
-    | "/admin/users"
-    | "/new/"
-    | "/edit/$artistId/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/admin/events'
+    | '/admin/tags'
+    | '/admin/users'
+    | '/new/'
+    | '/edit/$artistId/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  ForgotPasswordRoute: typeof ForgotPasswordRoute;
-  LoginRoute: typeof LoginRoute;
-  RegisterRoute: typeof RegisterRoute;
-  ResetPasswordRoute: typeof ResetPasswordRoute;
-  AdminEventsRoute: typeof AdminEventsRoute;
-  AdminTagsRoute: typeof AdminTagsRoute;
-  AdminUsersRoute: typeof AdminUsersRoute;
-  NewIndexRoute: typeof NewIndexRoute;
-  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute;
+  IndexRoute: typeof IndexRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  AdminEventsRoute: typeof AdminEventsRoute
+  AdminTagsRoute: typeof AdminTagsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  NewIndexRoute: typeof NewIndexRoute
+  EditArtistIdIndexRoute: typeof EditArtistIdIndexRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/reset-password": {
-      id: "/reset-password";
-      path: "/reset-password";
-      fullPath: "/reset-password";
-      preLoaderRoute: typeof ResetPasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/register": {
-      id: "/register";
-      path: "/register";
-      fullPath: "/register";
-      preLoaderRoute: typeof RegisterRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/login": {
-      id: "/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof LoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/forgot-password": {
-      id: "/forgot-password";
-      path: "/forgot-password";
-      fullPath: "/forgot-password";
-      preLoaderRoute: typeof ForgotPasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/new/": {
-      id: "/new/";
-      path: "/new";
-      fullPath: "/new";
-      preLoaderRoute: typeof NewIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/users": {
-      id: "/admin/users";
-      path: "/admin/users";
-      fullPath: "/admin/users";
-      preLoaderRoute: typeof AdminUsersRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/tags": {
-      id: "/admin/tags";
-      path: "/admin/tags";
-      fullPath: "/admin/tags";
-      preLoaderRoute: typeof AdminTagsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/events": {
-      id: "/admin/events";
-      path: "/admin/events";
-      fullPath: "/admin/events";
-      preLoaderRoute: typeof AdminEventsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/edit/$artistId/": {
-      id: "/edit/$artistId/";
-      path: "/edit/$artistId";
-      fullPath: "/edit/$artistId";
-      preLoaderRoute: typeof EditArtistIdIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/': {
+      id: '/new/'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/tags': {
+      id: '/admin/tags'
+      path: '/admin/tags'
+      fullPath: '/admin/tags'
+      preLoaderRoute: typeof AdminTagsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/admin/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/edit/$artistId/': {
+      id: '/edit/$artistId/'
+      path: '/edit/$artistId'
+      fullPath: '/edit/$artistId'
+      preLoaderRoute: typeof EditArtistIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,7 +246,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminUsersRoute: AdminUsersRoute,
   NewIndexRoute: NewIndexRoute,
   EditArtistIdIndexRoute: EditArtistIdIndexRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
