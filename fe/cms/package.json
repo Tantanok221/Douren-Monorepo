@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint ./src",
     "preview": "vite preview",
-    "format": "prettier ./src --write",
+    "format": "prettier ./src --write --single-quote false --semi true",
     "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
   },
   "dependencies": {
