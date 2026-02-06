@@ -14,6 +14,8 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
   const artistsQuery = trpc.eventArtist.getEvent.useQuery({
     eventName,
     ...queryParams,
+  }, {
+    placeholderData: (previousData) => previousData,
   });
 
   const artists = useMemo(() => {
@@ -29,20 +31,22 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
     );
   }
 
-  if (!artistsQuery.data || artistsQuery.isPending) {
-    return (
-      <div className="py-20 text-center text-archive-text/60 font-mono">
-        Loading artists...
-      </div>
-    );
-  }
-
   return (
     <>
-      <Directory.DayTabs />
+      <Directory.DayBar>
+        <Directory.DayTabs />
+        <Directory.MiniPagination
+          totalPages={artistsQuery.data?.totalPage ?? 1}
+          disabled={artistsQuery.isPending || !artistsQuery.data}
+        />
+      </Directory.DayBar>
       <Directory.FilterBar />
       <Directory.List>
-        {artists.length > 0 ? (
+        {artistsQuery.isPending || !artistsQuery.data ? (
+          <div className="py-20 text-center text-archive-text/60 font-mono">
+            Loading artists...
+          </div>
+        ) : artists.length > 0 ? (
           artists.map((artist) => (
             <ArtistCard.Root
               key={artist.id}
@@ -62,11 +66,13 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
           />
         )}
       </Directory.List>
-      <Directory.Pagination
-        totalPages={artistsQuery.data.totalPage}
-        totalItems={artistsQuery.data.totalCount}
-        itemsPerPage={artistsQuery.data.pageSize}
-      />
+      {artistsQuery.data ? (
+        <Directory.Pagination
+          totalPages={artistsQuery.data.totalPage}
+          totalItems={artistsQuery.data.totalCount}
+          itemsPerPage={artistsQuery.data.pageSize}
+        />
+      ) : null}
     </>
   );
 };

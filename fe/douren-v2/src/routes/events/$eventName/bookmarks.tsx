@@ -2,27 +2,27 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { BookmarkIcon } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { ArtistCard } from "@/components/artist/ArtistCard";
-import { Directory, useDirectoryStore } from "@/components/directory/Directory";
+import { Directory } from "@/components/directory/Directory";
 import { toArtistViewModel } from "@/data/adapters";
 import { trpc } from "@/helper/trpc";
 import { useBookmarks } from "@/hooks/useBookmarks";
-import {
-  toSortedBookmarkIds,
-  useDirectoryQueryParams,
-} from "@/hooks/useDirectoryQueryParams";
+import { toSortedBookmarkIds } from "@/hooks/useDirectoryQueryParams";
+
+const BOOKMARKS_QUERY = {
+  page: "1",
+  sort: "Author_Main(Author),asc",
+  searchTable: "Author_Main.Author",
+} as const;
 
 const BookmarksContent = ({ eventName }: { eventName: string }) => {
-  const filters = useDirectoryStore((state) => state.filters);
-  const setPage = useDirectoryStore((state) => state.setPage);
   const { bookmarks, toggle } = useBookmarks();
-  const queryParams = useDirectoryQueryParams(filters);
   const bookmarkIds = useMemo(() => toSortedBookmarkIds(bookmarks), [bookmarks]);
 
   const bookmarksQuery = trpc.eventArtist.getEventByIds.useQuery(
     {
       eventName,
       artistIds: bookmarkIds,
-      ...queryParams,
+      ...BOOKMARKS_QUERY,
     },
     {
       enabled: bookmarkIds.length > 0,
@@ -34,38 +34,23 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
     [bookmarksQuery.data],
   );
 
-  useEffect(() => {
-    const totalPages = bookmarksQuery.data?.totalPage;
-    if (totalPages && filters.page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [bookmarksQuery.data?.totalPage, filters.page, setPage]);
-
   return (
     <>
       <div className="mb-8">
         <h2 className="text-xl font-sans font-medium text-archive-text mb-2">
-          Your Bookmarks
+          我的收藏
         </h2>
         <p className="text-sm font-mono text-archive-text/60">
-          {bookmarksQuery.data?.totalCount ?? bookmarkIds.length}{" "}
-          {(bookmarksQuery.data?.totalCount ?? bookmarkIds.length) === 1
-            ? "artist"
-            : "artists"}{" "}
-          saved
+          已收藏 {bookmarksQuery.data?.totalCount ?? bookmarkIds.length} 位創作者
         </p>
       </div>
 
-      <Directory.DayTabs />
-      <Directory.FilterBar />
       <Directory.List>
         {bookmarkIds.length === 0 ? (
           <div className="py-20 text-center flex flex-col items-center justify-center text-archive-text/40 border border-dashed border-archive-border rounded-sm">
             <BookmarkIcon className="w-8 h-8 mb-4 opacity-50" />
-            <span className="font-mono text-lg mb-2">No bookmarks yet</span>
-            <span className="text-sm">
-              Bookmark artists from the directory to see them here
-            </span>
+            <span className="font-mono text-lg mb-2">目前尚無收藏</span>
+            <span className="text-sm">可在創作者列表中加入收藏，之後會顯示在這裡</span>
           </div>
         ) : bookmarksQuery.isError ? (
           <Directory.EmptyState
@@ -74,7 +59,7 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
           />
         ) : bookmarksQuery.isPending || !bookmarksQuery.data ? (
           <div className="py-20 text-center text-archive-text/60 font-mono">
-            Loading bookmarks...
+            載入收藏中...
           </div>
         ) : artists.length > 0 ? (
           artists.map((artist) => (
@@ -83,7 +68,6 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
               artist={artist}
               bookmarks={bookmarks}
               onBookmarkToggle={toggle}
-              selectedTag={queryParams.selectedTag}
             >
               <ArtistCard.Summary />
               <ArtistCard.Details />
@@ -96,13 +80,6 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
           />
         )}
       </Directory.List>
-      {bookmarksQuery.data ? (
-        <Directory.Pagination
-          totalPages={bookmarksQuery.data.totalPage}
-          totalItems={bookmarksQuery.data.totalCount}
-          itemsPerPage={bookmarksQuery.data.pageSize}
-        />
-      ) : null}
     </>
   );
 };
@@ -112,12 +89,6 @@ const BookmarksPage = () => {
   const navigate = useNavigate();
   const eventsQuery = trpc.eventArtist.getAllEvent.useQuery();
   const defaultEvent = trpc.event.getDefaultEvent.useQuery();
-  const tagsQuery = trpc.tag.getTag.useQuery();
-
-  const availableTags = useMemo(
-    () => tagsQuery.data?.map((tag) => tag.tag) ?? [],
-    [tagsQuery.data],
-  );
 
   useEffect(() => {
     if (!eventsQuery.data?.length || !defaultEvent.data) return;
@@ -140,11 +111,7 @@ const BookmarksPage = () => {
     );
   }
 
-  return (
-    <Directory.Root availableTags={availableTags}>
-      <BookmarksContent eventName={eventName} />
-    </Directory.Root>
-  );
+  return <BookmarksContent eventName={eventName} />;
 };
 
 export const Route = createFileRoute("/events/$eventName/bookmarks")({
