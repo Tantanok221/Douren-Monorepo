@@ -12,6 +12,7 @@ import { uploadImages } from "./useUploadImage";
 export const useNewArtistSubmission = () => {
   const createArtist = trpc.artist.createArtist.useMutation();
   const createEventArtist = trpc.eventArtist.createEventArtist.useMutation();
+  const upsertBooth = trpc.eventArtist.upsertBooth.useMutation();
   // Use raw store access to ensure we read fresh state at execution time
   const store = useFormDataStore();
 
@@ -57,7 +58,15 @@ export const useNewArtistSubmission = () => {
         tags: TagHelper.toString(),
       };
       const [artistData] = await createArtist.mutateAsync(artistDataWithTags);
+      const [boothData] = await upsertBooth.mutateAsync({
+        eventId: eventArtistStep.eventId,
+        name: eventArtistStep.boothName,
+        locationDay01: eventArtistStep.locationDay01 || null,
+        locationDay02: eventArtistStep.locationDay02 || null,
+        locationDay03: eventArtistStep.locationDay03 || null,
+      });
       eventArtistStep.artistId = artistData.uuid;
+      eventArtistStep.boothId = boothData.id;
       await createEventArtist.mutateAsync(eventArtistStep);
 
       setStatus({
