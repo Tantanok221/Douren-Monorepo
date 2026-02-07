@@ -75,7 +75,7 @@ jobs:
             echo "WORKER_NAME=douren-backend-$PR_BRANCH" >> "$GITHUB_ENV"
             echo "API_PREVIEW_URL=https://douren-backend-$PR_BRANCH.$WORKERS_DEV_SUBDOMAIN.workers.dev" >> "$GITHUB_ENV"
             echo "CMS_FRONTEND_URL=https://$PR_BRANCH.douren-cms.pages.dev" >> "$GITHUB_ENV"
-            echo "MAIN_FRONTEND_URL=https://$PR_BRANCH.douren-v2.pages.dev" >> "$GITHUB_ENV"
+            echo "MAIN_FRONTEND_URL=https://$PR_BRANCH.douren-frontend.pages.dev" >> "$GITHUB_ENV"
           else
             echo "DEPLOY_KIND=stg" >> "$GITHUB_ENV"
             echo "API_PREVIEW_URL=https://stg.api.douren.net" >> "$GITHUB_ENV"
