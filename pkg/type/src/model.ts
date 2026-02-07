@@ -34,10 +34,11 @@ export const FETCH_TAG_OBJECT = {
 };
 
 export const FETCH_EVENT_BASE_OBJECT = {
-  boothName: s.eventDm.boothName,
-  locationDay01: s.eventDm.locationDay01,
-  locationDay02: s.eventDm.locationDay02,
-  locationDay03: s.eventDm.locationDay03,
+  boothId: s.eventDm.boothId,
+  boothName: sql`COALESCE(${s.booth.name}, ${s.eventDm.boothName})`.as("boothName"),
+  locationDay01: sql`COALESCE(${s.booth.locationDay01}, ${s.eventDm.locationDay01})`.as("locationDay01"),
+  locationDay02: sql`COALESCE(${s.booth.locationDay02}, ${s.eventDm.locationDay02})`.as("locationDay02"),
+  locationDay03: sql`COALESCE(${s.booth.locationDay03}, ${s.eventDm.locationDay03})`.as("locationDay03"),
   DM: s.eventDm.dm,
 };
 
@@ -104,6 +105,7 @@ const tagSchema = z.object({
 });
 // Event base schema
 const eventBaseSchema = z.object({
+  boothId: z.number().nullable().optional(),
   boothName: z.string(),
   locationDay01: z.string().nullable(),
   locationDay02: z.string().nullable(),
