@@ -3,19 +3,25 @@ import classNames from "classnames/bind";
 import style from "./style.module.css";
 import { IconContext } from "@phosphor-icons/react";
 import type {
-  ComponentProps,
-  ComponentType,
   MouseEventHandler,
+  ReactElement,
   ReactNode,
 } from "react";
+import type { IconProps } from "@phosphor-icons/react";
 
 interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-type IconProviderProps = ComponentProps<typeof IconContext.Provider>;
-const IconProvider = IconContext.Provider as ComponentType<IconProviderProps>;
+type IconProviderProps = {
+  value: IconProps;
+  children?: ReactNode;
+};
+
+const IconProvider = IconContext.Provider as unknown as (
+  props: IconProviderProps,
+) => ReactElement | null;
 
 export const Button = ({ children, onClick }: ButtonProps) => {
   const sx = classNames.bind(style);
