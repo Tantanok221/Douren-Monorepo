@@ -29,26 +29,41 @@ describe("useBookmarks", () => {
     vi.clearAllMocks();
   });
 
-  it("initializes from localStorage and toggles ids", () => {
-    localStorageMock.setItem("douren-v2-bookmarks", JSON.stringify([2, 7]));
+  it("initializes from event-scoped localStorage and toggles ids", () => {
+    localStorageMock.setItem(
+      "douren-v2-bookmarks",
+      JSON.stringify({ FF45: [2, 7], FF42: [8] }),
+    );
 
-    const initial = readBookmarksFromStorage();
+    const initial = readBookmarksFromStorage("FF45");
     expect(Array.from(initial)).toEqual([2, 7]);
 
     const toggled = toggleBookmarkSet(initial, 7);
     const updated = toggleBookmarkSet(toggled, 9);
-    writeBookmarksToStorage(updated);
+    writeBookmarksToStorage("FF45", updated);
 
     const stored = JSON.parse(
-      localStorageMock.getItem("douren-v2-bookmarks") ?? "[]",
-    ) as number[];
-    expect(stored.sort((a, b) => a - b)).toEqual([2, 9]);
+      localStorageMock.getItem("douren-v2-bookmarks") ?? "{}",
+    ) as Record<string, number[]>;
+    expect(stored.FF45.sort((a, b) => a - b)).toEqual([2, 9]);
+    expect(stored.FF42).toEqual([8]);
   });
 
-  it("writes empty set to storage", () => {
-    localStorageMock.setItem("douren-v2-bookmarks", JSON.stringify([1]));
+  it("writes empty set to one event key only", () => {
+    localStorageMock.setItem(
+      "douren-v2-bookmarks",
+      JSON.stringify({ FF45: [1], FF42: [10] }),
+    );
     const empty = new Set<number>();
-    writeBookmarksToStorage(empty);
-    expect(localStorageMock.getItem("douren-v2-bookmarks")).toBe("[]");
+    writeBookmarksToStorage("FF45", empty);
+    expect(localStorageMock.getItem("douren-v2-bookmarks")).toBe(
+      JSON.stringify({ FF45: [], FF42: [10] }),
+    );
+  });
+
+  it("migrates legacy array bookmarks into current event scope", () => {
+    localStorageMock.setItem("douren-v2-bookmarks", JSON.stringify([3, 4]));
+    const bookmarks = readBookmarksFromStorage("FF45");
+    expect(Array.from(bookmarks)).toEqual([3, 4]);
   });
 });

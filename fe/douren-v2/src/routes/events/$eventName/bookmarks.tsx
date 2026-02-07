@@ -15,7 +15,7 @@ const BOOKMARKS_QUERY = {
 } as const;
 
 const BookmarksContent = ({ eventName }: { eventName: string }) => {
-  const { bookmarks, toggle } = useBookmarks();
+  const { bookmarks, toggle } = useBookmarks(eventName);
   const bookmarkIds = useMemo(
     () => toSortedBookmarkIds(bookmarks),
     [bookmarks],

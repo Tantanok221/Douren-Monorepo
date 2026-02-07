@@ -10,7 +10,7 @@ import { useDirectoryQueryParams } from "@/hooks/useDirectoryQueryParams";
 
 const DirectoryContent = ({ eventName }: { eventName: string }) => {
   const filters = useDirectoryStore((state) => state.filters);
-  const { bookmarks, toggle } = useBookmarks();
+  const { bookmarks, toggle } = useBookmarks(eventName);
   const queryParams = useDirectoryQueryParams(filters);
   const { selectedTags, ...queryInput } = queryParams;
   const artistsQuery = trpc.eventArtist.getEvent.useQuery(
