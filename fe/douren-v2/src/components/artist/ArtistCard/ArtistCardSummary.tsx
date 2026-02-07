@@ -67,8 +67,8 @@ export const ArtistCardSummary = () => {
               key={tag}
               className={`px-2 py-0.5 text-[11px] font-mono rounded-sm transition-colors ${
                 selectedTag === tag
-                  ? "bg-archive-accent/20 text-archive-accent border border-archive-accent/40"
-                  : "bg-archive-border/40 text-archive-text/60"
+                  ? "text-archive-accent border border-archive-accent/40"
+                  : "bg-archive-border/40 text-archive-text/80"
               }`}
             >
               {tag}
@@ -85,7 +85,7 @@ export const ArtistCardSummary = () => {
           {getBoothLocationEntries(artist.boothLocations).map(
             ({ label, value }) => (
               <div key={label} className="flex items-center gap-1.5">
-                <span className="text-archive-text/40">{label}:</span>
+                <span className="text-archive-text">{label}:</span>
                 <span className="text-archive-text">{value || "—"}</span>
               </div>
             ),
@@ -96,7 +96,7 @@ export const ArtistCardSummary = () => {
           {renderSocialLinks(artist.socials, {
             iconSize: 18,
             baseClassName:
-              "text-archive-text/40 transition-colors cursor-pointer hover:text-archive-text",
+              "text-archive-text transition-colors cursor-pointer hover:text-archive-text",
           })}
         </div>
       </div>
