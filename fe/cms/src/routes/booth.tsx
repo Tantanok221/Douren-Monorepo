@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { toast } from "sonner";
 
@@ -39,12 +39,6 @@ function BoothViewPage() {
     setSelectedEventId(eventsQuery.data[0].id);
   }, [eventsQuery.data, selectedEventId]);
 
-  const selectedEvent = useMemo(
-    () =>
-      eventsQuery.data?.find((event) => event.id === selectedEventId) ?? null,
-    [eventsQuery.data, selectedEventId],
-  );
-
   const boothViewQuery = trpc.eventArtist.getBoothViewByEventId.useQuery(
     { eventId: selectedEventId ?? 0 },
     { enabled: !!selectedEventId },
@@ -71,7 +65,9 @@ function BoothViewPage() {
               id="event-selector"
               className="h-9 rounded-md border border-stone-700 bg-stone-900 px-3 text-sm text-stone-100"
               value={selectedEventId ?? ""}
-              onChange={(event) => setSelectedEventId(Number(event.target.value))}
+              onChange={(event) =>
+                setSelectedEventId(Number(event.target.value))
+              }
             >
               {eventsQuery.data?.map((event) => (
                 <option key={event.id} value={event.id}>
