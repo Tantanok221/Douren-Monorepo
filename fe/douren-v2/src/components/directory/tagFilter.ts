@@ -13,11 +13,7 @@ export const parseTagFilter = (rawTagFilter: string): string[] => {
 
 export const serializeTagFilter = (tags: string[]): string => {
   const normalizedTags = Array.from(
-    new Set(
-      tags
-        .map((tag) => tag.trim())
-        .filter((tag) => tag.length > 0),
-    ),
+    new Set(tags.map((tag) => tag.trim()).filter((tag) => tag.length > 0)),
   ).sort((left, right) => left.localeCompare(right));
 
   if (normalizedTags.length === 0) {

@@ -1,13 +1,23 @@
 import { motion } from "framer-motion";
 import { CheckIcon, ChevronDownIcon, SearchIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { StoreApi } from "zustand";
 import { useStore } from "zustand";
 import type { DirectoryFilters } from "@/types/models";
 import { createDirectoryStore, type DirectoryState } from "./directoryStore";
 import { ALL_TAGS_FILTER, parseTagFilter } from "./tagFilter";
-import { Pagination as PaginationComponent, type PaginationParams } from "./pagination";
+import {
+  Pagination as PaginationComponent,
+  type PaginationParams,
+} from "./pagination";
 
 interface DirectoryRootProps {
   children: ReactNode;
