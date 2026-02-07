@@ -80,6 +80,49 @@ export const trpcEventRoute = router({
 			const BoothDao = NewBoothDao(opts.ctx.db);
 			return await BoothDao.FetchByEventId(opts.input.eventId);
 		}),
+	getBoothViewByEventId: publicProcedure
+		.input(GetBoothByEventSchema)
+		.query(async (opts) => {
+			const booths = await opts.ctx.db
+				.select()
+				.from(s.booth)
+				.where(eq(s.booth.eventId, opts.input.eventId));
+
+			const memberships = await opts.ctx.db
+				.select({
+					boothId: s.eventDm.boothId,
+					artistId: s.authorMain.uuid,
+					artistName: s.authorMain.author,
+				})
+				.from(s.eventDm)
+				.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
+				.where(eq(s.eventDm.eventId, opts.input.eventId));
+
+			const artistsByBooth = new Map<
+				number,
+				Array<{ artistId: number; artistName: string }>
+			>();
+
+			for (const membership of memberships) {
+				if (!membership.boothId || !membership.artistId) continue;
+				const boothArtists = artistsByBooth.get(membership.boothId) ?? [];
+				boothArtists.push({
+					artistId: membership.artistId,
+					artistName: membership.artistName ?? "未命名繪師",
+				});
+				artistsByBooth.set(membership.boothId, boothArtists);
+			}
+
+			return booths.map((booth) => ({
+				id: booth.id,
+				eventId: booth.eventId,
+				name: booth.name,
+				locationDay01: booth.locationDay01,
+				locationDay02: booth.locationDay02,
+				locationDay03: booth.locationDay03,
+				artists: artistsByBooth.get(booth.id) ?? [],
+			}));
+		}),
 	getEventId: publicProcedure
 		.input(eventNameInputParams)
 		.output(zodSchema.event.SelectSchema)
