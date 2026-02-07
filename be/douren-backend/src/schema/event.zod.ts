@@ -11,6 +11,22 @@ export const CreateEventSchema = z.object({
 });
 export type CreateEventSchemaTypes = z.infer<typeof CreateEventSchema>;
 
+export const CreateBoothSchema = createInsertSchema(s.booth, {
+	name: (schema) => schema.min(1, "Booth name is required"),
+});
+export type CreateBoothSchemaTypes = z.infer<typeof CreateBoothSchema>;
+
+export const UpdateBoothSchema = createInsertSchema(s.booth).partial();
+export type UpdateBoothSchemaTypes = z.infer<typeof UpdateBoothSchema>;
+
+export const DeleteBoothSchema = z.object({
+	id: z.number().int().positive(),
+});
+
+export const GetBoothByEventSchema = z.object({
+	eventId: z.number().int().positive(),
+});
+
 export type CreateEventArtistSchemaTypes = z.infer<
 	typeof CreateEventArtistSchema
 >;

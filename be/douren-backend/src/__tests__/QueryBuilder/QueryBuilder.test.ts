@@ -47,11 +47,19 @@ vi.mock("@pkg/database/db", () => ({
 		eventDm: {
 			artistId: "eventDm.artistId",
 			eventId: "eventDm.eventId",
+			boothId: "eventDm.boothId",
 			boothName: "eventDm.boothName",
 			locationDay01: "eventDm.locationDay01",
 			locationDay02: "eventDm.locationDay02",
 			locationDay03: "eventDm.locationDay03",
 			dm: "eventDm.dm",
+		},
+		booth: {
+			id: "booth.id",
+			name: "booth.name",
+			locationDay01: "booth.locationDay01",
+			locationDay02: "booth.locationDay02",
+			locationDay03: "booth.locationDay03",
 		},
 		event: {
 			id: "event.id",
