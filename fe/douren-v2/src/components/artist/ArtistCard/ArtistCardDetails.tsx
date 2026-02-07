@@ -6,7 +6,7 @@ import { useArtistCard } from "./ArtistCardContext";
 import { renderSocialLinks } from "./artistCardHelpers";
 
 export const ArtistCardDetails = () => {
-  const { artist, isOpen, selectedTag } = useArtistCard();
+  const { artist, isOpen, selectedTags } = useArtistCard();
   const detailsQuery = trpc.artist.getArtistPageDetails.useQuery(
     { id: artist.id.toString() },
     { enabled: isOpen },
@@ -55,25 +55,27 @@ export const ArtistCardDetails = () => {
                 </div>
 
                 <div className="md:col-span-8 flex flex-col gap-8">
-                  <motion.div
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.15 }}
-                    className="flex flex-wrap gap-2"
-                  >
-                    {artist.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`px-2 py-1 text-xs font-mono rounded-sm transition-colors ${
-                          selectedTag === tag
-                            ? "bg-archive-accent/20 text-archive-accent border border-archive-accent/40"
-                            : "bg-archive-border/30 text-archive-text/70"
-                        }`}
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </motion.div>
+                  {artist.tags.length > 0 ? (
+                    <motion.div
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.15 }}
+                      className="flex flex-wrap gap-2"
+                    >
+                      {artist.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`px-2 py-1 text-xs font-mono rounded-sm transition-colors ${
+                            selectedTags.includes(tag)
+                              ? "bg-archive-accent/20 text-archive-accent border border-archive-accent/40"
+                              : "bg-archive-border/30 text-archive-text/70"
+                          }`}
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </motion.div>
+                  ) : null}
 
                   <motion.p
                     initial={{ y: 10, opacity: 0 }}

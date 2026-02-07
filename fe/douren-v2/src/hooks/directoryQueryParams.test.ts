@@ -22,16 +22,16 @@ describe("buildDirectoryQueryParams", () => {
       tag: undefined,
       day: undefined,
       searchTable: "Author_Main.Author",
-      selectedTag: undefined,
+      selectedTags: [],
     });
   });
 
-  it("maps day and tag filters to API-ready values", () => {
+  it("maps day and multi-tag filters to API-ready values", () => {
     const filters: DirectoryFilters = {
       day: "第二天",
       search: "abc",
       sort: "Author_Main(Author),desc",
-      tag: "Illustration",
+      tag: "Illustration,Space",
       page: 1,
     };
 
@@ -39,10 +39,10 @@ describe("buildDirectoryQueryParams", () => {
       page: "1",
       sort: "Author_Main(Author),desc",
       search: "abc",
-      tag: "Illustration",
+      tag: "Illustration,Space",
       day: "day2",
       searchTable: "Author_Main.Author",
-      selectedTag: "Illustration",
+      selectedTags: ["Illustration", "Space"],
     });
   });
 });

@@ -1,12 +1,17 @@
 import type { StoreApi } from "zustand";
 import { createStore } from "zustand/vanilla";
 import type { DirectoryFilters } from "@/types/models";
+import {
+  ALL_TAGS_FILTER,
+  parseTagFilter,
+  serializeTagFilter,
+} from "./tagFilter";
 
 const DEFAULT_FILTERS: DirectoryFilters = {
   day: "全部",
   search: "",
   sort: "Author_Main(Author),asc",
-  tag: "全部",
+  tag: ALL_TAGS_FILTER,
   page: 1,
 };
 
@@ -17,6 +22,8 @@ export interface DirectoryState {
   setSearch: (search: string) => void;
   setSort: (sort: string) => void;
   setTag: (tag: string) => void;
+  toggleTag: (tag: string) => void;
+  clearTags: () => void;
   setPage: (page: number) => void;
   setAvailableTags: (tags: string[]) => void;
 }
@@ -50,6 +57,26 @@ export const createDirectoryStore = (
     setTag: (tag) =>
       set((state) => ({
         filters: { ...state.filters, tag, page: 1 },
+      })),
+    toggleTag: (tag) =>
+      set((state) => {
+        const currentTags = parseTagFilter(state.filters.tag);
+        const hasTag = currentTags.includes(tag);
+        const nextTags = hasTag
+          ? currentTags.filter((currentTag) => currentTag !== tag)
+          : [...currentTags, tag];
+
+        return {
+          filters: {
+            ...state.filters,
+            tag: serializeTagFilter(nextTags),
+            page: 1,
+          },
+        };
+      }),
+    clearTags: () =>
+      set((state) => ({
+        filters: { ...state.filters, tag: ALL_TAGS_FILTER, page: 1 },
       })),
     setPage: (page) =>
       set((state) => ({
