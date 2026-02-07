@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  getPaginationPageNumbers,
-  toPaginationParams,
-} from "./pagination";
+import { getPaginationPageNumbers, toPaginationParams } from "./pagination";
 
 describe("toPaginationParams", () => {
   it("converts API pagination data into shared pagination params", () => {
@@ -62,6 +59,14 @@ describe("getPaginationPageNumbers", () => {
   });
 
   it("returns both ellipses when current page is in the middle", () => {
-    expect(getPaginationPageNumbers(5, 10)).toEqual([1, "...", 4, 5, 6, "...", 10]);
+    expect(getPaginationPageNumbers(5, 10)).toEqual([
+      1,
+      "...",
+      4,
+      5,
+      6,
+      "...",
+      10,
+    ]);
   });
 });

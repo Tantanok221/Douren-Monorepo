@@ -35,7 +35,9 @@ export const DAY_FILTER_COLOR_CLASSES = {
 } as const;
 
 export const getEventNavLinkColorClass = (isActive: boolean): string =>
-  isActive ? DAY_FILTER_COLOR_CLASSES.active : DAY_FILTER_COLOR_CLASSES.inactive;
+  isActive
+    ? DAY_FILTER_COLOR_CLASSES.active
+    : DAY_FILTER_COLOR_CLASSES.inactive;
 
 export const getEventSelectorColorClass = (): string =>
   `${DAY_FILTER_COLOR_CLASSES.inactive} focus:text-archive-text`;
@@ -179,7 +181,9 @@ const LayoutHeader = ({
           <select
             value={selectedEvent ? String(selectedEvent.id) : ""}
             onChange={(event) => {
-              const next = events.find((item) => item.id === Number(event.target.value));
+              const next = events.find(
+                (item) => item.id === Number(event.target.value),
+              );
               if (next) onEventChange(next);
             }}
             className={`appearance-none bg-transparent text-sm font-mono ${getEventSelectorColorClass()} pr-8 py-1.5 cursor-pointer focus:outline-none transition-all duration-300 border border-archive-border hover:border-archive-accent focus:border-archive-accent rounded-sm px-3`}
@@ -249,9 +253,7 @@ const LayoutHeader = ({
 const LayoutFooter = ({ eventCode }: LayoutFooterProps) => {
   return (
     <footer className="mt-20 py-8 border-t border-archive-border flex flex-col md:flex-row justify-between items-center text-xs font-sans text-archive-text/40 gap-4 md:gap-0">
-      <div>
-        © 2026 同人檔案館 • {eventCode ? `${eventCode} 活動` : "活動"}
-      </div>
+      <div>© 2026 同人檔案館 • {eventCode ? `${eventCode} 活動` : "活動"}</div>
       <div className="flex gap-6">
         <a href="#" className="hover:text-archive-text transition-colors">
           關於

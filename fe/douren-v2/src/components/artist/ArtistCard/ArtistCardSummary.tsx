@@ -1,6 +1,9 @@
 import { BookmarkIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { useArtistCard } from "./ArtistCardContext";
-import { getBoothLocationEntries, renderSocialLinks } from "./artistCardHelpers";
+import {
+  getBoothLocationEntries,
+  renderSocialLinks,
+} from "./artistCardHelpers";
 
 export const ArtistCardSummary = () => {
   const { artist, isOpen, toggle, bookmarks, onBookmarkToggle, selectedTag } =
@@ -79,12 +82,14 @@ export const ArtistCardSummary = () => {
         </div>
 
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-archive-text/70">
-          {getBoothLocationEntries(artist.boothLocations).map(({ label, value }) => (
-            <div key={label} className="flex items-center gap-1.5">
-              <span className="text-archive-text/40">{label}:</span>
-              <span className="text-archive-text">{value || "—"}</span>
-            </div>
-          ))}
+          {getBoothLocationEntries(artist.boothLocations).map(
+            ({ label, value }) => (
+              <div key={label} className="flex items-center gap-1.5">
+                <span className="text-archive-text/40">{label}:</span>
+                <span className="text-archive-text">{value || "—"}</span>
+              </div>
+            ),
+          )}
         </div>
 
         <div className="flex items-center gap-3" onClick={handleSocialClick}>

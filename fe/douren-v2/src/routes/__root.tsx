@@ -1,4 +1,9 @@
-import { createRootRoute, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  Outlet,
+  useNavigate,
+  useRouterState,
+} from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";

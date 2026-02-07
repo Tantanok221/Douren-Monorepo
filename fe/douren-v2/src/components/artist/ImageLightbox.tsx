@@ -29,7 +29,10 @@ export const ImageLightbox = ({
       if (!images || !onNavigate || currentIndex === undefined) return;
       if (event.key === "ArrowLeft" && currentIndex > 0) {
         onNavigate(currentIndex - 1);
-      } else if (event.key === "ArrowRight" && currentIndex < images.length - 1) {
+      } else if (
+        event.key === "ArrowRight" &&
+        currentIndex < images.length - 1
+      ) {
         onNavigate(currentIndex + 1);
       }
     };
