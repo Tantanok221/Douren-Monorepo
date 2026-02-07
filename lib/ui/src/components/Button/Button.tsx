@@ -2,16 +2,25 @@ import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import style from "./style.module.css";
 import { IconContext } from "@phosphor-icons/react";
-import { MouseEventHandler } from "react";
-interface props {
-  children: React.ReactNode;
-  onClick?: MouseEventHandler;
+import type {
+  ComponentProps,
+  ComponentType,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
+
+interface ButtonProps {
+  children: ReactNode;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Button = ({ children, onClick }: props) => {
+type IconProviderProps = ComponentProps<typeof IconContext.Provider>;
+const IconProvider = IconContext.Provider as ComponentType<IconProviderProps>;
+
+export const Button = ({ children, onClick }: ButtonProps) => {
   const sx = classNames.bind(style);
   return (
-    <IconContext.Provider
+    <IconProvider
       value={{
         color: "#CBC3C3",
         size: "1.5rem",
@@ -29,6 +38,6 @@ export const Button = ({ children, onClick }: props) => {
       >
         {children}
       </motion.button>
-    </IconContext.Provider>
+    </IconProvider>
   );
 };
