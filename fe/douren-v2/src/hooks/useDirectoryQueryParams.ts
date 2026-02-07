@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { DirectoryFilters } from "@/types/models";
+import { parseTagFilter } from "@/components/directory/tagFilter";
 
 const SEARCH_TABLE = "Author_Main.Author";
 
@@ -16,20 +17,24 @@ interface DirectoryQueryParams {
   tag: string | undefined;
   day: "day1" | "day2" | "day3" | undefined;
   searchTable: string;
-  selectedTag: string | undefined;
+  selectedTags: string[];
 }
 
 export const buildDirectoryQueryParams = (
   filters: DirectoryFilters,
-): DirectoryQueryParams => ({
-  page: String(filters.page),
-  sort: filters.sort,
-  search: filters.search || undefined,
-  tag: filters.tag === "全部" ? undefined : filters.tag,
-  day: dayFilterMap[filters.day as keyof typeof dayFilterMap],
-  searchTable: SEARCH_TABLE,
-  selectedTag: filters.tag === "全部" ? undefined : filters.tag,
-});
+): DirectoryQueryParams => {
+  const selectedTags = parseTagFilter(filters.tag);
+
+  return {
+    page: String(filters.page),
+    sort: filters.sort,
+    search: filters.search || undefined,
+    tag: selectedTags.length > 0 ? selectedTags.join(",") : undefined,
+    day: dayFilterMap[filters.day as keyof typeof dayFilterMap],
+    searchTable: SEARCH_TABLE,
+    selectedTags,
+  };
+};
 
 export const toSortedBookmarkIds = (bookmarks: Set<number>): number[] =>
   Array.from(bookmarks).sort((a, b) => a - b);

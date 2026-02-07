@@ -5,7 +5,7 @@ export interface ArtistCardRootProps {
   artist: ArtistViewModel;
   bookmarks: Set<number>;
   onBookmarkToggle: (id: number) => void;
-  selectedTag?: string;
+  selectedTags?: string[];
   children: React.ReactNode;
 }
 
@@ -15,7 +15,7 @@ interface ArtistCardContextValue {
   toggle: () => void;
   bookmarks: Set<number>;
   onBookmarkToggle: (id: number) => void;
-  selectedTag?: string;
+  selectedTags: string[];
 }
 
 const ArtistCardContext = createContext<ArtistCardContextValue | null>(null);
@@ -34,7 +34,7 @@ export const ArtistCardRoot = ({
   artist,
   bookmarks,
   onBookmarkToggle,
-  selectedTag,
+  selectedTags = [],
   children,
 }: ArtistCardRootProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +45,9 @@ export const ArtistCardRoot = ({
       toggle: () => setIsOpen((prev) => !prev),
       bookmarks,
       onBookmarkToggle,
-      selectedTag,
+      selectedTags,
     }),
-    [artist, isOpen, bookmarks, onBookmarkToggle, selectedTag],
+    [artist, isOpen, bookmarks, onBookmarkToggle, selectedTags],
   );
 
   return (

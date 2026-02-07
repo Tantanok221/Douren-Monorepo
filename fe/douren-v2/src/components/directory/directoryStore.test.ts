@@ -30,6 +30,23 @@ describe("createDirectoryStore", () => {
     expect(store.getState().filters.page).toBe(1);
   });
 
+  it("supports multi-tag toggle with deterministic serialization", () => {
+    const store = createDirectoryStore();
+
+    store.getState().toggleTag("Space");
+    expect(store.getState().filters.tag).toBe("Space");
+
+    store.getState().toggleTag("Illustration");
+    expect(store.getState().filters.tag).toBe("Illustration,Space");
+    expect(store.getState().filters.page).toBe(1);
+
+    store.getState().toggleTag("Space");
+    expect(store.getState().filters.tag).toBe("Illustration");
+
+    store.getState().clearTags();
+    expect(store.getState().filters.tag).toBe("全部");
+  });
+
   it("updates available tags", () => {
     const store = createDirectoryStore();
     store.getState().setAvailableTags(["X"]);

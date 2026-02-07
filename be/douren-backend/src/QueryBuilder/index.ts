@@ -140,16 +140,18 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 				.split(",")
 				.map((tag) => tag.trim())
 				.filter((tag) => tag.length > 0);
-			for (const tag of tags) {
-				const artistTagFilter = inArray(
+			const artistTagFilters = tags.map((tag) =>
+				inArray(
 					s.eventDm.artistId,
 					this.db
 						.select({ authorId: s.authorTag.authorId })
 						.from(s.authorTag)
 						.where(eq(s.authorTag.tagId, tag)),
-				);
-				SelectQuery.withFilter(artistTagFilter);
-				CountQuery.withFilter(artistTagFilter);
+				),
+			);
+			if (artistTagFilters.length > 0) {
+				SelectQuery.withAndFilter(artistTagFilters);
+				CountQuery.withAndFilter(artistTagFilters);
 			}
 		}
 		if (this.fetchParams.search) {

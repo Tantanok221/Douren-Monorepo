@@ -450,10 +450,29 @@ describe("QueryBuilder", () => {
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
-				expect(result.SelectQuery.withFilter).toHaveBeenCalled();
-				expect(result.CountQuery.withFilter).toHaveBeenCalled();
-				expect(result.SelectQuery.withAndFilter).not.toHaveBeenCalled();
-				expect(result.CountQuery.withAndFilter).not.toHaveBeenCalled();
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledTimes(2);
+			});
+
+			it("should apply AND tag filter for multiple tags", () => {
+				const params = {
+					page: "1",
+					sort: "Booth_name,asc",
+					searchTable: "Author_Main.Author",
+					eventName: "Test Event",
+					tag: "原創,繪師",
+				};
+
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
+				const result = builder.BuildQuery();
+
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledTimes(2);
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledWith(
+					expect.arrayContaining([expect.any(Object), expect.any(Object)]),
+				);
+				expect(result.SelectQuery.withAndFilter).toHaveBeenNthCalledWith(
+					2,
+					expect.arrayContaining([expect.any(Object), expect.any(Object)]),
+				);
 			});
 
 			it("should apply search filter when search is provided", () => {

@@ -12,10 +12,11 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
   const filters = useDirectoryStore((state) => state.filters);
   const { bookmarks, toggle } = useBookmarks();
   const queryParams = useDirectoryQueryParams(filters);
+  const { selectedTags, ...queryInput } = queryParams;
   const artistsQuery = trpc.eventArtist.getEvent.useQuery(
     {
       eventName,
-      ...queryParams,
+      ...queryInput,
     },
     {
       placeholderData: (previousData) => previousData,
@@ -65,7 +66,7 @@ const DirectoryContent = ({ eventName }: { eventName: string }) => {
               artist={artist}
               bookmarks={bookmarks}
               onBookmarkToggle={toggle}
-              selectedTag={queryParams.selectedTag}
+              selectedTags={selectedTags}
             >
               <ArtistCard.Summary />
               <ArtistCard.Details />
