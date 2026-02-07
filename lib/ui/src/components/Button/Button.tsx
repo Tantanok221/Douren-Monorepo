@@ -2,11 +2,7 @@ import { motion } from "framer-motion";
 import classNames from "classnames/bind";
 import style from "./style.module.css";
 import { IconContext } from "@phosphor-icons/react";
-import type {
-  MouseEventHandler,
-  ReactElement,
-  ReactNode,
-} from "react";
+import type { MouseEventHandler, ReactElement, ReactNode } from "react";
 import type { IconProps } from "@phosphor-icons/react";
 
 interface ButtonProps {
