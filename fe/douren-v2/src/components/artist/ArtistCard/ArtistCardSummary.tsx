@@ -6,14 +6,7 @@ import {
 } from "./artistCardHelpers";
 
 export const ArtistCardSummary = () => {
-  const {
-    artist,
-    isOpen,
-    toggle,
-    bookmarks,
-    onBookmarkToggle,
-    selectedTags,
-  } =
+  const { artist, isOpen, toggle, bookmarks, onBookmarkToggle, selectedTags } =
     useArtistCard();
 
   const handleBookmark = (event: React.MouseEvent) => {
