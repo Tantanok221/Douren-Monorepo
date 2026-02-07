@@ -16,6 +16,7 @@ export const useUpdateArtistSubmission = () => {
   const { artistId: id } = Route.useParams();
   const updateArtist = trpc.artist.updateArtist.useMutation();
   const upsertEventArtist = trpc.eventArtist.upsertEventArtist.useMutation();
+  const upsertBooth = trpc.eventArtist.upsertBooth.useMutation();
   // Use raw store access to ensure we read fresh state at execution time
   const store = useFormDataStore();
   const navigate = useNavigate();
@@ -67,10 +68,19 @@ export const useUpdateArtistSubmission = () => {
         data: artistDataWithTags,
       });
 
+      const [boothData] = await upsertBooth.mutateAsync({
+        eventId: eventArtistStep.eventId,
+        name: eventArtistStep.boothName,
+        locationDay01: eventArtistStep.locationDay01 || null,
+        locationDay02: eventArtistStep.locationDay02 || null,
+        locationDay03: eventArtistStep.locationDay03 || null,
+      });
+
       // Use upsert to create or update event_dm record
       await upsertEventArtist.mutateAsync({
         ...eventArtistStep,
         artistId: artistData.uuid,
+        boothId: boothData.id,
       });
 
       setStatus({
