@@ -158,6 +158,7 @@ const createMockDb = () => {
 	const mockFrom = vi.fn().mockReturnValue({
 		leftJoin: mockLeftJoin,
 		$dynamic: mockDynamic,
+		where: vi.fn().mockReturnValue({}),
 	});
 
 	const mockSelect = vi.fn().mockReturnValue({ from: mockFrom });
@@ -449,8 +450,10 @@ describe("QueryBuilder", () => {
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
-				expect(result.SelectQuery.withAndFilter).toHaveBeenCalled();
-				expect(result.CountQuery.withAndFilter).toHaveBeenCalled();
+				expect(result.SelectQuery.withFilter).toHaveBeenCalled();
+				expect(result.CountQuery.withFilter).toHaveBeenCalled();
+				expect(result.SelectQuery.withAndFilter).not.toHaveBeenCalled();
+				expect(result.CountQuery.withAndFilter).not.toHaveBeenCalled();
 			});
 
 			it("should apply search filter when search is provided", () => {
