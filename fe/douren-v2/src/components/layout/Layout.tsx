@@ -147,7 +147,7 @@ const LayoutHeader = ({
       <div className="flex flex-col items-center gap-6 mb-8">
         <Link to="/" className="group">
           <motion.img
-            src="/pasted-image.webp"
+            src="/logo.webp"
             alt="同人檔案館"
             className="w-20 h-20 object-contain"
             whileHover={{ scale: 1.05, rotate: 2 }}
