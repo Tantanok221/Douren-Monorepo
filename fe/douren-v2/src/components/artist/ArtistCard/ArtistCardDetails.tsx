@@ -15,7 +15,8 @@ export const ArtistCardDetails = () => {
     detailsQuery.data?.products
       ?.map((product) => product.preview ?? product.thumbnail ?? "")
       .filter((image) => image.length > 0) ?? [];
-  const galleryImages = productImages.length > 0 ? productImages : artist.workImages;
+  const galleryImages =
+    productImages.length > 0 ? productImages : artist.workImages;
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -117,7 +118,10 @@ export const ArtistCardDetails = () => {
                             key={`${artist.id}-work-${index}`}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.35 + index * 0.05 }}
+                            transition={{
+                              duration: 0.4,
+                              delay: 0.35 + index * 0.05,
+                            }}
                             onClick={(event) => handleImageClick(event, index)}
                             className="relative aspect-square overflow-hidden rounded-sm bg-archive-border/30 group/work cursor-pointer"
                           >

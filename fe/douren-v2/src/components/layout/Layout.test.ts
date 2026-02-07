@@ -7,7 +7,9 @@ import {
 
 describe("Layout day filter color convention", () => {
   it("uses the same active/inactive link colors as day tabs", () => {
-    expect(getEventNavLinkColorClass(true)).toBe(DAY_FILTER_COLOR_CLASSES.active);
+    expect(getEventNavLinkColorClass(true)).toBe(
+      DAY_FILTER_COLOR_CLASSES.active,
+    );
     expect(getEventNavLinkColorClass(false)).toBe(
       DAY_FILTER_COLOR_CLASSES.inactive,
     );

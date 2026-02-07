@@ -23,7 +23,9 @@ const ArtistCardContext = createContext<ArtistCardContextValue | null>(null);
 export const useArtistCard = (): ArtistCardContextValue => {
   const context = useContext(ArtistCardContext);
   if (!context) {
-    throw new Error("ArtistCard components must be used within ArtistCard.Root");
+    throw new Error(
+      "ArtistCard components must be used within ArtistCard.Root",
+    );
   }
   return context;
 };

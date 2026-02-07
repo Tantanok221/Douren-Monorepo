@@ -4,7 +4,8 @@ import { useEffect, useMemo } from "react";
 const SITE_ORIGIN = "https://douren.net";
 const SITE_NAME = "同人檔案館 Douren";
 const DEFAULT_TITLE = "同人檔案館 Douren | 動漫展同人活動創作者名錄";
-const DEFAULT_DESCRIPTION = "同人檔案館（Douren）收錄台灣動漫展與同人活動創作者資訊，支援社團名、攤位、標籤搜尋與收藏功能，快速找到你喜歡的創作者與作品。";
+const DEFAULT_DESCRIPTION =
+  "同人檔案館（Douren）收錄台灣動漫展與同人活動創作者資訊，支援社團名、攤位、標籤搜尋與收藏功能，快速找到你喜歡的創作者與作品。";
 
 interface SeoMeta {
   canonicalUrl: string;
@@ -21,7 +22,9 @@ const decodePathSegment = (value: string): string => {
 };
 
 const upsertCanonical = (href: string): void => {
-  let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  let canonical = document.head.querySelector<HTMLLinkElement>(
+    'link[rel="canonical"]',
+  );
   if (!canonical) {
     canonical = document.createElement("link");
     canonical.setAttribute("rel", "canonical");
@@ -31,7 +34,9 @@ const upsertCanonical = (href: string): void => {
 };
 
 const upsertMetaByName = (name: string, content: string): void => {
-  let element = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
+  let element = document.head.querySelector<HTMLMetaElement>(
+    `meta[name="${name}"]`,
+  );
   if (!element) {
     element = document.createElement("meta");
     element.setAttribute("name", name);
@@ -41,7 +46,9 @@ const upsertMetaByName = (name: string, content: string): void => {
 };
 
 const upsertMetaByProperty = (property: string, content: string): void => {
-  let element = document.head.querySelector<HTMLMetaElement>(`meta[property="${property}"]`);
+  let element = document.head.querySelector<HTMLMetaElement>(
+    `meta[property="${property}"]`,
+  );
   if (!element) {
     element = document.createElement("meta");
     element.setAttribute("property", property);

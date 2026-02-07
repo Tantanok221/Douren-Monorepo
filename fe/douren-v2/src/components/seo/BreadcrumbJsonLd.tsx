@@ -1,6 +1,9 @@
 import { useRouterState } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { buildBreadcrumbItems, buildBreadcrumbJsonLd } from "@/seo/breadcrumbJsonLd";
+import {
+  buildBreadcrumbItems,
+  buildBreadcrumbJsonLd,
+} from "@/seo/breadcrumbJsonLd";
 
 const resolveSiteOrigin = (): string => {
   if (typeof window !== "undefined" && window.location.origin) {

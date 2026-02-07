@@ -1,4 +1,9 @@
-import { FacebookIcon, GlobeIcon, InstagramIcon, TwitterIcon } from "lucide-react";
+import {
+  FacebookIcon,
+  GlobeIcon,
+  InstagramIcon,
+  TwitterIcon,
+} from "lucide-react";
 import { SiPixiv, SiPlurk } from "react-icons/si";
 import type { ArtistViewModel } from "@/types/models";
 

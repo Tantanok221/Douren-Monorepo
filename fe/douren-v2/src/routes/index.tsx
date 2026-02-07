@@ -37,7 +37,11 @@ const IndexRedirect = () => {
     );
   }
 
-  if (!defaultEvent.isPending && !allEvents.isPending && !allEvents.data?.length) {
+  if (
+    !defaultEvent.isPending &&
+    !allEvents.isPending &&
+    !allEvents.data?.length
+  ) {
     return (
       <div className="py-20 text-center text-archive-text/60 font-mono">
         No events available.

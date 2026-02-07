@@ -16,7 +16,10 @@ const BOOKMARKS_QUERY = {
 
 const BookmarksContent = ({ eventName }: { eventName: string }) => {
   const { bookmarks, toggle } = useBookmarks();
-  const bookmarkIds = useMemo(() => toSortedBookmarkIds(bookmarks), [bookmarks]);
+  const bookmarkIds = useMemo(
+    () => toSortedBookmarkIds(bookmarks),
+    [bookmarks],
+  );
 
   const bookmarksQuery = trpc.eventArtist.getEventByIds.useQuery(
     {
@@ -41,7 +44,8 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
           我的收藏
         </h2>
         <p className="text-sm font-mono text-archive-text/60">
-          已收藏 {bookmarksQuery.data?.totalCount ?? bookmarkIds.length} 位創作者
+          已收藏 {bookmarksQuery.data?.totalCount ?? bookmarkIds.length}{" "}
+          位創作者
         </p>
       </div>
 
@@ -50,7 +54,9 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
           <div className="py-20 text-center flex flex-col items-center justify-center text-archive-text/40 border border-dashed border-archive-border rounded-sm">
             <BookmarkIcon className="w-8 h-8 mb-4 opacity-50" />
             <span className="font-mono text-lg mb-2">目前尚無收藏</span>
-            <span className="text-sm">可在創作者列表中加入收藏，之後會顯示在這裡</span>
+            <span className="text-sm">
+              可在創作者列表中加入收藏，之後會顯示在這裡
+            </span>
           </div>
         ) : bookmarksQuery.isError ? (
           <Directory.EmptyState
