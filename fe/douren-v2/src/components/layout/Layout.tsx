@@ -97,7 +97,7 @@ const DarkModeToggle = ({
   return (
     <button
       onClick={onToggle}
-      className="relative p-2 rounded-sm hover:bg-archive-hover/50 transition-all focus:outline-none focus:ring-2 focus:ring-archive-accent"
+      className="relative p-2 rounded-sm cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-archive-accent"
       aria-label={isDark ? "切換至淺色模式" : "切換至深色模式"}
     >
       <motion.div
