@@ -3,7 +3,7 @@ import { BookmarkIcon } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { ArtistCard } from "@/components/artist/ArtistCard";
 import { Directory } from "@/components/directory/Directory";
-import { toArtistViewModel } from "@/data/adapters";
+import { dedupeArtistsById, toArtistViewModel } from "@/data/adapters";
 import { trpc } from "@/helper/trpc";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { toSortedBookmarkIds } from "@/hooks/useDirectoryQueryParams";
@@ -33,7 +33,8 @@ const BookmarksContent = ({ eventName }: { eventName: string }) => {
   );
 
   const artists = useMemo(
-    () => bookmarksQuery.data?.data.map(toArtistViewModel) ?? [],
+    () =>
+      dedupeArtistsById(bookmarksQuery.data?.data.map(toArtistViewModel) ?? []),
     [bookmarksQuery.data],
   );
 

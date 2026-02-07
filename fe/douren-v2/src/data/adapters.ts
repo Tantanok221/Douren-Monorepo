@@ -75,3 +75,14 @@ export const addWorkImages = (
   ...artist,
   workImages: images,
 });
+
+export const dedupeArtistsById = (
+  artists: ArtistViewModel[],
+): ArtistViewModel[] => {
+  const seen = new Set<number>();
+  return artists.filter((artist) => {
+    if (seen.has(artist.id)) return false;
+    seen.add(artist.id);
+    return true;
+  });
+};
