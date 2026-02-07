@@ -5,18 +5,10 @@
 # Key reminders:
 # - Use Node.js 22+ and prefer repository scripts (`pnpm run ...`, `./setup.sh`, `make ...`).
 # - Do not use `any` and do not suppress lint/TypeScript errors.
+# - Use `but` (GitButler) for all git actions; do not run raw `git` commands.
 # - Commit messages must match: `[DR-XX] type: subject` (see `commitlint.config.js`).
 #
 # Quick commands:
 # - Setup: `./setup.sh` (or `./setup.sh --quick`)
 # - Dev: `pnpm run dev` (or `pnpm run devfe`, `pnpm run devbe`)
 # - Lint/format/test: `pnpm run lint`, `pnpm run format`, `pnpm run test`
-#
-# Before handover:
-# - Run `pnpm run lint`, `pnpm run test`, and `pnpm run build`
-# - Start dev server via `nr dev` using tmux skill/session management
-# - Verify frontend HTML mounts with:
-#   - `curl -s http://localhost:5173 | grep -q 'id="root"'`
-#   - `curl -s http://localhost:5174 | grep -q 'id="root"'`
-# - If possible, verify the feature-specific element renders in HTML
-# - Stop dev server/tmux session before handover

@@ -143,6 +143,11 @@ The application manages artists, products/artworks, events, and tags with many-t
 - Use `pnpm run codegen` after schema changes to regenerate types
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
 
+## Git Action Policy
+- Use the `but` skill (GitButler) for **all** git actions instead of raw `git` commands.
+- This includes status, add/stage, commit, push/pull, branch, merge/rebase, tag, stash, and worktree operations.
+- Keep using repository worktree helpers (`./scripts/worktree.sh`, `make worktree-*`, `pnpm run worktree:*`) when available.
+
 ## Git Worktree Workflow
 Git worktrees allow working on multiple branches simultaneously in separate directories.
 
@@ -363,24 +368,3 @@ describe("ArtistCard", () => {
    ```
 
 This ensures no breaking changes prevent the apps from loading before pushing code.
-
-### Pre-Handover Verification
-**Before handover to the user**, run and report all of the following:
-
-1. **Quality gates**:
-   ```bash
-   pnpm run lint
-   pnpm run test
-   pnpm run build
-   ```
-2. **Frontend availability checks**:
-   - Launch dev server with `nr dev` (not `pnpm run dev`).
-   - Use tmux skill/session management to run the dev server in the background.
-   - `curl -s http://localhost:5173 | grep -q 'id="root"'`
-   - `curl -s http://localhost:5174 | grep -q 'id="root"'`
-3. **Feature render checks (if possible)**:
-   - Verify the specific feature element changed by the task is present in the rendered HTML (for example via `curl ... | grep -q '<selector-or-text>'`).
-   - When the feature requires UI interaction/behavior checks, leverage the `agent-browser` skill for browser-based verification before handover.
-4. **Shutdown requirement**:
-   - Stop the dev server/tmux session after verification and before handover.
-5. If any check fails, fix the issue first and re-run verification before handover.
