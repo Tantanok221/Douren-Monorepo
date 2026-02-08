@@ -5,7 +5,7 @@ import {
   isAuthorizedRequest,
   isProtectedBranch,
   withNoIndexHeader,
-} from "./auth";
+} from "@pkg/edge-auth";
 
 describe("staging auth helpers", () => {
   it("uses env branch when available", () => {
