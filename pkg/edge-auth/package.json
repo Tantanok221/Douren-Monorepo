@@ -1,0 +1,18 @@
+{
+  "name": "@pkg/edge-auth",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "build:pkg": "tsc"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@pkg/typescript-config": "workspace:*"
+  }
+}

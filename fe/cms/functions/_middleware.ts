@@ -3,7 +3,7 @@ import {
   isAuthorizedRequest,
   isProtectedBranch,
   withNoIndexHeader,
-} from "./auth";
+} from "@pkg/edge-auth";
 
 interface PagesContext {
   request: Request;
