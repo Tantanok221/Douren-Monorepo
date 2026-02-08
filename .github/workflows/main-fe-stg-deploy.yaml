@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/main-fe-stg-deploy.yaml'
-      - 'fe/Douren-frontend/**'
+      - 'fe/douren-v2/**'
       - 'pkg/type'
       - "lib/ui/**"
 
@@ -98,7 +98,7 @@ jobs:
           CF_ACCOUNT_ID: ${{secrets.CLOUDFLARE_ACCOUNT_ID}}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_KEY }}
         run: |
-          cd fe/Douren-frontend
+          cd fe/douren-v2
           if [[ -n "${PR_NUMBER:-}" ]]; then
             infisical run --env=staging --projectId=${{secrets.INFISICAL_PROJECT_ID}} -- env VITE_BACKEND_URL="$API_PREVIEW_URL" VITE_API_URL="$API_PREVIEW_URL" pnpm run build
           else
@@ -157,4 +157,3 @@ jobs:
               log_url: `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`,
               description: "Deployed",
             });
-

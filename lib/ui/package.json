@@ -35,8 +35,8 @@
     "@storybook/react-vite": "^8.3.2",
     "@storybook/test": "^8.3.2",
     "@testing-library/react": "^16.0.1",
-    "@types/react": "^18.3.8",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "@types/react-lazy-load-image-component": "^1.6.4",
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
@@ -57,8 +57,8 @@
     "vite-plugin-dts": "^4.2.3"
   },
   "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.3.1 || ^19.0.0",
+    "react-dom": "^18.3.1 || ^19.0.0"
   },
   "dependencies": {
     "@mantine/hooks": "^7.12.2",

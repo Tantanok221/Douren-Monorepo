@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ArtistPageContext } from "doujinbooth/src/routes/artist/$artistId/-context/ArtistPageContext/ArtistPageContext.tsx";
 
 interface Props {
   children: ReactNode;

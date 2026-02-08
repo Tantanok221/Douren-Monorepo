@@ -1,9 +1,0 @@
-.scrollTop {
-  position: fixed;
-  z-index: 2;
-  right: 5%;
-  bottom: 2.5%;
-  background-color: var(--Sidebar-Active);
-  padding: 0.75rem 0.75rem;
-  border-radius: 80px;
-}

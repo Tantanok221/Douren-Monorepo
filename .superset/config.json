@@ -1,0 +1,6 @@
+{
+  "setup": [
+    "nvm use 22\n./setup.sh"
+  ],
+  "teardown": []
+}

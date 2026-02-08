@@ -6,7 +6,14 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss(), react(), TanStackRouterVite()],
+  plugins: [
+    tailwindcss(),
+    react(),
+    TanStackRouterVite({
+      quoteStyle: "double",
+      semicolons: true,
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
