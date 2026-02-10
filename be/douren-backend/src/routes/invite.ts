@@ -1,6 +1,32 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { router, publicProcedure, authProcedure } from "@/lib/trpc";
 import { validateInviteCode, getUserInviteSettings } from "@/lib/invite";
+import { createMemoryRateLimiter } from "@/lib/rate-limit";
+
+const inviteValidationLimiter = createMemoryRateLimiter({
+	windowMs: 60_000,
+	max: 5,
+});
+
+type RateLimitContext = {
+	honoContext: {
+		req: {
+			header: (name: string) => string | undefined;
+		};
+	};
+};
+
+const getClientIp = (ctx: RateLimitContext): string => {
+	const forwarded = ctx.honoContext.req.header("x-forwarded-for");
+	const forwardedIp = forwarded?.split(",")[0]?.trim();
+	return (
+		forwardedIp ??
+		ctx.honoContext.req.header("cf-connecting-ip") ??
+		ctx.honoContext.req.header("x-real-ip") ??
+		"unknown"
+	);
+};
 
 export const trpcInviteRoute = router({
 	/**
@@ -10,6 +36,14 @@ export const trpcInviteRoute = router({
 	validate: publicProcedure
 		.input(z.object({ inviteCode: z.string().min(1) }))
 		.query(async ({ ctx, input }) => {
+			const ip = getClientIp(ctx);
+			const limit = inviteValidationLimiter(ip);
+			if (!limit.allowed) {
+				throw new TRPCError({
+					code: "TOO_MANY_REQUESTS",
+					message: "請稍後再試",
+				});
+			}
 			const result = await validateInviteCode(
 				ctx.db,
 				input.inviteCode,
