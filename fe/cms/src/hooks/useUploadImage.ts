@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import ky from "ky";
 import { useRef } from "react";
-import { FormImageUploadRef } from "@/components";
+import { FormImageUploadRef } from "@/components/Forms/subcomponent/FormImageUpload";
 
 interface ImageResponse {
   link: string;

@@ -3,7 +3,7 @@ import { SearchColumnContextProvider } from "../SearchColumnContext";
 import { PaginationContextProvider } from "../PaginationContext";
 import { SearchContextProvider } from "../SearchContext";
 import { TagFilterContextProvider } from "../TagFilterContext";
-import { TagObject } from "../../stores";
+import { TagObject } from "../../stores/useTagFilter";
 
 interface Prop {
   children: React.ReactNode;

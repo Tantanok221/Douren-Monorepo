@@ -2,8 +2,8 @@ import * as Form from "@radix-ui/react-form";
 import { FormControlProps } from "@radix-ui/react-form";
 import { ReactNode } from "react";
 import { useFormContext } from "react-hook-form";
-import { useFormFieldContext } from "../context";
-import { FormFieldContextProvider } from "../context";
+import { useFormFieldContext } from "../context/FormFieldContext";
+import { FormFieldContextProvider } from "../context/FormFieldContextProvider";
 
 interface childrenProps {
   children: ReactNode;

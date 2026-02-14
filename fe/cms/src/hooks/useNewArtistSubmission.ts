@@ -1,12 +1,12 @@
 import { ArrayTagHelper } from "@lib/ui";
 import { trpc } from "@/lib/trpc";
-import {
+import { ENTITY_FORM_KEY } from "../components/EntityForm/constant";
+import type {
   ArtistFormSchema,
-  ENTITY_FORM_KEY,
   EventArtistSchema,
   ProductFormSchema,
-  useFormDataStore,
-} from "../components";
+} from "../components/EntityForm/schema/schema";
+import { useFormDataStore } from "../components/FormDataContext/useFormDataContext";
 import { uploadImages } from "./useUploadImage";
 
 export const useNewArtistSubmission = () => {

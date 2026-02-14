@@ -3,13 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { useUploadImageRef } from "@/hooks";
 import { useEffect } from "react";
-import {
-  EventField,
-  Forms,
-  ImageField,
-  InputTextField,
-  useMultiStepFormContext,
-} from "@/components";
+import { EventField, ImageField, InputTextField } from "@/components/RichForm/RichForm";
+import { Forms } from "@/components/Forms/Forms";
+import { useMultiStepFormContext } from "@/components/MultiStepForm/context/useMultiStepFormContext";
 import { eventArtistSchema, EventArtistSchema } from "./schema";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
 import { ENTITY_FORM_KEY } from "./constant.ts";

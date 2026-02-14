@@ -1,14 +1,12 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ArrowRight } from "@phosphor-icons/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { InputTextField, TagFilterField, ImageField } from "@/components/RichForm/RichForm";
+import { Forms } from "@/components/Forms/Forms";
 import {
-  InputTextField,
-  TagFilterField,
-  Forms,
   AllAvailableLinkType,
   GetLinkLabelFromKey,
-  ImageField,
-} from "@/components";
+} from "@/components/RichForm/type/LinkFormSchema";
 import { useUploadImageRef } from "@/hooks";
 import { artistFormSchema, ArtistFormSchema } from "./schema";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";

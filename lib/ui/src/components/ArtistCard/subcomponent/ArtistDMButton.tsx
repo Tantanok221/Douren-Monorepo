@@ -1,6 +1,6 @@
 import React from "react";
 import { useEventDataContext } from "../EventDataContext.ts";
-import { isEventArtistBaseSchema } from "../../../helper";
+import { isEventArtistBaseSchema } from "../../../helper/isEventAristBaseSchema";
 import { DMButton } from "../../DMButton";
 
 const ArtistDMButton = () => {

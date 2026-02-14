@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ZodTagObject } from "../stores";
+import { ZodTagObject } from "../stores/useTagFilter";
 
 const ZodTagArray = z.array(ZodTagObject);
 type ZodTagArrayType = z.infer<typeof ZodTagArray>;

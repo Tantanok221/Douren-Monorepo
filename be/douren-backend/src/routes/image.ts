@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { HonoEnv } from "@/index";
+import type { HonoEnv } from "@/types/hono";
 
 export interface CloudflareImageResponse {
 	result: Result;

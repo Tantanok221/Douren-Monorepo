@@ -1,1 +1,1 @@
-export { ArtistCard } from "./ArtistCard/index";
+export { ArtistCard } from "./ArtistCard/ArtistCard";

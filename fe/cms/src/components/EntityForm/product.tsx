@@ -1,11 +1,14 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { ImageField, InputTextField, Forms } from "@/components";
+import { ImageField, InputTextField } from "@/components/RichForm/RichForm";
+import { Forms } from "@/components/Forms/Forms";
 import { useUploadImageRef } from "@/hooks";
 import { productFormSchema, ProductFormSchema } from "./schema";
-import { ProductFormContextProvider, useProductFormContext } from "./context";
-import { FormButton, useMultiStepFormContext } from "@/components";
+import { ProductFormContextProvider } from "./context/ProductFormContext";
+import { useProductFormContext } from "./context/useProductFormContext";
+import { FormButton } from "@/components/Forms/subcomponent/FormSubcomponent";
+import { useMultiStepFormContext } from "@/components/MultiStepForm/context/useMultiStepFormContext";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
 import { ENTITY_FORM_KEY } from "./constant.ts";

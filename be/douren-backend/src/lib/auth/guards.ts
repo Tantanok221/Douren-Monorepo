@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import type { Context } from "hono";
 
-import type { HonoEnv, HonoVariables } from "@/index";
+import type { HonoEnv, HonoVariables } from "@/types/hono";
 
 export const UNAUTHORIZED_MESSAGE =
 	"You must be logged in to access this resource";

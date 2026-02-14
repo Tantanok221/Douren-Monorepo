@@ -12,7 +12,7 @@ import {
   UseFormGetValues,
   UseFormHandleSubmit,
 } from "react-hook-form";
-import { FormImageUploadRef } from "@/components";
+import { FormImageUploadRef } from "@/components/Forms/subcomponent/FormImageUpload";
 
 export interface ProductFormType {
   submitHook: UseFormHandleSubmit<ProductFormSchema>;

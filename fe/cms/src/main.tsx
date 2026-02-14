@@ -6,7 +6,7 @@ import { httpLink, loggerLink } from "@trpc/client";
 
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
-import { AuthProvider } from "@/components";
+import { AuthProvider } from "@/components/AuthContext/AuthContext";
 import { authClient } from "./lib/auth";
 import { trpc } from "./lib/trpc.ts";
 

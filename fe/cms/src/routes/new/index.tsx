@@ -1,12 +1,10 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import {
-  MultiStepFormProvider,
-  ArtistForm,
-  EventArtistForm,
-  CompleteStep,
-  FormStep,
-  ENTITY_FORM_KEY,
-} from "../../components";
+import { MultiStepFormProvider } from "../../components/MultiStepForm/context/MultiStepFormContext";
+import { ArtistForm } from "../../components/EntityForm/artist";
+import { EventArtistForm } from "../../components/EntityForm/eventartist";
+import { CompleteStep } from "../../components/EntityForm/CompleteStep";
+import { FormStep } from "../../components/FormStep/FormStep";
+import { ENTITY_FORM_KEY } from "../../components/EntityForm/constant";
 // import { AllProductForm } from "./-components/form/product";
 import { RefreshHelperProvider } from "@lib/ui";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";

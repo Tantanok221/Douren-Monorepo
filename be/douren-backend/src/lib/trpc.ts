@@ -1,6 +1,6 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { ENV_BINDING } from "@pkg/env/constant";
-import { HonoVariables } from "@/index";
+import type { HonoVariables } from "@/types/hono";
 import { Context } from "hono";
 import { isAdmin } from "@/lib/authorization";
 import { assertAuthenticatedSession } from "@/lib/auth/guards";
