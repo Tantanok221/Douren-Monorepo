@@ -12,6 +12,7 @@
     "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
   },
   "dependencies": {
+    "@pkg/edge-auth": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@lib/ui": "workspace:*",
     "@phosphor-icons/react": "^2.1.7",
