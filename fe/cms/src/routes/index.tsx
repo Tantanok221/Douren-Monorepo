@@ -3,7 +3,7 @@ import { DataOperationProvider } from "@lib/ui/src/context/DataOperationContext/
 import { FilterContainer } from "@lib/ui/src/components/FilterContainer/FilterContainer";
 import { SearchContainer } from "@lib/ui/src/components/SearchContainer/SearchContainer";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
-import { useFetchTagData } from "@/hooks";
+import { useFetchTagData } from "@/hooks/useFetchTagData";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

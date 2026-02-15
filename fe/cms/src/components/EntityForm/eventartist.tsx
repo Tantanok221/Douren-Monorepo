@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { useUploadImageRef } from "@/hooks";
+import { useUploadImageRef } from "@/hooks/useUploadImage";
 import { useEffect } from "react";
 import {
   EventField,
@@ -10,10 +10,10 @@ import {
 } from "@/components/RichForm/RichForm";
 import { Forms } from "@/components/Forms/Forms";
 import { useMultiStepFormContext } from "@/components/MultiStepForm/context/useMultiStepFormContext";
-import { eventArtistSchema, EventArtistSchema } from "./schema";
+import { eventArtistSchema, EventArtistSchema } from "./schema/schema";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
 import { ENTITY_FORM_KEY } from "./constant.ts";
-import { useFormStep } from "../FormStep";
+import { useFormStep } from "../FormStep/useFormStep";
 
 interface EventArtistFormProps {
   defaultValues?: EventArtistSchema;

@@ -1,8 +1,8 @@
-import { SortSelectContextProvider } from "../SortSelectContext";
-import { SearchColumnContextProvider } from "../SearchColumnContext";
-import { PaginationContextProvider } from "../PaginationContext";
-import { SearchContextProvider } from "../SearchContext";
-import { TagFilterContextProvider } from "../TagFilterContext";
+import { SortSelectContextProvider } from "../SortSelectContext/SortSelectContext";
+import { SearchColumnContextProvider } from "../SearchColumnContext/SearchColumnContext";
+import { PaginationContextProvider } from "../PaginationContext/PaginationContext";
+import { SearchContextProvider } from "../SearchContext/SearchContext";
+import { TagFilterContextProvider } from "../TagFilterContext/TagFilterContext";
 import { TagObject } from "../../stores/useTagFilter";
 
 interface Prop {

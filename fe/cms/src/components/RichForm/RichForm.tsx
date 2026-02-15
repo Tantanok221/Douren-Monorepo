@@ -1,4 +1,4 @@
-import { FormImageUploadRef, Forms } from "../Forms";
+import { FormImageUploadRef, Forms } from "../Forms/Forms";
 import { SelectComponent } from "@lib/ui/src/components/SelectComponent/SelectComponent";
 import { forwardRef, useEffect } from "react";
 import { useFormContext } from "react-hook-form";

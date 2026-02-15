@@ -4,7 +4,7 @@ import { TagFilterContextProvider } from "@lib/ui/src/context/TagFilterContext/T
 import { useTagFilterContext } from "@lib/ui/src/context/TagFilterContext/useTagFilterContext";
 import { forwardRef, Ref, useEffect } from "react";
 import * as Form from "@radix-ui/react-form";
-import { useFetchTagData } from "@/hooks";
+import { useFetchTagData } from "@/hooks/useFetchTagData";
 import { useFormFieldContext } from "../context/FormFieldContext.ts";
 
 export const FormTagFilter = forwardRef(

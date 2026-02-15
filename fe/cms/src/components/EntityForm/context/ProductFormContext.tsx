@@ -6,7 +6,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { ProductFormSchema } from "../schema";
+import { ProductFormSchema } from "../schema/schema";
 import {
   SubmitHandler,
   UseFormGetValues,

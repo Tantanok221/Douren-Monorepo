@@ -7,7 +7,7 @@ import type {
   ProductFormSchema,
 } from "../components/EntityForm/schema/schema";
 import { useFormDataStore } from "../components/FormDataContext/useFormDataContext";
-import { Route } from "../routes/edit.$artistId";
+import { Route } from "../routes/edit.$artistId/index";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { uploadImages } from "./useUploadImage";

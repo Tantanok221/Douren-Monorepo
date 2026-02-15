@@ -1,7 +1,7 @@
 import { useEventDataContext } from "../EventDataContext.ts";
 import { processArtistData } from "../../../helper/processArtistData";
 import type { LinkResult } from "../../../helper/processLink";
-import { LinkContainer } from "../../LinkContainer";
+import { LinkContainer } from "../../LinkContainer/LinkContainer";
 import React from "react";
 
 interface props {
