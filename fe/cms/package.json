@@ -9,7 +9,7 @@
     "lint": "eslint ./src",
     "preview": "vite preview",
     "format": "prettier ./src --write --single-quote false --semi true",
-    "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
+    "codegen": "echo 'cms: no barrel codegen'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
