@@ -1,6 +1,6 @@
 import { eq, sql } from "drizzle-orm";
 import { s } from "@pkg/database/db";
-import type { HonoVariables } from "@/index";
+import type { HonoVariables } from "@/types/hono";
 
 type DrizzleDB = HonoVariables["db"];
 type ValidateInviteCodeOptions = {

@@ -26,7 +26,7 @@ import {
 import { zodSchema } from "@pkg/database/zod";
 import { NewEventArtistDao } from "@/Dao/EventArtist";
 import { NewEventDao } from "@/Dao/Event";
-import { HonoEnv } from "@/index";
+import type { HonoEnv } from "@/types/hono";
 import { z } from "zod";
 
 type EventDmSelect = z.infer<typeof zodSchema.eventDm.SelectSchema>;

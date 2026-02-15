@@ -2,17 +2,15 @@ import { usePagination } from "@mantine/hooks";
 import { Plus } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
-import {
-  Pagination,
-  usePaginationContext,
-  useSearchContext,
-  useSearchColumnContext,
-  useSortSelectContext,
-  useTagFilterContext,
-} from "@lib/ui";
+import { Pagination } from "@lib/ui/src/components/Pagination/Pagination";
+import { usePaginationContext } from "@lib/ui/src/context/PaginationContext/usePaginationContext";
+import { useSearchContext } from "@lib/ui/src/context/SearchContext/useSearchContextProvider";
+import { useSearchColumnContext } from "@lib/ui/src/context/SearchColumnContext/useSearchColumnContext";
+import { useSortSelectContext } from "@lib/ui/src/context/SortSelectContext/useSortSelectContext";
+import { useTagFilterContext } from "@lib/ui/src/context/TagFilterContext/useTagFilterContext";
 
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
-import { ArtistTable } from "@/components/ArtistCard";
+import { ArtistTable } from "@/components/ArtistCard/CMSArtistCard";
 import { Button } from "@/components/ui/button";
 import { useUserRole } from "@/hooks/usePermissions";
 import { trpc } from "@/lib/trpc";

@@ -1,7 +1,7 @@
 import { adminProcedure, publicProcedure, router } from "@/lib/trpc";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { createTag, fetchTag, renameTag } from "@/Dao/Tag";
-import { HonoEnv } from "@/index";
+import type { HonoEnv } from "@/types/hono";
 import { s } from "@pkg/database/db";
 import { zodSchema } from "@pkg/database/zod";
 import { TRPCError } from "@trpc/server";

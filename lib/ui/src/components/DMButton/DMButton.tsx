@@ -2,7 +2,7 @@ import React from "react";
 import style from "./DMButton.module.css";
 import classNames from "classnames/bind";
 import * as Dialog from "@radix-ui/react-dialog";
-import { LinkIcon } from "../LinkIcon";
+import { LinkIcon } from "../LinkIcon/LinkIcon";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";

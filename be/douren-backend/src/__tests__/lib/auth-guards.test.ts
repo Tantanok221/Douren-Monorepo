@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { TRPCError } from "@trpc/server";
 
-import type { HonoVariables } from "@/index";
+import type { HonoVariables } from "@/types/hono";
 import {
 	assertAuthenticatedSession,
 	UNAUTHORIZED_MESSAGE,

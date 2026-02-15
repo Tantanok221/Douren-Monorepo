@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMultiStepFormContext } from "../MultiStepForm";
+import { useMultiStepFormContext } from "../MultiStepForm/context/useMultiStepFormContext";
 import { FormStepContext } from "./useFormStep";
 
 interface FormStepProps {

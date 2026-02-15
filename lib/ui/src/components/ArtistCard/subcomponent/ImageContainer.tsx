@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "../style.module.css";
-import { LazyImage } from "../../LazyImage";
+import { LazyImage } from "../../LazyImage/LazyImage";
 import { useEventDataContext } from "../EventDataContext";
 
 const ImageContainer = () => {
