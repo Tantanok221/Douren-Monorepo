@@ -1,4 +1,4 @@
-import { Button } from "@lib/ui";
+import { Button } from "@lib/ui/src/components/Button/Button";
 import { useState } from "react";
 
 export const DeleteButton = () => {

@@ -1,5 +1,5 @@
 import { Pen } from "@phosphor-icons/react";
-import { useEventDataContext } from "@lib/ui";
+import { useEventDataContext } from "@lib/ui/src/components/ArtistCard/EventDataContext";
 import { Link } from "@tanstack/react-router";
 import { useCanEditArtist } from "@/hooks/usePermissions";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";

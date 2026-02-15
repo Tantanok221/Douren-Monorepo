@@ -1,4 +1,4 @@
-import { ArrayTagHelper } from "@lib/ui";
+import { ArrayTagHelper } from "@lib/ui/src/helper/tag";
 import { trpc } from "@/lib/trpc";
 import { ENTITY_FORM_KEY } from "../components/EntityForm/constant";
 import type {

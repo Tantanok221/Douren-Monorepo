@@ -1,5 +1,5 @@
 import { FormImageUploadRef, Forms } from "../Forms";
-import { SelectComponent } from "@lib/ui";
+import { SelectComponent } from "@lib/ui/src/components/SelectComponent/SelectComponent";
 import { forwardRef, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { trpc } from "@/lib/trpc";

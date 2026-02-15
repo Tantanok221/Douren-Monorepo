@@ -6,7 +6,7 @@ import { CompleteStep } from "../../components/EntityForm/CompleteStep";
 import { FormStep } from "../../components/FormStep/FormStep";
 import { ENTITY_FORM_KEY } from "../../components/EntityForm/constant";
 // import { AllProductForm } from "./-components/form/product";
-import { RefreshHelperProvider } from "@lib/ui";
+import { RefreshHelperProvider } from "@lib/ui/src/components/RefreshHelper/RefreshHelperProvider";
 import { FormDataProvider } from "../../components/FormDataContext/FormDataContext.tsx";
 import { useNewArtistSubmission } from "../../hooks/useNewArtistSubmission.ts";
 

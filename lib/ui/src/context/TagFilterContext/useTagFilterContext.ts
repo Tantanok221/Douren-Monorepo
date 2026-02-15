@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useStore } from "zustand/index";
+import { useStore } from "zustand";
 import { TagFilterContext, TagFilterStoreTypes } from "./TagFilterContext.tsx";
 
 export function useTagFilterContext<U>(

@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  DataOperationProvider,
-  FilterContainer,
-  SearchContainer,
-} from "@lib/ui";
+import { DataOperationProvider } from "@lib/ui/src/context/DataOperationContext/DataOperationContext";
+import { FilterContainer } from "@lib/ui/src/components/FilterContainer/FilterContainer";
+import { SearchContainer } from "@lib/ui/src/components/SearchContainer/SearchContainer";
 import { ArtistContainer } from "./-components/ArtistContainer.tsx";
 import { useFetchTagData } from "@/hooks";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";

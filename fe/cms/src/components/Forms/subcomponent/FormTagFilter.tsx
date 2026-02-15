@@ -1,9 +1,7 @@
 import { useFormContext } from "react-hook-form";
-import {
-  PureTagFilter,
-  TagFilterContextProvider,
-  useTagFilterContext,
-} from "@lib/ui";
+import { PureTagFilter } from "@lib/ui/src/components/TagFilter/TagFilter";
+import { TagFilterContextProvider } from "@lib/ui/src/context/TagFilterContext/TagFilterContext";
+import { useTagFilterContext } from "@lib/ui/src/context/TagFilterContext/useTagFilterContext";
 import { forwardRef, Ref, useEffect } from "react";
 import * as Form from "@radix-ui/react-form";
 import { useFetchTagData } from "@/hooks";
