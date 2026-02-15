@@ -25,7 +25,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const backendBaseUrl = import.meta.env.VITE_BACKEND_URL.replace(/\/+$/, "");
+const backendBaseUrl = (
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:2000"
+).replace(/\/+$/, "");
 const trpcUrl = backendBaseUrl.endsWith("/trpc")
   ? backendBaseUrl
   : `${backendBaseUrl}/trpc`;
