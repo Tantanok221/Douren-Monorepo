@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "infisical run --env=dev -- vite",
+    "dev": "../../scripts/infisical-headless.sh run --env=dev -- vite",
     "build": "pnpm run sitemap:generate:auto && vite build",
     "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier ./src --write --single-quote false --semi true",
     "test": "vitest run",
     "sitemap:generate:auto": "if [ \"$CI\" = \"true\" ]; then pnpm run sitemap:generate:ci; else pnpm run sitemap:generate; fi",
-    "sitemap:generate": "infisical run --env=prod -- node ./scripts/generate-sitemap.mjs",
+    "sitemap:generate": "../../scripts/infisical-headless.sh run --env=prod -- node ./scripts/generate-sitemap.mjs",
     "sitemap:generate:ci": "node ./scripts/generate-sitemap.mjs"
   },
   "dependencies": {
