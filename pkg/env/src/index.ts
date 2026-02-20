@@ -2,6 +2,8 @@
 // Do not edit it directly. Run the script to regenerate.
 
 export interface ENV_BINDING {
+  BASIC_AUTH_PASSWORD: string;
+  BASIC_AUTH_USERNAME: string;
   BETTER_AUTH_SECRET: string;
   BETTER_AUTH_URL: string;
   CLOUDFLARE_ACCOUNT_ID: string;
