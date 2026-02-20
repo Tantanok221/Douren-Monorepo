@@ -1,6 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalPassThroughEnv": [
+    "INFISICAL_TOKEN",
+    "INFISICAL_PROJECT_ID",
+    "INFISICAL_SITE_URL",
+    "INFISICAL_ENV"
+  ],
   "tasks": {
    "build": {
       "cache": true,
