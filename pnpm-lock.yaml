@@ -123,6 +123,9 @@ importers:
       '@mantine/hooks':
         specifier: ^7.12.2
         version: 7.17.8(react@18.3.1)
+      '@pkg/edge-auth':
+        specifier: workspace:*
+        version: link:../../pkg/edge-auth
       '@tanstack/react-query':
         specifier: ^5.54.1
         version: 5.90.18(react@18.3.1)
