@@ -1,0 +1,29 @@
+services:
+  douren-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    image: douren-agent:dev
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+      - douren-pnpm-store:/root/.local/share/pnpm/store
+    environment:
+      # Required for non-interactive Infisical auth
+      INFISICAL_TOKEN: ${INFISICAL_TOKEN:-}
+      INFISICAL_PROJECT_ID: ${INFISICAL_PROJECT_ID:-}
+      INFISICAL_ENV: ${INFISICAL_ENV:-dev}
+      INFISICAL_SITE_URL: ${INFISICAL_SITE_URL:-}
+
+      # Keep chokidar/polling fallback available for some cloud volumes.
+      CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING:-false}
+      CI: ${CI:-false}
+    ports:
+      - "5173:5173"
+      - "5174:5174"
+      - "2000:2000"
+      - "6006:6006"
+    command: ["agent-bootstrap.sh"]
+
+volumes:
+  douren-pnpm-store:

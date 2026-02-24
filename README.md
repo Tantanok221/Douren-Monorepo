@@ -115,6 +115,48 @@ cd ../my-feature
 ./setup.sh --quick
 ```
 
+## Cloud Agent / Docker (reproducible toolchain)
+
+Use this when running the repo on cloud coding agents (e.g. Oz/Codex/containers) where local machine auth/state is not available.
+
+### Files added
+- `Dockerfile.agent` — Node 22 + pnpm + Infisical CLI base image
+- `docker-compose.agent.yml` — reproducible dev container wiring
+- `scripts/agent-bootstrap.sh` — non-interactive auth + env pull + install + dev startup
+
+### 1) Provide Infisical auth via runtime secrets
+
+Set these env vars in your cloud agent (or local shell before compose):
+
+```bash
+export INFISICAL_TOKEN=...           # recommended service token
+export INFISICAL_ENV=dev             # default: dev
+# optional:
+export INFISICAL_PROJECT_ID=...
+export INFISICAL_SITE_URL=...
+```
+
+> Do **not** bake tokens into images. Inject at runtime only.
+
+### 2) Start container
+
+```bash
+docker compose -f docker-compose.agent.yml up --build
+```
+
+This runs `agent-bootstrap.sh`, which:
+1. validates Infisical access (if token/project env is provided)
+2. runs `pnpm run env:pull`
+3. installs deps with `pnpm install`
+4. starts `pnpm run dev`
+
+### 3) Run custom command instead of full dev
+
+```bash
+docker compose -f docker-compose.agent.yml run --rm douren-agent \
+  agent-bootstrap.sh pnpm run test
+```
+
 ## Troubleshooting
 
 ### CRLF / line ending noise

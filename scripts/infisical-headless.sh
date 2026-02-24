@@ -18,6 +18,7 @@ if [[ -n "${INFISICAL_TOKEN:-}" ]]; then
   opts+=(--token "$INFISICAL_TOKEN")
 fi
 
+# repo stores this as UUID workspaceId in .infisical.json
 if [[ -n "${INFISICAL_PROJECT_ID:-}" ]]; then
   opts+=(--projectId "$INFISICAL_PROJECT_ID")
 fi
