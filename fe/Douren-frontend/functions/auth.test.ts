@@ -1,51 +1,109 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import {
-  getBranchName,
-  isAuthorizedRequest,
-  isProtectedBranch,
-  withNoIndexHeader,
-} from "@pkg/edge-auth";
+import { onRequest } from "./_middleware";
 
-describe("staging auth helpers", () => {
-  it("uses env branch when available", () => {
-    expect(getBranchName("stg", "pr-42.douren-frontend.pages.dev")).toBe("stg");
+interface TestPagesContext {
+  request: Request;
+  env: {
+    BASIC_AUTH_USERNAME?: string;
+    BASIC_AUTH_PASSWORD?: string;
+    CF_PAGES_BRANCH?: string;
+  };
+  next: () => Promise<Response>;
+}
+
+const createContext = ({
+  url,
+  branch,
+  authorization,
+  nextResponse = new Response("ok", { status: 200 }),
+}: {
+  url: string;
+  branch?: string;
+  authorization?: string;
+  nextResponse?: Response;
+}): TestPagesContext => {
+  const headers = authorization
+    ? new Headers({ Authorization: authorization })
+    : new Headers();
+
+  return {
+    request: new Request(url, { headers }),
+    env: {
+      BASIC_AUTH_USERNAME: "shared-user",
+      BASIC_AUTH_PASSWORD: "shared-pass",
+      CF_PAGES_BRANCH: branch,
+    },
+    next: vi.fn().mockResolvedValue(nextResponse),
+  };
+};
+
+describe("staging middleware", () => {
+  it("passes through unprotected branches", async () => {
+    const context = createContext({
+      url: "https://main.douren-frontend.pages.dev",
+      branch: "main",
+    });
+
+    const response = await onRequest(context);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("X-Robots-Tag")).toBeNull();
+    expect(context.next).toHaveBeenCalledOnce();
   });
 
-  it("falls back to hostname subdomain", () => {
-    expect(getBranchName(undefined, "pr-42.douren-frontend.pages.dev")).toBe("pr-42");
-  });
+  it("returns 401 with WWW-Authenticate for missing auth on protected branches", async () => {
+    const context = createContext({
+      url: "https://pr-42.douren-frontend.pages.dev",
+      branch: "pr-42",
+    });
 
-  it("protects staging and pr branches only", () => {
-    expect(isProtectedBranch("stg")).toBe(true);
-    expect(isProtectedBranch("pr-42")).toBe(true);
-    expect(isProtectedBranch("main")).toBe(false);
-  });
+    const response = await onRequest(context);
 
-  it("accepts matching basic auth credentials", () => {
-    const token = Buffer.from("shared-user:shared-pass").toString("base64");
-
-    expect(
-      isAuthorizedRequest(`Basic ${token}`, "shared-user", "shared-pass"),
-    ).toBe(true);
-  });
-
-  it("rejects invalid basic auth credentials", () => {
-    const token = Buffer.from("shared-user:wrong").toString("base64");
-
-    expect(
-      isAuthorizedRequest(`Basic ${token}`, "shared-user", "shared-pass"),
-    ).toBe(false);
-    expect(isAuthorizedRequest("Bearer token", "shared-user", "shared-pass")).toBe(
-      false,
+    expect(response.status).toBe(401);
+    expect(response.headers.get("WWW-Authenticate")).toBe(
+      'Basic realm="Staging", charset="UTF-8"',
     );
-  });
-
-  it("adds noindex header", () => {
-    const response = withNoIndexHeader(new Response("ok", { status: 200 }));
-
     expect(response.headers.get("X-Robots-Tag")).toBe(
       "noindex, nofollow, noarchive",
     );
+    expect(context.next).not.toHaveBeenCalled();
+  });
+
+  it("returns 401 with WWW-Authenticate for invalid auth on protected branches", async () => {
+    const wrongToken = Buffer.from("shared-user:wrong-pass").toString("base64");
+    const context = createContext({
+      url: "https://stg.douren-frontend.pages.dev",
+      branch: "stg",
+      authorization: `Basic ${wrongToken}`,
+    });
+
+    const response = await onRequest(context);
+
+    expect(response.status).toBe(401);
+    expect(response.headers.get("WWW-Authenticate")).toBe(
+      'Basic realm="Staging", charset="UTF-8"',
+    );
+    expect(response.headers.get("X-Robots-Tag")).toBe(
+      "noindex, nofollow, noarchive",
+    );
+    expect(context.next).not.toHaveBeenCalled();
+  });
+
+  it("allows authorized protected branches and adds noindex header", async () => {
+    const token = Buffer.from("shared-user:shared-pass").toString("base64");
+    const context = createContext({
+      url: "https://stg.douren-frontend.pages.dev",
+      branch: "stg",
+      authorization: `Basic ${token}`,
+    });
+
+    const response = await onRequest(context);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("X-Robots-Tag")).toBe(
+      "noindex, nofollow, noarchive",
+    );
+    expect(context.next).toHaveBeenCalledOnce();
   });
 });
