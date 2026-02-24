@@ -42,6 +42,17 @@ export const trpcEventRoute = router({
 			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
 			return await EventArtistDao.Fetch(opts.input);
 		}),
+	getEventByIds: publicProcedure
+		.input(
+			artistInputParams.extend({
+				eventName: z.string(),
+				artistIds: z.array(z.number().int()).min(1),
+			}),
+		)
+		.query(async (opts) => {
+			const EventArtistDao = NewEventArtistDao(opts.ctx.db);
+			return await EventArtistDao.Fetch(opts.input);
+		}),
 	getEventArtistById: publicProcedure
 		.input(GetEventArtistByIdSchema)
 		.query(async (opts) => {

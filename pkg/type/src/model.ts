@@ -115,6 +115,7 @@ export const artistInputParams = z.object({
   page: z.string(),
   search: z.string().optional(),
   tag: z.string().optional(),
+  day: z.enum(["day1", "day2", "day3"]).optional(),
   sort: z.string(),
   searchTable: z.string()
 })

@@ -1,5 +1,15 @@
 import { initDB, s } from "@pkg/database/db";
-import { asc, count, countDistinct, desc, eq } from "drizzle-orm";
+import {
+	AnyColumn,
+	asc,
+	count,
+	countDistinct,
+	desc,
+	eq,
+	inArray,
+	ilike,
+	or,
+} from "drizzle-orm";
 import { BuildQuery } from "@pkg/database/helper";
 import { FETCH_ARTIST_OBJECT, FETCH_EVENT_ARTIST_OBJECT } from "@pkg/type";
 import { PAGE_SIZE } from "@/helper/constant";
@@ -7,6 +17,15 @@ import { processTableName } from "@/helper/processTableName";
 import { processTagConditions } from "@/helper/processTagConditions";
 import { ArtistFetchParams, EventArtistFetchParams } from "@/utlis/fetchHelper";
 import { DerivedFetchParams } from "@/utlis/paramHelper";
+
+function getDayLocationColumn(
+	day?: "day1" | "day2" | "day3",
+): AnyColumn | undefined {
+	if (day === "day1") return s.eventDm.locationDay01;
+	if (day === "day2") return s.eventDm.locationDay02;
+	if (day === "day3") return s.eventDm.locationDay03;
+	return undefined;
+}
 
 abstract class IQueryBuilder<T extends ArtistFetchParams> {
 	public fetchParams: T;
@@ -117,18 +136,52 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			)
 			.Build();
 		if (this.fetchParams.tag) {
-			SelectQuery.withAndFilter(this.derivedFetchParams.tagConditions);
-			CountQuery.withAndFilter(this.derivedFetchParams.tagConditions);
+			const tags = this.fetchParams.tag
+				.split(",")
+				.map((tag) => tag.trim())
+				.filter((tag) => tag.length > 0);
+			const artistTagFilters = tags.map((tag) =>
+				inArray(
+					s.eventDm.artistId,
+					this.db
+						.select({ authorId: s.authorTag.authorId })
+						.from(s.authorTag)
+						.where(eq(s.authorTag.tagId, tag)),
+				),
+			);
+			if (artistTagFilters.length > 0) {
+				SelectQuery.withAndFilter(artistTagFilters);
+				CountQuery.withAndFilter(artistTagFilters);
+			}
 		}
 		if (this.fetchParams.search) {
-			SelectQuery.withIlikeSearchByTable(
-				this.fetchParams.search,
-				this.derivedFetchParams.searchTable,
+			const searchCondition = or(
+				ilike(s.authorMain.author, `%${this.fetchParams.search}%`),
+				ilike(s.eventDm.boothName, `%${this.fetchParams.search}%`),
 			);
-			CountQuery.withIlikeSearchByTable(
-				this.fetchParams.search,
-				this.derivedFetchParams.searchTable,
+			if (searchCondition) {
+				SelectQuery.withFilter(searchCondition);
+				CountQuery.withFilter(searchCondition);
+			}
+		}
+		const dayLocationColumn = getDayLocationColumn(this.fetchParams.day);
+		if (dayLocationColumn) {
+			SelectQuery.withTableIsNotNull(dayLocationColumn).withTableIsNot(
+				dayLocationColumn,
+				"",
 			);
+			CountQuery.withTableIsNotNull(dayLocationColumn).withTableIsNot(
+				dayLocationColumn,
+				"",
+			);
+		}
+		if (this.fetchParams.artistIds?.length) {
+			const artistIdsFilter = inArray(
+				s.eventDm.artistId,
+				this.fetchParams.artistIds,
+			);
+			SelectQuery.withFilter(artistIdsFilter);
+			CountQuery.withFilter(artistIdsFilter);
 		}
 		return { SelectQuery, CountQuery };
 	}

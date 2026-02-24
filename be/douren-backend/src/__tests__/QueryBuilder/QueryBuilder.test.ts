@@ -8,9 +8,11 @@ type MockDB = ReturnType<typeof initDB>;
 const createMockBuildQueryResult = () => ({
 	withOrderBy: vi.fn().mockReturnThis(),
 	withPagination: vi.fn().mockReturnThis(),
+	withTableIsNotNull: vi.fn().mockReturnThis(),
 	withTableIsNot: vi.fn().mockReturnThis(),
 	withFilterEventName: vi.fn().mockReturnThis(),
 	withAndFilter: vi.fn().mockReturnThis(),
+	withFilter: vi.fn().mockReturnThis(),
 	withIlikeSearchByTable: vi.fn().mockReturnThis(),
 	Build: vi.fn().mockReturnThis(),
 	query: Promise.resolve([]),
@@ -26,6 +28,9 @@ vi.mock("drizzle-orm", () => ({
 	count: vi.fn((column) => ({ column, type: "count" })),
 	countDistinct: vi.fn((column) => ({ column, type: "countDistinct" })),
 	eq: vi.fn((a, b) => ({ a, b, type: "eq" })),
+	inArray: vi.fn((column, values) => ({ column, values, type: "inArray" })),
+	ilike: vi.fn((column, pattern) => ({ column, pattern, type: "ilike" })),
+	or: vi.fn((...conditions) => ({ conditions, type: "or" })),
 }));
 
 // Mock database schema
@@ -153,6 +158,7 @@ const createMockDb = () => {
 	const mockFrom = vi.fn().mockReturnValue({
 		leftJoin: mockLeftJoin,
 		$dynamic: mockDynamic,
+		where: vi.fn().mockReturnValue({}),
 	});
 
 	const mockSelect = vi.fn().mockReturnValue({ from: mockFrom });
@@ -444,8 +450,29 @@ describe("QueryBuilder", () => {
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
-				expect(result.SelectQuery.withAndFilter).toHaveBeenCalled();
-				expect(result.CountQuery.withAndFilter).toHaveBeenCalled();
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledTimes(2);
+			});
+
+			it("should apply AND tag filter for multiple tags", () => {
+				const params = {
+					page: "1",
+					sort: "Booth_name,asc",
+					searchTable: "Author_Main.Author",
+					eventName: "Test Event",
+					tag: "原創,繪師",
+				};
+
+				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
+				const result = builder.BuildQuery();
+
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledTimes(2);
+				expect(result.SelectQuery.withAndFilter).toHaveBeenCalledWith(
+					expect.arrayContaining([expect.any(Object), expect.any(Object)]),
+				);
+				expect(result.SelectQuery.withAndFilter).toHaveBeenNthCalledWith(
+					2,
+					expect.arrayContaining([expect.any(Object), expect.any(Object)]),
+				);
 			});
 
 			it("should apply search filter when search is provided", () => {
@@ -460,10 +487,8 @@ describe("QueryBuilder", () => {
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				const result = builder.BuildQuery();
 
-				expect(result.SelectQuery.withIlikeSearchByTable).toHaveBeenCalledWith(
-					"artist name",
-					expect.anything(),
-				);
+				expect(result.SelectQuery.withFilter).toHaveBeenCalled();
+				expect(result.CountQuery.withFilter).toHaveBeenCalled();
 			});
 
 			it("should apply pagination with correct page number", () => {
@@ -480,21 +505,65 @@ describe("QueryBuilder", () => {
 				expect(mockBuildQueryResult.withPagination).toHaveBeenCalledWith(3, 10);
 			});
 
-			it("should apply order by with sort direction", () => {
-				const params = {
-					page: "1",
-					sort: "Booth_name,desc",
-					searchTable: "Author_Main.Author",
-					eventName: "Test Event",
-				};
+				it("should apply order by with sort direction", () => {
+					const params = {
+						page: "1",
+						sort: "Booth_name,desc",
+						searchTable: "Author_Main.Author",
+						eventName: "Test Event",
+					};
 
 				const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
 				builder.BuildQuery();
 
-				expect(mockBuildQueryResult.withOrderBy).toHaveBeenCalled();
+					expect(mockBuildQueryResult.withOrderBy).toHaveBeenCalled();
+				});
+
+				it("should apply day filter for non-empty day booth locations", () => {
+					const params = {
+						page: "1",
+						sort: "Booth_name,desc",
+						searchTable: "Author_Main.Author",
+						eventName: "Test Event",
+						day: "day2" as const,
+					};
+
+					const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
+					const result = builder.BuildQuery();
+
+					expect(result.SelectQuery.withTableIsNotNull).toHaveBeenCalledWith(
+						"eventDm.locationDay02",
+					);
+					expect(result.SelectQuery.withTableIsNot).toHaveBeenCalledWith(
+						"eventDm.locationDay02",
+						"",
+					);
+					expect(result.CountQuery.withTableIsNotNull).toHaveBeenCalledWith(
+						"eventDm.locationDay02",
+					);
+					expect(result.CountQuery.withTableIsNot).toHaveBeenCalledWith(
+						"eventDm.locationDay02",
+						"",
+					);
+				});
+
+				it("should apply artist ids filter when artistIds are provided", () => {
+					const params = {
+						page: "1",
+						sort: "Booth_name,desc",
+						searchTable: "Author_Main.Author",
+						eventName: "Test Event",
+						artistIds: [1, 2, 3],
+					};
+
+					const builder = NewEventArtistQueryBuilder(params, mockDb as unknown as MockDB);
+					const result = builder.BuildQuery();
+
+					expect(result.SelectQuery.withFilter).toHaveBeenCalled();
+					expect(result.CountQuery.withFilter).toHaveBeenCalled();
+				});
 			});
 		});
-	});
 
 	describe("IQueryBuilder base class", () => {
 		it("should correctly derive sort direction from asc", () => {
