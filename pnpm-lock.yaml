@@ -123,6 +123,9 @@ importers:
       '@mantine/hooks':
         specifier: ^7.12.2
         version: 7.17.8(react@18.3.1)
+      '@pkg/edge-auth':
+        specifier: workspace:*
+        version: link:../../pkg/edge-auth
       '@tanstack/react-query':
         specifier: ^5.54.1
         version: 5.90.18(react@18.3.1)
@@ -253,6 +256,9 @@ importers:
       '@phosphor-icons/react':
         specifier: ^2.1.7
         version: 2.1.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@pkg/edge-auth':
+        specifier: workspace:*
+        version: link:../../pkg/edge-auth
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -631,6 +637,12 @@ importers:
       ts-morph:
         specifier: ^23.0.0
         version: 23.0.0
+
+  pkg/edge-auth:
+    devDependencies:
+      '@pkg/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   pkg/env:
     devDependencies:

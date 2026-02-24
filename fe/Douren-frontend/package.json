@@ -12,6 +12,7 @@
     "codegen": "barrelsby -c ./barrelsby.json -l all --delete --exclude .test.ts  "
   },
   "dependencies": {
+    "@pkg/edge-auth": "workspace:*",
     "@lib/ui": "workspace:*",
     "@mantine/hooks": "^7.12.2",
     "@tanstack/react-query": "^5.54.1",
