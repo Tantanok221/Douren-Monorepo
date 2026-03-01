@@ -19,6 +19,7 @@ interface EventArtistFormProps {
   defaultValues?: EventArtistSchema;
   allEventData?: Array<{
     uuid?: number;
+    boothId?: number | null;
     eventId?: number | null;
     artistId?: number;
     boothName?: string | null;
@@ -36,6 +37,7 @@ export function EventArtistForm({
   const formHook = useForm<EventArtistSchema>({
     resolver: zodResolver(eventArtistSchema),
     defaultValues: defaultValues ?? {
+      boothId: undefined,
       eventId: 0, // Will be auto-selected by EventField
       artistId: 0, // Placeholder, will be set during submission
       boothName: "",
@@ -61,6 +63,7 @@ export function EventArtistForm({
     if (eventData) {
       // Populate form with existing event data
       reset({
+        boothId: eventData.boothId,
         eventId: eventData.eventId || selectedEventId,
         artistId: eventData.artistId || 0,
         boothName: eventData.boothName || "",
@@ -72,6 +75,7 @@ export function EventArtistForm({
     } else {
       // Reset to empty form for new event
       reset({
+        boothId: undefined,
         eventId: selectedEventId,
         artistId: defaultValues?.artistId || 0,
         boothName: "",

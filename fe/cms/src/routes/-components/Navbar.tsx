@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import {
   PlusIcon,
   CalendarIcon,
+  LayoutListIcon,
   LogOutIcon,
   LogInIcon,
   UserIcon,
@@ -113,6 +114,23 @@ export const Navbar = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </>
+            )}
+
+            {session && (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link
+                    to="/booth"
+                    className={cn(
+                      navigationMenuTriggerStyle,
+                      "gap-2 text-stone-300",
+                    )}
+                  >
+                    <LayoutListIcon className="h-4 w-4" />
+                    攤位檢視
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             )}
 
             {session && (

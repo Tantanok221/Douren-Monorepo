@@ -87,14 +87,20 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			.leftJoin(s.authorMain, eq(s.authorMain.uuid, s.eventDm.artistId))
 			.leftJoin(s.authorTag, eq(s.authorTag.authorId, s.authorMain.uuid))
 			.leftJoin(s.tag, eq(s.authorTag.tagId, s.tag.tag))
+			.leftJoin(s.booth, eq(s.eventDm.boothId, s.booth.id))
 			.leftJoin(s.event, eq(s.eventDm.eventId, s.event.id))
 			.groupBy(
 				s.eventDm.boothName,
+				s.eventDm.boothId,
 				s.authorMain.uuid,
 				s.eventDm.locationDay01,
 				s.eventDm.locationDay02,
 				s.eventDm.locationDay03,
 				s.eventDm.dm,
+				s.booth.name,
+				s.booth.locationDay01,
+				s.booth.locationDay02,
+				s.booth.locationDay03,
 			)
 			.$dynamic();
 		const countQuery = this.db

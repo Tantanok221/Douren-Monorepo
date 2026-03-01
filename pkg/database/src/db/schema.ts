@@ -51,7 +51,25 @@ export const event = pgTable("event", {
 });
 
 export const eventRelations = relations(event, ({ many }) => ({
-  eventDms: many(eventDm)
+  eventDms: many(eventDm),
+  booths: many(booth),
+}));
+
+export const booth = pgTable("booth", {
+  id: integer("id").primaryKey().notNull().generatedAlwaysAsIdentity({ startWith: 1 }),
+  eventId: integer("event_id").notNull().references(() => event.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  locationDay01: text("location_day01"),
+  locationDay02: text("location_day02"),
+  locationDay03: text("location_day03"),
+});
+
+export const boothRelations = relations(booth, ({ one, many }) => ({
+  event: one(event, {
+    fields: [booth.eventId],
+    references: [event.id],
+  }),
+  eventDms: many(eventDm),
 }));
 
 export const eventDm = pgTable("event_dm", {
@@ -62,7 +80,8 @@ export const eventDm = pgTable("event_dm", {
   boothName: text("booth_name"),
   dm: text("dm"),
   artistId: integer("artist_id").notNull(),
-  eventId: integer("event_id")
+  eventId: integer("event_id"),
+  boothId: integer("booth_id").references(() => booth.id, { onDelete: "set null" }),
 });
 
 export const eventDmRelations = relations(eventDm, ({ one }) => ({
@@ -73,7 +92,11 @@ export const eventDmRelations = relations(eventDm, ({ one }) => ({
   event: one(event, {
     fields: [eventDm.eventId],
     references: [event.id]
-  })
+  }),
+  booth: one(booth, {
+    fields: [eventDm.boothId],
+    references: [booth.id],
+  }),
 }));
 
 
