@@ -1,5 +1,5 @@
-import { ImageUpload } from "../../ImageUpload";
-import { uploadImage } from "@/hooks";
+import { ImageUpload } from "../../ImageUpload/ImageUpload";
+import { uploadImage } from "@/hooks/useUploadImage";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import * as Dialog from "@radix-ui/react-dialog";

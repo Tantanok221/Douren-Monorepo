@@ -3,8 +3,8 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import style from "../TagFilter.module.css";
 import classNames from "classnames/bind";
 import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
-import { TagObject } from "@lib/ui";
-import { useTagFilterContext } from "../../../context";
+import { TagObject } from "../../../stores/useTagFilter";
+import { useTagFilterContext } from "../../../context/TagFilterContext/useTagFilterContext";
 
 interface Props {
   data: TagObject;

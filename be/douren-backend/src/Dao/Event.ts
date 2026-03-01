@@ -1,4 +1,4 @@
-import { BaseDao } from "@/Dao/index";
+import { BaseDao } from "@/Dao/BaseDao";
 import { desc, eq, ne } from "drizzle-orm";
 import {
 	CreateEventSchemaTypes,

@@ -6,7 +6,7 @@ import { httpLink, loggerLink } from "@trpc/client";
 
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
-import { AuthProvider } from "@/components";
+import { AuthProvider } from "@/components/AuthContext/AuthContext";
 import { authClient } from "./lib/auth";
 import { trpc } from "./lib/trpc.ts";
 
@@ -25,7 +25,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const backendBaseUrl = import.meta.env.VITE_BACKEND_URL.replace(/\/+$/, "");
+const backendBaseUrl = (
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:2000"
+).replace(/\/+$/, "");
 const trpcUrl = backendBaseUrl.endsWith("/trpc")
   ? backendBaseUrl
   : `${backendBaseUrl}/trpc`;

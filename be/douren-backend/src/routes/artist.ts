@@ -11,7 +11,7 @@ import { authProcedure, publicProcedure, router } from "@/lib/trpc";
 import { artistInputParams, artistSchema } from "@pkg/type";
 import { NewArtistDao } from "@/Dao/Artist";
 import { zodSchema, zodSchemaType } from "@pkg/database/zod";
-import type { HonoEnv, HonoVariables } from "@/index";
+import type { HonoEnv, HonoVariables } from "@/types/hono";
 import {
 	ARTIST_FORBIDDEN_MESSAGES,
 	assertCanDeleteArtist,

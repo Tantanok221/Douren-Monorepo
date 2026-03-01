@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import ky from "ky";
 import { useRef } from "react";
-import { FormImageUploadRef } from "@/components";
+import { FormImageUploadRef } from "@/components/Forms/subcomponent/FormImageUpload";
 
 interface ImageResponse {
   link: string;
@@ -25,10 +25,11 @@ export async function uploadImage(file: File | null): Promise<string> {
 
   // Use backend endpoint which handles authentication via session
   // Strip /trpc suffix if present since image is a REST endpoint, not tRPC
-  const backendUrl = import.meta.env.VITE_BACKEND_URL.replace(
-    /\/+$/,
-    "",
-  ).replace(/\/trpc$/, "");
+  const backendUrl = (
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:2000"
+  )
+    .replace(/\/+$/, "")
+    .replace(/\/trpc$/, "");
   const imageEndpoint = `${backendUrl}/image`;
 
   const { link } = await ky

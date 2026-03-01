@@ -1,7 +1,7 @@
 import style from "./LinkContainer.module.css";
 import classNames from "classnames/bind";
 import { motion } from "framer-motion";
-import { LinkIcon } from "../LinkIcon";
+import { LinkIcon } from "../LinkIcon/LinkIcon";
 
 export interface linkObject {
   name?: string;

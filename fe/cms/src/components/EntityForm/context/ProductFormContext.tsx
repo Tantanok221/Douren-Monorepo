@@ -6,13 +6,13 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { ProductFormSchema } from "../schema";
+import { ProductFormSchema } from "../schema/schema";
 import {
   SubmitHandler,
   UseFormGetValues,
   UseFormHandleSubmit,
 } from "react-hook-form";
-import { FormImageUploadRef } from "@/components";
+import { FormImageUploadRef } from "@/components/Forms/subcomponent/FormImageUpload";
 
 export interface ProductFormType {
   submitHook: UseFormHandleSubmit<ProductFormSchema>;

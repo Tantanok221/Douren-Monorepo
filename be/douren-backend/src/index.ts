@@ -18,18 +18,11 @@ import { TagRoute, trpcTagRoute } from "./routes/tag";
 import { trpcInviteRoute } from "./routes/invite";
 import imageRoute from "./routes/image";
 import { cache } from "hono/cache";
-import { auth, type Auth, AuthSession } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
 import { requireAuthenticatedUser } from "@/lib/auth/guards";
-
-export type HonoVariables = {
-	db: ReturnType<typeof initDB>;
-	user: Auth["$Infer"]["Session"]["user"] | null;
-	session: AuthSession | null;
-};
-
-export type HonoEnv = { Bindings: ENV_BINDING; Variables: HonoVariables };
+import type { HonoEnv } from "@/types/hono";
 
 const app = new OpenAPIHono<HonoEnv>();
 app.use("*", logger());

@@ -1,4 +1,4 @@
-import { ArtistFormSchema } from "../schema";
+import { ArtistFormSchema } from "../schema/schema";
 import { DisplayText, DisplayTitle } from "./Display.tsx";
 
 interface props {

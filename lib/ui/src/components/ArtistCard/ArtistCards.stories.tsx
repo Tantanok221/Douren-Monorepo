@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ArtistCard } from "./ArtistCard";
-import { mockArtistEventData } from "../../index.ts";
+import { mockArtistEventData } from "../ArtistCard/ArtistCard";
 
 const meta: Meta<typeof ArtistCard> = {
   component: ArtistCard,

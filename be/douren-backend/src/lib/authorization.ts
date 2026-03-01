@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { s } from "@pkg/database/db";
-import type { HonoVariables } from "@/index";
+import type { HonoVariables } from "@/types/hono";
 import { LRUCache } from "lru-cache";
 
 type DrizzleDB = HonoVariables["db"];

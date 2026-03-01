@@ -1,13 +1,13 @@
-import { ArrayTagHelper } from "@lib/ui";
+import { ArrayTagHelper } from "@lib/ui/src/helper/tag";
 import { trpc } from "@/lib/trpc";
-import {
+import { ENTITY_FORM_KEY } from "../components/EntityForm/constant";
+import type {
   ArtistFormSchema,
-  ENTITY_FORM_KEY,
   EventArtistSchema,
   ProductFormSchema,
-  useFormDataStore,
-} from "../components";
-import { Route } from "../routes/edit.$artistId";
+} from "../components/EntityForm/schema/schema";
+import { useFormDataStore } from "../components/FormDataContext/useFormDataContext";
+import { Route } from "../routes/edit.$artistId/index";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { uploadImages } from "./useUploadImage";

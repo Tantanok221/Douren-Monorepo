@@ -4,15 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   InputTextField,
   TagFilterField,
-  Forms,
+  ImageField,
+} from "@/components/RichForm/RichForm";
+import { Forms } from "@/components/Forms/Forms";
+import {
   AllAvailableLinkType,
   GetLinkLabelFromKey,
-  ImageField,
-} from "@/components";
-import { useUploadImageRef } from "@/hooks";
-import { artistFormSchema, ArtistFormSchema } from "./schema";
+} from "@/components/RichForm/type/LinkFormSchema";
+import { useUploadImageRef } from "@/hooks/useUploadImage";
+import { artistFormSchema, ArtistFormSchema } from "./schema/schema";
 import { useFormDataContext } from "../FormDataContext/useFormDataContext.ts";
-import { useFormStep } from "../FormStep";
+import { useFormStep } from "../FormStep/useFormStep";
 
 interface artistFormProps {
   defaultValues?: ArtistFormSchema;

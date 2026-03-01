@@ -6,8 +6,8 @@ import {
   FormMessage,
   FormsLabel,
   FormSubmit,
-  FormTagFilter,
-} from "./subcomponent";
+} from "./subcomponent/FormSubcomponent";
+import { FormTagFilter } from "./subcomponent/FormTagFilter";
 import { FormImageUpload } from "./subcomponent/FormImageUpload.tsx";
 import { FormsRoot } from "./FormsRoot";
 
