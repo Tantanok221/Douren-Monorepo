@@ -16,6 +16,13 @@ describe("staging auth helpers", () => {
     expect(getBranchName(undefined, "pr-42.douren-v2.pages.dev")).toBe("pr-42");
   });
 
+  it("prefers hostname branch when env branch is not protected", () => {
+    expect(getBranchName("feat/some-branch", "pr-42.douren-v2.pages.dev")).toBe(
+      "pr-42",
+    );
+    expect(getBranchName("main", "stg.douren-v2.pages.dev")).toBe("stg");
+  });
+
   it("protects staging and pr branches only", () => {
     expect(isProtectedBranch("stg")).toBe(true);
     expect(isProtectedBranch("pr-42")).toBe(true);

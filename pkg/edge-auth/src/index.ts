@@ -1,10 +1,16 @@
 export const ROBOTS_HEADER_VALUE = "noindex, nofollow, noarchive";
 
 export function getBranchName(envBranch: string | undefined, hostname: string): string {
-  if (envBranch) return envBranch;
-
   const [subdomain = ""] = hostname.split(".");
-  return subdomain;
+  if (envBranch && isProtectedBranch(envBranch)) {
+    return envBranch;
+  }
+
+  if (subdomain) {
+    return subdomain;
+  }
+
+  return envBranch ?? "";
 }
 
 export function isProtectedBranch(branch: string): boolean {
