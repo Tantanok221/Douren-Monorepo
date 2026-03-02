@@ -8,3 +8,10 @@ Key constraints to follow:
 - Use the `but` skill (GitButler) for all git actions instead of raw `git` commands.
 - **Never use `any`**, and don’t suppress lint/TypeScript errors without a strong justification.
 - Commit messages must match: `[DR-XX] type: subject` (enforced by `commitlint.config.js`).
+- Before handover, run: `pnpm run lint`, `pnpm run test`, `pnpm run build`.
+- Before handover, start dev server with `nr dev` using tmux skill/session management.
+- Before handover, verify frontend mount points:
+  - `curl -s http://localhost:5173 | grep -q 'id="root"'`
+  - `curl -s http://localhost:5174 | grep -q 'id="root"'`
+- Before handover, verify feature-specific element rendering when possible.
+- Before handover, stop the dev server/tmux session after checks.
