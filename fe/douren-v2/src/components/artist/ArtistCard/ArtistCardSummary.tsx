@@ -1,4 +1,5 @@
 import { BookmarkIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { FallbackImage } from "@/components/common/FallbackImage";
 import { useArtistCard } from "./ArtistCardContext";
 import {
   getBoothLocationEntries,
@@ -24,7 +25,7 @@ export const ArtistCardSummary = () => {
       className="w-full py-5 flex items-start gap-4 text-left transition-colors duration-300 hover:bg-archive-hover/50 px-2 -mx-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-archive-accent cursor-pointer"
     >
       <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-sm overflow-hidden bg-archive-border/30">
-        <img
+        <FallbackImage
           src={artist.imageUrl}
           alt={artist.name}
           className="w-full h-full object-cover transition-all duration-500"

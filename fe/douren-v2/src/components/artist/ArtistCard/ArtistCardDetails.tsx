@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { FallbackImage } from "@/components/common/FallbackImage";
 import { trpc } from "@/helper/trpc";
 import { ImageLightbox } from "../ImageLightbox";
 import { useArtistCard } from "./ArtistCardContext";
@@ -44,14 +45,18 @@ export const ArtistCardDetails = () => {
             <div className="pb-8 pt-2 md:pt-4 px-2">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
                 <div className="md:col-span-4 relative aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-archive-border/30 rounded-sm">
-                  <motion.img
+                  <motion.div
                     initial={{ scale: 1.1, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    src={artist.imageUrl}
-                    alt={artist.name}
-                    className="w-full h-full object-cover"
-                  />
+                    className="w-full h-full"
+                  >
+                    <FallbackImage
+                      src={artist.imageUrl}
+                      alt={artist.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
                 </div>
 
                 <div className="md:col-span-8 flex flex-col gap-8">
@@ -127,7 +132,7 @@ export const ArtistCardDetails = () => {
                             onClick={(event) => handleImageClick(event, index)}
                             className="relative aspect-square overflow-hidden rounded-sm bg-archive-border/30 group/work cursor-pointer"
                           >
-                            <img
+                            <FallbackImage
                               src={image}
                               alt={`${artist.name} work ${index + 1}`}
                               className="w-full h-full object-cover transition-all duration-500 group-hover/work:scale-105"
