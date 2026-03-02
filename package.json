@@ -28,6 +28,8 @@
     "db:migrate": "infisical export > pkg/database/.env && turbo db:migrate",
     "db:introspect": "turbo db:introspect",
     "db:push": "turbo db:push",
+    "db:migrate:booths:dry": "infisical run --env=dev -- node scripts/migrate-booths.mjs",
+    "db:migrate:booths:apply": "infisical run --env=dev -- node scripts/migrate-booths.mjs --apply",
     "lint": "turbo lint",
     "env:push": "node scripts/sync-env-to-infisical.js",
     "env:pull": "node scripts/generate-env-binding.js && pnpm run pkg",

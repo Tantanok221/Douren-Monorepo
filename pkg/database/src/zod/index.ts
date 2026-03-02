@@ -1,6 +1,7 @@
 import { authorMainInsertSchema, authorMainSelectSchema } from "./authorMain.js";
 import { authorProductInsertSchema, authorProductSelectSchema } from "./authorProduct.js";
 import { eventInsertSchema, eventSelectSchema } from "./event.js";
+import { boothInsertSchema, boothSelectSchema } from "./booth.js";
 import { eventDmInsertSchema, eventDmSelectSchema } from "./eventDm.js";
 import { ownerInsertSchema, ownerSelectSchema } from "./owner.js";
 import { tagInsertSchema, tagSelectSchema } from "./tag.js";
@@ -25,6 +26,10 @@ export const zodSchema = {
           event: {
             InsertSchema: eventInsertSchema,
             SelectSchema: eventSelectSchema
+          },
+          booth: {
+            InsertSchema: boothInsertSchema,
+            SelectSchema: boothSelectSchema
           },
           eventDm: {
             InsertSchema: eventDmInsertSchema,
@@ -85,6 +90,10 @@ export type zodSchemaType = {
           event: {
             InsertSchema: eventInsertSchema,
             SelectSchema: eventSelectSchema
+          },
+          booth: {
+            InsertSchema: boothInsertSchema,
+            SelectSchema: boothSelectSchema
           },
           eventDm: {
             InsertSchema: eventDmInsertSchema,

@@ -54,6 +54,7 @@ export function transformEventArtistToFormData(
   eventArtistData:
     | Array<{
         uuid?: number;
+        boothId?: number | null;
         eventId?: number | null;
         artistId?: number;
         boothName?: string | null;
@@ -70,6 +71,7 @@ export function transformEventArtistToFormData(
   const firstEvent = eventArtistData[0];
 
   return {
+    boothId: firstEvent.boothId || undefined,
     eventId: firstEvent.eventId || 1,
     artistId: firstEvent.artistId || 1,
     boothName: firstEvent.boothName || "",

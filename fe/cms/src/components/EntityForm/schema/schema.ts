@@ -11,6 +11,7 @@ export const productFormSchema = z.object({
 export type ProductFormSchema = z.infer<typeof productFormSchema>;
 
 export const eventArtistSchema = z.object({
+  boothId: z.number().optional(),
   eventId: z.number().min(1, "請選擇一個活動"),
   artistId: z.number(),
   boothName: z.string().min(1, "請輸入攤位名字"),
