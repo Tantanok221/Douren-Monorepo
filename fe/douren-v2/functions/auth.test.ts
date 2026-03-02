@@ -9,11 +9,11 @@ import {
 
 describe("staging auth helpers", () => {
   it("uses env branch when available", () => {
-    expect(getBranchName("stg", "pr-42.douren-frontend.pages.dev")).toBe("stg");
+    expect(getBranchName("stg", "pr-42.douren-v2.pages.dev")).toBe("stg");
   });
 
   it("falls back to hostname subdomain", () => {
-    expect(getBranchName(undefined, "pr-42.douren-frontend.pages.dev")).toBe("pr-42");
+    expect(getBranchName(undefined, "pr-42.douren-v2.pages.dev")).toBe("pr-42");
   });
 
   it("protects staging and pr branches only", () => {
