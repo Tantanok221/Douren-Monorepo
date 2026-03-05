@@ -144,8 +144,7 @@ The application manages artists, products/artworks, events, and tags with many-t
 - The monorepo uses exact workspace dependencies (`*`) for internal packages
 
 ## Git Action Policy
-- Use the `but` skill (GitButler) for **all** git actions instead of raw `git` commands.
-- This includes status, add/stage, commit, push/pull, branch, merge/rebase, tag, stash, and worktree operations.
+- Use standard `git` commands for status, add/stage, commit, push/pull, branch, merge/rebase, tag, stash, and worktree operations.
 - Keep using repository worktree helpers (`./scripts/worktree.sh`, `make worktree-*`, `pnpm run worktree:*`) when available.
 
 ## Git Worktree Workflow

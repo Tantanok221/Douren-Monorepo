@@ -5,7 +5,7 @@ Use `AGENTS.md` as the canonical source of repository instructions (setup, scrip
 Key constraints to follow:
 - **Node.js 22+** required.
 - Prefer `pnpm run ...`, `./setup.sh`, and `make ...` over ad-hoc commands.
-- Use the `but` skill (GitButler) for all git actions instead of raw `git` commands.
+- Use standard `git` commands for status, add/stage, commit, push/pull, branch, merge/rebase, tag, stash, and worktree operations.
 - **Never use `any`**, and don’t suppress lint/TypeScript errors without a strong justification.
 - Commit messages must match: `[DR-XX] type: subject` (enforced by `commitlint.config.js`).
 - Before handover, run: `pnpm run lint`, `pnpm run test`, `pnpm run build`.
