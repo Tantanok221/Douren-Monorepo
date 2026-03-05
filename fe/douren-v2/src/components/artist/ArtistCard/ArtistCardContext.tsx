@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 import type { ArtistViewModel } from "@/types/models";
 
 export interface ArtistCardRootProps {
@@ -11,8 +11,6 @@ export interface ArtistCardRootProps {
 
 interface ArtistCardContextValue {
   artist: ArtistViewModel;
-  isOpen: boolean;
-  toggle: () => void;
   bookmarks: Set<number>;
   onBookmarkToggle: (id: number) => void;
   selectedTags: string[];
@@ -37,22 +35,19 @@ export const ArtistCardRoot = ({
   selectedTags = [],
   children,
 }: ArtistCardRootProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const value = useMemo(
     () => ({
       artist,
-      isOpen,
-      toggle: () => setIsOpen((prev) => !prev),
       bookmarks,
       onBookmarkToggle,
       selectedTags,
     }),
-    [artist, isOpen, bookmarks, onBookmarkToggle, selectedTags],
+    [artist, bookmarks, onBookmarkToggle, selectedTags],
   );
 
   return (
     <ArtistCardContext.Provider value={value}>
-      <div className="border-b border-archive-border group relative">
+      <div className="border-b border-archive-border relative py-5 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
         {children}
       </div>
     </ArtistCardContext.Provider>
