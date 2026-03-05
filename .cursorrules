@@ -5,7 +5,7 @@
 # Key reminders:
 # - Use Node.js 22+ and prefer repository scripts (`pnpm run ...`, `./setup.sh`, `make ...`).
 # - Do not use `any` and do not suppress lint/TypeScript errors.
-# - Use `but` (GitButler) for all git actions; do not run raw `git` commands.
+# - Use standard `git` commands for status/add/commit/push/branch/worktree operations.
 # - Commit messages must match: `[DR-XX] type: subject` (see `commitlint.config.js`).
 #
 # Quick commands:
