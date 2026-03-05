@@ -3,5 +3,6 @@
  */
 
 export * from "./FormImageUpload";
+export * from "./FormSelect";
 export * from "./FormSubcomponent";
 export * from "./FormTagFilter";

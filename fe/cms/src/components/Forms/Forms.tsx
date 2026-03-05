@@ -2,6 +2,7 @@ import {
   FormButton,
   FormControl,
   FormField,
+  FormSelect,
   HorizontalLayout,
   FormMessage,
   FormsLabel,
@@ -19,6 +20,7 @@ interface CompoundForm {
   Button: typeof FormButton;
   HorizontalLayout: typeof HorizontalLayout;
   Control: typeof FormControl;
+  Select: typeof FormSelect;
   Submit: typeof FormSubmit;
   TagFilter: typeof FormTagFilter;
   ImageUpload: typeof FormImageUpload;
@@ -32,6 +34,7 @@ export const Forms: CompoundForm = {
   Button: FormButton,
   HorizontalLayout: HorizontalLayout,
   Control: FormControl,
+  Select: FormSelect,
   Submit: FormSubmit,
   TagFilter: FormTagFilter,
   ImageUpload: FormImageUpload,

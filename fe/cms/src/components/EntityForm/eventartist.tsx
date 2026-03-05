@@ -119,11 +119,11 @@ export function EventArtistForm({
             下一步 <ArrowRight />
           </Forms.Submit>
         </Forms.HorizontalLayout>
+        <EventField formField={"eventId"} label={"活動場次"} />
         <InputTextField formField={"boothName"} label={"攤位名字"} />
         <InputTextField formField={"locationDay01"} label={"第一天攤位位置"} />
         <InputTextField formField={"locationDay02"} label={"第二天攤位位置"} />
         <InputTextField formField={"locationDay03"} label={"第三天攤位位置"} />
-        <EventField formField={"eventId"} label={"選擇活動"} />
         <ImageField
           formField={"dm"}
           label={"DM"}
