@@ -27,6 +27,14 @@ Examples:
 
 No `.gitignore` checks are needed because this path is outside the repository.
 
+## Base Branch Rule
+
+Default base for new worktrees is always:
+
+`origin/main`
+
+Only use a different base branch when the user explicitly specifies one.
+
 ## Creation Steps
 
 ### 1. Derive context and create path
@@ -37,14 +45,21 @@ path="$HOME/c/douren-worktree/$ticket_context"
 mkdir -p "$(dirname "$path")"
 ```
 
-### 2. Create worktree on target branch
+### 2. Resolve base reference
 
 ```bash
-git worktree add "$path" -b "$BRANCH_NAME"
+git fetch origin main
+base_ref="${USER_SPECIFIED_BASE_REF:-origin/main}"
+```
+
+### 3. Create worktree on target branch
+
+```bash
+git worktree add "$path" -b "$BRANCH_NAME" "$base_ref"
 cd "$path"
 ```
 
-### 3. Run Project Setup
+### 4. Run Project Setup
 
 For this repository, this is mandatory:
 
@@ -52,7 +67,7 @@ For this repository, this is mandatory:
 ./setup.sh
 ```
 
-### 4. Verify Clean Baseline
+### 5. Verify Clean Baseline
 
 Run project checks to ensure worktree starts clean:
 
@@ -64,7 +79,7 @@ pnpm run test
 
 **If tests pass:** Report ready.
 
-### 5. Report Location
+### 6. Report Location
 
 ```
 Worktree ready at <full-path>
@@ -77,6 +92,8 @@ Ready to implement <feature-name>
 | Situation | Action |
 |-----------|--------|
 | Starting isolated work | Create at `~/c/douren-worktree/<ticket-context>` |
+| Base branch not specified | Use `origin/main` |
+| Base branch specified by user | Use that explicit branch/reference |
 | Worktree just created | Run `./setup.sh` immediately |
 | Tests fail during baseline | Report failures + ask |
 
@@ -92,6 +109,11 @@ Ready to implement <feature-name>
 - **Problem:** Missing deps/env causes false failures later
 - **Fix:** Always run `./setup.sh` immediately after `git worktree add`
 
+### Basing from current local HEAD by default
+
+- **Problem:** Work starts from stale or wrong code
+- **Fix:** Always base on `origin/main` unless user explicitly requests another base
+
 ### Proceeding with failing baseline tests
 
 - **Problem:** Can't distinguish new bugs from pre-existing issues
@@ -103,7 +125,8 @@ Ready to implement <feature-name>
 You: I'm using the using-git-worktrees skill to set up an isolated workspace.
 
 [Create worktree path: ~/c/douren-worktree/fix-douren-v2-fallback]
-[Create worktree: git worktree add ~/c/douren-worktree/fix-douren-v2-fallback -b fix/douren-v2-fallback]
+[Fetch main: git fetch origin main]
+[Create worktree: git worktree add ~/c/douren-worktree/fix-douren-v2-fallback -b fix/douren-v2-fallback origin/main]
 [Run ./setup.sh]
 [Run pnpm run test - passing]
 
@@ -116,12 +139,14 @@ Ready to implement fallback changes
 
 **Never:**
 - Create worktrees outside `~/c/douren-worktree/<ticket-context>` for this repo
+- Base new worktrees from local HEAD by default
 - Skip `./setup.sh` after creating a new worktree
 - Skip baseline test verification
 - Proceed with failing tests without asking
 
 **Always:**
 - Use `~/c/douren-worktree/<ticket-context>`
+- Use `origin/main` as the default base reference
 - Run `./setup.sh` right after creation
 - Verify clean test baseline
 
