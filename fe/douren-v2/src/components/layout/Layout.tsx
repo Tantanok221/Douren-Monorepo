@@ -21,6 +21,8 @@ interface LayoutHeaderProps {
   events: EventViewModel[];
   selectedEvent?: EventViewModel;
   onEventChange: (event: EventViewModel) => void;
+  isEventsLoading: boolean;
+  hasEventsError: boolean;
   isDark: boolean;
   onDarkModeToggle: () => void;
 }
@@ -41,6 +43,29 @@ export const getEventNavLinkColorClass = (isActive: boolean): string =>
 
 export const getEventSelectorColorClass = (): string =>
   `${DAY_FILTER_COLOR_CLASSES.inactive} focus:text-archive-text`;
+
+interface EventSelectorState {
+  isLoading: boolean;
+  hasError: boolean;
+  eventCount: number;
+}
+
+export const getEventSelectorStatusText = ({
+  isLoading,
+  hasError,
+  eventCount,
+}: EventSelectorState): string => {
+  if (isLoading) return "活動載入中";
+  if (hasError) return "活動載入失敗";
+  if (eventCount === 0) return "尚無活動";
+  return `${eventCount} 場活動`;
+};
+
+export const isEventSelectorDisabled = ({
+  isLoading,
+  hasError,
+  eventCount,
+}: EventSelectorState): boolean => isLoading || hasError || eventCount === 0;
 
 const LayoutRoot = ({ children }: LayoutRootProps) => {
   return (
@@ -135,6 +160,8 @@ const LayoutHeader = ({
   events,
   selectedEvent,
   onEventChange,
+  isEventsLoading,
+  hasEventsError,
   isDark,
   onDarkModeToggle,
 }: LayoutHeaderProps) => {
@@ -142,6 +169,15 @@ const LayoutHeader = ({
     select: (state) => state.location.pathname,
   });
   const isBookmarks = pathname.endsWith("/bookmarks");
+  const eventSelectorState = {
+    isLoading: isEventsLoading,
+    hasError: hasEventsError,
+    eventCount: events.length,
+  };
+  const eventSelectorDisabled = isEventSelectorDisabled(eventSelectorState);
+  const eventSelectorStatusText =
+    getEventSelectorStatusText(eventSelectorState);
+
   return (
     <header className="w-full py-8 md:py-12 border-b border-archive-border mb-8">
       <div className="flex flex-col items-center gap-6 mb-8">
@@ -177,74 +213,97 @@ const LayoutHeader = ({
           ) : null}
         </div>
 
-        <div className="relative group">
-          <select
-            value={selectedEvent ? String(selectedEvent.id) : ""}
-            onChange={(event) => {
-              const next = events.find(
-                (item) => item.id === Number(event.target.value),
-              );
-              if (next) onEventChange(next);
-            }}
-            className={`appearance-none bg-transparent text-sm font-mono ${getEventSelectorColorClass()} pr-8 py-1.5 cursor-pointer focus:outline-none transition-all duration-300 border border-archive-border hover:border-archive-accent focus:border-archive-accent rounded-sm px-3`}
-          >
-            {events.map((event) => (
-              <option key={event.id} value={event.id}>
-                {event.code || event.name}
-              </option>
-            ))}
-          </select>
-          <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/80 group-hover:text-archive-text/95 group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
+        <div className="flex flex-col items-center gap-1">
+          <div className="text-[11px] font-mono text-archive-text/45 tracking-wide">
+            {eventSelectorStatusText}
+          </div>
+          <div className="relative group">
+            <select
+              value={selectedEvent ? String(selectedEvent.id) : ""}
+              onChange={(event) => {
+                const next = events.find(
+                  (item) => item.id === Number(event.target.value),
+                );
+                if (next) onEventChange(next);
+              }}
+              disabled={eventSelectorDisabled}
+              aria-label="選擇活動"
+              className={`appearance-none bg-transparent text-sm font-mono ${getEventSelectorColorClass()} pr-8 py-1.5 focus:outline-none transition-all duration-300 border border-archive-border rounded-sm px-3 ${eventSelectorDisabled ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:border-archive-accent focus:border-archive-accent"}`}
+            >
+              {events.length > 0 ? (
+                events.map((event) => (
+                  <option key={event.id} value={event.id}>
+                    {event.code || event.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">
+                  {hasEventsError ? "活動讀取失敗" : "目前沒有活動"}
+                </option>
+              )}
+            </select>
+            {!eventSelectorDisabled ? (
+              <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/80 group-hover:text-archive-text/95 group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
+            ) : null}
+          </div>
         </div>
-      </div>
 
-      <div className="flex items-center justify-center gap-6">
-        <nav className="flex gap-8">
-          {selectedEvent ? (
-            <Link
-              to="/events/$eventName"
-              params={{ eventName: selectedEvent.name }}
-              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(!isBookmarks)}`}
-            >
-              所有創作者
-              {!isBookmarks ? (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              ) : null}
-            </Link>
-          ) : (
-            <span className="text-sm font-sans tracking-wider text-archive-text/80">
-              所有創作者
-            </span>
-          )}
-          {selectedEvent ? (
-            <Link
-              to="/events/$eventName/bookmarks"
-              params={{ eventName: selectedEvent.name }}
-              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(isBookmarks)}`}
-            >
-              我的收藏
-              {isBookmarks ? (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              ) : null}
-            </Link>
-          ) : (
-            <span className="text-sm font-sans tracking-wider text-archive-text/80">
-              我的收藏
-            </span>
-          )}
-        </nav>
+        <div className="flex items-center justify-center gap-6">
+          <nav className="flex gap-8">
+            {selectedEvent ? (
+              <Link
+                to="/events/$eventName"
+                params={{ eventName: selectedEvent.name }}
+                className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(!isBookmarks)}`}
+              >
+                所有創作者
+                {!isBookmarks ? (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                  />
+                ) : null}
+              </Link>
+            ) : (
+              <span className="text-sm font-sans tracking-wider text-archive-text/80">
+                所有創作者
+              </span>
+            )}
+            {selectedEvent ? (
+              <Link
+                to="/events/$eventName/bookmarks"
+                params={{ eventName: selectedEvent.name }}
+                className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(isBookmarks)}`}
+              >
+                我的收藏
+                {isBookmarks ? (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                  />
+                ) : null}
+              </Link>
+            ) : (
+              <span className="text-sm font-sans tracking-wider text-archive-text/80">
+                我的收藏
+              </span>
+            )}
+          </nav>
 
-        <div className="h-4 w-px bg-archive-border" />
+          <div className="h-4 w-px bg-archive-border" />
 
-        <DarkModeToggle isDark={isDark} onToggle={onDarkModeToggle} />
+          <DarkModeToggle isDark={isDark} onToggle={onDarkModeToggle} />
+        </div>
       </div>
     </header>
   );
