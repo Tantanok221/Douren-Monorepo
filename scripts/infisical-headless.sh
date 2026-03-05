@@ -27,4 +27,8 @@ if [[ -n "${INFISICAL_SITE_URL:-}" ]]; then
   opts+=(--domain "$INFISICAL_SITE_URL")
 fi
 
-exec infisical "$cmd" "${opts[@]}" "$@"
+if ((${#opts[@]})); then
+  exec infisical "$cmd" "${opts[@]}" "$@"
+fi
+
+exec infisical "$cmd" "$@"
