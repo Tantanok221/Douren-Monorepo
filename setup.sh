@@ -13,6 +13,8 @@
 #   --skip-env      Skip pulling environment variables from Infisical
 #   --skip-build    Skip building packages (useful for quick setup)
 #   --quick         Alias for --skip-build (minimal setup)
+#   --skip-hooks    Skip Husky git hook setup
+#   --headless      Force non-interactive mode (for CI/cloud agents)
 #   --no-version    Skip Node.js version check
 #   --help          Show this help message
 #
@@ -34,7 +36,28 @@ NC='\033[0m' # No Color
 # Script options
 SKIP_ENV=false
 SKIP_BUILD=false
+SKIP_HOOKS=false
 SKIP_VERSION_CHECK=false
+HEADLESS=false
+HEADLESS_AUTO_DETECTED=false
+INFISICAL_AVAILABLE=false
+INFISICAL_AUTHENTICATED=false
+
+print_help() {
+    cat << 'EOF'
+Usage:
+  ./setup.sh [options]
+
+Options:
+  --skip-env      Skip pulling environment variables from Infisical
+  --skip-build    Skip building packages (useful for quick setup)
+  --quick         Alias for --skip-build (minimal setup)
+  --skip-hooks    Skip Husky git hook setup
+  --headless      Force non-interactive mode (for CI/cloud agents)
+  --no-version    Skip Node.js version check
+  --help          Show this help message
+EOF
+}
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -51,12 +74,20 @@ while [[ $# -gt 0 ]]; do
             SKIP_BUILD=true
             shift
             ;;
+        --skip-hooks)
+            SKIP_HOOKS=true
+            shift
+            ;;
+        --headless)
+            HEADLESS=true
+            shift
+            ;;
         --no-version)
             SKIP_VERSION_CHECK=true
             shift
             ;;
         --help)
-            head -26 "$0" | tail -21
+            print_help
             exit 0
             ;;
         *)
@@ -92,6 +123,36 @@ log_success() {
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
+
+create_placeholder_env() {
+    if [ -f ".env" ]; then
+        return
+    fi
+
+    cat > .env << 'EOF'
+# Placeholder environment file
+# Run 'pnpm run env:login' followed by 'pnpm run env:pull' to populate
+# Or manually configure your environment variables here
+EOF
+    log_success "Placeholder .env file created"
+}
+
+if [ "$HEADLESS" = false ] && { [ ! -t 0 ] || [ ! -t 1 ] || [ "${CI:-}" = "true" ] || [ "${CI:-}" = "1" ]; }; then
+    HEADLESS=true
+    HEADLESS_AUTO_DETECTED=true
+fi
+
+if [ "$HEADLESS" = true ]; then
+    export CI="${CI:-1}"
+    export HUSKY=0
+    SKIP_ENV=true
+    SKIP_HOOKS=true
+    log_step "Headless mode enabled"
+    if [ "$HEADLESS_AUTO_DETECTED" = true ]; then
+        log_info "Auto-detected a non-interactive terminal/CI environment."
+    fi
+    log_info "Prompts are disabled. Env pull and Git hook setup will be skipped."
+fi
 
 # ============================================================================
 # Prerequisites Check
@@ -131,6 +192,7 @@ if ! command_exists infisical; then
     log_info "Install Infisical: https://infisical.com/docs/cli/overview"
     SKIP_ENV=true
 else
+    INFISICAL_AVAILABLE=true
     log_success "Infisical CLI detected"
 fi
 
@@ -162,11 +224,19 @@ log_success "Dependencies installed"
 # ============================================================================
 # Setup Git Hooks (Husky)
 # ============================================================================
-log_step "Setting up Git hooks..."
+if [ "$SKIP_HOOKS" = false ]; then
+    log_step "Setting up Git hooks..."
 
-# Husky prepare - this sets up the hooks
-npx husky || true
-log_success "Git hooks configured"
+    # Husky prepare - this sets up the hooks
+    pnpm exec husky || true
+    log_success "Git hooks configured"
+else
+    if [ "$HEADLESS" = true ]; then
+        log_step "Skipping Git hooks setup (headless mode)"
+    else
+        log_step "Skipping Git hooks setup (--skip-hooks flag)"
+    fi
+fi
 
 # ============================================================================
 # Environment Variables
@@ -176,6 +246,7 @@ if [ "$SKIP_ENV" = false ]; then
 
     # Check if logged into Infisical
     if infisical export --format dotenv --env dev >/dev/null 2>&1; then
+        INFISICAL_AUTHENTICATED=true
         log_info "Pulling environment variables from Infisical..."
         pnpm run env:pull
         log_success "Environment variables configured"
@@ -183,19 +254,15 @@ if [ "$SKIP_ENV" = false ]; then
         log_warn "Not logged into Infisical or cannot access workspace."
         log_info "Run 'pnpm run env:login' to authenticate, then 'pnpm run env:pull'"
         log_info "Creating placeholder .env file..."
-
-        # Create placeholder .env if it doesn't exist
-        if [ ! -f ".env" ]; then
-            cat > .env << 'EOF'
-# Placeholder environment file
-# Run 'pnpm run env:login' followed by 'pnpm run env:pull' to populate
-# Or manually configure your environment variables here
-EOF
-            log_success "Placeholder .env file created"
-        fi
+        create_placeholder_env
     fi
 else
-    log_step "Skipping environment setup (--skip-env flag)"
+    if [ "$HEADLESS" = true ]; then
+        log_step "Skipping environment setup (headless mode)"
+    else
+        log_step "Skipping environment setup (--skip-env flag)"
+    fi
+    create_placeholder_env
 fi
 
 # ============================================================================
@@ -237,7 +304,7 @@ echo ""
 echo "Next steps:"
 echo ""
 
-if [ "$SKIP_ENV" = true ] || ! infisical export --format dotenv --env dev >/dev/null 2>&1; then
+if [ "$SKIP_ENV" = true ] || [ "$INFISICAL_AVAILABLE" = false ] || [ "$INFISICAL_AUTHENTICATED" = false ]; then
     echo "  1. Configure environment variables:"
     echo "     pnpm run env:login    # Login to Infisical"
     echo "     pnpm run env:pull     # Pull environment variables"
