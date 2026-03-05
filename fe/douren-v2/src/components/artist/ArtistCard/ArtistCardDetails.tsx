@@ -1,17 +1,16 @@
-import { AnimatePresence, motion } from "framer-motion";
+import type { MouseEvent } from "react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { FallbackImage } from "@/components/common/FallbackImage";
 import { trpc } from "@/helper/trpc";
 import { ImageLightbox } from "../ImageLightbox";
 import { useArtistCard } from "./ArtistCardContext";
-import { renderSocialLinks } from "./artistCardHelpers";
 
 export const ArtistCardDetails = () => {
-  const { artist, isOpen, selectedTags } = useArtistCard();
-  const detailsQuery = trpc.artist.getArtistPageDetails.useQuery(
-    { id: artist.id.toString() },
-    { enabled: isOpen },
-  );
+  const { artist } = useArtistCard();
+  const detailsQuery = trpc.artist.getArtistPageDetails.useQuery({
+    id: artist.id.toString(),
+  });
   const productImages =
     detailsQuery.data?.products
       ?.map((product) => product.preview ?? product.thumbnail ?? "")
@@ -21,134 +20,62 @@ export const ArtistCardDetails = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const handleImageClick = (event: React.MouseEvent, index: number) => {
+  const handleImageClick = (event: MouseEvent, index: number) => {
     event.stopPropagation();
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
 
-  const handleSocialClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
-
   return (
     <>
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="pb-8 pt-2 md:pt-4 px-2">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                <div className="md:col-span-4 relative aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-archive-border/30 rounded-sm">
-                  <motion.div
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="w-full h-full"
+      <div className="md:col-span-7 border-l border-archive-border/70 md:pl-8 px-2 md:px-0">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-mono uppercase tracking-wider text-archive-text/45">
+              作品
+            </span>
+            {detailsQuery.isPending ? (
+              <div className="min-h-28 rounded-sm border border-dashed border-archive-border/80 bg-archive-hover/10 flex items-center justify-center">
+                <span className="text-xs font-mono text-archive-text/55">
+                  Loading artworks...
+                </span>
+              </div>
+            ) : detailsQuery.isError ? (
+              <div className="min-h-28 rounded-sm border border-dashed border-archive-border/80 bg-archive-hover/10 flex items-center justify-center">
+                <span className="text-xs font-mono text-archive-text/55">
+                  Unable to load artworks.
+                </span>
+              </div>
+            ) : galleryImages.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {galleryImages.map((image, index) => (
+                  <motion.button
+                    key={`${artist.id}-work-${index}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: index * 0.03 }}
+                    onClick={(event) => handleImageClick(event, index)}
+                    className="relative aspect-square overflow-hidden rounded-sm bg-archive-border/30 cursor-pointer group/work"
                   >
                     <FallbackImage
-                      src={artist.imageUrl}
-                      alt={artist.name}
-                      className="w-full h-full object-cover"
+                      src={image}
+                      alt={`${artist.name} work ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover/work:scale-105"
                     />
-                  </motion.div>
-                </div>
-
-                <div className="md:col-span-8 flex flex-col gap-8">
-                  {artist.tags.length > 0 ? (
-                    <motion.div
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.4, delay: 0.15 }}
-                      className="flex flex-wrap gap-2"
-                    >
-                      {artist.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className={`px-2 py-1 text-xs font-mono rounded-sm transition-colors ${
-                            selectedTags.includes(tag)
-                              ? "bg-archive-accent/20 text-archive-accent border border-archive-accent/40"
-                              : "bg-archive-border/30 text-archive-text/70"
-                          }`}
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </motion.div>
-                  ) : null}
-
-                  <motion.p
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                    className="text-base md:text-lg leading-relaxed text-archive-text/80 font-sans"
-                  >
-                    {artist.bio}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.25 }}
-                    className="flex flex-col gap-3"
-                  >
-                    <span className="text-xs font-mono uppercase tracking-wider text-archive-text/40">
-                      Connect
-                    </span>
-                    <div className="flex gap-4" onClick={handleSocialClick}>
-                      {renderSocialLinks(artist.socials, {
-                        iconSize: 24,
-                        baseClassName:
-                          "text-archive-text/60 transition-colors cursor-pointer hover:text-archive-text",
-                      })}
-                    </div>
-                  </motion.div>
-
-                  {galleryImages.length > 0 ? (
-                    <motion.div
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.4, delay: 0.3 }}
-                      className="flex flex-col gap-4"
-                    >
-                      <span className="text-xs font-mono uppercase tracking-wider text-archive-text/40">
-                        Works
-                      </span>
-                      <div className="grid grid-cols-2 gap-3 md:gap-4">
-                        {galleryImages.map((image, index) => (
-                          <motion.button
-                            key={`${artist.id}-work-${index}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.4,
-                              delay: 0.35 + index * 0.05,
-                            }}
-                            onClick={(event) => handleImageClick(event, index)}
-                            className="relative aspect-square overflow-hidden rounded-sm bg-archive-border/30 group/work cursor-pointer"
-                          >
-                            <FallbackImage
-                              src={image}
-                              alt={`${artist.name} work ${index + 1}`}
-                              className="w-full h-full object-cover transition-all duration-500 group-hover/work:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-archive-text/0 group-hover/work:bg-archive-text/10 transition-colors duration-300" />
-                          </motion.button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </div>
+                    <div className="absolute inset-0 bg-archive-text/0 group-hover/work:bg-archive-text/10 transition-colors duration-200" />
+                  </motion.button>
+                ))}
               </div>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            ) : (
+              <div className="min-h-28 rounded-sm border border-dashed border-archive-border/80 bg-archive-hover/10 flex items-center justify-center">
+                <span className="text-xs font-mono text-archive-text/55">
+                  目前尚無作品。
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
       {galleryImages.length > 0 ? (
         <ImageLightbox
