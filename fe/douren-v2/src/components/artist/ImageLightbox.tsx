@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
+import { FallbackImage } from "@/components/common/FallbackImage";
 
 interface ImageLightboxProps {
   isOpen: boolean;
@@ -137,7 +138,7 @@ export const ImageLightbox = ({
                   onClick={(event) => event.stopPropagation()}
                 >
                   <div className="relative bg-archive-bg p-3 md:p-6 rounded-sm shadow-2xl">
-                    <img
+                    <FallbackImage
                       src={imageUrl}
                       alt={artistName ? `${artistName} artwork` : "Artwork"}
                       className="max-w-full max-h-[65vh] w-auto h-auto object-contain rounded-sm"
