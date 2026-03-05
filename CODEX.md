@@ -113,7 +113,7 @@ pnpm run be      # Build backend services
 - **Frontend**: React 18 + TypeScript + Vite + TanStack (Router/Query)
 - **Backend**: Hono.js + tRPC + Cloudflare Workers
 - **Database**: PostgreSQL + Drizzle ORM + Zod validation
-- **Styling**: Tailwind CSS (CMS) + CSS Modules (main frontend)
+- **Styling**: Tailwind CSS (douren-v2 and CMS); CSS Modules remain in legacy `lib/ui` components
 - **State**: Zustand for client state management
 - **Tooling**: Biome + ESLint + Prettier for code quality
 
@@ -228,8 +228,9 @@ make worktree-remove PATH=../my-feature
 - Place tests in `__tests__/` directories or use `*.test.ts(x)` naming
 
 ### Styling Guidelines
-- **Frontend (douren-v2)**: Use CSS Modules with `classNames/bind`
+- **Frontend (douren-v2)**: Use Tailwind CSS utility classes
 - **CMS**: Use Tailwind CSS utility classes
+- **lib/ui (legacy shared components)**: Use CSS Modules with `classNames/bind`
 - Keep styles scoped to components
 - Use semantic class names
 
