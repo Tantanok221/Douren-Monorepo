@@ -95,7 +95,7 @@ pnpm run be      # Build backend services
 - **Full-stack TypeScript** with end-to-end type safety via tRPC
 
 ### Key Applications
-- **fe/Douren-frontend**: Main public website using Vite + React + TanStack Router
+- **fe/douren-v2**: Main public website using Vite + React + TanStack Router
 - **fe/cms**: Content management system using Vite + React + TanStack Router + Tailwind
 - **be/douren-backend**: API server on Cloudflare Workers using Hono + tRPC + Drizzle ORM
 
@@ -303,7 +303,7 @@ describe("ArtistCard", () => {
 ```
 
 ### Styling Guidelines
-- **Frontend (Douren-frontend)**: Use CSS Modules with `classNames/bind`
+- **Frontend (douren-v2)**: Use CSS Modules with `classNames/bind`
 - **CMS**: Use Tailwind CSS utility classes
 - Keep styles scoped to components
 - Use semantic class names
@@ -349,7 +349,7 @@ describe("ArtistCard", () => {
    ```
 
 2. **Verify frontend rendering** by fetching HTML from both apps:
-   - **Douren-frontend** (port 5173): `curl -s http://localhost:5173 | head -50`
+   - **douren-v2** (port 5173): `curl -s http://localhost:5173 | head -50`
    - **CMS** (port 5174): `curl -s http://localhost:5174 | head -50`
 
 3. **Check for**:
@@ -362,7 +362,7 @@ describe("ArtistCard", () => {
    # Start dev server in background, wait, then verify
    pnpm run dev &
    sleep 5
-   curl -s http://localhost:5173 | grep -q 'id="root"' && echo "Douren-frontend: OK" || echo "Douren-frontend: FAILED"
+   curl -s http://localhost:5173 | grep -q 'id="root"' && echo "douren-v2: OK" || echo "douren-v2: FAILED"
    curl -s http://localhost:5174 | grep -q 'id="root"' && echo "CMS: OK" || echo "CMS: FAILED"
    ```
 
