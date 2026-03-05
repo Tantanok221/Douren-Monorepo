@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "lucide-react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import type { EventViewModel } from "@/types/models";
 
@@ -17,12 +17,16 @@ interface LayoutBannerProps {
   };
 }
 
-interface LayoutHeaderProps {
+interface LayoutGlobalHeaderProps {
+  isDark: boolean;
+  onDarkModeToggle: () => void;
+}
+
+interface LayoutEventContextBarProps {
   events: EventViewModel[];
   selectedEvent?: EventViewModel;
   onEventChange: (event: EventViewModel) => void;
-  isDark: boolean;
-  onDarkModeToggle: () => void;
+  isBookmarks: boolean;
 }
 
 interface LayoutFooterProps {
@@ -41,6 +45,19 @@ export const getEventNavLinkColorClass = (isActive: boolean): string =>
 
 export const getEventSelectorColorClass = (): string =>
   `${DAY_FILTER_COLOR_CLASSES.inactive} focus:text-archive-text`;
+
+export const isEventRoutePath = (pathname: string): boolean =>
+  pathname.startsWith("/events/");
+
+export const shouldShowEventContextBar = (
+  pathname: string,
+  selectedEvent?: EventViewModel,
+): boolean => isEventRoutePath(pathname) && Boolean(selectedEvent);
+
+export const getEventChangeRoute = (
+  isBookmarks: boolean,
+): "/events/$eventName" | "/events/$eventName/bookmarks" =>
+  isBookmarks ? "/events/$eventName/bookmarks" : "/events/$eventName";
 
 const LayoutRoot = ({ children }: LayoutRootProps) => {
   return (
@@ -131,20 +148,13 @@ const DarkModeToggle = ({
   );
 };
 
-const LayoutHeader = ({
-  events,
-  selectedEvent,
-  onEventChange,
+const LayoutGlobalHeader = ({
   isDark,
   onDarkModeToggle,
-}: LayoutHeaderProps) => {
-  const pathname = useRouterState({
-    select: (state) => state.location.pathname,
-  });
-  const isBookmarks = pathname.endsWith("/bookmarks");
+}: LayoutGlobalHeaderProps) => {
   return (
     <header className="w-full py-8 md:py-12 border-b border-archive-border mb-8">
-      <div className="flex flex-col items-center gap-6 mb-8">
+      <div className="flex flex-col items-center gap-6">
         <Link to="/" className="group">
           <motion.img
             src="/logo.webp"
@@ -170,13 +180,23 @@ const LayoutHeader = ({
           >
             動漫展會與同人活動的創作者名錄。瀏覽、搜尋並收藏您喜愛的創作者。
           </h2>
-          {selectedEvent ? (
-            <span className="text-xs font-mono text-archive-text/40 mt-1">
-              活動檔案 • {selectedEvent.code}
-            </span>
-          ) : null}
         </div>
 
+        <DarkModeToggle isDark={isDark} onToggle={onDarkModeToggle} />
+      </div>
+    </header>
+  );
+};
+
+const LayoutEventContextBar = ({
+  events,
+  selectedEvent,
+  onEventChange,
+  isBookmarks,
+}: LayoutEventContextBarProps) => {
+  return (
+    <section className="w-full pb-8 border-b border-archive-border mb-8">
+      <div className="flex flex-col items-center justify-center gap-5">
         <div className="relative group">
           <select
             value={selectedEvent ? String(selectedEvent.id) : ""}
@@ -196,9 +216,7 @@ const LayoutHeader = ({
           </select>
           <ChevronDownIcon className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-archive-text/80 group-hover:text-archive-text/95 group-hover:translate-y-[calc(-50%+2px)] transition-all duration-300 pointer-events-none" />
         </div>
-      </div>
 
-      <div className="flex items-center justify-center gap-6">
         <nav className="flex gap-8">
           {selectedEvent ? (
             <Link
@@ -241,12 +259,8 @@ const LayoutHeader = ({
             </span>
           )}
         </nav>
-
-        <div className="h-4 w-px bg-archive-border" />
-
-        <DarkModeToggle isDark={isDark} onToggle={onDarkModeToggle} />
       </div>
-    </header>
+    </section>
   );
 };
 
@@ -272,6 +286,7 @@ const LayoutFooter = ({ eventCode }: LayoutFooterProps) => {
 export const Layout = {
   Root: LayoutRoot,
   Banner: LayoutBanner,
-  Header: LayoutHeader,
+  GlobalHeader: LayoutGlobalHeader,
+  EventContextBar: LayoutEventContextBar,
   Footer: LayoutFooter,
 };

@@ -5,7 +5,12 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { Layout } from "@/components/layout/Layout";
+import {
+  getEventChangeRoute,
+  isEventRoutePath,
+  Layout,
+  shouldShowEventContextBar,
+} from "@/components/layout/Layout";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RouteSeoMeta } from "@/components/seo/RouteSeoMeta";
 import { useDarkMode } from "@/hooks/useDarkMode";
@@ -22,7 +27,8 @@ const RootLayout = () => {
     select: (state) => state.location.pathname,
   });
   const isBookmarks = pathname.endsWith("/bookmarks");
-  const eventName = pathname.startsWith("/events/")
+  const isEventRoute = isEventRoutePath(pathname);
+  const eventName = isEventRoute
     ? decodeURIComponent(pathname.split("/")[2] ?? "")
     : "";
 
@@ -36,7 +42,7 @@ const RootLayout = () => {
 
   const handleEventChange = (event: EventViewModel) => {
     navigate({
-      to: isBookmarks ? "/events/$eventName/bookmarks" : "/events/$eventName",
+      to: getEventChangeRoute(isBookmarks),
       params: { eventName: event.name },
     });
   };
@@ -57,13 +63,15 @@ const RootLayout = () => {
           }}
         />
       ) : null}
-      <Layout.Header
-        events={events}
-        selectedEvent={selectedEvent}
-        onEventChange={handleEventChange}
-        isDark={isDark}
-        onDarkModeToggle={toggle}
-      />
+      <Layout.GlobalHeader isDark={isDark} onDarkModeToggle={toggle} />
+      {shouldShowEventContextBar(pathname, selectedEvent) ? (
+        <Layout.EventContextBar
+          events={events}
+          selectedEvent={selectedEvent}
+          onEventChange={handleEventChange}
+          isBookmarks={isBookmarks}
+        />
+      ) : null}
       <main>
         <Outlet />
       </main>
