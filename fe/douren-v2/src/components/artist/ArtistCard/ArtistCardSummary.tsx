@@ -1,4 +1,5 @@
-import { BookmarkIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { BookmarkIcon } from "lucide-react";
+import { FallbackImage } from "@/components/common/FallbackImage";
 import { useArtistCard } from "./ArtistCardContext";
 import {
   getBoothLocationEntries,
@@ -6,25 +7,16 @@ import {
 } from "./artistCardHelpers";
 
 export const ArtistCardSummary = () => {
-  const { artist, isOpen, toggle, bookmarks, onBookmarkToggle, selectedTags } =
-    useArtistCard();
+  const { artist, bookmarks, onBookmarkToggle, selectedTags } = useArtistCard();
 
-  const handleBookmark = (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleBookmark = () => {
     onBookmarkToggle(artist.id);
   };
 
-  const handleSocialClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
-
   return (
-    <button
-      onClick={toggle}
-      className="w-full py-5 flex items-start gap-4 text-left transition-colors duration-300 hover:bg-archive-hover/50 px-2 -mx-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-archive-accent cursor-pointer"
-    >
+    <div className="md:col-span-5 flex items-start gap-4 px-2 md:px-0">
       <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-sm overflow-hidden bg-archive-border/30">
-        <img
+        <FallbackImage
           src={artist.imageUrl}
           alt={artist.name}
           className="w-full h-full object-cover transition-all duration-500"
@@ -43,9 +35,10 @@ export const ArtistCardSummary = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <div
+            <button
               onClick={handleBookmark}
               className="text-archive-text/40 hover:text-archive-text transition-colors p-1 cursor-pointer"
+              aria-label={`Bookmark ${artist.name}`}
             >
               <BookmarkIcon
                 size={18}
@@ -54,10 +47,7 @@ export const ArtistCardSummary = () => {
                   bookmarks.has(artist.id) ? "text-archive-accent" : ""
                 }
               />
-            </div>
-            <span className="text-archive-text">
-              {isOpen ? <MinusIcon size={18} /> : <PlusIcon size={18} />}
-            </span>
+            </button>
           </div>
         </div>
 
@@ -83,25 +73,34 @@ export const ArtistCardSummary = () => {
           </div>
         ) : null}
 
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-archive-text/70">
-          {getBoothLocationEntries(artist.boothLocations).map(
-            ({ label, value }) => (
-              <div key={label} className="flex items-center gap-1.5">
-                <span className="text-archive-text">{label}:</span>
-                <span className="text-archive-text">{value || "—"}</span>
-              </div>
-            ),
-          )}
-        </div>
-
-        <div className="flex items-center gap-3" onClick={handleSocialClick}>
+        <div className="flex items-center gap-3">
           {renderSocialLinks(artist.socials, {
             iconSize: 18,
             baseClassName:
               "text-archive-text transition-colors cursor-pointer hover:text-archive-text",
           })}
         </div>
+
+        <div className="flex flex-col gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            {getBoothLocationEntries(artist.boothLocations).map(
+              ({ label, value }) => (
+                <div
+                  key={label}
+                  className="px-3 py-2 rounded-sm border border-archive-border/70 bg-archive-hover/20"
+                >
+                  <span className="text-[11px] font-mono text-archive-text/55">
+                    {label}
+                  </span>
+                  <p className="text-sm font-mono text-archive-text mt-1">
+                    {value || "—"}
+                  </p>
+                </div>
+              ),
+            )}
+          </div>
+        </div>
       </div>
-    </button>
+    </div>
   );
 };

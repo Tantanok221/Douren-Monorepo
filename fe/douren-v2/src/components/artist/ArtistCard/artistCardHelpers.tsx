@@ -54,9 +54,9 @@ const SOCIAL_LINK_CONFIGS: SocialLinkConfig[] = [
 export const getBoothLocationEntries = (
   boothLocations: ArtistViewModel["boothLocations"],
 ): Array<{ label: string; value: string }> => [
-  { label: "Day 1", value: boothLocations.day1 },
-  { label: "Day 2", value: boothLocations.day2 },
-  { label: "Day 3", value: boothLocations.day3 },
+  { label: "第一天", value: boothLocations.day1 },
+  { label: "第二天", value: boothLocations.day2 },
+  { label: "第三天", value: boothLocations.day3 },
 ];
 
 export const renderSocialLinks = (
