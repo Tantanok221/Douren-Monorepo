@@ -251,13 +251,14 @@ make worktree-remove PATH=../my-feature
 - After each commit, a pre-commit hook automatically formats code - only commit the formatted files that were originally being committed, not other unrelated formatted files.
 
 ## Development Practices
-- Each time you update any agent instruction files (`CLAUDE.md`, `AGENTS.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`), commit via `dev: update agent docs`.
+- Each time you update any agent instruction files (`CLAUDE.md`, `AGENTS.md`, `CODEX.md`, `.github/copilot-instructions.md`), commit via `dev: update agent docs`.
 
 ## Commit Habits
 - Remember to commit via micro commit habits
 
 ## PR Workflow
-- After completing a feature or fix, always push and create a PR
+- After completing a feature, fix, or any major checkpoint, always push and create a PR
+- Always monitor PR checks until all statuses are green before handover
 - Use descriptive PR titles following the commit convention: `type: description`
 - PR descriptions should include:
   - **Summary**: Brief bullet points of what changed
@@ -310,6 +311,10 @@ This ensures no breaking changes prevent the apps from loading before pushing co
 3. **Feature render checks (if possible)**:
    - Verify the specific feature element changed by the task is present in the rendered HTML (for example via `curl ... | grep -q '<selector-or-text>'`).
    - When the feature requires UI interaction/behavior checks, leverage the `agent-browser` skill for browser-based verification before handover.
-4. **Shutdown requirement**:
+4. **PR requirement**:
+   - Create or update a PR for the completed feature or major checkpoint.
+   - Monitor checks until all are green: `gh pr checks <pr-number> --watch`
+   - If any check fails, fix and push until checks are green.
+5. **Shutdown requirement**:
    - Stop the dev server/tmux session after verification and before handover.
-5. If any check fails, fix the issue first and re-run verification before handover.
+6. If any check fails, fix the issue first and re-run verification before handover.
