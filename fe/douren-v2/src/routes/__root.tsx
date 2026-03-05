@@ -61,6 +61,8 @@ const RootLayout = () => {
         events={events}
         selectedEvent={selectedEvent}
         onEventChange={handleEventChange}
+        isEventsLoading={eventsQuery.isLoading}
+        hasEventsError={Boolean(eventsQuery.error)}
         isDark={isDark}
         onDarkModeToggle={toggle}
       />
