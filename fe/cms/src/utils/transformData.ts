@@ -1,7 +1,7 @@
 import {
   ArtistFormSchema,
   EventArtistSchema,
-} from "../components/EntityForm/schema";
+} from "../components/EntityForm/schema/schema";
 
 // Transform database artist record to form schema
 export function transformArtistToFormData(

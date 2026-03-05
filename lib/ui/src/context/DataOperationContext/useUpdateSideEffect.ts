@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePaginationContext } from "../PaginationContext";
+import { usePaginationContext } from "../PaginationContext/usePaginationContext";
 
 export function useUpdatePageSideEffect<T extends React.SetStateAction<any>>(
   func: T,

@@ -1,6 +1,6 @@
 import { publicProcedure, router } from "@/lib/trpc";
 import { NewOwnerDao } from "@/Dao/Owner";
-import { HonoEnv } from "@/index";
+import type { HonoEnv } from "@/types/hono";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { zodSchema } from "@pkg/database/zod";
 import { z } from "zod";

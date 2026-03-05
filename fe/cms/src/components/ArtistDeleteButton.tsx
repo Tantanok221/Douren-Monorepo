@@ -1,5 +1,5 @@
 import { Trash } from "@phosphor-icons/react";
-import { useEventDataContext } from "@lib/ui";
+import { useEventDataContext } from "@lib/ui/src/components/ArtistCard/EventDataContext";
 import { useCanDeleteArtist } from "@/hooks/usePermissions";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import { trpc } from "@/lib/trpc";

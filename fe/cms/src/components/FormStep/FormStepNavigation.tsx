@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { Forms, FormButton } from "@/components";
+import { Forms } from "@/components/Forms/Forms";
+import { FormButton } from "@/components/Forms/subcomponent/FormSubcomponent";
 import { useFormStep } from "./useFormStep";
 
 export const FormStepNavigation = () => {

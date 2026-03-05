@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import classNames from "classnames/bind";
-import { listVariants } from "../../helper";
+import { listVariants } from "../../helper/listAnimation";
 import EventDataContext from "./EventDataContext.ts";
 import ImageContainer from "./subcomponent/ImageContainer";
 import ArtistDMButton from "./subcomponent/ArtistDMButton";

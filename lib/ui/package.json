@@ -11,7 +11,7 @@
     "dev": "../../scripts/infisical-headless.sh run --env=dev -- storybook dev -p 6006 --ci",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",
-    "codegen": "barrelsby -d ./src -l all  --delete --exclude setup.ts --exclude .d.ts --exclude .stories.tsx --exclude config.ts --exclude test.ts --exclude test.tsx ",
+    "codegen": "echo 'ui: no barrel codegen'",
     "format": "prettier ./src --write",
     "lint": "eslint ./src --fix --report-unused-disable-directives --max-warnings 10 && npx stylelint src/**/*.css --fix",
     "build-storybook": "storybook build"
@@ -38,6 +38,8 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/react-lazy-load-image-component": "^1.6.4",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.36.1",
@@ -50,11 +52,11 @@
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
     "tsup": "^8.3.0",
-    "zustand": "^5.0.0-rc.2",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.9.0",
     "vite": "^5.4.7",
-    "vite-plugin-dts": "^4.2.3"
+    "vite-plugin-dts": "^4.2.3",
+    "zustand": "^5.0.0-rc.2"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0",

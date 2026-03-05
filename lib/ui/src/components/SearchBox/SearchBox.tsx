@@ -5,7 +5,8 @@ import { IconContext } from "react-icons";
 import styles from "./style.module.css";
 import { motion } from "framer-motion";
 import { useDebouncedValue } from "@mantine/hooks";
-import { usePaginationContext, useSearchContext } from "@lib/ui";
+import { usePaginationContext } from "../../context/PaginationContext/usePaginationContext";
+import { useSearchContext } from "../../context/SearchContext/useSearchContextProvider";
 
 export const SearchBox = () => {
   const sx = classNames.bind(styles);

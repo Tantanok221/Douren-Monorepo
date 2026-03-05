@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./SearchContainer.module.css";
-import { SelectComponent } from "../SelectComponent";
-import { useSearchColumnContext } from "../../context";
-import { SearchBox } from "../SearchBox";
+import { SelectComponent } from "../SelectComponent/SelectComponent";
+import { useSearchColumnContext } from "../../context/SearchColumnContext/useSearchColumnContext";
+import { SearchBox } from "../SearchBox/SearchBox";
 
 export const SearchContainer = () => {
   const sx = classNames.bind(styles);

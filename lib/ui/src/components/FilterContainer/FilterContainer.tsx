@@ -1,10 +1,8 @@
 import classNames from "classnames/bind";
-import {
-  SelectComponent,
-  TagFilter,
-  useSortSelectContext,
-  useUpdatePageSideEffect,
-} from "@lib/ui";
+import { SelectComponent } from "../SelectComponent/SelectComponent";
+import { TagFilter } from "../TagFilter/TagFilter";
+import { useSortSelectContext } from "../../context/SortSelectContext/useSortSelectContext";
+import { useUpdatePageSideEffect } from "../../context/DataOperationContext/useUpdateSideEffect";
 import styles from "./FilterContainer.module.css";
 interface Key {
   text: string;
