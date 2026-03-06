@@ -5,7 +5,10 @@ import {
   CollectionContext,
 } from "../../../context/CollectionContext/CollectionContext";
 import type { eventArtistBaseSchemaType } from "@pkg/type";
-import { mockArtistEventData, mockArtistEventData2 } from "../../../mockData.ts";
+import {
+  mockArtistEventData,
+  mockArtistEventData2,
+} from "../../../mockData.ts";
 import { useCollectionProvider } from "../../../context/CollectionContext/useCollectionContext.ts";
 
 // Mock localStorage
