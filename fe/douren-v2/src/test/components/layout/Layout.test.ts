@@ -3,7 +3,7 @@ import {
   DAY_FILTER_COLOR_CLASSES,
   getEventNavLinkColorClass,
   getEventSelectorColorClass,
-} from "./Layout";
+} from "@/components/layout/Layout";
 
 describe("Layout day filter color convention", () => {
   it("uses the same active/inactive link colors as day tabs", () => {

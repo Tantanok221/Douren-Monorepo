@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { TagObject, useTagFilter } from "./useTagFilter.ts";
+import type { TagObject } from "../../stores/useTagFilter.ts";
+import { useTagFilter } from "../../stores/useTagFilter.ts";
 
 // Mock data
 const mockTags: TagObject[] = [

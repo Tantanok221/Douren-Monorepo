@@ -3,7 +3,7 @@ import type { DirectoryFilters } from "@/types/models";
 import {
   buildDirectoryQueryParams,
   toSortedBookmarkIds,
-} from "./useDirectoryQueryParams";
+} from "@/hooks/useDirectoryQueryParams";
 
 describe("buildDirectoryQueryParams", () => {
   it("maps all-filters values to server query params", () => {

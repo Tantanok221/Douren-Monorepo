@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { ENV_BINDING } from "@pkg/env/constant";
-import { getCmsResetPasswordUrl } from "../auth";
+import { getCmsResetPasswordUrl } from "@/lib/auth";
 
 const createEnv = (overrides: Partial<ENV_BINDING> = {}) =>
 	({

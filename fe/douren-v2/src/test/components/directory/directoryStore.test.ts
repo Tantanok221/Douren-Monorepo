@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createDirectoryStore } from "./directoryStore";
+import { createDirectoryStore } from "@/components/directory/directoryStore";
 
 describe("createDirectoryStore", () => {
   it("initializes defaults and overrides", () => {

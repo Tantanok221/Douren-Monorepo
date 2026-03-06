@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseTagFilter, serializeTagFilter } from "./tagFilter";
+import { parseTagFilter, serializeTagFilter } from "@/components/directory/tagFilter";
 
 describe("parseTagFilter", () => {
   it("returns empty list for all-tags sentinel", () => {

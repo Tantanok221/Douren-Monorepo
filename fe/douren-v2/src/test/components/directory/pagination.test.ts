@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { getPaginationPageNumbers, toPaginationParams } from "./pagination";
+import {
+  getPaginationPageNumbers,
+  toPaginationParams,
+} from "@/components/directory/pagination";
 
 describe("toPaginationParams", () => {
   it("converts API pagination data into shared pagination params", () => {

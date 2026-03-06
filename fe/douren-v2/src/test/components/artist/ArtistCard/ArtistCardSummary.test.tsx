@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import type { ArtistViewModel } from "@/types/models";
-import { ArtistCardRoot } from "./ArtistCardContext";
-import { ArtistCardSummary } from "./ArtistCardSummary";
+import { ArtistCardRoot } from "@/components/artist/ArtistCard/ArtistCardContext";
+import { ArtistCardSummary } from "@/components/artist/ArtistCard/ArtistCardSummary";
 
 const baseArtist: ArtistViewModel = {
   id: 1,

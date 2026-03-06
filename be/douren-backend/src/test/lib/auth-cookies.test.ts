@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { ENV_BINDING } from "@pkg/env/constant";
-import { getAuthCookieConfig } from "../auth";
+import { getAuthCookieConfig } from "@/lib/auth";
 
 const createEnv = (devEnv: string) =>
 	({ DEV_ENV: devEnv } as unknown as ENV_BINDING);

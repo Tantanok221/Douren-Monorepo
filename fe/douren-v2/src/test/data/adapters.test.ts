@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
 import type { eventArtistBaseSchemaType } from "@pkg/type";
+import type { ArtistViewModel } from "@/types/models";
 import {
   dedupeArtistsById,
   toArtistViewModel,
   toEventViewModel,
-} from "./adapters";
-import type { ArtistViewModel } from "@/types/models";
+} from "@/data/adapters";
 
 describe("adapters", () => {
   it("maps event artist data to ArtistViewModel with fallbacks", () => {
