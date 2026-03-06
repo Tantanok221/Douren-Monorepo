@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { LinkResult, processLink } from "./processLink.ts";
+import type { LinkResult } from "../../helper/processLink.ts";
+import { processLink } from "../../helper/processLink.ts";
 
 describe("processLink", () => {
   it("should return empty array when links is null", () => {
@@ -104,7 +105,7 @@ describe("processLink", () => {
       },
     ];
 
-    const result = processLink(links, names, category as any);
+    const result = processLink(links, names, category as unknown as string);
     expect(result).toEqual(expected);
   });
 });

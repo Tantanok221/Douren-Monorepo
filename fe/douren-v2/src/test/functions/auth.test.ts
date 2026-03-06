@@ -43,9 +43,9 @@ describe("staging auth helpers", () => {
     expect(
       isAuthorizedRequest(`Basic ${token}`, "shared-user", "shared-pass"),
     ).toBe(false);
-    expect(isAuthorizedRequest("Bearer token", "shared-user", "shared-pass")).toBe(
-      false,
-    );
+    expect(
+      isAuthorizedRequest("Bearer token", "shared-user", "shared-pass"),
+    ).toBe(false);
   });
 
   it("adds noindex header", () => {

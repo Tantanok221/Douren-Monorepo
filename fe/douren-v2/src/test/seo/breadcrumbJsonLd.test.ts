@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildBreadcrumbJsonLd,
   buildBreadcrumbItems,
-} from "./breadcrumbJsonLd";
+} from "@/seo/breadcrumbJsonLd";
 
 describe("buildBreadcrumbItems", () => {
   it("creates home + event breadcrumbs for event directory routes", () => {

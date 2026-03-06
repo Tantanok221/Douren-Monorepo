@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArtistViewModel } from "@/types/models";
-import { ArtistCardRoot } from "./ArtistCardContext";
-import { ArtistCardDetails } from "./ArtistCardDetails";
+import { ArtistCardRoot } from "@/components/artist/ArtistCard/ArtistCardContext";
+import { ArtistCardDetails } from "@/components/artist/ArtistCard/ArtistCardDetails";
 
 const { useQueryMock } = vi.hoisted(() => ({
   useQueryMock: vi.fn(),

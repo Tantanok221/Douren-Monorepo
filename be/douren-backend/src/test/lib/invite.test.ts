@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { validateInviteCode } from "../invite";
+import { validateInviteCode } from "@/lib/invite";
 
 type Db = Parameters<typeof validateInviteCode>[0];
 

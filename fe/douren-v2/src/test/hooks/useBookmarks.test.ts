@@ -3,7 +3,7 @@ import {
   readBookmarksFromStorage,
   toggleBookmarkSet,
   writeBookmarksToStorage,
-} from "./useBookmarks";
+} from "@/hooks/useBookmarks";
 
 const localStorageMock = {
   store: {} as Record<string, string>,

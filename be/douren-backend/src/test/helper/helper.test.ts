@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { processTagConditions } from "./processTagConditions";
 import { eq } from "drizzle-orm";
 import { s } from "@pkg/database/db";
+import { processTagConditions } from "@/helper/processTagConditions";
 describe("Test processTagCondition", () => {
 	it("Should return the correct conditions", () => {
 		const output = processTagConditions("a,b");

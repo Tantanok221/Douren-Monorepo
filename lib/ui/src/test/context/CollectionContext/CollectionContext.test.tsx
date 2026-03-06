@@ -3,10 +3,13 @@ import { render, renderHook, act } from "@testing-library/react";
 import {
   CollectionContextProvider,
   CollectionContext,
-} from "./CollectionContext";
+} from "../../../context/CollectionContext/CollectionContext";
 import type { eventArtistBaseSchemaType } from "@pkg/type";
-import { mockArtistEventData, mockArtistEventData2 } from "../../mockData.ts";
-import { useCollectionProvider } from "./useCollectionContext.ts";
+import {
+  mockArtistEventData,
+  mockArtistEventData2,
+} from "../../../mockData.ts";
+import { useCollectionProvider } from "../../../context/CollectionContext/useCollectionContext.ts";
 
 // Mock localStorage
 const localStorageMock = {
