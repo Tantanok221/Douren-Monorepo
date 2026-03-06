@@ -313,11 +313,6 @@ const DirectoryTagSelect = () => {
         </div>
       ) : null}
 
-      {!isOpen && selectedTags.length > 0 ? (
-        <p className="text-[11px] font-mono text-archive-text/50 mt-2">
-          {selectedTags.join("、")}
-        </p>
-      ) : null}
       {!isOpen && availableTags.length === 0 ? (
         <p className="text-[11px] font-mono text-archive-text/40 mt-2">
           暫無可用標籤
