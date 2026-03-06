@@ -313,11 +313,6 @@ const DirectoryTagSelect = () => {
         </div>
       ) : null}
 
-      {!isOpen && availableTags.length === 0 ? (
-        <p className="text-[11px] font-mono text-archive-text/40 mt-2">
-          暫無可用標籤
-        </p>
-      ) : null}
       {isOpen && filteredTags.length === 0 ? (
         <p className="text-[11px] font-mono text-archive-text/40 mt-2">
           找不到符合的標籤

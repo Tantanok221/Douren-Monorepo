@@ -21,4 +21,15 @@ describe("Directory.TagSelect", () => {
 
     expect(screen.queryByText("Space")).toBeNull();
   });
+
+  it("does not render the empty tag message below the closed selector", () => {
+    render(
+      <Directory.Root availableTags={[]}>
+        <Directory.TagSelect />
+      </Directory.Root>,
+    );
+
+    expect(screen.getByRole("button", { name: "全部標籤" })).toBeTruthy();
+    expect(screen.queryByText("暫無可用標籤")).toBeNull();
+  });
 });
