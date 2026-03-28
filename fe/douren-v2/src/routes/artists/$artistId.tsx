@@ -10,7 +10,8 @@ const ArtistPageRoute = () => {
 
 export const Route = createFileRoute("/artists/$artistId")({
   validateSearch: (search) => ({
-    eventName: typeof search.eventName === "string" ? search.eventName : undefined,
+    eventName:
+      typeof search.eventName === "string" ? search.eventName : undefined,
   }),
   component: ArtistPageRoute,
 });
