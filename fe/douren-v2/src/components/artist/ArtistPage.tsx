@@ -1,40 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FallbackImage } from "@/components/common/FallbackImage";
 import { renderSocialLinks } from "@/components/artist/ArtistCard/artistCardHelpers";
 import type { ArtistViewModel } from "@/types/models";
 import { ImageLightbox } from "@/components/artist/ImageLightbox";
-
-const MOCK_ARTIST: ArtistViewModel = {
-  id: 142,
-  name: "星空畫坊",
-  handle: "@hoshizora_atelier",
-  boothLocations: {
-    day1: "A-03",
-    day2: "A-03",
-    day3: "",
-  },
-  tags: ["原創", "奇幻", "角色設計", "插圖", "BL", "輕小說插畫"],
-  bio: "以星空與宇宙為靈感，描繪充滿奇幻色彩的世界觀與角色故事。主要創作原創角色設計與插圖集，偶爾涉足輕小說插畫。喜歡畫各種氛圍的角色，從柔美到帥氣都有涉獵。每年參加 FF、CWT 等大型同人展，期待在展場與大家相遇！展攤上會販售新刊、明信片、壓克力立牌等各式周邊，歡迎大家來逛攤～",
-  imageUrl:
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=600&fit=crop&q=80",
-  workImages: [
-    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1618172193763-c511deb635ca?w=600&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=600&h=600&fit=crop&q=80",
-  ],
-  socials: {
-    twitter: "https://twitter.com",
-    instagram: "https://instagram.com",
-    pixiv: "https://pixiv.net",
-    website: "https://example.com",
-  },
-};
+import { trpc } from "@/helper/trpc";
+import { FALLBACK_IMAGE } from "@/constants/fallbackImage";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -65,13 +38,89 @@ const staggerItem = {
 };
 
 interface ArtistPageProps {
-  eventName: string;
+  artistId: string;
+  eventName?: string;
 }
 
-export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
-  const artist = MOCK_ARTIST;
+const normalizeText = (value?: string | null): string => value?.trim() ?? "";
+
+export const ArtistPage: React.FC<ArtistPageProps> = ({
+  artistId,
+  eventName,
+}) => {
+  const artistQuery = trpc.artist.getArtistPageDetails.useQuery({
+    id: artistId,
+  });
+  const artist = useMemo<ArtistViewModel | null>(() => {
+    const data = artistQuery.data;
+
+    if (!data) {
+      return null;
+    }
+
+    const fallbackEvent = data.events.find(
+      (event) =>
+        Boolean(normalizeText(event.boothName)) ||
+        Boolean(normalizeText(event.locationDay01)) ||
+        Boolean(normalizeText(event.locationDay02)) ||
+        Boolean(normalizeText(event.locationDay03)),
+    );
+    const workImages = data.products
+      .map((product) => normalizeText(product.preview ?? product.thumbnail))
+      .filter((image) => image.length > 0);
+    const tags = normalizeText(data.tags)
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 0);
+
+    return {
+      id: data.uuid,
+      name: normalizeText(data.author) || `Artist #${artistId}`,
+      handle:
+        normalizeText(fallbackEvent?.boothName) ||
+        normalizeText(data.author) ||
+        "—",
+      boothLocations: {
+        day1: normalizeText(fallbackEvent?.locationDay01),
+        day2: normalizeText(fallbackEvent?.locationDay02),
+        day3: normalizeText(fallbackEvent?.locationDay03),
+      },
+      tags,
+      bio: normalizeText(data.introduction) || "目前尚無創作者簡介。",
+      imageUrl: normalizeText(data.photo) || FALLBACK_IMAGE,
+      workImages,
+      socials: {
+        twitter: normalizeText(data.twitterLink) || undefined,
+        instagram: normalizeText(data.instagramLink) || undefined,
+        facebook: normalizeText(data.facebookLink) || undefined,
+        pixiv: normalizeText(data.pixivLink) || undefined,
+        plurk: normalizeText(data.plurkLink) || undefined,
+        website:
+          normalizeText(data.officialLink) ||
+          normalizeText(data.storeLink) ||
+          normalizeText(data.myacgLink) ||
+          undefined,
+      },
+    };
+  }, [artistId, artistQuery.data]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  if (artistQuery.isPending) {
+    return (
+      <div className="py-20 text-center text-archive-text/60 font-mono">
+        載入創作者資料中...
+      </div>
+    );
+  }
+
+  if (artistQuery.isError || !artist) {
+    return (
+      <div className="py-20 text-center text-archive-text/60 font-mono">
+        無法載入創作者資料。
+      </div>
+    );
+  }
 
   return (
     <div className="py-6">
@@ -83,17 +132,30 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
         animate="show"
         className="flex items-center justify-between mb-10 md:mb-16"
       >
-        <Link
-          to="/events/$eventName"
-          params={{ eventName }}
-          className="inline-flex items-center gap-2 text-sm font-mono text-archive-text/45 hover:text-archive-text transition-colors duration-300 group"
-        >
-          <ArrowLeftIcon
-            size={13}
-            className="transition-transform duration-300 group-hover:-translate-x-0.5"
-          />
-          返回創作者列表
-        </Link>
+        {eventName ? (
+          <Link
+            to="/events/$eventName"
+            params={{ eventName }}
+            className="inline-flex items-center gap-2 text-sm font-mono text-archive-text/45 hover:text-archive-text transition-colors duration-300 group"
+          >
+            <ArrowLeftIcon
+              size={13}
+              className="transition-transform duration-300 group-hover:-translate-x-0.5"
+            />
+            返回創作者列表
+          </Link>
+        ) : (
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm font-mono text-archive-text/45 hover:text-archive-text transition-colors duration-300 group"
+          >
+            <ArrowLeftIcon
+              size={13}
+              className="transition-transform duration-300 group-hover:-translate-x-0.5"
+            />
+            返回首頁
+          </Link>
+        )}
         <span className="text-[11px] font-mono text-archive-text/25 tracking-[0.15em] uppercase select-none">
           No.{String(artist.id).padStart(4, "0")}
         </span>

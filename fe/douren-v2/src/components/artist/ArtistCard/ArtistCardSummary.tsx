@@ -100,7 +100,6 @@ export const ArtistCardSummary = () => {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

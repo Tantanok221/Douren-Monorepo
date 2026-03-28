@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import type { MouseEvent } from "react";
-import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowRightIcon } from "lucide-react";
 import type { ArtistViewModel } from "@/types/models";
 
@@ -49,19 +49,18 @@ export const ArtistCardRoot = ({
   );
 
   const navigate = useNavigate();
-  const pathname = useRouterState({
-    select: (state) => state.location.pathname,
-  });
+  const pathname =
+    typeof window === "undefined" ? "" : window.location.pathname;
   const eventName = pathname.startsWith("/events/")
     ? decodeURIComponent(pathname.split("/")[2] ?? "")
     : "";
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("button, a")) return;
-    if (!eventName) return;
     navigate({
-      to: "/events/$eventName/artists/$artistId",
-      params: { eventName, artistId: String(artist.id) },
+      to: "/artists/$artistId",
+      params: { artistId: String(artist.id) },
+      search: eventName ? { eventName } : {},
     });
   };
 
