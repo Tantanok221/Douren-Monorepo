@@ -73,12 +73,6 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const activeDays = [
-    { label: "第一天", value: artist.boothLocations.day1 },
-    { label: "第二天", value: artist.boothLocations.day2 },
-    { label: "第三天", value: artist.boothLocations.day3 },
-  ].filter((d) => d.value.length > 0);
-
   return (
     <div className="py-6">
       {/* Top bar: back nav + catalog ID */}
@@ -144,29 +138,6 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
               {artist.handle}
             </p>
           </div>
-
-          {activeDays.length > 0 && (
-            <div className="pt-6 border-t border-archive-border">
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/35 block mb-4">
-                展攤位置
-              </span>
-              <div className="flex flex-wrap gap-x-8 gap-y-3">
-                {activeDays.map((day) => (
-                  <div key={day.label} className="flex items-baseline gap-3">
-                    <span className="text-xs font-mono text-archive-text/45">
-                      {day.label}
-                    </span>
-                    <span
-                      className="text-2xl md:text-3xl font-medium text-archive-text tracking-tight"
-                      style={{ fontFamily: "'Noto Serif TC', serif" }}
-                    >
-                      {day.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Socials inline in hero */}
           <div className="flex items-center gap-5 pt-2">
