@@ -1,4 +1,5 @@
 import { BookmarkIcon } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { FallbackImage } from "@/components/common/FallbackImage";
 import { useArtistCard } from "./ArtistCardContext";
 import {
@@ -8,6 +9,12 @@ import {
 
 export const ArtistCardSummary = () => {
   const { artist, bookmarks, onBookmarkToggle, selectedTags } = useArtistCard();
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+  const eventName = pathname.startsWith("/events/")
+    ? decodeURIComponent(pathname.split("/")[2] ?? "")
+    : "";
 
   const handleBookmark = () => {
     onBookmarkToggle(artist.id);
@@ -100,6 +107,16 @@ export const ArtistCardSummary = () => {
             )}
           </div>
         </div>
+
+        {eventName && (
+          <Link
+            to="/events/$eventName/artists/$artistId"
+            params={{ eventName, artistId: String(artist.id) }}
+            className="self-start text-[11px] font-mono text-archive-text/35 hover:text-archive-accent transition-colors duration-300 mt-1"
+          >
+            查看完整檔案 →
+          </Link>
+        )}
       </div>
     </div>
   );
