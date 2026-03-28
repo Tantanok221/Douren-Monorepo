@@ -144,14 +144,14 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
             {renderSocialLinks(artist.socials, {
               iconSize: 18,
               baseClassName:
-                "text-archive-text/40 hover:text-archive-text transition-colors duration-300 cursor-pointer",
+                "text-archive-text/65 hover:text-archive-text transition-colors duration-300 cursor-pointer",
             })}
             {artist.socials.website && (
               <a
                 href={artist.socials.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-archive-text/40 hover:text-archive-accent transition-colors duration-300 border border-archive-border hover:border-archive-accent px-3 py-1.5 ml-2"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-archive-text/65 hover:text-archive-accent transition-colors duration-300 border border-archive-border hover:border-archive-accent px-3 py-1.5 ml-2"
               >
                 官方網站
                 <ExternalLinkIcon size={11} />
@@ -178,7 +178,7 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
         animate="show"
         className="mb-10 md:mb-12"
       >
-        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/35 block mb-4">
+        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/60 block mb-4">
           創作標籤
         </span>
         <motion.div
@@ -216,7 +216,7 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
         animate="show"
         className="mb-10 md:mb-12 max-w-2xl"
       >
-        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/35 block mb-5">
+        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/60 block mb-5">
           創作者簡介
         </span>
         <p
@@ -245,10 +245,10 @@ export const ArtistPage: React.FC<ArtistPageProps> = ({ eventName }) => {
         className="mb-4"
       >
         <div className="flex items-baseline justify-between mb-6">
-          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/35">
+          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-archive-text/60">
             作品集
           </span>
-          <span className="text-[11px] font-mono text-archive-text/30">
+          <span className="text-[11px] font-mono text-archive-text/50">
             {artist.workImages.length} 件作品
           </span>
         </div>
