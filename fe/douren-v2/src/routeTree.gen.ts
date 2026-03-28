@@ -10,12 +10,19 @@
 
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as IndexRouteImport } from "./routes/index";
+import { Route as ArtistsArtistIdRouteImport } from "./routes/artists/$artistId";
 import { Route as EventsEventNameIndexRouteImport } from "./routes/events/$eventName/index";
 import { Route as EventsEventNameBookmarksRouteImport } from "./routes/events/$eventName/bookmarks";
+import { Route as EventsEventNameArtistsArtistIdRouteImport } from "./routes/events/$eventName/artists/$artistId";
 
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ArtistsArtistIdRoute = ArtistsArtistIdRouteImport.update({
+  id: "/artists/$artistId",
+  path: "/artists/$artistId",
   getParentRoute: () => rootRouteImport,
 } as any);
 const EventsEventNameIndexRoute = EventsEventNameIndexRouteImport.update({
@@ -29,35 +36,65 @@ const EventsEventNameBookmarksRoute =
     path: "/events/$eventName/bookmarks",
     getParentRoute: () => rootRouteImport,
   } as any);
+const EventsEventNameArtistsArtistIdRoute =
+  EventsEventNameArtistsArtistIdRouteImport.update({
+    id: "/events/$eventName/artists/$artistId",
+    path: "/events/$eventName/artists/$artistId",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
+  "/artists/$artistId": typeof ArtistsArtistIdRoute;
   "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
   "/events/$eventName": typeof EventsEventNameIndexRoute;
+  "/events/$eventName/artists/$artistId": typeof EventsEventNameArtistsArtistIdRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/artists/$artistId": typeof ArtistsArtistIdRoute;
   "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
   "/events/$eventName": typeof EventsEventNameIndexRoute;
+  "/events/$eventName/artists/$artistId": typeof EventsEventNameArtistsArtistIdRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
+  "/artists/$artistId": typeof ArtistsArtistIdRoute;
   "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
   "/events/$eventName/": typeof EventsEventNameIndexRoute;
+  "/events/$eventName/artists/$artistId": typeof EventsEventNameArtistsArtistIdRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/events/$eventName/bookmarks" | "/events/$eventName";
+  fullPaths:
+    | "/"
+    | "/artists/$artistId"
+    | "/events/$eventName/bookmarks"
+    | "/events/$eventName"
+    | "/events/$eventName/artists/$artistId";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/events/$eventName/bookmarks" | "/events/$eventName";
-  id: "__root__" | "/" | "/events/$eventName/bookmarks" | "/events/$eventName/";
+  to:
+    | "/"
+    | "/artists/$artistId"
+    | "/events/$eventName/bookmarks"
+    | "/events/$eventName"
+    | "/events/$eventName/artists/$artistId";
+  id:
+    | "__root__"
+    | "/"
+    | "/artists/$artistId"
+    | "/events/$eventName/bookmarks"
+    | "/events/$eventName/"
+    | "/events/$eventName/artists/$artistId";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  ArtistsArtistIdRoute: typeof ArtistsArtistIdRoute;
   EventsEventNameBookmarksRoute: typeof EventsEventNameBookmarksRoute;
   EventsEventNameIndexRoute: typeof EventsEventNameIndexRoute;
+  EventsEventNameArtistsArtistIdRoute: typeof EventsEventNameArtistsArtistIdRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -67,6 +104,13 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/artists/$artistId": {
+      id: "/artists/$artistId";
+      path: "/artists/$artistId";
+      fullPath: "/artists/$artistId";
+      preLoaderRoute: typeof ArtistsArtistIdRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/events/$eventName/": {
@@ -83,13 +127,22 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof EventsEventNameBookmarksRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/events/$eventName/artists/$artistId": {
+      id: "/events/$eventName/artists/$artistId";
+      path: "/events/$eventName/artists/$artistId";
+      fullPath: "/events/$eventName/artists/$artistId";
+      preLoaderRoute: typeof EventsEventNameArtistsArtistIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArtistsArtistIdRoute: ArtistsArtistIdRoute,
   EventsEventNameBookmarksRoute: EventsEventNameBookmarksRoute,
   EventsEventNameIndexRoute: EventsEventNameIndexRoute,
+  EventsEventNameArtistsArtistIdRoute: EventsEventNameArtistsArtistIdRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
