@@ -9,10 +9,9 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types/2023-07-01"],
+    "types": ["@cloudflare/workers-types"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@pkg/*": ["../../pkg/*"]

@@ -12,16 +12,16 @@
     "composite": true,
     "strict": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
-    "strictPropertyInitialization": false,
-    "baseUrl": "."
+    "strictPropertyInitialization": false
   },
   "exclude": [
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts",
     "**/test/**",
-    "**/__mocks__/**"
+    "**/__mocks__/**",
+    "**/__fixtures__/**"
   ]
 }
