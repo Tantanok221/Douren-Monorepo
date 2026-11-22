@@ -3,7 +3,6 @@ import path from "node:path";
 
 const SITE_ORIGIN = "https://douren.net";
 const DEFAULT_BACKEND_ORIGIN = "https://api.douren.net";
-const TODAY = new Date().toISOString().slice(0, 10);
 
 const resolveBackendOrigin = () => {
   const raw = process.env.VITE_BACKEND_URL?.trim();
@@ -30,26 +29,23 @@ const xmlEscape = (value) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 
-const buildUrlEntry = (loc, priority) => `  <url>
+const buildUrlEntry = (loc) => `  <url>
     <loc>${xmlEscape(loc)}</loc>
-    <lastmod>${TODAY}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>${priority}</priority>
   </url>`;
 
 const buildSitemapXml = (eventNames) => {
   const uniqueEventNames = [...new Set(eventNames.filter(Boolean))];
-  const homepageEntry = buildUrlEntry(`${SITE_ORIGIN}/`, "1.0");
-  const aboutEntry = buildUrlEntry(`${SITE_ORIGIN}/about`, "0.5");
-  const eventEntries = uniqueEventNames
-    .map((eventName) =>
-      buildUrlEntry(`${SITE_ORIGIN}/event/${encodeURIComponent(eventName)}`, "0.8"),
-    )
-    .join("\n");
+  const urls = [
+    `${SITE_ORIGIN}/`,
+    `${SITE_ORIGIN}/about`,
+    ...uniqueEventNames.map(
+      (eventName) => `${SITE_ORIGIN}/events/${encodeURIComponent(eventName)}`,
+    ),
+  ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${homepageEntry}\n${aboutEntry}${eventEntries ? `\n${eventEntries}` : ""}
+${urls.map(buildUrlEntry).join("\n")}
 </urlset>
 `;
 };
@@ -58,7 +54,9 @@ const fetchEventNames = async (backendOrigin) => {
   const endpoint = `${backendOrigin}/event`;
   const response = await fetch(endpoint);
   if (!response.ok) {
-    throw new Error(`Failed to fetch events from ${endpoint} (${response.status})`);
+    throw new Error(
+      `Failed to fetch events from ${endpoint} (${response.status})`,
+    );
   }
 
   const payload = await response.json();
@@ -82,12 +80,14 @@ const main = async () => {
     const eventNames = await fetchEventNames(backendOrigin);
     const xml = buildSitemapXml(eventNames);
     const outputPath = await writeSitemap(xml);
-    console.log(`Sitemap generated at ${outputPath} with ${eventNames.length} event URLs.`);
+    console.log(
+      `Sitemap generated at ${outputPath} with ${eventNames.length} event URLs.`,
+    );
   } catch (error) {
     const xml = buildSitemapXml([]);
     const outputPath = await writeSitemap(xml);
     console.warn(
-      `Sitemap fallback generated at ${outputPath} (homepage only). Reason: ${
+      `Sitemap fallback generated at ${outputPath} (no event URLs). Reason: ${
         error instanceof Error ? error.message : String(error)
       }`,
     );

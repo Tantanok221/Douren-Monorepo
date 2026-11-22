@@ -1,7 +1,11 @@
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  HOME_SOCIAL_IMAGE,
+  SITE_ORIGIN,
+} from "@/seo/site";
 
-const SITE_ORIGIN = "https://douren.net";
 const SITE_NAME = "同人檔案館 Douren";
 const DEFAULT_TITLE = "同人檔案館 Douren | 動漫展同人活動創作者名錄";
 const DEFAULT_DESCRIPTION =
@@ -82,7 +86,7 @@ const toSeoMeta = (pathname: string): SeoMeta => {
   const encodedEventName = encodeURIComponent(eventName);
 
   return {
-    canonicalUrl: `${SITE_ORIGIN}/event/${encodedEventName}`,
+    canonicalUrl: `${SITE_ORIGIN}/events/${encodedEventName}`,
     title: `${eventName} 創作者名錄 | ${SITE_NAME}`,
     description: `瀏覽 ${eventName} 創作者與社團資訊，依攤位、標籤快速搜尋，並收藏喜愛創作者。`,
   };
@@ -96,6 +100,11 @@ export const RouteSeoMeta = () => {
   const seoMeta = useMemo(() => toSeoMeta(pathname), [pathname]);
 
   useEffect(() => {
+    if (pathname !== "/") {
+      document.getElementById("home-website-schema")?.remove();
+    }
+    const socialImage =
+      pathname === "/" ? HOME_SOCIAL_IMAGE : DEFAULT_SOCIAL_IMAGE;
     document.title = seoMeta.title;
     upsertCanonical(seoMeta.canonicalUrl);
     upsertMetaByName("description", seoMeta.description);
@@ -103,9 +112,11 @@ export const RouteSeoMeta = () => {
     upsertMetaByProperty("og:url", seoMeta.canonicalUrl);
     upsertMetaByProperty("og:title", seoMeta.title);
     upsertMetaByProperty("og:description", seoMeta.description);
+    upsertMetaByProperty("og:image", socialImage);
     upsertMetaByName("twitter:title", seoMeta.title);
     upsertMetaByName("twitter:description", seoMeta.description);
-  }, [seoMeta]);
+    upsertMetaByName("twitter:image", socialImage);
+  }, [pathname, seoMeta]);
 
   return null;
 };
