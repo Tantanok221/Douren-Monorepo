@@ -35,6 +35,7 @@ export const createMockDatabase = () => {
 		delete: vi.fn().mockReturnValue({
 			where: mockWhere,
 		}),
+		batch: vi.fn((queries: unknown[]) => Promise.all(queries)),
 		select: vi.fn().mockReturnValue({
 			from: vi.fn().mockReturnValue({
 				leftJoin: vi.fn().mockReturnValue({

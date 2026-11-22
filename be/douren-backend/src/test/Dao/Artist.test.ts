@@ -16,6 +16,12 @@ vi.mock("@pkg/database/db", () => ({
 			author: "author",
 			tags: "tags",
 		},
+		eventDm: {
+			artistId: "eventDm.artistId",
+		},
+		authorProduct: {
+			artistId: "authorProduct.artistId",
+		},
 		authorTag: {
 			authorId: "authorTag.authorId",
 			tagId: "authorTag.tagId",
@@ -129,6 +135,16 @@ describe("Artist DAO", () => {
 				...testData,
 				uuid: Number(artistId),
 			});
+		});
+
+		it("should delete the artist's event booths, products and tags in one batch", async () => {
+			await artistDao.Delete("1");
+
+			expect(mockDb.batch).toHaveBeenCalledTimes(1);
+			const [queries] = mockDb.batch.mock.calls[0];
+			expect(queries).toHaveLength(4);
+			expect(mockDb.delete).toHaveBeenCalledTimes(4);
+			expect(mockDb.mockWhere).toHaveBeenCalledTimes(4);
 		});
 
 		it("should handle non-existent artist ID", async () => {

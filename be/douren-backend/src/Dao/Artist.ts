@@ -126,10 +126,14 @@ class ArtistDao implements BaseDao {
 	}
 
 	async Delete(artistId: string) {
-		return await this.db
-			.delete(s.authorMain)
-			.where(eq(s.authorMain.uuid, Number(artistId)))
-			.returning();
+		const id = Number(artistId);
+		const [, , , deleted] = await this.db.batch([
+			this.db.delete(s.eventDm).where(eq(s.eventDm.artistId, id)),
+			this.db.delete(s.authorProduct).where(eq(s.authorProduct.artistId, id)),
+			this.db.delete(s.authorTag).where(eq(s.authorTag.authorId, id)),
+			this.db.delete(s.authorMain).where(eq(s.authorMain.uuid, id)).returning(),
+		]);
+		return deleted;
 	}
 
 	async FetchByUserId(userId: string) {
