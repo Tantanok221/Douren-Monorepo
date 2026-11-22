@@ -8,6 +8,17 @@ import {
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AboutPage } from "@/components/about/AboutPage";
 
+vi.mock("@tanstack/react-router", async () => {
+  const actual = await vi.importActual<typeof import("@tanstack/react-router")>(
+    "@tanstack/react-router",
+  );
+
+  return {
+    ...actual,
+    Link: ({ children }: { children: React.ReactNode }) => <a>{children}</a>,
+  };
+});
+
 describe("AboutPage", () => {
   afterEach(() => {
     cleanup();
