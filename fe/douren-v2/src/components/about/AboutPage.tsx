@@ -2,19 +2,7 @@ import { motion } from "framer-motion";
 import { CheckIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
-import { trpc } from "@/helper/trpc";
-
-export interface OwnerProfile {
-  id: number;
-  name: string;
-  title: string | null;
-  description: string | null;
-  twitterName: string | null;
-  twitterLink: string | null;
-  githubName: string | null;
-  githubLink: string | null;
-  discordName: string | null;
-}
+import { OWNERS, type OwnerProfile } from "@/components/about/owners";
 
 const COPIED_RESET_MS = 1500;
 
@@ -118,31 +106,17 @@ export const OwnerCard: React.FC<{ owner: OwnerProfile }> = ({ owner }) => {
   );
 };
 
-export const AboutPage: React.FC = () => {
-  const ownersQuery = trpc.owner.getOwner.useQuery();
-
-  return (
-    <section className="max-w-3xl mx-auto">
-      <h1
-        className="text-3xl md:text-4xl font-medium text-archive-text tracking-tight mb-4"
-        style={{ fontFamily: "'Noto Serif TC', serif" }}
-      >
-        關於我們
-      </h1>
-      <div className="border-t border-archive-border" />
-      {ownersQuery.isError ? (
-        <div className="py-20 text-center text-archive-text/60 font-mono">
-          無法載入資料，請稍後重新整理頁面再試一次
-        </div>
-      ) : ownersQuery.isPending ? (
-        <div className="py-20 text-center text-archive-text/60 font-mono">
-          載入中...
-        </div>
-      ) : (
-        ownersQuery.data.map((owner) => (
-          <OwnerCard key={owner.id} owner={owner} />
-        ))
-      )}
-    </section>
-  );
-};
+export const AboutPage: React.FC = () => (
+  <section className="max-w-3xl mx-auto">
+    <h1
+      className="text-3xl md:text-4xl font-medium text-archive-text tracking-tight mb-4"
+      style={{ fontFamily: "'Noto Serif TC', serif" }}
+    >
+      關於我們
+    </h1>
+    <div className="border-t border-archive-border" />
+    {OWNERS.map((owner) => (
+      <OwnerCard key={owner.name} owner={owner} />
+    ))}
+  </section>
+);
