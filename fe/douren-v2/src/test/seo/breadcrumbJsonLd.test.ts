@@ -19,6 +19,13 @@ describe("buildBreadcrumbItems", () => {
       { name: "我的收藏", path: "/events/FF44/bookmarks" },
     ]);
   });
+
+  it("creates home + about breadcrumbs for the about route", () => {
+    expect(buildBreadcrumbItems("/about")).toEqual([
+      { name: "同人檔案館", path: "/" },
+      { name: "關於我們", path: "/about" },
+    ]);
+  });
 });
 
 describe("buildBreadcrumbJsonLd", () => {

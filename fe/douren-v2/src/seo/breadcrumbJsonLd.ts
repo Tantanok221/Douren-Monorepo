@@ -1,5 +1,6 @@
 const HOME_LABEL = "同人檔案館";
 const BOOKMARKS_LABEL = "我的收藏";
+const ABOUT_LABEL = "關於我們";
 const FALLBACK_ORIGIN = "https://example.com";
 
 export interface BreadcrumbItem {
@@ -41,6 +42,13 @@ const normalizeOrigin = (siteOrigin: string): string => {
 
 export const buildBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   const segments = normalizePathname(pathname).split("/").filter(Boolean);
+
+  if (segments[0] === "about") {
+    return [
+      { name: HOME_LABEL, path: "/" },
+      { name: ABOUT_LABEL, path: "/about" },
+    ];
+  }
 
   if (segments[0] !== "events" || !segments[1]) {
     return [{ name: HOME_LABEL, path: "/" }];
