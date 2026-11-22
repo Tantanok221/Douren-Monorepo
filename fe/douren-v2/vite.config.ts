@@ -1,9 +1,9 @@
-import react from "@vitejs/plugin-react";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import path from "path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,18 +13,15 @@ export default defineConfig({
       semicolons: true,
     }),
     tailwindcss(),
-    react({
-      babel: {
-        plugins: [["babel-plugin-react-compiler"]],
-      },
-    }),
-    tsconfigPaths(),
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
   ],
   resolve: {
+    tsconfigPaths: true,
     dedupe: ["react", "react-dom"],
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@components": path.resolve(__dirname, "./src/components"),
+      "@": path.resolve(import.meta.dirname, "./src"),
+      "@components": path.resolve(import.meta.dirname, "./src/components"),
     },
   },
 });
