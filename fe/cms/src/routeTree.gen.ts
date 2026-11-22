@@ -9,30 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
-import { Route as ResetPasswordRouteImport } from "./routes/reset-password";
-import { Route as RegisterRouteImport } from "./routes/register";
-import { Route as LoginRouteImport } from "./routes/login";
-import { Route as ForgotPasswordRouteImport } from "./routes/forgot-password";
 import { Route as IndexRouteImport } from "./routes/index";
-import { Route as NewIndexRouteImport } from "./routes/new/index";
-import { Route as AdminUsersRouteImport } from "./routes/admin/users";
-import { Route as AdminTagsRouteImport } from "./routes/admin/tags";
+import { Route as ForgotPasswordRouteImport } from "./routes/forgot-password";
+import { Route as LoginRouteImport } from "./routes/login";
+import { Route as RegisterRouteImport } from "./routes/register";
+import { Route as ResetPasswordRouteImport } from "./routes/reset-password";
 import { Route as AdminEventsRouteImport } from "./routes/admin/events";
+import { Route as AdminTagsRouteImport } from "./routes/admin/tags";
+import { Route as AdminUsersRouteImport } from "./routes/admin/users";
+import { Route as NewIndexRouteImport } from "./routes/new/index";
 import { Route as EditArtistIdIndexRouteImport } from "./routes/edit.$artistId/index";
 
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: "/reset-password",
-  path: "/reset-password",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const RegisterRoute = RegisterRouteImport.update({
-  id: "/register",
-  path: "/register",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const LoginRoute = LoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+const IndexRoute = IndexRouteImport.update({
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
 } as any);
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -40,19 +30,24 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: "/forgot-password",
   getParentRoute: () => rootRouteImport,
 } as any);
-const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+const LoginRoute = LoginRouteImport.update({
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
 } as any);
-const NewIndexRoute = NewIndexRouteImport.update({
-  id: "/new/",
-  path: "/new/",
+const RegisterRoute = RegisterRouteImport.update({
+  id: "/register",
+  path: "/register",
   getParentRoute: () => rootRouteImport,
 } as any);
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: "/admin/users",
-  path: "/admin/users",
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: "/reset-password",
+  path: "/reset-password",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: "/admin/events",
+  path: "/admin/events",
   getParentRoute: () => rootRouteImport,
 } as any);
 const AdminTagsRoute = AdminTagsRouteImport.update({
@@ -60,9 +55,14 @@ const AdminTagsRoute = AdminTagsRouteImport.update({
   path: "/admin/tags",
   getParentRoute: () => rootRouteImport,
 } as any);
-const AdminEventsRoute = AdminEventsRouteImport.update({
-  id: "/admin/events",
-  path: "/admin/events",
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: "/admin/users",
+  path: "/admin/users",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const NewIndexRoute = NewIndexRouteImport.update({
+  id: "/new/",
+  path: "/new/",
   getParentRoute: () => rootRouteImport,
 } as any);
 const EditArtistIdIndexRoute = EditArtistIdIndexRouteImport.update({
@@ -80,8 +80,8 @@ export interface FileRoutesByFullPath {
   "/admin/events": typeof AdminEventsRoute;
   "/admin/tags": typeof AdminTagsRoute;
   "/admin/users": typeof AdminUsersRoute;
-  "/new": typeof NewIndexRoute;
-  "/edit/$artistId": typeof EditArtistIdIndexRoute;
+  "/new/": typeof NewIndexRoute;
+  "/edit/$artistId/": typeof EditArtistIdIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
@@ -119,8 +119,8 @@ export interface FileRouteTypes {
     | "/admin/events"
     | "/admin/tags"
     | "/admin/users"
-    | "/new"
-    | "/edit/$artistId";
+    | "/new/"
+    | "/edit/$artistId/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
@@ -162,25 +162,11 @@ export interface RootRouteChildren {
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/reset-password": {
-      id: "/reset-password";
-      path: "/reset-password";
-      fullPath: "/reset-password";
-      preLoaderRoute: typeof ResetPasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/register": {
-      id: "/register";
-      path: "/register";
-      fullPath: "/register";
-      preLoaderRoute: typeof RegisterRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/login": {
-      id: "/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof LoginRouteImport;
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/forgot-password": {
@@ -190,32 +176,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ForgotPasswordRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/new/": {
-      id: "/new/";
-      path: "/new";
-      fullPath: "/new";
-      preLoaderRoute: typeof NewIndexRouteImport;
+    "/register": {
+      id: "/register";
+      path: "/register";
+      fullPath: "/register";
+      preLoaderRoute: typeof RegisterRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/admin/users": {
-      id: "/admin/users";
-      path: "/admin/users";
-      fullPath: "/admin/users";
-      preLoaderRoute: typeof AdminUsersRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/tags": {
-      id: "/admin/tags";
-      path: "/admin/tags";
-      fullPath: "/admin/tags";
-      preLoaderRoute: typeof AdminTagsRouteImport;
+    "/reset-password": {
+      id: "/reset-password";
+      path: "/reset-password";
+      fullPath: "/reset-password";
+      preLoaderRoute: typeof ResetPasswordRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/admin/events": {
@@ -225,10 +204,31 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AdminEventsRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/admin/tags": {
+      id: "/admin/tags";
+      path: "/admin/tags";
+      fullPath: "/admin/tags";
+      preLoaderRoute: typeof AdminTagsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/admin/users": {
+      id: "/admin/users";
+      path: "/admin/users";
+      fullPath: "/admin/users";
+      preLoaderRoute: typeof AdminUsersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/new/": {
+      id: "/new/";
+      path: "/new";
+      fullPath: "/new/";
+      preLoaderRoute: typeof NewIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/edit/$artistId/": {
       id: "/edit/$artistId/";
       path: "/edit/$artistId";
-      fullPath: "/edit/$artistId";
+      fullPath: "/edit/$artistId/";
       preLoaderRoute: typeof EditArtistIdIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };

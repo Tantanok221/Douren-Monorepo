@@ -16,9 +16,10 @@
   },
   "devDependencies": {
     "@pkg/database": "workspace:*",
-    "@pkg/typescript-config": "workspace:*"
+    "@pkg/typescript-config": "workspace:*",
+    "@types/react": "19.3.0"
   },
   "dependencies": {
-    "drizzle-orm": "^0.45.1"
+    "drizzle-orm": "^0.45.4"
   }
 }

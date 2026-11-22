@@ -19,26 +19,26 @@
     }
   },
   "dependencies": {
-    "@hono/swagger-ui": "^0.5.3",
-    "@hono/trpc-server": "^0.3.2",
-    "@hono/zod-openapi": "^1.2.0",
+    "@hono/swagger-ui": "^0.6.2",
+    "@hono/trpc-server": "^0.4.2",
+    "@hono/zod-openapi": "^1.6.3",
     "@pkg/database": "workspace:*",
     "@pkg/type": "workspace:*",
-    "@trpc/server": "11.0.0-rc.553",
-    "better-auth": "^1.3.34",
-    "drizzle-orm": "^0.45.1",
+    "@trpc/server": "11.29.7",
+    "better-auth": "^1.7.27",
+    "drizzle-orm": "^0.45.4",
     "drizzle-zod": "^0.8.3",
-    "hono": "^4.5.11",
-    "lru-cache": "^11.2.6",
-    "resend": "^6.7.0",
-    "zod": "^4.3.5"
+    "hono": "^4.13.19",
+    "lru-cache": "^11.5.3",
+    "resend": "^6.39.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240529.0",
+    "@cloudflare/workers-types": "^5.20261121.1",
     "@pkg/env": "workspace:*",
     "@pkg/typescript-config": "workspace:*",
-    "typescript": "^5.4.5",
-    "vitest": "^2.1.1",
-    "wrangler": "^4.0.0"
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.1",
+    "wrangler": "^4.166.0"
   }
 }
