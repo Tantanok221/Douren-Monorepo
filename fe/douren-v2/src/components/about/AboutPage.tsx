@@ -160,7 +160,7 @@ export const AboutPage: React.FC = () => (
       custom={0.05}
       initial="hidden"
       animate="show"
-      className="mb-14 md:mb-20 max-w-3xl"
+      className="mb-14 md:mb-20"
     >
       <h1
         className="text-4xl md:text-5xl lg:text-6xl font-medium text-archive-text leading-[1.1] tracking-tight mb-8"
