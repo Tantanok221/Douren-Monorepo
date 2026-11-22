@@ -2,14 +2,16 @@ import { Link } from "@tanstack/react-router";
 import {
   PencilIcon,
   TrashIcon,
-  TwitterIcon,
-  YoutubeIcon,
-  FacebookIcon,
-  InstagramIcon,
   ExternalLinkIcon,
-  TwitchIcon,
   StoreIcon,
 } from "lucide-react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitch,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -46,11 +48,11 @@ interface ArtistTableProps {
 
 // Social link configuration
 const socialLinks = [
-  { key: "twitterLink", icon: TwitterIcon, label: "Twitter" },
-  { key: "youtubeLink", icon: YoutubeIcon, label: "YouTube" },
-  { key: "facebookLink", icon: FacebookIcon, label: "Facebook" },
-  { key: "instagramLink", icon: InstagramIcon, label: "Instagram" },
-  { key: "twitchLink", icon: TwitchIcon, label: "Twitch" },
+  { key: "twitterLink", icon: FaTwitter, label: "Twitter" },
+  { key: "youtubeLink", icon: FaYoutube, label: "YouTube" },
+  { key: "facebookLink", icon: FaFacebook, label: "Facebook" },
+  { key: "instagramLink", icon: FaInstagram, label: "Instagram" },
+  { key: "twitchLink", icon: FaTwitch, label: "Twitch" },
   { key: "pixivLink", icon: ExternalLinkIcon, label: "Pixiv" },
   { key: "plurkLink", icon: ExternalLinkIcon, label: "Plurk" },
   { key: "bahaLink", icon: ExternalLinkIcon, label: "Baha" },
