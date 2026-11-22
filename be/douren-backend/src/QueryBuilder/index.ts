@@ -126,10 +126,12 @@ class EventArtistQueryBuilder extends IQueryBuilder<EventArtistFetchParams> {
 			.$dynamic();
 		const CountQuery = BuildQuery(countQuery)
 			.withFilterEventName(this.fetchParams.eventName)
+			.withTableIsNotNull(s.authorMain.uuid)
 			.Build();
 		const SelectQuery = BuildQuery(query)
 			.withPagination(Number(this.fetchParams.page), PAGE_SIZE)
 			.withFilterEventName(this.fetchParams.eventName)
+			.withTableIsNotNull(s.authorMain.uuid)
 			.withOrderBy(
 				this.derivedFetchParams.sortBy,
 				this.derivedFetchParams.table,

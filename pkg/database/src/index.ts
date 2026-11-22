@@ -10,14 +10,23 @@ export function BuildQuery<T extends PgSelect>(query: T){
   return new SelectDatabaseQueryBuilder(query);
 }
 
+// Drizzle's `.where()` replaces any previous condition, so filters are
+// accumulated and re-applied together as a single AND.
 export class SelectDatabaseQueryBuilder<T extends PgSelect> implements ISelectDatabaseQueryBuilder<T>{
   query: T;
-  constructor(query: T) {
+  private conditions: SQL[];
+  constructor(query: T, conditions: SQL[] = []) {
     this.query = query;
+    this.conditions = conditions;
+  }
+  private withCondition(condition: SQL | undefined) {
+    if (!condition) return this;
+    this.conditions.push(condition);
+    this.query = this.query.where(and(...this.conditions));
+    return this
   }
   withFilterEventName(eventName: string) {
-    this.query = this.query.where(eq(s.event.name, eventName));
-    return this
+    return this.withCondition(eq(s.event.name, eventName));
   }
   withOrderBy(sortBy: typeof asc | typeof desc, table: AnyColumn | SQLWrapper) {
     this.query = this.query.orderBy(sortBy(table));
@@ -28,26 +37,21 @@ export class SelectDatabaseQueryBuilder<T extends PgSelect> implements ISelectDa
     return this
   }
   withIlikeSearchByTable(search: string, table: Column) {
-    this.query = this.query.where(ilike(table, "%"+search+"%"));
-    return this
+    return this.withCondition(ilike(table, "%"+search+"%"));
   }
   withTableIsNotNull(table: Column){
-    this.query = this.query.where(isNotNull(table))
-    return this
+    return this.withCondition(isNotNull(table));
   }
   withTableIsNot(table:Column, value: number|string){
-    this.query = this.query.where(not(eq(table, value)))
-    return this
+    return this.withCondition(not(eq(table, value)));
   }
   withAndFilter( filter: (SQLWrapper|undefined)[] ){
-    this.query = this.query.where(and(... filter))
-    return this
+    return this.withCondition(and(... filter));
   }
   withFilter( filter: SQL ){
-    this.query = this.query.where(filter)
-    return this
+    return this.withCondition(filter);
   }
   Build(){
-    return new SelectDatabaseQueryBuilder(this.query);
+    return new SelectDatabaseQueryBuilder(this.query, [...this.conditions]);
   }
 }
