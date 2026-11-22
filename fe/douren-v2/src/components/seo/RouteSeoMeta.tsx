@@ -59,6 +59,15 @@ const upsertMetaByProperty = (property: string, content: string): void => {
 
 const toSeoMeta = (pathname: string): SeoMeta => {
   const segments = pathname.split("/").filter(Boolean);
+
+  if (segments[0] === "about") {
+    return {
+      canonicalUrl: `${SITE_ORIGIN}/about`,
+      title: `關於我們 | ${SITE_NAME}`,
+      description: "認識同人檔案館（Douren）背後的管理與開發團隊。",
+    };
+  }
+
   const isEventRoute = segments[0] === "events" && Boolean(segments[1]);
 
   if (!isEventRoute) {

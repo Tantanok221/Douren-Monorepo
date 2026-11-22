@@ -40,6 +40,7 @@ const buildUrlEntry = (loc, priority) => `  <url>
 const buildSitemapXml = (eventNames) => {
   const uniqueEventNames = [...new Set(eventNames.filter(Boolean))];
   const homepageEntry = buildUrlEntry(`${SITE_ORIGIN}/`, "1.0");
+  const aboutEntry = buildUrlEntry(`${SITE_ORIGIN}/about`, "0.5");
   const eventEntries = uniqueEventNames
     .map((eventName) =>
       buildUrlEntry(`${SITE_ORIGIN}/event/${encodeURIComponent(eventName)}`, "0.8"),
@@ -48,7 +49,7 @@ const buildSitemapXml = (eventNames) => {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${homepageEntry}${eventEntries ? `\n${eventEntries}` : ""}
+${homepageEntry}\n${aboutEntry}${eventEntries ? `\n${eventEntries}` : ""}
 </urlset>
 `;
 };
