@@ -11,17 +11,19 @@
     name="description"
     content="同人檔案館（Douren）收錄台灣動漫展與同人活動創作者資訊，支援社團名、攤位、標籤搜尋與收藏功能，快速找到你喜歡的創作者與作品。"
   />
+  <link rel="canonical" href="https://douren.net/" data-home-only />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="zh_TW" />
   <meta property="og:site_name" content="同人檔案館 Douren" />
-  <meta property="og:url" content="https://douren.net/" />
+  <meta property="og:url" content="https://douren.net/" data-home-only />
   <meta property="og:title" content="同人檔案館 Douren | 動漫展同人活動創作者名錄" />
   <meta
     property="og:description"
     content="同人檔案館（Douren）收錄台灣動漫展與同人活動創作者資訊，支援社團名、攤位、標籤搜尋與收藏功能，快速找到你喜歡的創作者與作品。"
   />
-  <meta property="og:image" content="https://douren.net/logo.webp" />
+  <meta property="og:image" content="https://douren.net/home-social.jpg" />
+  <meta property="og:image:alt" content="同人檔案館 Douren" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="同人檔案館 Douren | 動漫展同人活動創作者名錄" />
@@ -29,10 +31,31 @@
     name="twitter:description"
     content="同人檔案館（Douren）收錄台灣動漫展與同人活動創作者資訊，支援社團名、攤位、標籤搜尋與收藏功能，快速找到你喜歡的創作者與作品。"
   />
-  <meta name="twitter:image" content="https://douren.net/logo.webp" />
+  <meta name="twitter:image" content="https://douren.net/home-social.jpg" />
+  <meta name="twitter:image:alt" content="同人檔案館 Douren" />
+  <script id="home-website-schema" type="application/ld+json" data-home-only>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "同人檔案館 Douren",
+      "alternateName": ["同人檔案館", "Douren"],
+      "url": "https://douren.net/"
+    }
+  </script>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <noscript data-home-only>
+      <main class="mx-auto max-w-2xl px-6 py-16">
+        <h1 class="mb-4 font-serif text-3xl">同人檔案館 Douren</h1>
+        <p class="mb-4">
+          台灣動漫展與同人活動的創作者名錄。依社團名稱、攤位與標籤搜尋，並收藏喜愛的創作者。
+        </p>
+        <p class="mb-4">瀏覽活動名錄與使用搜尋功能需要啟用 JavaScript。</p>
+        <a class="underline" href="/about">關於同人檔案館</a>
+      </main>
+    </noscript>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
