@@ -142,6 +142,7 @@ const LayoutHeader = ({
     select: (state) => state.location.pathname,
   });
   const isBookmarks = pathname.endsWith("/bookmarks");
+  const isDirectory = !isBookmarks && pathname !== "/about";
   return (
     <header className="w-full py-8 md:py-12 border-b border-archive-border mb-8">
       <div className="flex flex-col items-center gap-6 mb-8">
@@ -204,10 +205,10 @@ const LayoutHeader = ({
             <Link
               to="/events/$eventName"
               params={{ eventName: selectedEvent.name }}
-              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(!isBookmarks)}`}
+              className={`relative text-sm font-sans tracking-wider transition-all duration-300 py-1 ${getEventNavLinkColorClass(isDirectory)}`}
             >
               所有創作者
-              {!isBookmarks ? (
+              {isDirectory ? (
                 <motion.div
                   layoutId="nav-underline"
                   className="absolute -bottom-1 left-0 right-0 h-px bg-archive-text"
@@ -255,15 +256,9 @@ const LayoutFooter = ({ eventCode }: LayoutFooterProps) => {
     <footer className="mt-20 py-8 border-t border-archive-border flex flex-col md:flex-row justify-between items-center text-xs font-sans text-archive-text/40 gap-4 md:gap-0">
       <div>© 2026 同人檔案館 • {eventCode ? `${eventCode} 活動` : "活動"}</div>
       <div className="flex gap-6">
-        <a href="#" className="hover:text-archive-text transition-colors">
+        <Link to="/about" className="hover:text-archive-text transition-colors">
           關於
-        </a>
-        <a href="#" className="hover:text-archive-text transition-colors">
-          條款
-        </a>
-        <a href="#" className="hover:text-archive-text transition-colors">
-          隱私
-        </a>
+        </Link>
       </div>
     </footer>
   );
