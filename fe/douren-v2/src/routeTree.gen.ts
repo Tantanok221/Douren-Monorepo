@@ -47,7 +47,7 @@ export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/artists/$artistId": typeof ArtistsArtistIdRoute;
   "/events/$eventName/bookmarks": typeof EventsEventNameBookmarksRoute;
-  "/events/$eventName": typeof EventsEventNameIndexRoute;
+  "/events/$eventName/": typeof EventsEventNameIndexRoute;
   "/events/$eventName/artists/$artistId": typeof EventsEventNameArtistsArtistIdRoute;
 }
 export interface FileRoutesByTo {
@@ -71,7 +71,7 @@ export interface FileRouteTypes {
     | "/"
     | "/artists/$artistId"
     | "/events/$eventName/bookmarks"
-    | "/events/$eventName"
+    | "/events/$eventName/"
     | "/events/$eventName/artists/$artistId";
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -116,7 +116,7 @@ declare module "@tanstack/react-router" {
     "/events/$eventName/": {
       id: "/events/$eventName/";
       path: "/events/$eventName";
-      fullPath: "/events/$eventName";
+      fullPath: "/events/$eventName/";
       preLoaderRoute: typeof EventsEventNameIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };

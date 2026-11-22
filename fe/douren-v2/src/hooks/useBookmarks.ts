@@ -73,9 +73,12 @@ export const useBookmarks = (eventName: string): BookmarksStore => {
     readBookmarksFromStorage(eventName),
   );
 
-  useEffect(() => {
+  const [loadedEventName, setLoadedEventName] = useState(eventName);
+
+  if (loadedEventName !== eventName) {
+    setLoadedEventName(eventName);
     setBookmarks(readBookmarksFromStorage(eventName));
-  }, [eventName]);
+  }
 
   useEffect(() => {
     writeBookmarksToStorage(eventName, bookmarks);

@@ -1,7 +1,6 @@
 {
 	"files": {
-		"include": ["**/src/**"],
-		"ignore": ["*.test.ts"]
+		"includes": ["**/src/**", "!**/*.test.ts"]
 	},
 	"linter": {
 		"rules": {

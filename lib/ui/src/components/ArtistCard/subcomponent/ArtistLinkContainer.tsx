@@ -7,11 +7,9 @@ interface props {
   size?: "s" | "l";
 }
 
-export const ArtistLinkContainer = ({ size }: props) => {
-  size = size ?? "l";
+export const ArtistLinkContainer = ({ size = "l" }: props) => {
   const eventData = useEventDataContext();
-  let link: LinkResult[] = [];
-  link = processArtistData(eventData);
+  const link: LinkResult[] = processArtistData(eventData);
   return (
     <>
       <LinkContainer size={size} link={link} />

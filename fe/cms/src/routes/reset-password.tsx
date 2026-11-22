@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ResetPasswordForm } from "@/components/reset-password-form";
 import { useAuthContext } from "@/components/AuthContext/useAuthContext";
 import {
@@ -27,9 +27,13 @@ function Page() {
     };
   }, [search]);
 
-  useEffect(() => {
+  const linkKey = `${token ?? ""}|${error ?? ""}`;
+  const [currentLinkKey, setCurrentLinkKey] = useState(linkKey);
+
+  if (currentLinkKey !== linkKey) {
+    setCurrentLinkKey(linkKey);
     setIsSuccess(false);
-  }, [token, error]);
+  }
 
   const handleResetPassword = async (data: { password: string }) => {
     if (!token) {

@@ -1,8 +1,16 @@
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import ImageUploadingModule, { ImageListType } from "react-images-uploading";
 import { ImageUploadContextProvider } from "./context/ImageUploadContext.tsx";
 import { ReactNode, useState } from "react";
 import { ResultBox } from "./subcomponent/ResultBox.tsx";
 import { UploadBox } from "./subcomponent/UploadBox.tsx";
+
+type ImageUploadingComponent = typeof ImageUploadingModule;
+
+// react-images-uploading is CJS with `exports.default`; Vite 8 resolves the
+// default import of such modules to `module.exports` in "type": "module" apps.
+const ImageUploading: ImageUploadingComponent =
+  (ImageUploadingModule as unknown as { default?: ImageUploadingComponent })
+    .default ?? ImageUploadingModule;
 
 interface props {
   children: ReactNode;

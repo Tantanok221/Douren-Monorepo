@@ -11,12 +11,15 @@ interface Props {
   size?: "s" | "l";
 }
 
-export const TagContainer = ({ renderTag, activeButton, size }: Props) => {
+export const TagContainer = ({
+  renderTag,
+  activeButton,
+  size = "l",
+}: Props) => {
   const addTagFilter = useTagFilterContext((state) => state.addTagFilter);
   const removeTagFilter = useTagFilterContext((state) => state.removeTagFilter);
   const checked = useTagFilterContext((state) => state.checked);
   const setChecked = useTagFilterContext((state) => state.setChecked);
-  size = size ?? "l";
 
   function handleClick(val: TagObject) {
     if (!val.index) return null;

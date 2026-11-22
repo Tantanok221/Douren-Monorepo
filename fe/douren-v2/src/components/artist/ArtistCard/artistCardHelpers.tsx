@@ -1,9 +1,5 @@
-import {
-  FacebookIcon,
-  GlobeIcon,
-  InstagramIcon,
-  TwitterIcon,
-} from "lucide-react";
+import { GlobeIcon } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { SiPixiv, SiPlurk } from "react-icons/si";
 import type { ArtistViewModel } from "@/types/models";
 
@@ -22,17 +18,17 @@ const SOCIAL_LINK_CONFIGS: SocialLinkConfig[] = [
   {
     key: "twitter",
     label: "Twitter",
-    renderIcon: (size) => <TwitterIcon size={size} />,
+    renderIcon: (size) => <FaTwitter size={size} />,
   },
   {
     key: "instagram",
     label: "Instagram",
-    renderIcon: (size) => <InstagramIcon size={size} />,
+    renderIcon: (size) => <FaInstagram size={size} />,
   },
   {
     key: "facebook",
     label: "Facebook",
-    renderIcon: (size) => <FacebookIcon size={size} />,
+    renderIcon: (size) => <FaFacebook size={size} />,
   },
   {
     key: "website",
