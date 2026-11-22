@@ -12,7 +12,7 @@ const TitleContainer = ({ subtitleDisabled }: Props) => {
   const sx = classNames.bind(styles);
   const eventData = useEventDataContext();
   let subtitle: string | null = "";
-  let title: string | null = "";
+  let title: string | null;
   if (isEventArtistBaseSchema(eventData)) {
     title = eventData?.boothName;
     subtitle = eventData?.author;
